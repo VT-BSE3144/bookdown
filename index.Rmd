@@ -1,0 +1,26 @@
+--- 
+title: "Data Analysis and Numerical Methods for Biological Systems Engineers"
+author: "R. Clay Wright"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+# url: your book url like https://bookdown.org/yihui/bookdown
+# cover-image: path to the social sharing image like images/cover.jpg
+description: |
+  This book was developed as a companion text for the Virginia Tech Biological
+  Systems Engineering course BSE3144: Engineering Analysis for Biological 
+  Systems using Numerical Methods.
+link-citations: yes
+github-repo: rstudio/bookdown-demo
+---
+
+# About
+
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```
