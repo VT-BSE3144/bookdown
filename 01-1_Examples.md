@@ -40,7 +40,7 @@ Remember our goals are to:
 
 The below from <https://github.com/njtierney/rmd-errors/tree/master> is an Rmd that contains many errors we will troubleshoot. 
 
-# Tasks
+### Tasks
 
 - Get this rmarkdown document to compile
   - hint:

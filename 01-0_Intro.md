@@ -2,6 +2,8 @@
 output:
   html_document:
     df_print: paged
+params:
+  version: 1.2
 ---
 # Introduction to Posit, Rstudio, & Markdown
 
@@ -48,7 +50,7 @@ In this class we will be mostly working in markdown documents in the source pane
 
 ### Markdown
 
-Markdown is a document formatting computer language. The name markdown comes from html, or HyperText Markup Language, what websites are written in (along with a lot of other languages these days). Markdown is meant to be a much more chill version of html, but can also be used to make just about any kind of document from websites to pdfs, PowerPoints, and Word docxs. Markdown uses very simple text-based symbols to format text into potentially very attractive and useful documents. 
+Markdown is a document formatting computer language. The name markdown comes from html, or HyperText Markup Language, what websites are written in (along with a lot of other languages these days). Markdown is meant to be a much more chill version of html, but can also be used to make just about any kind of document from websites to PDFs, PowerPoint, and Word docxs. Markdown uses very simple text-based symbols to format text into potentially very attractive and useful documents. 
 
 Markdown is used in many different places these days, but we'll use it in this class to help guide our data analyses. Remember: "If you are thinking without writing, you only think you are thinking!" -Leslie Lamport (emphasis my own). We will use markdown in the form of Rmarkdown or Quarto files. Rmarkdown is a product of Rstudio the company, and holding with the trend of changing names, the newest extended version of Rmarkdown is called Quarto, which really goes beyond R to include any programming language (or many at least). We will mostly use Rmarkdown in this class, for now, as most of the materials were developed before Quarto. But feel free to experiment with Quarto and I will do the same as I develop new materials. 
 
@@ -87,7 +89,7 @@ Note that the `echo = FALSE` parameter was added to the code chunk to prevent pr
 
 ***
 
-This provides a concise introduction to markdown and its power. Through simple text symbols your can format text to be headings (with #'s), make text **bold**, denote what is `code`, and offset code chunks with three backticks (the key next to 1 on your keyboard) and curly braces indicating the programming language. Code chunks (or blocks) also allow you to name them and changing some settings with how the code should be run and output.  
+This provides a concise introduction to markdown and its power. Through simple text symbols your can format text to be headings (with #'s), make text **bold**, denote what is `code`, and offset code chunks with three back-ticks (the key next to 1 on your keyboard) and curly braces indicating the programming language. Code chunks (or blocks) also allow you to name them and changing some settings with how the code should be run and output.  
 
 **Note how the above and all of this document (in its markdown format) has empty lines between text elements. This makes sure that particularly headings and sections, like numbered/bullet lists, are formatted correctly.**
 
@@ -152,7 +154,7 @@ Any line of code in a code chunk the source pane can be run in the Console pane 
 ## [1] TRUE
 ```
 
-The result of the code is printed right below the chunk and is also shown in the Console pane below. You can also use the green play button (right-facing triangle) to run all of the lines in the chunk, or try to run either of the backtick-containing top and bottom lines. 
+The result of the code is printed right below the chunk and is also shown in the Console pane below. You can also use the green play button (right-facing triangle) to run all of the lines in the chunk, or try to run either of the back-tick-containing top and bottom lines. 
 
 ### The Console pane
 
@@ -398,7 +400,7 @@ Then, if there is an error:
   - find the chunk that did not work, fix until it does
   - run all chunks below
   - explore working directory issues
-    - remember that the RMarkdown directory is whereever the .Rmd file is in your Files pane
+    - remember that the RMarkdown directory is wherever the .Rmd file is in your Files pane
     
 
 
