@@ -19,7 +19,7 @@ link-citations: yes
 github-repo: VT-BSE3144/bookdown
 ---
 
-# Data Analysis and Numerical Methods for Biological Systems Engineers
+# About this book
 
 This book was developed as a companion text for the Virginia Tech Biological
 Systems Engineering course BSE3144: Engineering Analysis for Biological 
