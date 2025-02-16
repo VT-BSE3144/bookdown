@@ -1,16 +1,1 @@
 data-analysis-and-numerical-methods-for-biological-systems-engineers
-connection-to-previous-work-on-data-organization
-source
-introduction---example-dataset-nycflights13
-section
-dplyr-basics
-rows
-filter
-logical-operators
-missing-values
-arranging-rows
-columns
-mutate---add-new-variables
-select
-the-pipe
-groups
