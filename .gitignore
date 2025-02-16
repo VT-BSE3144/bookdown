@@ -1,11 +1,9 @@
 # don't push local rendered files in master branch
 _book/
-*_files/
+_bookdown_files/
 libs/
 **/*.bib
 **/*.html 
-*.rds
-
 
 # ignore all html files except:
 !**/mathjax_header.html
@@ -15,4 +13,3 @@ libs/
 .Rhistory
 .RData
 .Ruserdata
-.DS_store
