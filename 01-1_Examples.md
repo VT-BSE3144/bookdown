@@ -2,7 +2,7 @@
 output: html_document
 ---
 
-## Rstudio and Markdown examples
+# Rstudio and Markdown examples {-}
 
 We will look at a few examples and do some live demos here in class.
 
@@ -174,5 +174,5 @@ We can also refer to individual results of the model inside the text. For exampl
 We have explored the relationship of Ozone with other variables in the airquality dataset
 
 # References
-$$$
+
 ````

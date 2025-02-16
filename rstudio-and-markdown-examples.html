@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Rstudio and Markdown examples | Data Analysis and Numerical Methods for Biological Systems Engineers</title>
+  <meta name="description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
+Systems Engineering course BSE3144: Engineering Analysis for Biological
+Systems using Numerical Methods.</p>" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Rstudio and Markdown examples | Data Analysis and Numerical Methods for Biological Systems Engineers" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
+Systems Engineering course BSE3144: Engineering Analysis for Biological
+Systems using Numerical Methods.</p>" />
+  <meta name="github-repo" content="VT-BSE3144/bookdown" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Rstudio and Markdown examples | Data Analysis and Numerical Methods for Biological Systems Engineers" />
+  
+  <meta name="twitter:description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
+Systems Engineering course BSE3144: Engineering Analysis for Biological
+Systems using Numerical Methods.</p>" />
+  
+
+<meta name="author" content="R. Clay Wright" />
+
+
+<meta name="date" content="2025-02-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introduction-to-posit-rstudio-markdown.html"/>
+<link rel="next" href="data-wrangling.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Data Analysis and Numerical Methods</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About this book</a></li>
+<li class="chapter" data-level="1" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html"><i class="fa fa-check"></i><b>1</b> Introduction to Posit, Rstudio, &amp; Markdown</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#pre-work"><i class="fa fa-check"></i><b>1.1</b> Pre-work</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#posit"><i class="fa fa-check"></i><b>1.2</b> Posit</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#rstudio"><i class="fa fa-check"></i><b>1.3</b> Rstudio</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-source-pane"><i class="fa fa-check"></i><b>1.3.1</b> The Source pane</a></li>
+<li class="chapter" data-level="1.3.2" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#markdown"><i class="fa fa-check"></i><b>1.3.2</b> Markdown</a></li>
+<li class="chapter" data-level="1.3.3" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#more-markdown-formatting"><i class="fa fa-check"></i><b>1.3.3</b> More Markdown formatting</a></li>
+<li class="chapter" data-level="1.3.4" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#running-code"><i class="fa fa-check"></i><b>1.3.4</b> Running code</a></li>
+<li class="chapter" data-level="1.3.5" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-console-pane"><i class="fa fa-check"></i><b>1.3.5</b> The Console pane</a></li>
+<li class="chapter" data-level="1.3.6" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-help-pane"><i class="fa fa-check"></i><b>1.3.6</b> The Help pane</a></li>
+<li class="chapter" data-level="1.3.7" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-filesplotspackageshelpviewer-pane"><i class="fa fa-check"></i><b>1.3.7</b> The Files/Plots/Packages/Help/Viewer pane</a></li>
+<li class="chapter" data-level="1.3.8" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#ok-back-to-the-source-pane"><i class="fa fa-check"></i><b>1.3.8</b> OK, back to the Source pane…</a></li>
+<li class="chapter" data-level="1.3.9" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-environment-pane"><i class="fa fa-check"></i><b>1.3.9</b> The Environment pane</a></li>
+<li class="chapter" data-level="1.3.10" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-historyconnectionsgitbuildtutorial-pane"><i class="fa fa-check"></i><b>1.3.10</b> The History/Connections/Git/Build/Tutorial pane</a></li>
+<li class="chapter" data-level="1.3.11" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#terminalrenderbackground-jobs"><i class="fa fa-check"></i><b>1.3.11</b> Terminal/Render/Background Jobs</a></li>
+<li class="chapter" data-level="1.3.12" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#yaml-headers"><i class="fa fa-check"></i><b>1.3.12</b> YAML headers</a></li>
+<li class="chapter" data-level="1.3.13" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#code-chunkblock-settings-and-global-settings"><i class="fa fa-check"></i><b>1.3.13</b> Code chunk/block settings and global settings</a></li>
+<li class="chapter" data-level="1.3.14" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#output-options"><i class="fa fa-check"></i><b>1.3.14</b> Output Options</a></li>
+<li class="chapter" data-level="1.3.15" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#troubleshooting-knitrender-problems"><i class="fa fa-check"></i><b>1.3.15</b> Troubleshooting Knit/Render problems</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html"><i class="fa fa-check"></i>Rstudio and Markdown examples</a>
+<ul>
+<li class="chapter" data-level="1.4" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#navigate-the-posit-and-rstudio-interface-with-proficiency."><i class="fa fa-check"></i><b>1.4</b> Navigate the Posit and RStudio interface with proficiency.</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#making-new-documents"><i class="fa fa-check"></i><b>1.4.1</b> Making new documents</a></li>
+<li class="chapter" data-level="1.4.2" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#navigating-the-file-pane-and-file-paths"><i class="fa fa-check"></i><b>1.4.2</b> Navigating the file pane and file paths</a></li>
+<li class="chapter" data-level="1.4.3" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#console-pane"><i class="fa fa-check"></i><b>1.4.3</b> Console pane</a></li>
+<li class="chapter" data-level="1.4.4" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#environment-pane"><i class="fa fa-check"></i><b>1.4.4</b> Environment pane</a></li>
+<li class="chapter" data-level="1.4.5" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#history-pane"><i class="fa fa-check"></i><b>1.4.5</b> History pane</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#articulate-the-process-of-using-rstudio-to-develop-markdown-documents."><i class="fa fa-check"></i><b>1.5</b> Articulate the process of using RStudio to develop markdown documents.</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#cheat-sheets-yay"><i class="fa fa-check"></i><b>1.5.1</b> Cheat Sheets! Yay!</a></li>
+<li class="chapter" data-level="1.5.2" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#inserting-code-chunks"><i class="fa fa-check"></i><b>1.5.2</b> Inserting code chunks</a></li>
+<li class="chapter" data-level="1.5.3" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#changing-code-chunk-settings"><i class="fa fa-check"></i><b>1.5.3</b> Changing code chunk settings</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#practice-using-markdown-to-format-reproducible-documents"><i class="fa fa-check"></i><b>1.6</b> Practice using markdown to format reproducible documents</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#tasks"><i class="fa fa-check"></i><b>1.6.1</b> Tasks</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>2</b> Data Wrangling</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-wrangling.html"><a href="data-wrangling.html#connection-to-previous-work-on-data-organization"><i class="fa fa-check"></i><b>2.1</b> Connection to previous work on Data Organization</a></li>
+<li class="chapter" data-level="2.2" data-path="data-wrangling.html"><a href="data-wrangling.html#source"><i class="fa fa-check"></i><b>2.2</b> Source</a></li>
+<li class="chapter" data-level="2.3" data-path="data-wrangling.html"><a href="data-wrangling.html#introduction---example-dataset-nycflights13"><i class="fa fa-check"></i><b>2.3</b> 3.1 Introduction - Example dataset <code>nycflights13</code></a></li>
+<li class="chapter" data-level="2.4" data-path="data-wrangling.html"><a href="data-wrangling.html#section"><i class="fa fa-check"></i><b>2.4</b> 3.1.2</a></li>
+<li class="chapter" data-level="2.5" data-path="data-wrangling.html"><a href="data-wrangling.html#dplyr-basics"><i class="fa fa-check"></i><b>2.5</b> 3.1.3 dplyr basics</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="rows.html"><a href="rows.html"><i class="fa fa-check"></i><b>3</b> 3.2 Rows</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="rows.html"><a href="rows.html#filter"><i class="fa fa-check"></i><b>3.1</b> 3.2.1 filter()</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="rows.html"><a href="rows.html#logical-operators"><i class="fa fa-check"></i><b>3.1.1</b> Logical Operators</a></li>
+<li class="chapter" data-level="3.1.2" data-path="rows.html"><a href="rows.html#missing-values"><i class="fa fa-check"></i><b>3.1.2</b> Missing values</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="rows.html"><a href="rows.html#arranging-rows"><i class="fa fa-check"></i><b>3.2</b> 3.2.3 Arranging rows</a></li>
+<li class="chapter" data-level="3.3" data-path="rows.html"><a href="rows.html#columns"><i class="fa fa-check"></i><b>3.3</b> 3.3 Columns</a></li>
+<li class="chapter" data-level="3.4" data-path="rows.html"><a href="rows.html#mutate---add-new-variables"><i class="fa fa-check"></i><b>3.4</b> 3.3.1 Mutate - Add new variables</a></li>
+<li class="chapter" data-level="3.5" data-path="rows.html"><a href="rows.html#select"><i class="fa fa-check"></i><b>3.5</b> 3.3.2 Select</a></li>
+<li class="chapter" data-level="3.6" data-path="rows.html"><a href="rows.html#the-pipe"><i class="fa fa-check"></i><b>3.6</b> 3.4 The pipe</a></li>
+<li class="chapter" data-level="3.7" data-path="rows.html"><a href="rows.html#groups"><i class="fa fa-check"></i><b>3.7</b> 3.5 Groups</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html"><i class="fa fa-check"></i>Data Wrangling Examples</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#filter-1"><i class="fa fa-check"></i><b>3.7.1</b> Filter</a></li>
+<li class="chapter" data-level="3.7.2" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#arrange"><i class="fa fa-check"></i><b>3.7.2</b> Arrange</a></li>
+<li class="chapter" data-level="3.7.3" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#mutate---adds-a-new-column"><i class="fa fa-check"></i><b>3.7.3</b> Mutate - adds a new column</a></li>
+<li class="chapter" data-level="3.7.4" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#select-1"><i class="fa fa-check"></i><b>3.7.4</b> Select</a></li>
+<li class="chapter" data-level="3.7.5" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#grouped-summaries"><i class="fa fa-check"></i><b>3.7.5</b> Grouped summaries</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis and Numerical Methods for Biological Systems Engineers</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="rstudio-and-markdown-examples" class="section level1 unnumbered hasAnchor">
+<h1>Rstudio and Markdown examples<a href="rstudio-and-markdown-examples.html#rstudio-and-markdown-examples" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>We will look at a few examples and do some live demos here in class.</p>
+<p>Remember our goals are to:</p>
+<ul>
+<li>Navigate the Posit and RStudio interface with proficiency.</li>
+<li>Articulate the process of using RStudio to develop markdown documents.</li>
+<li>Practice using markdown to format reproducible documents</li>
+</ul>
+<div id="navigate-the-posit-and-rstudio-interface-with-proficiency." class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Navigate the Posit and RStudio interface with proficiency.<a href="rstudio-and-markdown-examples.html#navigate-the-posit-and-rstudio-interface-with-proficiency." class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="making-new-documents" class="section level3 hasAnchor" number="1.4.1">
+<h3><span class="header-section-number">1.4.1</span> Making new documents<a href="rstudio-and-markdown-examples.html#making-new-documents" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="navigating-the-file-pane-and-file-paths" class="section level3 hasAnchor" number="1.4.2">
+<h3><span class="header-section-number">1.4.2</span> Navigating the file pane and file paths<a href="rstudio-and-markdown-examples.html#navigating-the-file-pane-and-file-paths" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="console-pane" class="section level3 hasAnchor" number="1.4.3">
+<h3><span class="header-section-number">1.4.3</span> Console pane<a href="rstudio-and-markdown-examples.html#console-pane" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="environment-pane" class="section level3 hasAnchor" number="1.4.4">
+<h3><span class="header-section-number">1.4.4</span> Environment pane<a href="rstudio-and-markdown-examples.html#environment-pane" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="history-pane" class="section level3 hasAnchor" number="1.4.5">
+<h3><span class="header-section-number">1.4.5</span> History pane<a href="rstudio-and-markdown-examples.html#history-pane" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+</div>
+<div id="articulate-the-process-of-using-rstudio-to-develop-markdown-documents." class="section level2 hasAnchor" number="1.5">
+<h2><span class="header-section-number">1.5</span> Articulate the process of using RStudio to develop markdown documents.<a href="rstudio-and-markdown-examples.html#articulate-the-process-of-using-rstudio-to-develop-markdown-documents." class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="cheat-sheets-yay" class="section level3 hasAnchor" number="1.5.1">
+<h3><span class="header-section-number">1.5.1</span> Cheat Sheets! Yay!<a href="rstudio-and-markdown-examples.html#cheat-sheets-yay" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="inserting-code-chunks" class="section level3 hasAnchor" number="1.5.2">
+<h3><span class="header-section-number">1.5.2</span> Inserting code chunks<a href="rstudio-and-markdown-examples.html#inserting-code-chunks" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="changing-code-chunk-settings" class="section level3 hasAnchor" number="1.5.3">
+<h3><span class="header-section-number">1.5.3</span> Changing code chunk settings<a href="rstudio-and-markdown-examples.html#changing-code-chunk-settings" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+</div>
+<div id="practice-using-markdown-to-format-reproducible-documents" class="section level2 hasAnchor" number="1.6">
+<h2><span class="header-section-number">1.6</span> Practice using markdown to format reproducible documents<a href="rstudio-and-markdown-examples.html#practice-using-markdown-to-format-reproducible-documents" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The below from <a href="https://github.com/njtierney/rmd-errors/tree/master" class="uri">https://github.com/njtierney/rmd-errors/tree/master</a> is an Rmd that contains many errors we will troubleshoot.</p>
+<div id="tasks" class="section level3 hasAnchor" number="1.6.1">
+<h3><span class="header-section-number">1.6.1</span> Tasks<a href="rstudio-and-markdown-examples.html#tasks" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Get this rmarkdown document to compile
+<ul>
+<li>hint:
+<ul>
+<li>knit the document and look at the line for the error</li>
+<li>if there is an error:
+<ul>
+<li>recreate the session in an interactive session:
+<ul>
+<li>restart R</li>
+<li>run all chunks below (top section Run&gt;arrow&gt;run all chunks below)</li>
+<li>find the chunk that did not work, fix that chunk</li>
+<li>run all chunks below (top section Run&gt;arrow&gt;run all chunks below)</li>
+<li>explore working directory issues
+<ul>
+<li>where is the packages.bib file?</li>
+<li>remember that the rmarkdown directory is where the .Rmd file lives</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb23"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb23-1"><a href="rstudio-and-markdown-examples.html#cb23-1" tabindex="-1"></a></span>
+<span id="cb23-2"><a href="rstudio-and-markdown-examples.html#cb23-2" tabindex="-1"></a><span class="in">```{r setup, include=FALSE}</span></span>
+<span id="cb23-3"><a href="rstudio-and-markdown-examples.html#cb23-3" tabindex="-1"></a><span class="in">knitr::opts_chunk$set(echo = TRUE,</span></span>
+<span id="cb23-4"><a href="rstudio-and-markdown-examples.html#cb23-4" tabindex="-1"></a><span class="in">                      dev = &quot;png&quot;})</span></span>
+<span id="cb23-5"><a href="rstudio-and-markdown-examples.html#cb23-5" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-6"><a href="rstudio-and-markdown-examples.html#cb23-6" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="rstudio-and-markdown-examples.html#cb23-7" tabindex="-1"></a><span class="in">```{r library, echo = }</span></span>
+<span id="cb23-8"><a href="rstudio-and-markdown-examples.html#cb23-8" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="rstudio-and-markdown-examples.html#cb23-9" tabindex="-1"></a><span class="in">library(tidyverses)</span></span>
+<span id="cb23-10"><a href="rstudio-and-markdown-examples.html#cb23-10" tabindex="-1"></a></span>
+<span id="cb23-11"><a href="rstudio-and-markdown-examples.html#cb23-11" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-12"><a href="rstudio-and-markdown-examples.html#cb23-12" tabindex="-1"></a></span>
+<span id="cb23-13"><a href="rstudio-and-markdown-examples.html#cb23-13" tabindex="-1"></a></span>
+<span id="cb23-14"><a href="rstudio-and-markdown-examples.html#cb23-14" tabindex="-1"></a><span class="fu"># Introduction</span></span>
+<span id="cb23-15"><a href="rstudio-and-markdown-examples.html#cb23-15" tabindex="-1"></a></span>
+<span id="cb23-16"><a href="rstudio-and-markdown-examples.html#cb23-16" tabindex="-1"></a>This is a simple analysis of the New York Air Quality Measurements using the R statistical programming language <span class="co">[</span><span class="ot">@Rcore</span><span class="co">]</span>. As stated in the helpfile <span class="in">`?airquality`</span>, this dataset contains:</span>
+<span id="cb23-17"><a href="rstudio-and-markdown-examples.html#cb23-17" tabindex="-1"></a></span>
+<span id="cb23-18"><a href="rstudio-and-markdown-examples.html#cb23-18" tabindex="-1"></a><span class="at">&gt; Daily air quality measurements in New York, May to September 1973.</span></span>
+<span id="cb23-19"><a href="rstudio-and-markdown-examples.html#cb23-19" tabindex="-1"></a></span>
+<span id="cb23-20"><a href="rstudio-and-markdown-examples.html#cb23-20" tabindex="-1"></a>And the dataset is sourced from:</span>
+<span id="cb23-21"><a href="rstudio-and-markdown-examples.html#cb23-21" tabindex="-1"></a></span>
+<span id="cb23-22"><a href="rstudio-and-markdown-examples.html#cb23-22" tabindex="-1"></a><span class="at">&gt; ... the New York State Department of Conservation (ozone data) and the National Weather Service (meteorological data).</span></span>
+<span id="cb23-23"><a href="rstudio-and-markdown-examples.html#cb23-23" tabindex="-1"></a></span>
+<span id="cb23-24"><a href="rstudio-and-markdown-examples.html#cb23-24" tabindex="-1"></a>It contains the following variables</span>
+<span id="cb23-25"><a href="rstudio-and-markdown-examples.html#cb23-25" tabindex="-1"></a></span>
+<span id="cb23-26"><a href="rstudio-and-markdown-examples.html#cb23-26" tabindex="-1"></a><span class="ss">- </span>Ozone: Mean ozone in parts per billion from 1300 to 1500 hours at Roosevelt Island.</span>
+<span id="cb23-27"><a href="rstudio-and-markdown-examples.html#cb23-27" tabindex="-1"></a><span class="ss">- </span>Solar.R: Solar radiation in Langleys in the frequency band 4000–7700 Angstroms from 0800 to 1200 hours at Central Park.</span>
+<span id="cb23-28"><a href="rstudio-and-markdown-examples.html#cb23-28" tabindex="-1"></a><span class="ss">- </span>Wind: Average wind speed in miles per hour at 0700 and 1000 hours at LaGuardia Airport.</span>
+<span id="cb23-29"><a href="rstudio-and-markdown-examples.html#cb23-29" tabindex="-1"></a><span class="ss">- </span>Temp: Maximum daily temperature in degrees Fahrenheit at La Guardia Airport.</span>
+<span id="cb23-30"><a href="rstudio-and-markdown-examples.html#cb23-30" tabindex="-1"></a><span class="ss">- </span>Month: Month (1--12)</span>
+<span id="cb23-31"><a href="rstudio-and-markdown-examples.html#cb23-31" tabindex="-1"></a><span class="ss">- </span>Day: Day of month (1--31)</span>
+<span id="cb23-32"><a href="rstudio-and-markdown-examples.html#cb23-32" tabindex="-1"></a></span>
+<span id="cb23-33"><a href="rstudio-and-markdown-examples.html#cb23-33" tabindex="-1"></a>We are going to explore the relationship between solar radiation and other selected variables, solar radiation, wind, and temperature.</span>
+<span id="cb23-34"><a href="rstudio-and-markdown-examples.html#cb23-34" tabindex="-1"></a></span>
+<span id="cb23-35"><a href="rstudio-and-markdown-examples.html#cb23-35" tabindex="-1"></a><span class="fu"># Method</span></span>
+<span id="cb23-36"><a href="rstudio-and-markdown-examples.html#cb23-36" tabindex="-1"></a></span>
+<span id="cb23-37"><a href="rstudio-and-markdown-examples.html#cb23-37" tabindex="-1"></a>First, we tidy the names of the dataset, to provide information about the units of measurement for Ozone, Solar Radiation, Wind, and Temperature. We do this by renaming the variables and adding a suffix at the end to describe the units. To do this we use the <span class="in">`rename`</span> function from the <span class="in">`dplyr`</span> package<span class="co">[</span><span class="ot">@dplyr</span><span class="co">]</span>.</span>
+<span id="cb23-38"><a href="rstudio-and-markdown-examples.html#cb23-38" tabindex="-1"></a></span>
+<span id="cb23-39"><a href="rstudio-and-markdown-examples.html#cb23-39" tabindex="-1"></a><span class="in">```{r tidy-data}</span></span>
+<span id="cb23-40"><a href="rstudio-and-markdown-examples.html#cb23-40" tabindex="-1"></a></span>
+<span id="cb23-41"><a href="rstudio-and-markdown-examples.html#cb23-41" tabindex="-1"></a><span class="in">tidy_aq &lt;-rename(.data = airquality,</span></span>
+<span id="cb23-42"><a href="rstudio-and-markdown-examples.html#cb23-42" tabindex="-1"></a><span class="in">                 ozone_ppb = Ozone,</span></span>
+<span id="cb23-43"><a href="rstudio-and-markdown-examples.html#cb23-43" tabindex="-1"></a><span class="in">                 solar_rad_lang = Solar.R,</span></span>
+<span id="cb23-44"><a href="rstudio-and-markdown-examples.html#cb23-44" tabindex="-1"></a><span class="in">                 wind_mph = Wind,</span></span>
+<span id="cb23-45"><a href="rstudio-and-markdown-examples.html#cb23-45" tabindex="-1"></a><span class="in">                 temp_fah = Temp,</span></span>
+<span id="cb23-46"><a href="rstudio-and-markdown-examples.html#cb23-46" tabindex="-1"></a><span class="in">                 month = Month,</span></span>
+<span id="cb23-47"><a href="rstudio-and-markdown-examples.html#cb23-47" tabindex="-1"></a><span class="in">                 day = Day)</span></span>
+<span id="cb23-48"><a href="rstudio-and-markdown-examples.html#cb23-48" tabindex="-1"></a></span>
+<span id="cb23-49"><a href="rstudio-and-markdown-examples.html#cb23-49" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-50"><a href="rstudio-and-markdown-examples.html#cb23-50" tabindex="-1"></a></span>
+<span id="cb23-51"><a href="rstudio-and-markdown-examples.html#cb23-51" tabindex="-1"></a>We can see that there is an interesting relationship between ozone and solar radiation in figure 1 below, plotted using ggplot2 <span class="co">[</span><span class="ot">@ggplot2</span><span class="co">]</span></span>
+<span id="cb23-52"><a href="rstudio-and-markdown-examples.html#cb23-52" tabindex="-1"></a></span>
+<span id="cb23-53"><a href="rstudio-and-markdown-examples.html#cb23-53" tabindex="-1"></a><span class="in">```{r figure-1, fig.height = 4, fig.width=4}</span></span>
+<span id="cb23-54"><a href="rstudio-and-markdown-examples.html#cb23-54" tabindex="-1"></a></span>
+<span id="cb23-55"><a href="rstudio-and-markdown-examples.html#cb23-55" tabindex="-1"></a><span class="in">ggplot(tidy_aq,</span></span>
+<span id="cb23-56"><a href="rstudio-and-markdown-examples.html#cb23-56" tabindex="-1"></a><span class="in">       aes(x = ozone_ppb,</span></span>
+<span id="cb23-57"><a href="rstudio-and-markdown-examples.html#cb23-57" tabindex="-1"></a><span class="in">           y = solar_rad_lang)) + </span></span>
+<span id="cb23-58"><a href="rstudio-and-markdown-examples.html#cb23-58" tabindex="-1"></a><span class="in">  geom_point()</span></span>
+<span id="cb23-59"><a href="rstudio-and-markdown-examples.html#cb23-59" tabindex="-1"></a></span>
+<span id="cb23-60"><a href="rstudio-and-markdown-examples.html#cb23-60" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-61"><a href="rstudio-and-markdown-examples.html#cb23-61" tabindex="-1"></a></span>
+<span id="cb23-62"><a href="rstudio-and-markdown-examples.html#cb23-62" tabindex="-1"></a>We can also see that there is an interesting relationship between Ozone and temperature.</span>
+<span id="cb23-63"><a href="rstudio-and-markdown-examples.html#cb23-63" tabindex="-1"></a></span>
+<span id="cb23-64"><a href="rstudio-and-markdown-examples.html#cb23-64" tabindex="-1"></a><span class="in">```{r figure-2}</span></span>
+<span id="cb23-65"><a href="rstudio-and-markdown-examples.html#cb23-65" tabindex="-1"></a></span>
+<span id="cb23-66"><a href="rstudio-and-markdown-examples.html#cb23-66" tabindex="-1"></a><span class="in">ggplot(tidy_aq,</span></span>
+<span id="cb23-67"><a href="rstudio-and-markdown-examples.html#cb23-67" tabindex="-1"></a><span class="in">       aes(x = ozone_ppb,</span></span>
+<span id="cb23-68"><a href="rstudio-and-markdown-examples.html#cb23-68" tabindex="-1"></a><span class="in">           y = temp_fah)) + </span></span>
+<span id="cb23-69"><a href="rstudio-and-markdown-examples.html#cb23-69" tabindex="-1"></a><span class="in">  geom_point()</span></span>
+<span id="cb23-70"><a href="rstudio-and-markdown-examples.html#cb23-70" tabindex="-1"></a></span>
+<span id="cb23-71"><a href="rstudio-and-markdown-examples.html#cb23-71" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-72"><a href="rstudio-and-markdown-examples.html#cb23-72" tabindex="-1"></a></span>
+<span id="cb23-73"><a href="rstudio-and-markdown-examples.html#cb23-73" tabindex="-1"></a>To explore the relationships between Ozone and all of the variables in the dataset, we can fit a basic linear model, with Ozone as the outcome, and all other variables as the predictors. We can express this as:</span>
+<span id="cb23-74"><a href="rstudio-and-markdown-examples.html#cb23-74" tabindex="-1"></a></span>
+<span id="cb23-75"><a href="rstudio-and-markdown-examples.html#cb23-75" tabindex="-1"></a>$$</span>
+<span id="cb23-76"><a href="rstudio-and-markdown-examples.html#cb23-76" tabindex="-1"></a>Ozone \sim \beta_0 + \beta_1Solar.R + \beta_2 Wind + \beta_3Temp + \epsilon</span>
+<span id="cb23-77"><a href="rstudio-and-markdown-examples.html#cb23-77" tabindex="-1"></a>$$</span>
+<span id="cb23-78"><a href="rstudio-and-markdown-examples.html#cb23-78" tabindex="-1"></a></span>
+<span id="cb23-79"><a href="rstudio-and-markdown-examples.html#cb23-79" tabindex="-1"></a>And we can fit this model using the code below.</span>
+<span id="cb23-80"><a href="rstudio-and-markdown-examples.html#cb23-80" tabindex="-1"></a></span>
+<span id="cb23-81"><a href="rstudio-and-markdown-examples.html#cb23-81" tabindex="-1"></a><span class="in">```{r data-model}</span></span>
+<span id="cb23-82"><a href="rstudio-and-markdown-examples.html#cb23-82" tabindex="-1"></a></span>
+<span id="cb23-83"><a href="rstudio-and-markdown-examples.html#cb23-83" tabindex="-1"></a><span class="in">lm_aq &lt;- lm(ozone_ppb ~ solar_rad_lang + wind_mph + temp_fah,</span></span>
+<span id="cb23-84"><a href="rstudio-and-markdown-examples.html#cb23-84" tabindex="-1"></a><span class="in">            data = tidy_aq)</span></span>
+<span id="cb23-85"><a href="rstudio-and-markdown-examples.html#cb23-85" tabindex="-1"></a></span>
+<span id="cb23-86"><a href="rstudio-and-markdown-examples.html#cb23-86" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-87"><a href="rstudio-and-markdown-examples.html#cb23-87" tabindex="-1"></a></span>
+<span id="cb23-88"><a href="rstudio-and-markdown-examples.html#cb23-88" tabindex="-1"></a><span class="fu"># Results</span></span>
+<span id="cb23-89"><a href="rstudio-and-markdown-examples.html#cb23-89" tabindex="-1"></a></span>
+<span id="cb23-90"><a href="rstudio-and-markdown-examples.html#cb23-90" tabindex="-1"></a>The key results are given below, using the <span class="in">`tidy`</span> function from the <span class="in">`broom`</span> package <span class="co">[</span><span class="ot">@broom</span><span class="co">]</span> to clean up the data.</span>
+<span id="cb23-91"><a href="rstudio-and-markdown-examples.html#cb23-91" tabindex="-1"></a></span>
+<span id="cb23-92"><a href="rstudio-and-markdown-examples.html#cb23-92" tabindex="-1"></a><span class="in">```{r broom-tidy}</span></span>
+<span id="cb23-93"><a href="rstudio-and-markdown-examples.html#cb23-93" tabindex="-1"></a></span>
+<span id="cb23-94"><a href="rstudio-and-markdown-examples.html#cb23-94" tabindex="-1"></a><span class="in">library(broom)</span></span>
+<span id="cb23-95"><a href="rstudio-and-markdown-examples.html#cb23-95" tabindex="-1"></a></span>
+<span id="cb23-96"><a href="rstudio-and-markdown-examples.html#cb23-96" tabindex="-1"></a><span class="in">tidy_lm_aq &lt;- tidy(lm_aq)</span></span>
+<span id="cb23-97"><a href="rstudio-and-markdown-examples.html#cb23-97" tabindex="-1"></a></span>
+<span id="cb23-98"><a href="rstudio-and-markdown-examples.html#cb23-98" tabindex="-1"></a><span class="in">tidy_lm_aq</span></span>
+<span id="cb23-99"><a href="rstudio-and-markdown-examples.html#cb23-99" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-100"><a href="rstudio-and-markdown-examples.html#cb23-100" tabindex="-1"></a></span>
+<span id="cb23-101"><a href="rstudio-and-markdown-examples.html#cb23-101" tabindex="-1"></a>We can present this result in a nice table using the <span class="in">`kable`</span> function from the knitr package <span class="co">[</span><span class="ot">@knitr</span><span class="co">]</span></span>
+<span id="cb23-102"><a href="rstudio-and-markdown-examples.html#cb23-102" tabindex="-1"></a></span>
+<span id="cb23-103"><a href="rstudio-and-markdown-examples.html#cb23-103" tabindex="-1"></a><span class="in">```{r lm-kable}</span></span>
+<span id="cb23-104"><a href="rstudio-and-markdown-examples.html#cb23-104" tabindex="-1"></a></span>
+<span id="cb23-105"><a href="rstudio-and-markdown-examples.html#cb23-105" tabindex="-1"></a><span class="in">knitr::kable(tidy_lm_aq_broom,</span></span>
+<span id="cb23-106"><a href="rstudio-and-markdown-examples.html#cb23-106" tabindex="-1"></a><span class="in">             digits = 3,</span></span>
+<span id="cb23-107"><a href="rstudio-and-markdown-examples.html#cb23-107" tabindex="-1"></a><span class="in">             caption = &quot;Table of results from the linear model&quot;)</span></span>
+<span id="cb23-108"><a href="rstudio-and-markdown-examples.html#cb23-108" tabindex="-1"></a></span>
+<span id="cb23-109"><a href="rstudio-and-markdown-examples.html#cb23-109" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-110"><a href="rstudio-and-markdown-examples.html#cb23-110" tabindex="-1"></a></span>
+<span id="cb23-111"><a href="rstudio-and-markdown-examples.html#cb23-111" tabindex="-1"></a>We can also refer to individual results of the model inside the text. For example, we can say that the estimated coefficient of Wind miles per hour is <span class="in">`r tidy_lm_aq$estimate[3]`</span>, and the P value of this is <span class="in">`r tidy_lm_aq$p.value[3]`</span>.</span>
+<span id="cb23-112"><a href="rstudio-and-markdown-examples.html#cb23-112" tabindex="-1"></a></span>
+<span id="cb23-113"><a href="rstudio-and-markdown-examples.html#cb23-113" tabindex="-1"></a><span class="fu"># Conclusion</span></span>
+<span id="cb23-114"><a href="rstudio-and-markdown-examples.html#cb23-114" tabindex="-1"></a></span>
+<span id="cb23-115"><a href="rstudio-and-markdown-examples.html#cb23-115" tabindex="-1"></a>We have explored the relationship of Ozone with other variables in the airquality dataset</span>
+<span id="cb23-116"><a href="rstudio-and-markdown-examples.html#cb23-116" tabindex="-1"></a></span>
+<span id="cb23-117"><a href="rstudio-and-markdown-examples.html#cb23-117" tabindex="-1"></a><span class="fu"># References</span></span></code></pre></div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction-to-posit-rstudio-markdown.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-wrangling.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/VT-BSE3144/bookdown/edit/BRANCH/01-1_Examples.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

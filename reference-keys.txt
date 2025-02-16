@@ -1,4 +1,3 @@
-about-this-book
 introduction-to-posit-rstudio-markdown
 pre-work
 posit
@@ -21,7 +20,6 @@ code-chunkblock-settings-and-global-settings
 r-markdown-vs-quarto
 output-options
 troubleshooting-knitrender-problems
-rstudio-and-markdown-examples
 navigate-the-posit-and-rstudio-interface-with-proficiency.
 making-new-documents
 navigating-the-file-pane-and-file-paths
@@ -50,7 +48,6 @@ mutate---add-new-variables
 select
 the-pipe
 groups
-data-wrangling-examples
 filter-1
 solutions
 arrange

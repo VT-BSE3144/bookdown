@@ -44,7 +44,7 @@ You will see several panes within the RStudio window.
 
 ### The Source pane
 
-If a file is open, in the top left of the screen perhaps this one, you will see the **Source** pane. (If you don't see this pane, create a new file by pressing `shift + command(or ctrl) + N`, or click the universal 'New Document' icon ![](images/Screenshot 2024-01-18 at 11.57.01 PM.png) and select 'R script'). **Source** shows the files with which you are currently working. This is where you will spend most of your time building and testing lines of code and then combining them to make scripts for data analysis. In general you should be doing most all of your typing into the source pane to build a document that you can use to reproduce your analysis. 
+If a file is open, in the top left of the screen perhaps this one, you will see the **Source** pane. (If you don't see this pane, create a new file by pressing `shift + command(or ctrl) + N`, or click the universal 'New Document' icon ![](figures/Screenshot 2024-01-18 at 11.57.01 PM.png) and select 'R script'). **Source** shows the files with which you are currently working. This is where you will spend most of your time building and testing lines of code and then combining them to make scripts for data analysis. In general you should be doing most all of your typing into the source pane to build a document that you can use to reproduce your analysis. 
 
 In this class we will be mostly working in markdown documents in the source pane. 
 
