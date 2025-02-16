@@ -55,7 +55,7 @@ The below from <https://github.com/njtierney/rmd-errors/tree/master> is an Rmd t
             - where is the packages.bib file?
             - remember that the rmarkdown directory is where the .Rmd file lives
             
-````            
+````{verbatim, lang = "markdown"}            
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,
@@ -173,5 +173,5 @@ We can also refer to individual results of the model inside the text. For exampl
 We have explored the relationship of Ozone with other variables in the airquality dataset
 
 # References
-$$$
-````{verbatim}
+
+````
