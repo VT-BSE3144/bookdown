@@ -2,7 +2,7 @@
 output: html_document
 ---
 
-## Rstudio and Markdown examples
+# Rstudio and Markdown examples {-}
 
 We will look at a few examples and do some live demos here in class.
 
