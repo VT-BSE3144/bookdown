@@ -1,0 +1,254 @@
+---
+output: html_document
+---
+
+# Data Wrangling
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+This week our goals are to be able to:
+
+- Use the dplyr package to perform basic data transformation and analysis
+- Filter and arrange rows of datasets
+- Create new columns with `mutate`
+- Select columns
+- Use pipes to make our code more readable
+- Summarize data by groups using `summarize`
+
+
+## Connection to previous work on Data Organization
+
+This week, we will finally see why organized data is worth the effort. We'll follow an exercise using a data source with over 300,000 rows! The work this week will show us (1) why R is awesome and fast for analysis, and (2) reinforce the purpose of organized data (following the 12 best practices we learned in Week 1).
+
+**Because we are dealing with large datasets now, make sure that your Problem Set does not include pages and pages of data by just showing the top of the final result using `head(dataset)`**
+
+## Source
+
+This exercise follows along with the reading for this week R for Data Science Chapter 3 <https://r4ds.hadley.nz/data-transform> (this was chapter 5 in the old version <https://r4ds.had.co.nz/transform.html>, hopefully I've updated everything but incase I haven't there's the link). The template below is for you to be able to follow along in the reading and complete the exercises.
+
+## 3.1 Introduction -  Example dataset `nycflights13`
+
+I've gone ahead and installed the 2 packages, but you need to load them into the environment using:
+
+```{r}
+library(nycflights13)
+library(tidyverse)
+```
+
+Why is it important to do this? When you are creating code, explicitly turning on packages that are required is considered good practice. This goes along with the importance of being intentional and making your code reproducible by anyone, anywhere. Tell the computer what to do...explicitly! Tell everyone explicitly what you have done to get to your results.
+
+This also keeps your R sessions memory low and prevents duplicate functions from being loaded from different packages. Notice above when we load tidyverse we get the message that `✖ dplyr::filter() masks stats::filter()` and `✖ dplyr::lag()    masks stats::lag()`, that is because the stats package also has `filter` and `lag` functions as well as the dplyr package which is part of the tidyverse package. The tidyverse is actually a package of packages including ggplot2, purrr, tibble, dplyr, tidyr, stringr, readr, and forcats (and maybe more since writing this). We will learn more about all of these in coming weeks. In our case, because we more recently loaded tidyverse if we call `filter(some_argument...)` this will run the tidyverse/dplyr version of the function. As it says in [the reading](https://r4ds.hadley.nz/data-transform#prerequisites), if you want to use the base, or stats, version of these functions after loading dplyr, you'll need to specify the package that the function comes from using two colons `::` as in `stats::filter()` and `stats::lag().`
+
+## 3.1.2
+
+Run `flights` in the code chunk below. The output should match the reading. Note that you can find a nice README/data dictionary/documentation of this dataset by viewing its help documentation `?flights`.
+
+```{r }
+flights
+```
+
+As described, `flights` is a data frame called a tibble. What does `int` mean on the third line of the table? Or `dbl`? 
+
+These are types of variables. Be sure to familiarize yourself with the various types as you move forward, so focus on this section in [the reading](https://r4ds.had.co.nz/transform.html#prerequisites-2). You can also check out [Vectors and data types in Data Carpentry](https://datacarpentry.org/R-ecology-lesson/01-intro-to-r.html#Vectors_and_data_types).
+
+## 3.1.3 dplyr basics 
+
+<https://r4ds.hadley.nz/data-transform#dplyr-basics>
+
+Most of the tidyverse aims to make programming make "grammatical" sense in that it is easy to read, understand, and talk about using typical language. One of the really tricky parts of many programming languages including R that you have already experienced is how nested accessors (like `[]` and `$`) combined with functions and logical statements are used to do operations on parts of datasets (like finding the mean of certain columns from certain rows). This can make reading a line of code really difficult. You have to read the code from the inside out. For example, from last week, we can run from inside to out. 
+
+```{r}
+mean(is.na(c(1, NA, 1)))
+
+# Inner parentheses
+c(1, NA, 1)
+# next set
+is.na(c(1, NA, 1))
+#full line
+mean(is.na(c(1, NA, 1)))
+```
+
+From the dplyr homepage: "dplyr is a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges" where verbs are functions that operate on nouns, which are your dataset and elements within it. 
+
+For all dplyr "verbs":
+
+1. The first argument is always a data frame.
+
+2. The subsequent arguments typically describe which columns to operate on, using the variable names (**without quotes**).
+
+3. The output is always a new data frame.
+
+[Direct from R4DS](https://r4ds.hadley.nz/data-transform#dplyr-basics:~:text=Because%20each%20verb,Let%E2%80%99s%20dive%20in!): "Because each verb does one thing well, solving complex problems will usually require combining multiple verbs, and we’ll do so with the pipe, `|>`. We’ll discuss the pipe more in Section 3.4, but in brief, the pipe takes the thing on its left and passes it along to the function on its right so that `x |> f(y)` is equivalent to `f(x, y)`, and `x |> f(y) |> g(z)` is equivalent to `g(f(x, y), z)`. The easiest way to pronounce the pipe is “then”. That makes it possible to get a sense of the following code even though you haven’t yet learned the details:
+
+```{r, exec=FALSE}
+flights |>
+  filter(dest == "IAH") |> 
+  group_by(year, month, day) |> 
+  summarize(
+    arr_delay = mean(arr_delay, na.rm = TRUE)
+  )
+```
+
+dplyr’s verbs are organized into four groups based on what they operate on: rows, columns, groups, or tables. In the following sections you’ll learn the most important verbs for rows, columns, and groups, then we’ll come back to the join verbs that work on tables in Chapter 19. Let’s dive in!"
+
+# 3.2 Rows
+
+## 3.2.1 filter()
+
+The example filters the data based on month and day. `jan1 <- filter(flights, month == 1, day == 1)`
+
+The double-equals `==`sign implies "is equal to"; in the filter function above, all flights on the first day of January are saved as a new variable `jan1`.
+
+What is happening in the command below?
+
+```{r }
+filter(flights, month == 1)
+```
+
+The reading also points out the use of the near function. Why is this important? Illustrate the example below in the code chunk below to reinforce the concept.
+
+Paste `sqrt(1.9999999999999999999999)^2` in the code chunk and run it. If you keep removing the trailing 9s, when does the result not equal 2? What happens when you run `sqrt(2)^2==2`? Show me that you can have the computer make these equivalent using `near()`, and explain in one word---yes one word---the result of `sqrt(2)^2==2` versus using the near function. (Hint: the word starts with P).
+
+```{r }
+
+```
+
+### Logical Operators
+
+We learned about `==`, "is equal to," above. Other logical or Boolean operators that can be used as filters are `>, ==, <, <=, !=` (not equal). You can also combine these with other Logical or Boolean operators: `&` (and), `|` (or), and `!` (not).
+
+![Complete set of boolean operations. x is the left-hand circle, y is the right-hand circle, and the shaded region show which parts each operator selects.](figures/transform-logical.png)
+
+x
+```{r}
+x <- c(TRUE, TRUE, FALSE, FALSE)
+y <- c(TRUE, FALSE, TRUE, FALSE)
+x | y
+```
+
+How would you select all flights in May and June?
+
+```{r }
+flights |> filter(month == 5 | month == 6)
+
+sum(flights$month == 5)
+sum(flights$month == 6)
+sum(flights$month == 5 | flights$month == 6)
+sum(flights$month == c(5,6))
+sum(flights$month %in% c(5,6))
+```
+
+R also has another nifty logical operator `%in%`, which searches for a matches of one vector in another and return true for any matching values. So for example:
+
+```{r}
+# letters is simply the lowercase alphabet
+letters %in% c("a", "b", "z")
+```
+
+So we could select all flights in May and June using this now. 
+
+```{r}
+filter(flights, month %in% c(5, 6)) |> tail(n = 100)
+```
+
+
+### Missing values
+
+We covered `NA`s in some of our exercises in previous weeks. Hopefully reading through this section helped reinforce in your mind how `NA`s are handled in R and in the `dplyr::filter` function.
+
+
+## 3.2.3 Arranging rows
+
+We can arrange rows by a particular columns values using `arrange`. For example with the `flights` dataset we could arrange by departure time. 
+
+```{r}
+flights |> arrange(dep_time)
+```
+
+By default `arrange` sorts the rows from low to high on the variable you pass. To sort high to low you put a `-` in front of the variable or use `desc(variable)`.
+
+```{r}
+flights |> arrange(-dep_time)
+```
+
+This may seem a little awkward, but it allows you to easily provide multiple variable names for a complex sort. 
+
+```{r}
+flights |> arrange(desc(dep_time), sched_dep_time)
+```
+
+## 3.3 Columns
+
+## 3.3.1 Mutate - Add new variables
+
+The function `mutate` is used to add new variables/columns to a data frame.
+
+Following [the example at the beginning of section 5.5 in the book](https://r4ds.had.co.nz/transform.html#add-new-variables-with-mutate), add a new speed variable using mutate to your data frame.
+
+```{r}
+flights_sml <- select(flights, 
+  year:day, 
+  ends_with("delay"), 
+  distance, 
+  air_time
+)
+
+#add a speed variable
+
+
+```
+
+Next, pay attention to the [Useful transformation functions](https://r4ds.hadley.nz/transform) and the [modular arithmetic section](https://r4ds.hadley.nz/numbers#modular-arithmetic) to obtain hour and minutes from the departure data. Try for yourself below. This is pretty cool and can be useful.
+
+```{r}
+
+```
+
+## 3.3.2 Select
+It's not uncommon to get datasets with hundreds or even thousands of variables. In this case, the first challenge is often narrowing in on the variables you're actually interested in. `select()` allows you to rapidly zoom in on a useful subset using operations based on the names of the variables.
+
+`select()` is not terribly useful with the flights data because we only have 19 variables, but you can still get the general idea:
+
+```{r}
+select(flights, year, month, day)
+```
+
+## 3.4 The pipe 
+
+The pipe operator, which I've demonstrated just a few times above, is really fantastically justified by the [The pipe section](https://r4ds.hadley.nz/data-transform#sec-the-pipe). I would definitely recommend reading this short section.
+
+The idea of piping is that it can make it easier to write, follow, and understand what the commands are doing. Think of each pipe command as "then". The pipe command uses the following syntax : `|>`. What it essentially does is take the result of the code on the left-hand side or previous line(s) and pass it as the first argument to the function on the right-hand side. 
+
+We can recreate the example above with pipes. Written in words the code chunk below would be: ASSIGN a new object name,  
+CHOOSE the dataset to operate on, THEN 
+`arrange` the dataset by longest distance, THEN 
+`filter` the December flights, THEN
+`select` the flight number, departure delay, and carrier columns.
+
+```{r}
+carrier_delay <- # I like to use a new line here so that I can easily comment out this assignment line while building my pipe
+  flights |>
+  arrange(-distance) |>
+  filter(month == 12) |>
+  select(flight, dep_delay, carrier)
+```
+
+## 3.5 Groups
+
+Grouped summaries are essentially what pivot tables are in Excel, if you have ever heard of those. By using the `summarise()` function with the `group_by` function we can, for example find the average flight delay by month. This becomes really awesome! This example starts with using `group_by` to group the data, then applies `summarise`.
+
+```{r}
+flights |> 
+  group_by(month) |>
+  summarise(
+    delay = mean(dep_delay, na.rm = TRUE))
+```
+
+
+Next week we'll practice summarizing data a lot more as well as "pivoting" our data, which is We'll get to making those sweet, sweet plots soon.
+
+

@@ -1,0 +1,138 @@
+---
+output: html_document
+params:
+  version: 1.1
+---
+
+## Data Wrangling Examples
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(nycflights13)
+```
+
+These examples are adapted from R4DS <https://r4ds.hadley.nz/data-transform>. 
+
+### Filter
+
+These are additional practice to those in the book to reinforce the reading and try by doing. Solutions for each are given below. Our suggestion is to try first and test your skill.
+
+1.  Find all flights that:
+
+```{r }
+# 1.1 Had an arrival delay of two or more hours (10,034 flights)
+
+# 1.2 Flew to Houston (IAH or HOU) (9,313 flights)
+
+# 1.3 Were operated by United, American, or Delta (139,504 flights)
+
+# 1.4 Departed in summer (July, August, and September) (86,326 flights)
+
+# 1.5 Arrived more than two hours late, but didn't leave late (3 flights)
+
+# 1.6 Were delayed by at least an hour, but made up over 30 minutes in flight (1,819 flights)
+
+# 1.7 Departed between midnight and 6am (inclusive) (9,373 flights)
+
+```
+
+2.  Another useful dplyr filtering helper is between(). What does it do? Can you use it to simplify the code needed to answer 1.7? (hint: look up bwetween in the help menu. You'll see the required syntax, where x = vector, and left and right at the boundary values. You will also need to add an OR statement to include departure times at exactly 2400 since the dataframe has departures at both 0 and 2400)
+
+```{r }
+
+```
+
+3.  How many flights have a missing dep_time? What other variables are missing? What might these rows represent?
+
+```{r }
+
+```
+
+#### solutions: 
+1.1 k \<- filter(flights,(arr_delay \> 120)) 
+1.2 k \<- filter(flights,dest == "IAH"\|dest=="HOU") 
+1.3 k \<- filter(flights,carrier=="DL"\|carrier=="UA"\|carrier=="AA") 
+1.4 k \<- filter(flights,month==7 \| month==8 \| month==9) 
+1.5 k \<- filter(flights,arr_delay \>120 & dep_delay == 0) 
+1.6 filter(flights,dep_delay \>60 & arr_delay \<(dep_delay-30))) 
+1.7 k \<- filter(flights,dep_time==2400 \| (dep_time\<0601)) 
+2. m \<- filter(flights,between(dep_time,0,0600)\|dep_time==2400) 
+3. y \<- filter(flights, is.na(dep_time))
+
+### Arrange
+
+1.  Use desc() to re-order by a column in descending order:
+
+```{r }
+flights |> arrange(-day, desc(month))
+```
+
+2.  Sort flights to find the most delayed flights. Find the flights that left earliest.
+
+```{r }
+
+```
+
+3.  Sort flights to find the fastest (highest speed) flights. Here you are creating a metric by using the existing data in the dataframe to calculate speed.
+
+```{r }
+
+```
+
+4.  Which flights traveled the farthest? Which traveled the shortest?
+
+(flights 1632 and 51)
+
+```{r }
+arrange(flights, -distance)
+```
+
+### Mutate - adds a new column
+
+
+```{r}
+flights |> mutate(check_arr_delay = sched_arr_time - arr_time, 
+                  check_dep_delay = sched_dep_time - dep_time)
+```
+
+### Select
+
+```{r}
+flights |> mutate(check_arr_delay = sched_arr_time - arr_time, 
+                  check_dep_delay = sched_dep_time - dep_time) |>
+  select(check_arr_delay, check_dep_delay)
+
+```
+
+### Grouped summaries
+
+```{r}
+summary_FlightDelay <-
+  # I like to use a new line here so that I can easily comment out the
+  # assignment while building my pipe
+  flights |>
+  group_by(month) |>
+  summarise(delay = mean(dep_delay, na.rm = TRUE))
+
+summary_FlightDelay
+```
+
+We could also figure out which carrier had the longest and shortest delay in December, if we were trying to plan a timely winter break flight.
+
+```{r}
+carrier_delay <- # I like to use a new line here so that I can easily comment out this assignment line while building my pipe
+  flights |>
+  arrange(-distance) |>
+  filter(month == 12) |>
+  select(flight, dep_delay, carrier)
+
+carrier_delay
+```
+
+```{r}
+carrier_delay |> 
+  group_by(carrier) |> # want to find the average for each carrier
+  summarise(average_dep_delay = mean(dep_delay, na.rm = TRUE)) |>
+  # calculate average delay
+  arrange(average_dep_delay)
+```
