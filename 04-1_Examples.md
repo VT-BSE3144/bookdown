@@ -1,7 +1,7 @@
 ---
 output: html_document
 params:
-  version: 1.5
+  version: 1.6
 ---
 
 ## Data Wrangling Examples
