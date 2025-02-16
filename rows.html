@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5 3.2 Rows | Data Wrangling Examples</title>
+  <title>5 3.2 Rows | Data Analysis and Numerical Methods for Biological Systems Engineers</title>
   <meta name="description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
 Systems Engineering course BSE3144: Engineering Analysis for Biological
 Systems using Numerical Methods.</p>" />
   <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5 3.2 Rows | Data Wrangling Examples" />
+  <meta property="og:title" content="5 3.2 Rows | Data Analysis and Numerical Methods for Biological Systems Engineers" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
@@ -19,14 +19,14 @@ Systems using Numerical Methods.</p>" />
   <meta name="github-repo" content="VT-BSE3144/bookdown" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5 3.2 Rows | Data Wrangling Examples" />
+  <meta name="twitter:title" content="5 3.2 Rows | Data Analysis and Numerical Methods for Biological Systems Engineers" />
   
   <meta name="twitter:description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
 Systems Engineering course BSE3144: Engineering Analysis for Biological
 Systems using Numerical Methods.</p>" />
   
 
-<meta name="author" content="Clay Wright" />
+<meta name="author" content="R. Clay Wright" />
 
 
 <meta name="date" content="2025-02-16" />
@@ -208,12 +208,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5" data-path="rows.html"><a href="rows.html#select"><i class="fa fa-check"></i><b>5.5</b> 3.3.2 Select</a></li>
 <li class="chapter" data-level="5.6" data-path="rows.html"><a href="rows.html#the-pipe"><i class="fa fa-check"></i><b>5.6</b> 3.4 The pipe</a></li>
 <li class="chapter" data-level="5.7" data-path="rows.html"><a href="rows.html#groups"><i class="fa fa-check"></i><b>5.7</b> 3.5 Groups</a></li>
-<li class="chapter" data-level="5.8" data-path="rows.html"><a href="rows.html#filter-1"><i class="fa fa-check"></i><b>5.8</b> Filter</a></li>
-<li class="chapter" data-level="5.9" data-path="rows.html"><a href="rows.html#arrange"><i class="fa fa-check"></i><b>5.9</b> Arrange</a></li>
-<li class="chapter" data-level="5.10" data-path="rows.html"><a href="rows.html#mutate---adds-a-new-column"><i class="fa fa-check"></i><b>5.10</b> Mutate - adds a new column</a></li>
-<li class="chapter" data-level="5.11" data-path="rows.html"><a href="rows.html#select-1"><i class="fa fa-check"></i><b>5.11</b> Select</a></li>
-<li class="chapter" data-level="5.12" data-path="rows.html"><a href="rows.html#select-2"><i class="fa fa-check"></i><b>5.12</b> Select</a></li>
-<li class="chapter" data-level="5.13" data-path="rows.html"><a href="rows.html#grouped-summaries"><i class="fa fa-check"></i><b>5.13</b> Grouped summaries</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -227,7 +221,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Wrangling Examples</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis and Numerical Methods for Biological Systems Engineers</a>
           </h1>
         </div>
 
@@ -469,192 +463,6 @@ CHOOSE the dataset to operate on, THEN
 ## 11    11  5.44
 ## 12    12 16.6</code></pre>
 <p>Next week we’ll practice summarizing data a lot more as well as “pivoting” our data, which is We’ll get to making those sweet, sweet plots soon.</p>
-
-</div>
-<div id="filter-1" class="section level2 hasAnchor" number="5.8">
-<h2><span class="header-section-number">5.8</span> Filter<a href="rows.html#filter-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>These are additional practice to those in the book to reinforce the reading and try by doing. Solutions for each are given below. Our suggestion is to try first and test your skill.</p>
-<ol style="list-style-type: decimal">
-<li>Find all flights that:</li>
-</ol>
-<p>1.1 Had an arrival delay of two or more hours (10,034 flights)</p>
-<p>1.2 Flew to Houston (IAH or HOU) (9,313 flights)</p>
-<p>1.3 Were operated by United, American, or Delta (139,504 flights)</p>
-<p>1.4 Departed in summer (July, August, and September) (86,326 flights)</p>
-<p>1.5 Arrived more than two hours late, but didn’t leave late (3 flights)</p>
-<p>1.6 Were delayed by at least an hour, but made up over 30 minutes in flight (1,819 flights)</p>
-<p>1.7 Departed between midnight and 6am (inclusive) (9,373 flights)</p>
-<ol start="2" style="list-style-type: decimal">
-<li><p>Another useful dplyr filtering helper is between(). What does it do? Can you use it to simplify the code needed to answer the 1.7? (hint: look up bwetween in the help menu. You’ll see the required syntax, where x = vector, and left and right at the boundary values. You will also need to add an OR statement to include departure times at exactly 2400 since the dataframe has departures at both 0 and 2400)</p></li>
-<li><p>How many flights have a missing dep_time? What other variables are missing? What might these rows represent?</p></li>
-</ol>
-<p>#solutions: 1.1 k &lt;- filter(flights,(arr_delay &gt; 120)) 1.2 k &lt;- filter(flights,dest == “IAH”|dest==“HOU”) 1.3 k &lt;- filter(flights,carrier==“DL”|carrier==“UA”|carrier==“AA”) 1.4 k &lt;- filter(flights,month==7 | month==8 | month==9) 1.5 k &lt;- filter(flights,arr_delay &gt;120 &amp; dep_delay == 0) 1.6 filter(flights,dep_delay &gt;60 &amp; arr_delay &lt;(dep_delay-30))) 1.7 k &lt;- filter(flights,dep_time==2400 | (dep_time&lt;0601)) 2. m &lt;- filter(flights,between(dep_time,0,0600)|dep_time==2400) 3. y &lt;- filter(flights, is.na(dep_time))</p>
-</div>
-<div id="arrange" class="section level2 hasAnchor" number="5.9">
-<h2><span class="header-section-number">5.9</span> Arrange<a href="rows.html#arrange" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ol style="list-style-type: decimal">
-<li>Use desc() to re-order by a column in descending order:</li>
-</ol>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="rows.html#cb71-1" tabindex="-1"></a>flights <span class="sc">|&gt;</span> <span class="fu">arrange</span>(<span class="sc">-</span>day, <span class="fu">desc</span>(month))</span></code></pre></div>
-<pre><code>## # A tibble: 336,776 × 19
-##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
-##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
-##  1  2013    12    31       13           2359        14      439            437
-##  2  2013    12    31       18           2359        19      449            444
-##  3  2013    12    31       26           2245       101      129           2353
-##  4  2013    12    31      459            500        -1      655            651
-##  5  2013    12    31      514            515        -1      814            812
-##  6  2013    12    31      549            551        -2      925            900
-##  7  2013    12    31      550            600       -10      725            745
-##  8  2013    12    31      552            600        -8      811            826
-##  9  2013    12    31      553            600        -7      741            754
-## 10  2013    12    31      554            550         4     1024           1027
-## # ℹ 336,766 more rows
-## # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,
-## #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,
-## #   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li><p>Sort flights to find the most delayed flights. Find the flights that left earliest.</p></li>
-<li><p>Sort flights to find the fastest (highest speed) flights. Here you are creating a metric by using the existing data in the dataframe to calculate speed.</p></li>
-<li><p>Which flights traveled the farthest? Which traveled the shortest?</p></li>
-</ol>
-<p>(flights 1632 and 51)</p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="rows.html#cb73-1" tabindex="-1"></a><span class="fu">arrange</span>(flights, <span class="sc">-</span>distance)</span></code></pre></div>
-<pre><code>## # A tibble: 336,776 × 19
-##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
-##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
-##  1  2013     1     1      857            900        -3     1516           1530
-##  2  2013     1     2      909            900         9     1525           1530
-##  3  2013     1     3      914            900        14     1504           1530
-##  4  2013     1     4      900            900         0     1516           1530
-##  5  2013     1     5      858            900        -2     1519           1530
-##  6  2013     1     6     1019            900        79     1558           1530
-##  7  2013     1     7     1042            900       102     1620           1530
-##  8  2013     1     8      901            900         1     1504           1530
-##  9  2013     1     9      641            900      1301     1242           1530
-## 10  2013     1    10      859            900        -1     1449           1530
-## # ℹ 336,766 more rows
-## # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,
-## #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,
-## #   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
-</div>
-<div id="mutate---adds-a-new-column" class="section level2 hasAnchor" number="5.10">
-<h2><span class="header-section-number">5.10</span> Mutate - adds a new column<a href="rows.html#mutate---adds-a-new-column" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-</div>
-<div id="select-1" class="section level2 hasAnchor" number="5.11">
-<h2><span class="header-section-number">5.11</span> Select<a href="rows.html#select-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>=======</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="rows.html#cb75-1" tabindex="-1"></a>flights <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">check_arr_delay =</span> sched_arr_time <span class="sc">-</span> arr_time, </span>
-<span id="cb75-2"><a href="rows.html#cb75-2" tabindex="-1"></a>                  <span class="at">check_dep_delay =</span> sched_dep_time <span class="sc">-</span> dep_time)</span></code></pre></div>
-<pre><code>## # A tibble: 336,776 × 21
-##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
-##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
-##  1  2013     1     1      517            515         2      830            819
-##  2  2013     1     1      533            529         4      850            830
-##  3  2013     1     1      542            540         2      923            850
-##  4  2013     1     1      544            545        -1     1004           1022
-##  5  2013     1     1      554            600        -6      812            837
-##  6  2013     1     1      554            558        -4      740            728
-##  7  2013     1     1      555            600        -5      913            854
-##  8  2013     1     1      557            600        -3      709            723
-##  9  2013     1     1      557            600        -3      838            846
-## 10  2013     1     1      558            600        -2      753            745
-## # ℹ 336,766 more rows
-## # ℹ 13 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,
-## #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,
-## #   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;, check_arr_delay &lt;int&gt;,
-## #   check_dep_delay &lt;int&gt;</code></pre>
-</div>
-<div id="select-2" class="section level2 hasAnchor" number="5.12">
-<h2><span class="header-section-number">5.12</span> Select<a href="rows.html#select-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="rows.html#cb77-1" tabindex="-1"></a>flights <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">check_arr_delay =</span> sched_arr_time <span class="sc">-</span> arr_time, </span>
-<span id="cb77-2"><a href="rows.html#cb77-2" tabindex="-1"></a>                  <span class="at">check_dep_delay =</span> sched_dep_time <span class="sc">-</span> dep_time) <span class="sc">|&gt;</span></span>
-<span id="cb77-3"><a href="rows.html#cb77-3" tabindex="-1"></a>  <span class="fu">select</span>(check_arr_delay, check_dep_delay)</span></code></pre></div>
-<pre><code>## # A tibble: 336,776 × 2
-##    check_arr_delay check_dep_delay
-##              &lt;int&gt;           &lt;int&gt;
-##  1             -11              -2
-##  2             -20              -4
-##  3             -73              -2
-##  4              18               1
-##  5              25              46
-##  6             -12               4
-##  7             -59              45
-##  8              14              43
-##  9               8              43
-## 10              -8              42
-## # ℹ 336,766 more rows</code></pre>
-</div>
-<div id="grouped-summaries" class="section level2 hasAnchor" number="5.13">
-<h2><span class="header-section-number">5.13</span> Grouped summaries<a href="rows.html#grouped-summaries" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="rows.html#cb79-1" tabindex="-1"></a>summary_FlightDelay <span class="ot">&lt;-</span></span>
-<span id="cb79-2"><a href="rows.html#cb79-2" tabindex="-1"></a>  <span class="co"># I like to use a new line here so that I can easily comment out the</span></span>
-<span id="cb79-3"><a href="rows.html#cb79-3" tabindex="-1"></a>  <span class="co"># assignment while building my pipe</span></span>
-<span id="cb79-4"><a href="rows.html#cb79-4" tabindex="-1"></a>  flights <span class="sc">|&gt;</span></span>
-<span id="cb79-5"><a href="rows.html#cb79-5" tabindex="-1"></a>  <span class="fu">group_by</span>(month) <span class="sc">|&gt;</span></span>
-<span id="cb79-6"><a href="rows.html#cb79-6" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb79-7"><a href="rows.html#cb79-7" tabindex="-1"></a></span>
-<span id="cb79-8"><a href="rows.html#cb79-8" tabindex="-1"></a>summary_FlightDelay</span></code></pre></div>
-<pre><code>## # A tibble: 12 × 2
-##    month delay
-##    &lt;int&gt; &lt;dbl&gt;
-##  1     1 10.0 
-##  2     2 10.8 
-##  3     3 13.2 
-##  4     4 13.9 
-##  5     5 13.0 
-##  6     6 20.8 
-##  7     7 21.7 
-##  8     8 12.6 
-##  9     9  6.72
-## 10    10  6.24
-## 11    11  5.44
-## 12    12 16.6</code></pre>
-<p>We could also figure out which carrier had the longest and shortest delay in December, if we were trying to plan a timely winter break flight.</p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="rows.html#cb81-1" tabindex="-1"></a>carrier_delay <span class="ot">&lt;-</span> <span class="co"># I like to use a new line here so that I can easily comment out this assignment line while building my pipe</span></span>
-<span id="cb81-2"><a href="rows.html#cb81-2" tabindex="-1"></a>  flights <span class="sc">|&gt;</span></span>
-<span id="cb81-3"><a href="rows.html#cb81-3" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>distance) <span class="sc">|&gt;</span></span>
-<span id="cb81-4"><a href="rows.html#cb81-4" tabindex="-1"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">12</span>) <span class="sc">|&gt;</span></span>
-<span id="cb81-5"><a href="rows.html#cb81-5" tabindex="-1"></a>  <span class="fu">select</span>(flight, dep_delay, carrier)</span>
-<span id="cb81-6"><a href="rows.html#cb81-6" tabindex="-1"></a></span>
-<span id="cb81-7"><a href="rows.html#cb81-7" tabindex="-1"></a>carrier_delay</span></code></pre></div>
-<pre><code>## # A tibble: 28,135 × 3
-##    flight dep_delay carrier
-##     &lt;int&gt;     &lt;dbl&gt; &lt;chr&gt;  
-##  1     51        -2 HA     
-##  2     51       -10 HA     
-##  3     51         3 HA     
-##  4     51       -10 HA     
-##  5     51        -6 HA     
-##  6     51        -3 HA     
-##  7     51         5 HA     
-##  8     51        -2 HA     
-##  9     51         0 HA     
-## 10     51        -1 HA     
-## # ℹ 28,125 more rows</code></pre>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="rows.html#cb83-1" tabindex="-1"></a>carrier_delay <span class="sc">|&gt;</span> </span>
-<span id="cb83-2"><a href="rows.html#cb83-2" tabindex="-1"></a>  <span class="fu">group_by</span>(carrier) <span class="sc">|&gt;</span> <span class="co"># want to find the average for each carrier</span></span>
-<span id="cb83-3"><a href="rows.html#cb83-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">average_dep_delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb83-4"><a href="rows.html#cb83-4" tabindex="-1"></a>  <span class="co"># calculate average delay</span></span>
-<span id="cb83-5"><a href="rows.html#cb83-5" tabindex="-1"></a>  <span class="fu">arrange</span>(average_dep_delay)</span></code></pre></div>
-<pre><code>## # A tibble: 15 × 2
-##    carrier average_dep_delay
-##    &lt;chr&gt;               &lt;dbl&gt;
-##  1 HA                  -3.14
-##  2 US                   4.94
-##  3 VX                   6.10
-##  4 DL                  10.8 
-##  5 AA                  11.7 
-##  6 MQ                  12.7 
-##  7 YV                  13.1 
-##  8 F9                  13.1 
-##  9 B6                  17.0 
-## 10 UA                  17.7 
-## 11 AS                  18.0 
-## 12 9E                  19.8 
-## 13 WN                  24.9 
-## 14 FL                  26.1 
-## 15 EV                  27.9</code></pre>
 
 </div>
 </div>

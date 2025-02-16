@@ -50,9 +50,3 @@ mutate---add-new-variables
 select
 the-pipe
 groups
-filter-1
-arrange
-mutate---adds-a-new-column
-select-1
-select-2
-grouped-summaries
