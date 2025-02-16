@@ -55,7 +55,7 @@ The below from <https://github.com/njtierney/rmd-errors/tree/master> is an Rmd t
             - where is the packages.bib file?
             - remember that the rmarkdown directory is where the .Rmd file lives
             
-````{markdown}            
+````            
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,
