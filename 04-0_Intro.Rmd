@@ -95,9 +95,9 @@ flights |>
 
 dplyr’s verbs are organized into four groups based on what they operate on: rows, columns, groups, or tables. In the following sections you’ll learn the most important verbs for rows, columns, and groups, then we’ll come back to the join verbs that work on tables in Chapter 19. Let’s dive in!"
 
-# 3.2 Rows
+## 3.2 Row-wise functions
 
-## 3.2.1 filter()
+### 3.2.1 filter()
 
 The example filters the data based on month and day. `jan1 <- filter(flights, month == 1, day == 1)`
 
@@ -117,7 +117,7 @@ Paste `sqrt(1.9999999999999999999999)^2` in the code chunk and run it. If you ke
 
 ```
 
-### Logical Operators
+#### Logical Operators
 
 We learned about `==`, "is equal to," above. Other logical or Boolean operators that can be used as filters are `>, ==, <, <=, !=` (not equal). You can also combine these with other Logical or Boolean operators: `&` (and), `|` (or), and `!` (not).
 
@@ -156,12 +156,12 @@ filter(flights, month %in% c(5, 6)) |> tail(n = 100)
 ```
 
 
-### Missing values
+#### Missing values
 
 We covered `NA`s in some of our exercises in previous weeks. Hopefully reading through this section helped reinforce in your mind how `NA`s are handled in R and in the `dplyr::filter` function.
 
 
-## 3.2.3 Arranging rows
+### 3.2.3 Arranging rows
 
 We can arrange rows by a particular columns values using `arrange`. For example with the `flights` dataset we could arrange by departure time. 
 
@@ -183,7 +183,7 @@ flights |> arrange(desc(dep_time), sched_dep_time)
 
 ## 3.3 Columns
 
-## 3.3.1 Mutate - Add new variables
+### 3.3.1 Mutate - Add new variables
 
 The function `mutate` is used to add new variables/columns to a data frame.
 
@@ -208,7 +208,7 @@ Next, pay attention to the [Useful transformation functions](https://r4ds.hadley
 
 ```
 
-## 3.3.2 Select
+### 3.3.2 Select
 It's not uncommon to get datasets with hundreds or even thousands of variables. In this case, the first challenge is often narrowing in on the variables you're actually interested in. `select()` allows you to rapidly zoom in on a useful subset using operations based on the names of the variables.
 
 `select()` is not terribly useful with the flights data because we only have 19 variables, but you can still get the general idea:
