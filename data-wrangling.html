@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3 Data Wrangling | Data Analysis and Numerical Methods for Biological Systems Engineers</title>
+  <title>4 Data Wrangling | Data Analysis and Numerical Methods for Biological Systems Engineers</title>
   <meta name="description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
 Systems Engineering course BSE3144: Engineering Analysis for Biological
 Systems using Numerical Methods.</p>" />
   <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3 Data Wrangling | Data Analysis and Numerical Methods for Biological Systems Engineers" />
+  <meta property="og:title" content="4 Data Wrangling | Data Analysis and Numerical Methods for Biological Systems Engineers" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
@@ -19,7 +19,7 @@ Systems using Numerical Methods.</p>" />
   <meta name="github-repo" content="VT-BSE3144/bookdown" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3 Data Wrangling | Data Analysis and Numerical Methods for Biological Systems Engineers" />
+  <meta name="twitter:title" content="4 Data Wrangling | Data Analysis and Numerical Methods for Biological Systems Engineers" />
   
   <meta name="twitter:description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
 Systems Engineering course BSE3144: Engineering Analysis for Biological
@@ -36,7 +36,7 @@ Systems using Numerical Methods.</p>" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="the-r-language-and-tidy-data-examples.html"/>
+<link rel="prev" href="functions-best-coding-practices-and-debugging-examples.html"/>
 <link rel="next" href="data-wrangling-examples.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -244,33 +244,81 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.9.2" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#factors-1"><i class="fa fa-check"></i><b>2.9.2</b> Factors</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>3</b> Data Wrangling</a>
+<li class="chapter" data-level="3" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html"><i class="fa fa-check"></i><b>3</b> Functions, Best-coding Practices, and Debugging Intro</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="data-wrangling.html"><a href="data-wrangling.html#connection-to-previous-work-on-data-organization"><i class="fa fa-check"></i><b>3.1</b> Connection to previous work on Data Organization</a></li>
-<li class="chapter" data-level="3.2" data-path="data-wrangling.html"><a href="data-wrangling.html#source"><i class="fa fa-check"></i><b>3.2</b> Source</a></li>
-<li class="chapter" data-level="3.3" data-path="data-wrangling.html"><a href="data-wrangling.html#introduction---example-dataset-nycflights13"><i class="fa fa-check"></i><b>3.3</b> 3.1 Introduction - Example dataset <code>nycflights13</code></a></li>
-<li class="chapter" data-level="3.4" data-path="data-wrangling.html"><a href="data-wrangling.html#section"><i class="fa fa-check"></i><b>3.4</b> 3.1.2</a></li>
-<li class="chapter" data-level="3.5" data-path="data-wrangling.html"><a href="data-wrangling.html#dplyr-basics"><i class="fa fa-check"></i><b>3.5</b> 3.1.3 dplyr basics</a></li>
-<li class="chapter" data-level="3.6" data-path="data-wrangling.html"><a href="data-wrangling.html#row-wise-functions"><i class="fa fa-check"></i><b>3.6</b> 3.2 Row-wise functions</a>
+<li class="chapter" data-level="3.1" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#functions-2"><i class="fa fa-check"></i><b>3.1</b> Functions</a>
 <ul>
-<li class="chapter" data-level="3.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#filter"><i class="fa fa-check"></i><b>3.6.1</b> 3.2.1 filter()</a></li>
-<li class="chapter" data-level="3.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#arranging-rows"><i class="fa fa-check"></i><b>3.6.2</b> 3.2.3 Arranging rows</a></li>
+<li class="chapter" data-level="3.1.1" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#functions-why-and-how"><i class="fa fa-check"></i><b>3.1.1</b> Functions… why and how</a></li>
+<li class="chapter" data-level="3.1.2" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#a-simple-function-cv"><i class="fa fa-check"></i><b>3.1.2</b> A simple function: CV()</a></li>
+<li class="chapter" data-level="3.1.3" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#now-we-need-to-apply-our-function."><i class="fa fa-check"></i><b>3.1.3</b> Now we need to apply our function.</a></li>
+<li class="chapter" data-level="3.1.4" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#what-objects-are-available"><i class="fa fa-check"></i><b>3.1.4</b> What objects are available?</a></li>
+<li class="chapter" data-level="3.1.5" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#optional-arguments"><i class="fa fa-check"></i><b>3.1.5</b> Optional arguments</a></li>
 </ul></li>
-<li class="chapter" data-level="3.7" data-path="data-wrangling.html"><a href="data-wrangling.html#columns"><i class="fa fa-check"></i><b>3.7</b> 3.3 Columns</a>
+<li class="chapter" data-level="3.2" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#packages"><i class="fa fa-check"></i><b>3.2</b> Packages</a>
 <ul>
-<li class="chapter" data-level="3.7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#mutate---add-new-variables"><i class="fa fa-check"></i><b>3.7.1</b> 3.3.1 Mutate - Add new variables</a></li>
-<li class="chapter" data-level="3.7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#select"><i class="fa fa-check"></i><b>3.7.2</b> 3.3.2 Select</a></li>
+<li class="chapter" data-level="3.2.1" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#installing-and-using-packages"><i class="fa fa-check"></i><b>3.2.1</b> Installing and using packages</a></li>
+<li class="chapter" data-level="3.2.2" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#installing-and-using-packages-1"><i class="fa fa-check"></i><b>3.2.2</b> Installing and using packages</a></li>
 </ul></li>
-<li class="chapter" data-level="3.8" data-path="data-wrangling.html"><a href="data-wrangling.html#the-pipe"><i class="fa fa-check"></i><b>3.8</b> 3.4 The pipe</a></li>
-<li class="chapter" data-level="3.9" data-path="data-wrangling.html"><a href="data-wrangling.html#groups"><i class="fa fa-check"></i><b>3.9</b> 3.5 Groups</a></li>
+<li class="chapter" data-level="3.3" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#best-coding-practices"><i class="fa fa-check"></i><b>3.3</b> Best coding practices</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#reproducibility"><i class="fa fa-check"></i><b>3.3.1</b> Reproducibility</a></li>
+<li class="chapter" data-level="3.3.2" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#style-guides"><i class="fa fa-check"></i><b>3.3.2</b> Style guides</a></li>
+<li class="chapter" data-level="3.3.3" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#automated-code-stylingformatting"><i class="fa fa-check"></i><b>3.3.3</b> Automated code styling/formatting</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#debugging"><i class="fa fa-check"></i><b>3.4</b> Debugging</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#verifying-code"><i class="fa fa-check"></i><b>3.4.1</b> Verifying code</a></li>
+<li class="chapter" data-level="3.4.2" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#commenting-your-code"><i class="fa fa-check"></i><b>3.4.2</b> Commenting your code</a></li>
+<li class="chapter" data-level="3.4.3" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#commenting-out-code"><i class="fa fa-check"></i><b>3.4.3</b> “Commenting out” code</a></li>
+<li class="chapter" data-level="3.4.4" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#common-errors-and-how-to-fix-them"><i class="fa fa-check"></i><b>3.4.4</b> Common errors and How to Fix Them</a></li>
+<li class="chapter" data-level="3.4.5" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#warning-or-error"><i class="fa fa-check"></i><b>3.4.5</b> Warning or Error?</a></li>
+<li class="chapter" data-level="3.4.6" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#debugging-is-scientific"><i class="fa fa-check"></i><b>3.4.6</b> Debugging is scientific</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html"><i class="fa fa-check"></i>Functions, Best-coding Practices, and Debugging Examples</a>
+<ul>
+<li class="chapter" data-level="3.5" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#functions-3"><i class="fa fa-check"></i><b>3.5</b> Functions</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#example-1-1"><i class="fa fa-check"></i><b>3.5.1</b> Example 1</a></li>
+<li class="chapter" data-level="3.5.2" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#example-2-1"><i class="fa fa-check"></i><b>3.5.2</b> Example 2</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#best-coding-practices-1"><i class="fa fa-check"></i><b>3.6</b> Best coding practices</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#code-from-inside-out-running-the-smallest-bits-of-code-possible"><i class="fa fa-check"></i><b>3.6.1</b> Code from inside out, running the smallest bits of code possible</a></li>
+<li class="chapter" data-level="3.6.2" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#use-rstudio-to-your-advantage"><i class="fa fa-check"></i><b>3.6.2</b> Use RStudio to your advantage</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#debugging-1"><i class="fa fa-check"></i><b>3.7</b> Debugging</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#also-use-rstudio"><i class="fa fa-check"></i><b>3.7.1</b> Also use RStudio</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>4</b> Data Wrangling</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="data-wrangling.html"><a href="data-wrangling.html#connection-to-previous-work-on-data-organization"><i class="fa fa-check"></i><b>4.1</b> Connection to previous work on Data Organization</a></li>
+<li class="chapter" data-level="4.2" data-path="data-wrangling.html"><a href="data-wrangling.html#source"><i class="fa fa-check"></i><b>4.2</b> Source</a></li>
+<li class="chapter" data-level="4.3" data-path="data-wrangling.html"><a href="data-wrangling.html#introduction---example-dataset-nycflights13"><i class="fa fa-check"></i><b>4.3</b> 3.1 Introduction - Example dataset <code>nycflights13</code></a></li>
+<li class="chapter" data-level="4.4" data-path="data-wrangling.html"><a href="data-wrangling.html#section"><i class="fa fa-check"></i><b>4.4</b> 3.1.2</a></li>
+<li class="chapter" data-level="4.5" data-path="data-wrangling.html"><a href="data-wrangling.html#dplyr-basics"><i class="fa fa-check"></i><b>4.5</b> 3.1.3 dplyr basics</a></li>
+<li class="chapter" data-level="4.6" data-path="data-wrangling.html"><a href="data-wrangling.html#row-wise-functions"><i class="fa fa-check"></i><b>4.6</b> 3.2 Row-wise functions</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#filter"><i class="fa fa-check"></i><b>4.6.1</b> 3.2.1 filter()</a></li>
+<li class="chapter" data-level="4.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#arranging-rows"><i class="fa fa-check"></i><b>4.6.2</b> 3.2.3 Arranging rows</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="data-wrangling.html"><a href="data-wrangling.html#columns"><i class="fa fa-check"></i><b>4.7</b> 3.3 Columns</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#mutate---add-new-variables"><i class="fa fa-check"></i><b>4.7.1</b> 3.3.1 Mutate - Add new variables</a></li>
+<li class="chapter" data-level="4.7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#select"><i class="fa fa-check"></i><b>4.7.2</b> 3.3.2 Select</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="data-wrangling.html"><a href="data-wrangling.html#the-pipe"><i class="fa fa-check"></i><b>4.8</b> 3.4 The pipe</a></li>
+<li class="chapter" data-level="4.9" data-path="data-wrangling.html"><a href="data-wrangling.html#groups"><i class="fa fa-check"></i><b>4.9</b> 3.5 Groups</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html"><i class="fa fa-check"></i>Data Wrangling Examples</a>
 <ul>
-<li class="chapter" data-level="3.9.1" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#filter-1"><i class="fa fa-check"></i><b>3.9.1</b> Filter</a></li>
-<li class="chapter" data-level="3.9.2" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#arrange"><i class="fa fa-check"></i><b>3.9.2</b> Arrange</a></li>
-<li class="chapter" data-level="3.9.3" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#mutate---adds-a-new-column"><i class="fa fa-check"></i><b>3.9.3</b> Mutate - adds a new column</a></li>
-<li class="chapter" data-level="3.9.4" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#select-1"><i class="fa fa-check"></i><b>3.9.4</b> Select</a></li>
-<li class="chapter" data-level="3.9.5" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#grouped-summaries"><i class="fa fa-check"></i><b>3.9.5</b> Grouped summaries</a></li>
+<li class="chapter" data-level="4.9.1" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#filter-1"><i class="fa fa-check"></i><b>4.9.1</b> Filter</a></li>
+<li class="chapter" data-level="4.9.2" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#arrange"><i class="fa fa-check"></i><b>4.9.2</b> Arrange</a></li>
+<li class="chapter" data-level="4.9.3" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#mutate---adds-a-new-column"><i class="fa fa-check"></i><b>4.9.3</b> Mutate - adds a new column</a></li>
+<li class="chapter" data-level="4.9.4" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#select-1"><i class="fa fa-check"></i><b>4.9.4</b> Select</a></li>
+<li class="chapter" data-level="4.9.5" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#grouped-summaries"><i class="fa fa-check"></i><b>4.9.5</b> Grouped summaries</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -292,8 +340,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="data-wrangling" class="section level1 hasAnchor" number="3">
-<h1><span class="header-section-number">3</span> Data Wrangling<a href="data-wrangling.html#data-wrangling" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="data-wrangling" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">4</span> Data Wrangling<a href="data-wrangling.html#data-wrangling" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>This week our goals are to be able to:</p>
 <ul>
 <li>Use the dplyr package to perform basic data transformation and analysis</li>
@@ -303,20 +351,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Use pipes to make our code more readable</li>
 <li>Summarize data by groups using <code>summarize</code></li>
 </ul>
-<div id="connection-to-previous-work-on-data-organization" class="section level2 hasAnchor" number="3.1">
-<h2><span class="header-section-number">3.1</span> Connection to previous work on Data Organization<a href="data-wrangling.html#connection-to-previous-work-on-data-organization" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="connection-to-previous-work-on-data-organization" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Connection to previous work on Data Organization<a href="data-wrangling.html#connection-to-previous-work-on-data-organization" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>This week, we will finally see why organized data is worth the effort. We’ll follow an exercise using a data source with over 300,000 rows! The work this week will show us (1) why R is awesome and fast for analysis, and (2) reinforce the purpose of organized data (following the 12 best practices we learned in Week 1).</p>
 <p><strong>Because we are dealing with large datasets now, make sure that your Problem Set does not include pages and pages of data by just showing the top of the final result using <code>head(dataset)</code></strong></p>
 </div>
-<div id="source" class="section level2 hasAnchor" number="3.2">
-<h2><span class="header-section-number">3.2</span> Source<a href="data-wrangling.html#source" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="source" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Source<a href="data-wrangling.html#source" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>This exercise follows along with the reading for this week R for Data Science Chapter 3 <a href="https://r4ds.hadley.nz/data-transform" class="uri">https://r4ds.hadley.nz/data-transform</a> (this was chapter 5 in the old version <a href="https://r4ds.had.co.nz/transform.html" class="uri">https://r4ds.had.co.nz/transform.html</a>, hopefully I’ve updated everything but incase I haven’t there’s the link). The template below is for you to be able to follow along in the reading and complete the exercises.</p>
 </div>
-<div id="introduction---example-dataset-nycflights13" class="section level2 hasAnchor" number="3.3">
-<h2><span class="header-section-number">3.3</span> 3.1 Introduction - Example dataset <code>nycflights13</code><a href="data-wrangling.html#introduction---example-dataset-nycflights13" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="introduction---example-dataset-nycflights13" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> 3.1 Introduction - Example dataset <code>nycflights13</code><a href="data-wrangling.html#introduction---example-dataset-nycflights13" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>I’ve gone ahead and installed the 2 packages, but you need to load them into the environment using:</p>
-<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="data-wrangling.html#cb150-1" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span>
-<span id="cb150-2"><a href="data-wrangling.html#cb150-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="data-wrangling.html#cb207-1" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span>
+<span id="cb207-2"><a href="data-wrangling.html#cb207-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ## ✔ dplyr     1.1.4     ✔ readr     2.1.5
 ## ✔ forcats   1.0.0     ✔ stringr   1.5.1
@@ -330,10 +378,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Why is it important to do this? When you are creating code, explicitly turning on packages that are required is considered good practice. This goes along with the importance of being intentional and making your code reproducible by anyone, anywhere. Tell the computer what to do…explicitly! Tell everyone explicitly what you have done to get to your results.</p>
 <p>This also keeps your R sessions memory low and prevents duplicate functions from being loaded from different packages. Notice above when we load tidyverse we get the message that <code>✖ dplyr::filter() masks stats::filter()</code> and <code>✖ dplyr::lag()    masks stats::lag()</code>, that is because the stats package also has <code>filter</code> and <code>lag</code> functions as well as the dplyr package which is part of the tidyverse package. The tidyverse is actually a package of packages including ggplot2, purrr, tibble, dplyr, tidyr, stringr, readr, and forcats (and maybe more since writing this). We will learn more about all of these in coming weeks. In our case, because we more recently loaded tidyverse if we call <code>filter(some_argument...)</code> this will run the tidyverse/dplyr version of the function. As it says in <a href="https://r4ds.hadley.nz/data-transform#prerequisites">the reading</a>, if you want to use the base, or stats, version of these functions after loading dplyr, you’ll need to specify the package that the function comes from using two colons <code>::</code> as in <code>stats::filter()</code> and <code>stats::lag().</code></p>
 </div>
-<div id="section" class="section level2 hasAnchor" number="3.4">
-<h2><span class="header-section-number">3.4</span> 3.1.2<a href="data-wrangling.html#section" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="section" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> 3.1.2<a href="data-wrangling.html#section" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Run <code>flights</code> in the code chunk below. The output should match the reading. Note that you can find a nice README/data dictionary/documentation of this dataset by viewing its help documentation <code>?flights</code>.</p>
-<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="data-wrangling.html#cb152-1" tabindex="-1"></a>flights</span></code></pre></div>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="data-wrangling.html#cb209-1" tabindex="-1"></a>flights</span></code></pre></div>
 <pre><code>## # A tibble: 336,776 × 19
 ##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
 ##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
@@ -354,20 +402,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>As described, <code>flights</code> is a data frame called a tibble. What does <code>int</code> mean on the third line of the table? Or <code>dbl</code>?</p>
 <p>These are types of variables. Be sure to familiarize yourself with the various types as you move forward, so focus on this section in <a href="https://r4ds.had.co.nz/transform.html#prerequisites-2">the reading</a>. You can also check out <a href="https://datacarpentry.org/R-ecology-lesson/01-intro-to-r.html#Vectors_and_data_types">Vectors and data types in Data Carpentry</a>.</p>
 </div>
-<div id="dplyr-basics" class="section level2 hasAnchor" number="3.5">
-<h2><span class="header-section-number">3.5</span> 3.1.3 dplyr basics<a href="data-wrangling.html#dplyr-basics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="dplyr-basics" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> 3.1.3 dplyr basics<a href="data-wrangling.html#dplyr-basics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><a href="https://r4ds.hadley.nz/data-transform#dplyr-basics" class="uri">https://r4ds.hadley.nz/data-transform#dplyr-basics</a></p>
 <p>Most of the tidyverse aims to make programming make “grammatical” sense in that it is easy to read, understand, and talk about using typical language. One of the really tricky parts of many programming languages including R that you have already experienced is how nested accessors (like <code>[]</code> and <code>$</code>) combined with functions and logical statements are used to do operations on parts of datasets (like finding the mean of certain columns from certain rows). This can make reading a line of code really difficult. You have to read the code from the inside out. For example, from last week, we can run from inside to out.</p>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="data-wrangling.html#cb154-1" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">is.na</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>, <span class="dv">1</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="data-wrangling.html#cb211-1" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">is.na</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>, <span class="dv">1</span>)))</span></code></pre></div>
 <pre><code>## [1] 0.3333333</code></pre>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="data-wrangling.html#cb156-1" tabindex="-1"></a><span class="co"># Inner parentheses</span></span>
-<span id="cb156-2"><a href="data-wrangling.html#cb156-2" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>, <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="data-wrangling.html#cb213-1" tabindex="-1"></a><span class="co"># Inner parentheses</span></span>
+<span id="cb213-2"><a href="data-wrangling.html#cb213-2" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>, <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1]  1 NA  1</code></pre>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="data-wrangling.html#cb158-1" tabindex="-1"></a><span class="co"># next set</span></span>
-<span id="cb158-2"><a href="data-wrangling.html#cb158-2" tabindex="-1"></a><span class="fu">is.na</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>, <span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="data-wrangling.html#cb215-1" tabindex="-1"></a><span class="co"># next set</span></span>
+<span id="cb215-2"><a href="data-wrangling.html#cb215-2" tabindex="-1"></a><span class="fu">is.na</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>, <span class="dv">1</span>))</span></code></pre></div>
 <pre><code>## [1] FALSE  TRUE FALSE</code></pre>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="data-wrangling.html#cb160-1" tabindex="-1"></a><span class="co">#full line</span></span>
-<span id="cb160-2"><a href="data-wrangling.html#cb160-2" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">is.na</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>, <span class="dv">1</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="data-wrangling.html#cb217-1" tabindex="-1"></a><span class="co">#full line</span></span>
+<span id="cb217-2"><a href="data-wrangling.html#cb217-2" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">is.na</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>, <span class="dv">1</span>)))</span></code></pre></div>
 <pre><code>## [1] 0.3333333</code></pre>
 <p>From the dplyr homepage: “dplyr is a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges” where verbs are functions that operate on nouns, which are your dataset and elements within it.</p>
 <p>For all dplyr “verbs”:</p>
@@ -377,12 +425,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>The output is always a new data frame.</p></li>
 </ol>
 <p><a href="https://r4ds.hadley.nz/data-transform#dplyr-basics:~:text=Because%20each%20verb,Let%E2%80%99s%20dive%20in!">Direct from R4DS</a>: “Because each verb does one thing well, solving complex problems will usually require combining multiple verbs, and we’ll do so with the pipe, <code>|&gt;</code>. We’ll discuss the pipe more in Section 3.4, but in brief, the pipe takes the thing on its left and passes it along to the function on its right so that <code>x |&gt; f(y)</code> is equivalent to <code>f(x, y)</code>, and <code>x |&gt; f(y) |&gt; g(z)</code> is equivalent to <code>g(f(x, y), z)</code>. The easiest way to pronounce the pipe is “then”. That makes it possible to get a sense of the following code even though you haven’t yet learned the details:</p>
-<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="data-wrangling.html#cb162-1" tabindex="-1"></a>flights <span class="sc">|&gt;</span></span>
-<span id="cb162-2"><a href="data-wrangling.html#cb162-2" tabindex="-1"></a>  <span class="fu">filter</span>(dest <span class="sc">==</span> <span class="st">&quot;IAH&quot;</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb162-3"><a href="data-wrangling.html#cb162-3" tabindex="-1"></a>  <span class="fu">group_by</span>(year, month, day) <span class="sc">|&gt;</span> </span>
-<span id="cb162-4"><a href="data-wrangling.html#cb162-4" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb162-5"><a href="data-wrangling.html#cb162-5" tabindex="-1"></a>    <span class="at">arr_delay =</span> <span class="fu">mean</span>(arr_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb162-6"><a href="data-wrangling.html#cb162-6" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="data-wrangling.html#cb219-1" tabindex="-1"></a>flights <span class="sc">|&gt;</span></span>
+<span id="cb219-2"><a href="data-wrangling.html#cb219-2" tabindex="-1"></a>  <span class="fu">filter</span>(dest <span class="sc">==</span> <span class="st">&quot;IAH&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb219-3"><a href="data-wrangling.html#cb219-3" tabindex="-1"></a>  <span class="fu">group_by</span>(year, month, day) <span class="sc">|&gt;</span> </span>
+<span id="cb219-4"><a href="data-wrangling.html#cb219-4" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb219-5"><a href="data-wrangling.html#cb219-5" tabindex="-1"></a>    <span class="at">arr_delay =</span> <span class="fu">mean</span>(arr_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb219-6"><a href="data-wrangling.html#cb219-6" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>## `summarise()` has grouped output by &#39;year&#39;, &#39;month&#39;. You can override using the
 ## `.groups` argument.</code></pre>
 <pre><code>## # A tibble: 365 × 4
@@ -402,14 +450,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # ℹ 355 more rows</code></pre>
 <p>dplyr’s verbs are organized into four groups based on what they operate on: rows, columns, groups, or tables. In the following sections you’ll learn the most important verbs for rows, columns, and groups, then we’ll come back to the join verbs that work on tables in Chapter 19. Let’s dive in!”</p>
 </div>
-<div id="row-wise-functions" class="section level2 hasAnchor" number="3.6">
-<h2><span class="header-section-number">3.6</span> 3.2 Row-wise functions<a href="data-wrangling.html#row-wise-functions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="filter" class="section level3 hasAnchor" number="3.6.1">
-<h3><span class="header-section-number">3.6.1</span> 3.2.1 filter()<a href="data-wrangling.html#filter" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="row-wise-functions" class="section level2 hasAnchor" number="4.6">
+<h2><span class="header-section-number">4.6</span> 3.2 Row-wise functions<a href="data-wrangling.html#row-wise-functions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="filter" class="section level3 hasAnchor" number="4.6.1">
+<h3><span class="header-section-number">4.6.1</span> 3.2.1 filter()<a href="data-wrangling.html#filter" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The example filters the data based on month and day. <code>jan1 &lt;- filter(flights, month == 1, day == 1)</code></p>
 <p>The double-equals <code>==</code>sign implies “is equal to”; in the filter function above, all flights on the first day of January are saved as a new variable <code>jan1</code>.</p>
 <p>What is happening in the command below?</p>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="data-wrangling.html#cb165-1" tabindex="-1"></a><span class="fu">filter</span>(flights, month <span class="sc">==</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="data-wrangling.html#cb222-1" tabindex="-1"></a><span class="fu">filter</span>(flights, month <span class="sc">==</span> <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 27,004 × 19
 ##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
 ##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
@@ -429,20 +477,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
 <p>The reading also points out the use of the near function. Why is this important? Illustrate the example below in the code chunk below to reinforce the concept.</p>
 <p>Paste <code>sqrt(1.9999999999999999999999)^2</code> in the code chunk and run it. If you keep removing the trailing 9s, when does the result not equal 2? What happens when you run <code>sqrt(2)^2==2</code>? Show me that you can have the computer make these equivalent using <code>near()</code>, and explain in one word—yes one word—the result of <code>sqrt(2)^2==2</code> versus using the near function. (Hint: the word starts with P).</p>
-<div id="logical-operators" class="section level4 hasAnchor" number="3.6.1.1">
-<h4><span class="header-section-number">3.6.1.1</span> Logical Operators<a href="data-wrangling.html#logical-operators" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="logical-operators" class="section level4 hasAnchor" number="4.6.1.1">
+<h4><span class="header-section-number">4.6.1.1</span> Logical Operators<a href="data-wrangling.html#logical-operators" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>We learned about <code>==</code>, “is equal to,” above. Other logical or Boolean operators that can be used as filters are <code>&gt;, ==, &lt;, &lt;=, !=</code> (not equal). You can also combine these with other Logical or Boolean operators: <code>&amp;</code> (and), <code>|</code> (or), and <code>!</code> (not).</p>
 <div class="float">
 <img src="figures/transform-logical.png" alt="Complete set of boolean operations. x is the left-hand circle, y is the right-hand circle, and the shaded region show which parts each operator selects." />
 <div class="figcaption">Complete set of boolean operations. x is the left-hand circle, y is the right-hand circle, and the shaded region show which parts each operator selects.</div>
 </div>
 <p>x</p>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="data-wrangling.html#cb167-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>)</span>
-<span id="cb167-2"><a href="data-wrangling.html#cb167-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
-<span id="cb167-3"><a href="data-wrangling.html#cb167-3" tabindex="-1"></a>x <span class="sc">|</span> y</span></code></pre></div>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="data-wrangling.html#cb224-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb224-2"><a href="data-wrangling.html#cb224-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb224-3"><a href="data-wrangling.html#cb224-3" tabindex="-1"></a>x <span class="sc">|</span> y</span></code></pre></div>
 <pre><code>## [1]  TRUE  TRUE  TRUE FALSE</code></pre>
 <p>How would you select all flights in May and June?</p>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="data-wrangling.html#cb169-1" tabindex="-1"></a>flights <span class="sc">|&gt;</span> <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">5</span> <span class="sc">|</span> month <span class="sc">==</span> <span class="dv">6</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="data-wrangling.html#cb226-1" tabindex="-1"></a>flights <span class="sc">|&gt;</span> <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">5</span> <span class="sc">|</span> month <span class="sc">==</span> <span class="dv">6</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 57,039 × 19
 ##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
 ##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
@@ -460,24 +508,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,
 ## #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,
 ## #   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="data-wrangling.html#cb171-1" tabindex="-1"></a><span class="fu">sum</span>(flights<span class="sc">$</span>month <span class="sc">==</span> <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="data-wrangling.html#cb228-1" tabindex="-1"></a><span class="fu">sum</span>(flights<span class="sc">$</span>month <span class="sc">==</span> <span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## [1] 28796</code></pre>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="data-wrangling.html#cb173-1" tabindex="-1"></a><span class="fu">sum</span>(flights<span class="sc">$</span>month <span class="sc">==</span> <span class="dv">6</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="data-wrangling.html#cb230-1" tabindex="-1"></a><span class="fu">sum</span>(flights<span class="sc">$</span>month <span class="sc">==</span> <span class="dv">6</span>)</span></code></pre></div>
 <pre><code>## [1] 28243</code></pre>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="data-wrangling.html#cb175-1" tabindex="-1"></a><span class="fu">sum</span>(flights<span class="sc">$</span>month <span class="sc">==</span> <span class="dv">5</span> <span class="sc">|</span> flights<span class="sc">$</span>month <span class="sc">==</span> <span class="dv">6</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="data-wrangling.html#cb232-1" tabindex="-1"></a><span class="fu">sum</span>(flights<span class="sc">$</span>month <span class="sc">==</span> <span class="dv">5</span> <span class="sc">|</span> flights<span class="sc">$</span>month <span class="sc">==</span> <span class="dv">6</span>)</span></code></pre></div>
 <pre><code>## [1] 57039</code></pre>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="data-wrangling.html#cb177-1" tabindex="-1"></a><span class="fu">sum</span>(flights<span class="sc">$</span>month <span class="sc">==</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">6</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="data-wrangling.html#cb234-1" tabindex="-1"></a><span class="fu">sum</span>(flights<span class="sc">$</span>month <span class="sc">==</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">6</span>))</span></code></pre></div>
 <pre><code>## [1] 28520</code></pre>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="data-wrangling.html#cb179-1" tabindex="-1"></a><span class="fu">sum</span>(flights<span class="sc">$</span>month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">6</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="data-wrangling.html#cb236-1" tabindex="-1"></a><span class="fu">sum</span>(flights<span class="sc">$</span>month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">6</span>))</span></code></pre></div>
 <pre><code>## [1] 57039</code></pre>
 <p>R also has another nifty logical operator <code>%in%</code>, which searches for a matches of one vector in another and return true for any matching values. So for example:</p>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="data-wrangling.html#cb181-1" tabindex="-1"></a><span class="co"># letters is simply the lowercase alphabet</span></span>
-<span id="cb181-2"><a href="data-wrangling.html#cb181-2" tabindex="-1"></a>letters <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;z&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="data-wrangling.html#cb238-1" tabindex="-1"></a><span class="co"># letters is simply the lowercase alphabet</span></span>
+<span id="cb238-2"><a href="data-wrangling.html#cb238-2" tabindex="-1"></a>letters <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;z&quot;</span>)</span></code></pre></div>
 <pre><code>##  [1]  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ## [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ## [25] FALSE  TRUE</code></pre>
 <p>So we could select all flights in May and June using this now.</p>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="data-wrangling.html#cb183-1" tabindex="-1"></a><span class="fu">filter</span>(flights, month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">6</span>)) <span class="sc">|&gt;</span> <span class="fu">tail</span>(<span class="at">n =</span> <span class="dv">100</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="data-wrangling.html#cb240-1" tabindex="-1"></a><span class="fu">filter</span>(flights, month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">6</span>)) <span class="sc">|&gt;</span> <span class="fu">tail</span>(<span class="at">n =</span> <span class="dv">100</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 100 × 19
 ##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
 ##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
@@ -496,15 +544,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,
 ## #   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
 </div>
-<div id="missing-values" class="section level4 hasAnchor" number="3.6.1.2">
-<h4><span class="header-section-number">3.6.1.2</span> Missing values<a href="data-wrangling.html#missing-values" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="missing-values" class="section level4 hasAnchor" number="4.6.1.2">
+<h4><span class="header-section-number">4.6.1.2</span> Missing values<a href="data-wrangling.html#missing-values" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>We covered <code>NA</code>s in some of our exercises in previous weeks. Hopefully reading through this section helped reinforce in your mind how <code>NA</code>s are handled in R and in the <code>dplyr::filter</code> function.</p>
 </div>
 </div>
-<div id="arranging-rows" class="section level3 hasAnchor" number="3.6.2">
-<h3><span class="header-section-number">3.6.2</span> 3.2.3 Arranging rows<a href="data-wrangling.html#arranging-rows" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="arranging-rows" class="section level3 hasAnchor" number="4.6.2">
+<h3><span class="header-section-number">4.6.2</span> 3.2.3 Arranging rows<a href="data-wrangling.html#arranging-rows" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can arrange rows by a particular columns values using <code>arrange</code>. For example with the <code>flights</code> dataset we could arrange by departure time.</p>
-<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="data-wrangling.html#cb185-1" tabindex="-1"></a>flights <span class="sc">|&gt;</span> <span class="fu">arrange</span>(dep_time)</span></code></pre></div>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="data-wrangling.html#cb242-1" tabindex="-1"></a>flights <span class="sc">|&gt;</span> <span class="fu">arrange</span>(dep_time)</span></code></pre></div>
 <pre><code>## # A tibble: 336,776 × 19
 ##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
 ##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
@@ -523,7 +571,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,
 ## #   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
 <p>By default <code>arrange</code> sorts the rows from low to high on the variable you pass. To sort high to low you put a <code>-</code> in front of the variable or use <code>desc(variable)</code>.</p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="data-wrangling.html#cb187-1" tabindex="-1"></a>flights <span class="sc">|&gt;</span> <span class="fu">arrange</span>(<span class="sc">-</span>dep_time)</span></code></pre></div>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="data-wrangling.html#cb244-1" tabindex="-1"></a>flights <span class="sc">|&gt;</span> <span class="fu">arrange</span>(<span class="sc">-</span>dep_time)</span></code></pre></div>
 <pre><code>## # A tibble: 336,776 × 19
 ##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
 ##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
@@ -542,7 +590,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,
 ## #   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
 <p>This may seem a little awkward, but it allows you to easily provide multiple variable names for a complex sort.</p>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="data-wrangling.html#cb189-1" tabindex="-1"></a>flights <span class="sc">|&gt;</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(dep_time), sched_dep_time)</span></code></pre></div>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="data-wrangling.html#cb246-1" tabindex="-1"></a>flights <span class="sc">|&gt;</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(dep_time), sched_dep_time)</span></code></pre></div>
 <pre><code>## # A tibble: 336,776 × 19
 ##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
 ##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
@@ -562,27 +610,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
 </div>
 </div>
-<div id="columns" class="section level2 hasAnchor" number="3.7">
-<h2><span class="header-section-number">3.7</span> 3.3 Columns<a href="data-wrangling.html#columns" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="mutate---add-new-variables" class="section level3 hasAnchor" number="3.7.1">
-<h3><span class="header-section-number">3.7.1</span> 3.3.1 Mutate - Add new variables<a href="data-wrangling.html#mutate---add-new-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="columns" class="section level2 hasAnchor" number="4.7">
+<h2><span class="header-section-number">4.7</span> 3.3 Columns<a href="data-wrangling.html#columns" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="mutate---add-new-variables" class="section level3 hasAnchor" number="4.7.1">
+<h3><span class="header-section-number">4.7.1</span> 3.3.1 Mutate - Add new variables<a href="data-wrangling.html#mutate---add-new-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The function <code>mutate</code> is used to add new variables/columns to a data frame.</p>
 <p>Following <a href="https://r4ds.had.co.nz/transform.html#add-new-variables-with-mutate">the example at the beginning of section 5.5 in the book</a>, add a new speed variable using mutate to your data frame.</p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="data-wrangling.html#cb191-1" tabindex="-1"></a>flights_sml <span class="ot">&lt;-</span> <span class="fu">select</span>(flights, </span>
-<span id="cb191-2"><a href="data-wrangling.html#cb191-2" tabindex="-1"></a>  year<span class="sc">:</span>day, </span>
-<span id="cb191-3"><a href="data-wrangling.html#cb191-3" tabindex="-1"></a>  <span class="fu">ends_with</span>(<span class="st">&quot;delay&quot;</span>), </span>
-<span id="cb191-4"><a href="data-wrangling.html#cb191-4" tabindex="-1"></a>  distance, </span>
-<span id="cb191-5"><a href="data-wrangling.html#cb191-5" tabindex="-1"></a>  air_time</span>
-<span id="cb191-6"><a href="data-wrangling.html#cb191-6" tabindex="-1"></a>)</span>
-<span id="cb191-7"><a href="data-wrangling.html#cb191-7" tabindex="-1"></a></span>
-<span id="cb191-8"><a href="data-wrangling.html#cb191-8" tabindex="-1"></a><span class="co">#add a speed variable</span></span></code></pre></div>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="data-wrangling.html#cb248-1" tabindex="-1"></a>flights_sml <span class="ot">&lt;-</span> <span class="fu">select</span>(flights, </span>
+<span id="cb248-2"><a href="data-wrangling.html#cb248-2" tabindex="-1"></a>  year<span class="sc">:</span>day, </span>
+<span id="cb248-3"><a href="data-wrangling.html#cb248-3" tabindex="-1"></a>  <span class="fu">ends_with</span>(<span class="st">&quot;delay&quot;</span>), </span>
+<span id="cb248-4"><a href="data-wrangling.html#cb248-4" tabindex="-1"></a>  distance, </span>
+<span id="cb248-5"><a href="data-wrangling.html#cb248-5" tabindex="-1"></a>  air_time</span>
+<span id="cb248-6"><a href="data-wrangling.html#cb248-6" tabindex="-1"></a>)</span>
+<span id="cb248-7"><a href="data-wrangling.html#cb248-7" tabindex="-1"></a></span>
+<span id="cb248-8"><a href="data-wrangling.html#cb248-8" tabindex="-1"></a><span class="co">#add a speed variable</span></span></code></pre></div>
 <p>Next, pay attention to the <a href="https://r4ds.hadley.nz/transform">Useful transformation functions</a> and the <a href="https://r4ds.hadley.nz/numbers#modular-arithmetic">modular arithmetic section</a> to obtain hour and minutes from the departure data. Try for yourself below. This is pretty cool and can be useful.</p>
 </div>
-<div id="select" class="section level3 hasAnchor" number="3.7.2">
-<h3><span class="header-section-number">3.7.2</span> 3.3.2 Select<a href="data-wrangling.html#select" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="select" class="section level3 hasAnchor" number="4.7.2">
+<h3><span class="header-section-number">4.7.2</span> 3.3.2 Select<a href="data-wrangling.html#select" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>It’s not uncommon to get datasets with hundreds or even thousands of variables. In this case, the first challenge is often narrowing in on the variables you’re actually interested in. <code>select()</code> allows you to rapidly zoom in on a useful subset using operations based on the names of the variables.</p>
 <p><code>select()</code> is not terribly useful with the flights data because we only have 19 variables, but you can still get the general idea:</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="data-wrangling.html#cb192-1" tabindex="-1"></a><span class="fu">select</span>(flights, year, month, day)</span></code></pre></div>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="data-wrangling.html#cb249-1" tabindex="-1"></a><span class="fu">select</span>(flights, year, month, day)</span></code></pre></div>
 <pre><code>## # A tibble: 336,776 × 3
 ##     year month   day
 ##    &lt;int&gt; &lt;int&gt; &lt;int&gt;
@@ -599,8 +647,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # ℹ 336,766 more rows</code></pre>
 </div>
 </div>
-<div id="the-pipe" class="section level2 hasAnchor" number="3.8">
-<h2><span class="header-section-number">3.8</span> 3.4 The pipe<a href="data-wrangling.html#the-pipe" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="the-pipe" class="section level2 hasAnchor" number="4.8">
+<h2><span class="header-section-number">4.8</span> 3.4 The pipe<a href="data-wrangling.html#the-pipe" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The pipe operator, which I’ve demonstrated just a few times above, is really fantastically justified by the <a href="https://r4ds.hadley.nz/data-transform#sec-the-pipe">The pipe section</a>. I would definitely recommend reading this short section.</p>
 <p>The idea of piping is that it can make it easier to write, follow, and understand what the commands are doing. Think of each pipe command as “then”. The pipe command uses the following syntax : <code>|&gt;</code>. What it essentially does is take the result of the code on the left-hand side or previous line(s) and pass it as the first argument to the function on the right-hand side.</p>
 <p>We can recreate the example above with pipes. Written in words the code chunk below would be: ASSIGN a new object name,<br />
@@ -608,19 +656,19 @@ CHOOSE the dataset to operate on, THEN
 <code>arrange</code> the dataset by longest distance, THEN
 <code>filter</code> the December flights, THEN
 <code>select</code> the flight number, departure delay, and carrier columns.</p>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="data-wrangling.html#cb194-1" tabindex="-1"></a>carrier_delay <span class="ot">&lt;-</span> <span class="co"># I like to use a new line here so that I can easily comment out this assignment line while building my pipe</span></span>
-<span id="cb194-2"><a href="data-wrangling.html#cb194-2" tabindex="-1"></a>  flights <span class="sc">|&gt;</span></span>
-<span id="cb194-3"><a href="data-wrangling.html#cb194-3" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>distance) <span class="sc">|&gt;</span></span>
-<span id="cb194-4"><a href="data-wrangling.html#cb194-4" tabindex="-1"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">12</span>) <span class="sc">|&gt;</span></span>
-<span id="cb194-5"><a href="data-wrangling.html#cb194-5" tabindex="-1"></a>  <span class="fu">select</span>(flight, dep_delay, carrier)</span></code></pre></div>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="data-wrangling.html#cb251-1" tabindex="-1"></a>carrier_delay <span class="ot">&lt;-</span> <span class="co"># I like to use a new line here so that I can easily comment out this assignment line while building my pipe</span></span>
+<span id="cb251-2"><a href="data-wrangling.html#cb251-2" tabindex="-1"></a>  flights <span class="sc">|&gt;</span></span>
+<span id="cb251-3"><a href="data-wrangling.html#cb251-3" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>distance) <span class="sc">|&gt;</span></span>
+<span id="cb251-4"><a href="data-wrangling.html#cb251-4" tabindex="-1"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">12</span>) <span class="sc">|&gt;</span></span>
+<span id="cb251-5"><a href="data-wrangling.html#cb251-5" tabindex="-1"></a>  <span class="fu">select</span>(flight, dep_delay, carrier)</span></code></pre></div>
 </div>
-<div id="groups" class="section level2 hasAnchor" number="3.9">
-<h2><span class="header-section-number">3.9</span> 3.5 Groups<a href="data-wrangling.html#groups" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="groups" class="section level2 hasAnchor" number="4.9">
+<h2><span class="header-section-number">4.9</span> 3.5 Groups<a href="data-wrangling.html#groups" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Grouped summaries are essentially what pivot tables are in Excel, if you have ever heard of those. By using the <code>summarise()</code> function with the <code>group_by</code> function we can, for example find the average flight delay by month. This becomes really awesome! This example starts with using <code>group_by</code> to group the data, then applies <code>summarise</code>.</p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="data-wrangling.html#cb195-1" tabindex="-1"></a>flights <span class="sc">|&gt;</span> </span>
-<span id="cb195-2"><a href="data-wrangling.html#cb195-2" tabindex="-1"></a>  <span class="fu">group_by</span>(month) <span class="sc">|&gt;</span></span>
-<span id="cb195-3"><a href="data-wrangling.html#cb195-3" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb195-4"><a href="data-wrangling.html#cb195-4" tabindex="-1"></a>    <span class="at">delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="data-wrangling.html#cb252-1" tabindex="-1"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb252-2"><a href="data-wrangling.html#cb252-2" tabindex="-1"></a>  <span class="fu">group_by</span>(month) <span class="sc">|&gt;</span></span>
+<span id="cb252-3"><a href="data-wrangling.html#cb252-3" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb252-4"><a href="data-wrangling.html#cb252-4" tabindex="-1"></a>    <span class="at">delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 12 × 2
 ##    month delay
 ##    &lt;int&gt; &lt;dbl&gt;
@@ -645,7 +693,7 @@ CHOOSE the dataset to operate on, THEN
           </div>
         </div>
       </div>
-<a href="the-r-language-and-tidy-data-examples.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="functions-best-coding-practices-and-debugging-examples.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="data-wrangling-examples.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Data Analysis and Numerical Methods for Biological Systems Engineers</title>
+  <title>Functions, Best-coding Practices, and Debugging Examples | Data Analysis and Numerical Methods for Biological Systems Engineers</title>
   <meta name="description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
 Systems Engineering course BSE3144: Engineering Analysis for Biological
 Systems using Numerical Methods.</p>" />
   <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Data Analysis and Numerical Methods for Biological Systems Engineers" />
+  <meta property="og:title" content="Functions, Best-coding Practices, and Debugging Examples | Data Analysis and Numerical Methods for Biological Systems Engineers" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
@@ -19,7 +19,7 @@ Systems using Numerical Methods.</p>" />
   <meta name="github-repo" content="VT-BSE3144/bookdown" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Data Analysis and Numerical Methods for Biological Systems Engineers" />
+  <meta name="twitter:title" content="Functions, Best-coding Practices, and Debugging Examples | Data Analysis and Numerical Methods for Biological Systems Engineers" />
   
   <meta name="twitter:description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
 Systems Engineering course BSE3144: Engineering Analysis for Biological
@@ -36,8 +36,8 @@ Systems using Numerical Methods.</p>" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="introduction-to-posit-rstudio-markdown.html"/>
+<link rel="prev" href="functions-best-coding-practices-and-debugging-intro.html"/>
+<link rel="next" href="data-wrangling.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -340,23 +340,161 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Data Analysis and Numerical Methods for Biological Systems Engineers</h1>
-<p class="author"><em>R. Clay Wright</em></p>
-<p class="date"><em>2025-02-17</em></p>
+<div id="functions-best-coding-practices-and-debugging-examples" class="section level1 unnumbered hasAnchor">
+<h1>Functions, Best-coding Practices, and Debugging Examples<a href="functions-best-coding-practices-and-debugging-examples.html#functions-best-coding-practices-and-debugging-examples" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="functions-3" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Functions<a href="functions-best-coding-practices-and-debugging-examples.html#functions-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="example-1-1" class="section level3 hasAnchor" number="3.5.1">
+<h3><span class="header-section-number">3.5.1</span> Example 1<a href="functions-best-coding-practices-and-debugging-examples.html#example-1-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Practice turning the following code snippets into functions. Think about what each function does. What would you call it? How many arguments does it need?</p>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="functions-best-coding-practices-and-debugging-examples.html#cb188-1" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">is.na</span>(x))</span>
+<span id="cb188-2"><a href="functions-best-coding-practices-and-debugging-examples.html#cb188-2" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">is.na</span>(y))</span>
+<span id="cb188-3"><a href="functions-best-coding-practices-and-debugging-examples.html#cb188-3" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">is.na</span>(z))</span>
+<span id="cb188-4"><a href="functions-best-coding-practices-and-debugging-examples.html#cb188-4" tabindex="-1"></a></span>
+<span id="cb188-5"><a href="functions-best-coding-practices-and-debugging-examples.html#cb188-5" tabindex="-1"></a>x <span class="sc">/</span> <span class="fu">sum</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb188-6"><a href="functions-best-coding-practices-and-debugging-examples.html#cb188-6" tabindex="-1"></a>y <span class="sc">/</span> <span class="fu">sum</span>(y, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb188-7"><a href="functions-best-coding-practices-and-debugging-examples.html#cb188-7" tabindex="-1"></a>z <span class="sc">/</span> <span class="fu">sum</span>(z, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb188-8"><a href="functions-best-coding-practices-and-debugging-examples.html#cb188-8" tabindex="-1"></a></span>
+<span id="cb188-9"><a href="functions-best-coding-practices-and-debugging-examples.html#cb188-9" tabindex="-1"></a><span class="fu">round</span>(x <span class="sc">/</span> <span class="fu">sum</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>)</span>
+<span id="cb188-10"><a href="functions-best-coding-practices-and-debugging-examples.html#cb188-10" tabindex="-1"></a><span class="fu">round</span>(y <span class="sc">/</span> <span class="fu">sum</span>(y, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>)</span>
+<span id="cb188-11"><a href="functions-best-coding-practices-and-debugging-examples.html#cb188-11" tabindex="-1"></a><span class="fu">round</span>(z <span class="sc">/</span> <span class="fu">sum</span>(z, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="functions-best-coding-practices-and-debugging-examples.html#cb189-1" tabindex="-1"></a>percent_total <span class="ot">&lt;-</span> <span class="cf">function</span>(xvec) {</span>
+<span id="cb189-2"><a href="functions-best-coding-practices-and-debugging-examples.html#cb189-2" tabindex="-1"></a>  <span class="fu">mean</span>(<span class="fu">is.na</span>(x))</span>
+<span id="cb189-3"><a href="functions-best-coding-practices-and-debugging-examples.html#cb189-3" tabindex="-1"></a>  x <span class="sc">/</span> <span class="fu">sum</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb189-4"><a href="functions-best-coding-practices-and-debugging-examples.html#cb189-4" tabindex="-1"></a>  <span class="fu">round</span>(x <span class="sc">/</span> <span class="fu">sum</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>)</span>
+<span id="cb189-5"><a href="functions-best-coding-practices-and-debugging-examples.html#cb189-5" tabindex="-1"></a>}</span>
+<span id="cb189-6"><a href="functions-best-coding-practices-and-debugging-examples.html#cb189-6" tabindex="-1"></a></span>
+<span id="cb189-7"><a href="functions-best-coding-practices-and-debugging-examples.html#cb189-7" tabindex="-1"></a><span class="fu">percent_total</span>(<span class="at">xvec =</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## Error in percent_total(xvec = 1): object &#39;x&#39; not found</code></pre>
+<p>Note that clicking show traceback will allow you to see where the error occured.</p>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="functions-best-coding-practices-and-debugging-examples.html#cb191-1" tabindex="-1"></a>percent_total <span class="ot">&lt;-</span> <span class="cf">function</span>(xvec) {</span>
+<span id="cb191-2"><a href="functions-best-coding-practices-and-debugging-examples.html#cb191-2" tabindex="-1"></a>  <span class="fu">mean</span>(<span class="fu">is.na</span>(xvec)) <span class="co"># % of values that are NA</span></span>
+<span id="cb191-3"><a href="functions-best-coding-practices-and-debugging-examples.html#cb191-3" tabindex="-1"></a>  xvec <span class="sc">/</span> <span class="fu">sum</span>(xvec, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb191-4"><a href="functions-best-coding-practices-and-debugging-examples.html#cb191-4" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">round</span>(xvec <span class="sc">/</span> <span class="fu">sum</span>(xvec, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>))</span>
+<span id="cb191-5"><a href="functions-best-coding-practices-and-debugging-examples.html#cb191-5" tabindex="-1"></a>}</span>
+<span id="cb191-6"><a href="functions-best-coding-practices-and-debugging-examples.html#cb191-6" tabindex="-1"></a></span>
+<span id="cb191-7"><a href="functions-best-coding-practices-and-debugging-examples.html#cb191-7" tabindex="-1"></a><span class="fu">percent_total</span>(<span class="at">xvec =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>, <span class="dv">1</span>))</span></code></pre></div>
+<pre><code>## [1] 50 NA 50</code></pre>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="functions-best-coding-practices-and-debugging-examples.html#cb193-1" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">is.na</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>, <span class="dv">1</span>)))</span></code></pre></div>
+<pre><code>## [1] 0.3333333</code></pre>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="functions-best-coding-practices-and-debugging-examples.html#cb195-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+## ✔ dplyr     1.1.4     ✔ readr     2.1.5
+## ✔ forcats   1.0.0     ✔ stringr   1.5.1
+## ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+## ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+## ✔ purrr     1.0.4     
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="functions-best-coding-practices-and-debugging-examples.html#cb197-1" tabindex="-1"></a>percent_total <span class="ot">&lt;-</span> <span class="cf">function</span>(xvec) {</span>
+<span id="cb197-2"><a href="functions-best-coding-practices-and-debugging-examples.html#cb197-2" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="co"># % of values that are NA</span></span>
+<span id="cb197-3"><a href="functions-best-coding-practices-and-debugging-examples.html#cb197-3" tabindex="-1"></a>    <span class="fu">mean</span>(<span class="fu">is.na</span>(xvec)),</span>
+<span id="cb197-4"><a href="functions-best-coding-practices-and-debugging-examples.html#cb197-4" tabindex="-1"></a>    <span class="co"># fraction of total for each value</span></span>
+<span id="cb197-5"><a href="functions-best-coding-practices-and-debugging-examples.html#cb197-5" tabindex="-1"></a>    xvec <span class="sc">/</span> <span class="fu">sum</span>(xvec, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb197-6"><a href="functions-best-coding-practices-and-debugging-examples.html#cb197-6" tabindex="-1"></a>    <span class="co"># percent of total to 1 decimal</span></span>
+<span id="cb197-7"><a href="functions-best-coding-practices-and-debugging-examples.html#cb197-7" tabindex="-1"></a>    <span class="fu">round</span>(xvec <span class="sc">/</span> <span class="fu">sum</span>(xvec, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>))</span>
+<span id="cb197-8"><a href="functions-best-coding-practices-and-debugging-examples.html#cb197-8" tabindex="-1"></a>}</span>
+<span id="cb197-9"><a href="functions-best-coding-practices-and-debugging-examples.html#cb197-9" tabindex="-1"></a></span>
+<span id="cb197-10"><a href="functions-best-coding-practices-and-debugging-examples.html#cb197-10" tabindex="-1"></a><span class="fu">percent_total</span>(<span class="at">xvec =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>, <span class="dv">1</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 3
+##   `mean(is.na(xvec))` `xvec/sum(xvec, na.rm = TRUE)` round(xvec/sum(xvec, na.r…¹
+##                 &lt;dbl&gt;                          &lt;dbl&gt;                       &lt;dbl&gt;
+## 1               0.333                            0.5                          50
+## 2               0.333                           NA                            NA
+## 3               0.333                            0.5                          50
+## # ℹ abbreviated name: ¹​`round(xvec/sum(xvec, na.rm = TRUE) * 100, 1)`</code></pre>
 </div>
-<div id="about-this-book" class="section level1 unnumbered hasAnchor">
-<h1>About this book<a href="index.html#about-this-book" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>This book was developed as a companion text for the Virginia Tech Biological Systems Engineering course BSE3144: Engineering Analysis for Biological Systems using Numerical Methods.</p>
+<div id="example-2-1" class="section level3 hasAnchor" number="3.5.2">
+<h3><span class="header-section-number">3.5.2</span> Example 2<a href="functions-best-coding-practices-and-debugging-examples.html#example-2-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>Create a function <code>LW()</code> with three arguments: a vector lengths, and values a and b</p></li>
+<li><p>It returns the weights of fishes using the length-weight equation: <span class="math inline">\(W = aL^b\)</span></p></li>
+<li><p>Use the function to calculate the weight (in g) of fish of length 100, 200, 300 cm for:</p>
+<ul>
+<li><p>Mola mola, a = 0.0454, b = 3.05</p></li>
+<li><p>Regalecus glesne, a = 0.0039, b = 2.90</p></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="functions-best-coding-practices-and-debugging-examples.html#cb199-1" tabindex="-1"></a><span class="co">#&#39; Title</span></span>
+<span id="cb199-2"><a href="functions-best-coding-practices-and-debugging-examples.html#cb199-2" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb199-3"><a href="functions-best-coding-practices-and-debugging-examples.html#cb199-3" tabindex="-1"></a><span class="co">#&#39; @param lengths in centimeters</span></span>
+<span id="cb199-4"><a href="functions-best-coding-practices-and-debugging-examples.html#cb199-4" tabindex="-1"></a><span class="co">#&#39; @param a constant</span></span>
+<span id="cb199-5"><a href="functions-best-coding-practices-and-debugging-examples.html#cb199-5" tabindex="-1"></a><span class="co">#&#39; @param b exponent</span></span>
+<span id="cb199-6"><a href="functions-best-coding-practices-and-debugging-examples.html#cb199-6" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb199-7"><a href="functions-best-coding-practices-and-debugging-examples.html#cb199-7" tabindex="-1"></a><span class="co">#&#39; @return weight in grams</span></span>
+<span id="cb199-8"><a href="functions-best-coding-practices-and-debugging-examples.html#cb199-8" tabindex="-1"></a><span class="co">#&#39; @export</span></span>
+<span id="cb199-9"><a href="functions-best-coding-practices-and-debugging-examples.html#cb199-9" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb199-10"><a href="functions-best-coding-practices-and-debugging-examples.html#cb199-10" tabindex="-1"></a><span class="co">#&#39; @examples</span></span>
+<span id="cb199-11"><a href="functions-best-coding-practices-and-debugging-examples.html#cb199-11" tabindex="-1"></a><span class="co">#&#39; </span></span>
+<span id="cb199-12"><a href="functions-best-coding-practices-and-debugging-examples.html#cb199-12" tabindex="-1"></a>LW <span class="ot">&lt;-</span> <span class="cf">function</span>(lengths, a, b){</span>
+<span id="cb199-13"><a href="functions-best-coding-practices-and-debugging-examples.html#cb199-13" tabindex="-1"></a>  <span class="fu">return</span>(a <span class="sc">*</span> lengths <span class="sc">^</span> b)</span>
+<span id="cb199-14"><a href="functions-best-coding-practices-and-debugging-examples.html#cb199-14" tabindex="-1"></a>}</span>
+<span id="cb199-15"><a href="functions-best-coding-practices-and-debugging-examples.html#cb199-15" tabindex="-1"></a></span>
+<span id="cb199-16"><a href="functions-best-coding-practices-and-debugging-examples.html#cb199-16" tabindex="-1"></a><span class="fu">LW</span>(<span class="at">lengths =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">300</span>), <span class="at">a =</span> <span class="fl">0.0454</span>, <span class="at">b =</span> <span class="fl">3.05</span>)</span></code></pre></div>
+<pre><code>## [1]   57155.21  473366.30 1630330.60</code></pre>
+</div>
+</div>
+<div id="best-coding-practices-1" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> Best coding practices<a href="functions-best-coding-practices-and-debugging-examples.html#best-coding-practices-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="code-from-inside-out-running-the-smallest-bits-of-code-possible" class="section level3 hasAnchor" number="3.6.1">
+<h3><span class="header-section-number">3.6.1</span> Code from inside out, running the smallest bits of code possible<a href="functions-best-coding-practices-and-debugging-examples.html#code-from-inside-out-running-the-smallest-bits-of-code-possible" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="use-rstudio-to-your-advantage" class="section level3 hasAnchor" number="3.6.2">
+<h3><span class="header-section-number">3.6.2</span> Use RStudio to your advantage<a href="functions-best-coding-practices-and-debugging-examples.html#use-rstudio-to-your-advantage" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Tab-complete</li>
+<li>Reformat code</li>
+<li>Reindent lines</li>
+<li>Rainbow parentheses</li>
+</ul>
+</div>
+</div>
+<div id="debugging-1" class="section level2 hasAnchor" number="3.7">
+<h2><span class="header-section-number">3.7</span> Debugging<a href="functions-best-coding-practices-and-debugging-examples.html#debugging-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Missing parentheses/brackets</li>
+</ul>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="functions-best-coding-practices-and-debugging-examples.html#cb201-1" tabindex="-1"></a><span class="fu">mean</span>(x</span></code></pre></div>
+<pre><code>## Error in parse(text = input): &lt;text&gt;:2:0: unexpected end of input
+## 1: mean(x
+##    ^</code></pre>
+<ul>
+<li>Missing quotes</li>
+</ul>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="functions-best-coding-practices-and-debugging-examples.html#cb203-1" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Hello)</span></span></code></pre></div>
+<pre><code>## Error in parse(text = input): &lt;text&gt;:1:7: unexpected INCOMPLETE_STRING
+## 1: print(&quot;Hello)
+##           ^</code></pre>
+<ul>
+<li>Misplaced, missing commas</li>
+</ul>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="functions-best-coding-practices-and-debugging-examples.html#cb205-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;1&quot;</span> <span class="st">&quot;3&quot;</span>, <span class="st">&quot;7&quot;</span>, <span class="st">&quot;Emma&quot;</span>)</span>
+<span id="cb205-2"><a href="functions-best-coding-practices-and-debugging-examples.html#cb205-2" tabindex="-1"></a></span>
+<span id="cb205-3"><a href="functions-best-coding-practices-and-debugging-examples.html#cb205-3" tabindex="-1"></a><span class="fu">is.numeric</span>(x)</span></code></pre></div>
+<pre><code>## Error in parse(text = input): &lt;text&gt;:1:12: unexpected string constant
+## 1: x &lt;- c(&quot;1&quot; &quot;3&quot;
+##                ^</code></pre>
+<ul>
+<li>Misspelled object names</li>
+</ul>
+<div id="also-use-rstudio" class="section level3 hasAnchor" number="3.7.1">
+<h3><span class="header-section-number">3.7.1</span> Also use RStudio<a href="functions-best-coding-practices-and-debugging-examples.html#also-use-rstudio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Debug menu is helpful for writing more advanced functions</li>
+</ul>
 
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="introduction-to-posit-rstudio-markdown.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="functions-best-coding-practices-and-debugging-intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-wrangling.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -387,7 +525,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/VT-BSE3144/bookdown/edit/BRANCH/index.Rmd",
+"link": "https://github.com/VT-BSE3144/bookdown/edit/BRANCH/03-1_Examples.Rmd",
 "text": "Edit"
 },
 "history": {
