@@ -105,7 +105,7 @@ You want to use R to do simple arithmetic, as if R were a calculator.
 | `-` | Subtraction | `2 - 1` |
 | `*` | Multiplication | `2 * 3` |
 | `/` | Division | `4 / 2` |
-| `^` | Exponentiation | `4 ^ 2`, i.e. 4242 |
+| `^` | Exponentiation | `4 ^ 2`, i.e. $4^2$ |
 | `%%` | Modulo | `5 %% 3`, i.e what is the remainder when you divide five by three? |
 | `%/%` | Integer division | `5 %/% 3`, i.e how many times does three go into five? |
 
