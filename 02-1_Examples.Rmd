@@ -1,0 +1,150 @@
+---
+output: html_document
+params:
+  version: 1.1
+---
+
+# The R Language and Tidy Data Examples {-}
+
+
+```{r setup, include=FALSE}
+# Load packages 
+library(tidyverse)
+```
+
+## Tidy Data
+
+Each of the following datasets shows TB cases and some other variables per country organized in different ways.
+
+```{r}
+table1
+
+table2
+
+table3
+
+# Spread across two tibbles
+table4a  # cases
+
+table4b  # population
+```
+
+There are three interrelated rules which make a dataset tidy:
+
+-   Each variable must have its own column.
+-   Each observation must have its own row.
+-   Each value must have its own cell.
+
+![](https://d33wubrfki0l68.cloudfront.net/6f1ddb544fc5c69a2478e444ab8112fb0eea23f8/91adc/images/tidy-1.png)
+
+**Which table above is Tidy?**
+
+```{r}
+table1
+
+table2
+
+table3
+
+# Spread across two tibbles
+table4a  # cases
+
+table4b  # population
+```
+
+Why ensure that your data is tidy? There are two main advantages:
+
+There’s a general advantage to picking one consistent way of storing data. If you have a consistent data structure, it’s easier to learn the tools that work with it because they have an underlying uniformity.
+
+There’s a specific advantage to placing variables in columns because it allows R’s vectorised nature to shine. As you learned in mutate and summary functions, most built-in R functions work with vectors of values. That makes transforming tidy data feel particularly natural.
+
+### Let's make a data dictionary for this dataset
+
+`country` = The country in which TB case data was reported. `year` = Calendar year `cases` = Test-positive cases with culture-based and ELISA-based tests in these countries with sample dates within the year above. `population` = The self-reported population of each country according to their census data.
+
+## R Basics
+
+### Data types
+
+You can create objects (variables\~values, large data structures\~think spreadsheets and databases, and functions) using the `=`, `<-` or `->` operators. You can see what type of data (or data type) a variable is using the `class` function. Go ahead, try `class(x)`. Data in R can be of several different, basic types:
+
+| Data Type | aka         | Example                             |
+|-----------|-------------|-------------------------------------|
+| Logical   | Boolean     | TRUE, FALSE                         |
+| Numeric   | float       | 42, 3.14,                           |
+| Character | string      | 'a' , "good", "TRUE", '23.4'        |
+| Integer   |             | 2L, 34L, 0L                         |
+| Complex   |             | 3 + 2i                              |
+| Raw       | hexadecimal | "Hello" is stored as 48 65 6c 6c 6f |
+
+### Functions
+
+What is a function?
+
+`function_name(argument_name = argument_value)`
+
+Using Tab-complete to make function calls will prevent errors!
+
+
+### Objects
+
+An object is essentially anything that shows up in the Environment pane!
+
+- functions
+- variables
+- data objects
+
+### Vectors
+
+To demonstrate what a vector is let's load some data!
+
+## Data, tibbles, dataframes
+
+
+### Reading in data
+
+
+```{r}
+storm <- read_excel(path = "data/hazards.xlsx", sheet = 2)
+storm
+```
+
+Each column is a vector!
+
+```{r}
+# check whether something is a vector with is.vector()
+
+
+# but some vectors are special like dates with formatting
+
+
+```
+
+
+
+```{r}
+# use head(), summary(), or view() to look at data
+
+```
+
+
+### Factors
+
+Factors are categorical variables.
+
+```{r}
+# look at a factor variable
+
+# can you add new values to factors? 
+
+```
+
+
+
+How would we check that a variable only contains certain values?
+
+```{r}
+storm$monthly.ppt > 7
+
+```
+
