@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>5 Summarizing Data | Data Analysis and Numerical Methods for Biological Systems Engineers</title>
+  <meta name="description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
+Systems Engineering course BSE3144: Engineering Analysis for Biological
+Systems using Numerical Methods.</p>" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="5 Summarizing Data | Data Analysis and Numerical Methods for Biological Systems Engineers" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
+Systems Engineering course BSE3144: Engineering Analysis for Biological
+Systems using Numerical Methods.</p>" />
+  <meta name="github-repo" content="VT-BSE3144/bookdown" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="5 Summarizing Data | Data Analysis and Numerical Methods for Biological Systems Engineers" />
+  
+  <meta name="twitter:description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
+Systems Engineering course BSE3144: Engineering Analysis for Biological
+Systems using Numerical Methods.</p>" />
+  
+
+<meta name="author" content="R. Clay Wright" />
+
+
+<meta name="date" content="2025-02-17" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="data-wrangling-examples.html"/>
+<link rel="next" href="summarizing-data-examples.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Data Analysis and Numerical Methods</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About this book</a></li>
+<li class="chapter" data-level="1" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html"><i class="fa fa-check"></i><b>1</b> Introduction to Posit, Rstudio, &amp; Markdown</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#pre-work"><i class="fa fa-check"></i><b>1.1</b> Pre-work</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#posit"><i class="fa fa-check"></i><b>1.2</b> Posit</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#rstudio"><i class="fa fa-check"></i><b>1.3</b> Rstudio</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-source-pane"><i class="fa fa-check"></i><b>1.3.1</b> The Source pane</a></li>
+<li class="chapter" data-level="1.3.2" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#markdown"><i class="fa fa-check"></i><b>1.3.2</b> Markdown</a></li>
+<li class="chapter" data-level="1.3.3" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#more-markdown-formatting"><i class="fa fa-check"></i><b>1.3.3</b> More Markdown formatting</a></li>
+<li class="chapter" data-level="1.3.4" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#running-code"><i class="fa fa-check"></i><b>1.3.4</b> Running code</a></li>
+<li class="chapter" data-level="1.3.5" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-console-pane"><i class="fa fa-check"></i><b>1.3.5</b> The Console pane</a></li>
+<li class="chapter" data-level="1.3.6" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-help-pane"><i class="fa fa-check"></i><b>1.3.6</b> The Help pane</a></li>
+<li class="chapter" data-level="1.3.7" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-filesplotspackageshelpviewer-pane"><i class="fa fa-check"></i><b>1.3.7</b> The Files/Plots/Packages/Help/Viewer pane</a></li>
+<li class="chapter" data-level="1.3.8" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#ok-back-to-the-source-pane"><i class="fa fa-check"></i><b>1.3.8</b> OK, back to the Source pane…</a></li>
+<li class="chapter" data-level="1.3.9" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-environment-pane"><i class="fa fa-check"></i><b>1.3.9</b> The Environment pane</a></li>
+<li class="chapter" data-level="1.3.10" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-historyconnectionsgitbuildtutorial-pane"><i class="fa fa-check"></i><b>1.3.10</b> The History/Connections/Git/Build/Tutorial pane</a></li>
+<li class="chapter" data-level="1.3.11" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#terminalrenderbackground-jobs"><i class="fa fa-check"></i><b>1.3.11</b> Terminal/Render/Background Jobs</a></li>
+<li class="chapter" data-level="1.3.12" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#yaml-headers"><i class="fa fa-check"></i><b>1.3.12</b> YAML headers</a></li>
+<li class="chapter" data-level="1.3.13" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#code-chunkblock-settings-and-global-settings"><i class="fa fa-check"></i><b>1.3.13</b> Code chunk/block settings and global settings</a></li>
+<li class="chapter" data-level="1.3.14" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#output-options"><i class="fa fa-check"></i><b>1.3.14</b> Output Options</a></li>
+<li class="chapter" data-level="1.3.15" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#troubleshooting-knitrender-problems"><i class="fa fa-check"></i><b>1.3.15</b> Troubleshooting Knit/Render problems</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html"><i class="fa fa-check"></i>Rstudio and Markdown examples</a>
+<ul>
+<li class="chapter" data-level="1.4" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#navigate-the-posit-and-rstudio-interface-with-proficiency."><i class="fa fa-check"></i><b>1.4</b> Navigate the Posit and RStudio interface with proficiency.</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#making-new-documents"><i class="fa fa-check"></i><b>1.4.1</b> Making new documents</a></li>
+<li class="chapter" data-level="1.4.2" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#navigating-the-file-pane-and-file-paths"><i class="fa fa-check"></i><b>1.4.2</b> Navigating the file pane and file paths</a></li>
+<li class="chapter" data-level="1.4.3" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#console-pane"><i class="fa fa-check"></i><b>1.4.3</b> Console pane</a></li>
+<li class="chapter" data-level="1.4.4" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#environment-pane"><i class="fa fa-check"></i><b>1.4.4</b> Environment pane</a></li>
+<li class="chapter" data-level="1.4.5" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#history-pane"><i class="fa fa-check"></i><b>1.4.5</b> History pane</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#articulate-the-process-of-using-rstudio-to-develop-markdown-documents."><i class="fa fa-check"></i><b>1.5</b> Articulate the process of using RStudio to develop markdown documents.</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#cheat-sheets-yay"><i class="fa fa-check"></i><b>1.5.1</b> Cheat Sheets! Yay!</a></li>
+<li class="chapter" data-level="1.5.2" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#inserting-code-chunks"><i class="fa fa-check"></i><b>1.5.2</b> Inserting code chunks</a></li>
+<li class="chapter" data-level="1.5.3" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#changing-code-chunk-settings"><i class="fa fa-check"></i><b>1.5.3</b> Changing code chunk settings</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#practice-using-markdown-to-format-reproducible-documents"><i class="fa fa-check"></i><b>1.6</b> Practice using markdown to format reproducible documents</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#tasks"><i class="fa fa-check"></i><b>1.6.1</b> Tasks</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html"><i class="fa fa-check"></i><b>2</b> The R Language and Tidy Data</a>
+<ul>
+<li class="chapter" data-level="2.0.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#data-organization-and-manipulation-in-spreadsheets"><i class="fa fa-check"></i><b>2.0.1</b> Data Organization and manipulation in Spreadsheets</a></li>
+<li class="chapter" data-level="2.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#reading-and-pre-class-materials"><i class="fa fa-check"></i><b>2.1</b> Reading and Pre-class Materials</a></li>
+<li class="chapter" data-level="2.2" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#tidy-data"><i class="fa fa-check"></i><b>2.2</b> Tidy data</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#top-12-tips-for-data-organization"><i class="fa fa-check"></i><b>2.2.1</b> Top 12 Tips for Data Organization</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#r-basics"><i class="fa fa-check"></i><b>2.3</b> R Basics</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#basic-math-to-linear-algebra"><i class="fa fa-check"></i><b>2.3.1</b> Basic Math to Linear Algebra</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#functions"><i class="fa fa-check"></i><b>2.4</b> Functions</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#what-is-a-function"><i class="fa fa-check"></i><b>2.4.1</b> What is a function?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#objects---variables-and-functions"><i class="fa fa-check"></i><b>2.5</b> Objects - Variables and Functions</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#obey-rs-naming-rules"><i class="fa fa-check"></i><b>2.5.1</b> Obey R’s naming rules</a></li>
+<li class="chapter" data-level="2.5.2" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#variables-and-data-types"><i class="fa fa-check"></i><b>2.5.2</b> Variables and data types</a></li>
+<li class="chapter" data-level="2.5.3" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#vectors"><i class="fa fa-check"></i><b>2.5.3</b> Vectors</a></li>
+<li class="chapter" data-level="2.5.4" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#matrices-arrays-and-lists"><i class="fa fa-check"></i><b>2.5.4</b> Matrices, Arrays and Lists</a></li>
+<li class="chapter" data-level="2.5.5" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#data-frames"><i class="fa fa-check"></i><b>2.5.5</b> Data frames</a></li>
+<li class="chapter" data-level="2.5.6" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#run-a-function"><i class="fa fa-check"></i><b>2.5.6</b> Run a function</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#tidyverse-tables"><i class="fa fa-check"></i><b>2.6</b> Tidyverse tables</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#create-a-table-manually"><i class="fa fa-check"></i><b>2.6.1</b> Create a Table Manually</a></li>
+<li class="chapter" data-level="2.6.2" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#tribble"><i class="fa fa-check"></i><b>2.6.2</b> <code>tribble()</code></a></li>
+<li class="chapter" data-level="2.6.3" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#read-a-csv-file-.csv"><i class="fa fa-check"></i><b>2.6.3</b> Read a CSV file (.csv)</a></li>
+<li class="chapter" data-level="2.6.4" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#read-a-character-delimited-file-.txt"><i class="fa fa-check"></i><b>2.6.4</b> Read a character-delimited file (.txt)</a></li>
+<li class="chapter" data-level="2.6.5" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#read-an-excel-file-.xls-.xlsx"><i class="fa fa-check"></i><b>2.6.5</b> Read an Excel file (.xls, .xlsx)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html"><i class="fa fa-check"></i>The R Language and Tidy Data Examples</a>
+<ul>
+<li class="chapter" data-level="2.7" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#tidy-data-1"><i class="fa fa-check"></i><b>2.7</b> Tidy Data</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#lets-make-a-data-dictionary-for-this-dataset"><i class="fa fa-check"></i><b>2.7.1</b> Let’s make a data dictionary for this dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#r-basics-1"><i class="fa fa-check"></i><b>2.8</b> R Basics</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#data-types"><i class="fa fa-check"></i><b>2.8.1</b> Data types</a></li>
+<li class="chapter" data-level="2.8.2" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#functions-1"><i class="fa fa-check"></i><b>2.8.2</b> Functions</a></li>
+<li class="chapter" data-level="2.8.3" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#objects"><i class="fa fa-check"></i><b>2.8.3</b> Objects</a></li>
+<li class="chapter" data-level="2.8.4" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#vectors-1"><i class="fa fa-check"></i><b>2.8.4</b> Vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#data-tibbles-dataframes"><i class="fa fa-check"></i><b>2.9</b> Data, tibbles, dataframes</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#reading-in-data"><i class="fa fa-check"></i><b>2.9.1</b> Reading in data</a></li>
+<li class="chapter" data-level="2.9.2" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#factors-1"><i class="fa fa-check"></i><b>2.9.2</b> Factors</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html"><i class="fa fa-check"></i><b>3</b> Functions, Best-coding Practices, and Debugging Intro</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#functions-2"><i class="fa fa-check"></i><b>3.1</b> Functions</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#functions-why-and-how"><i class="fa fa-check"></i><b>3.1.1</b> Functions… why and how</a></li>
+<li class="chapter" data-level="3.1.2" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#a-simple-function-cv"><i class="fa fa-check"></i><b>3.1.2</b> A simple function: CV()</a></li>
+<li class="chapter" data-level="3.1.3" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#now-we-need-to-apply-our-function."><i class="fa fa-check"></i><b>3.1.3</b> Now we need to apply our function.</a></li>
+<li class="chapter" data-level="3.1.4" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#what-objects-are-available"><i class="fa fa-check"></i><b>3.1.4</b> What objects are available?</a></li>
+<li class="chapter" data-level="3.1.5" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#optional-arguments"><i class="fa fa-check"></i><b>3.1.5</b> Optional arguments</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#packages"><i class="fa fa-check"></i><b>3.2</b> Packages</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#installing-and-using-packages"><i class="fa fa-check"></i><b>3.2.1</b> Installing and using packages</a></li>
+<li class="chapter" data-level="3.2.2" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#installing-and-using-packages-1"><i class="fa fa-check"></i><b>3.2.2</b> Installing and using packages</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#best-coding-practices"><i class="fa fa-check"></i><b>3.3</b> Best coding practices</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#reproducibility"><i class="fa fa-check"></i><b>3.3.1</b> Reproducibility</a></li>
+<li class="chapter" data-level="3.3.2" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#style-guides"><i class="fa fa-check"></i><b>3.3.2</b> Style guides</a></li>
+<li class="chapter" data-level="3.3.3" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#automated-code-stylingformatting"><i class="fa fa-check"></i><b>3.3.3</b> Automated code styling/formatting</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#debugging"><i class="fa fa-check"></i><b>3.4</b> Debugging</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#verifying-code"><i class="fa fa-check"></i><b>3.4.1</b> Verifying code</a></li>
+<li class="chapter" data-level="3.4.2" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#commenting-your-code"><i class="fa fa-check"></i><b>3.4.2</b> Commenting your code</a></li>
+<li class="chapter" data-level="3.4.3" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#commenting-out-code"><i class="fa fa-check"></i><b>3.4.3</b> “Commenting out” code</a></li>
+<li class="chapter" data-level="3.4.4" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#common-errors-and-how-to-fix-them"><i class="fa fa-check"></i><b>3.4.4</b> Common errors and How to Fix Them</a></li>
+<li class="chapter" data-level="3.4.5" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#warning-or-error"><i class="fa fa-check"></i><b>3.4.5</b> Warning or Error?</a></li>
+<li class="chapter" data-level="3.4.6" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#debugging-is-scientific"><i class="fa fa-check"></i><b>3.4.6</b> Debugging is scientific</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html"><i class="fa fa-check"></i>Functions, Best-coding Practices, and Debugging Examples</a>
+<ul>
+<li class="chapter" data-level="3.5" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#functions-3"><i class="fa fa-check"></i><b>3.5</b> Functions</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#example-1-1"><i class="fa fa-check"></i><b>3.5.1</b> Example 1</a></li>
+<li class="chapter" data-level="3.5.2" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#example-2-1"><i class="fa fa-check"></i><b>3.5.2</b> Example 2</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#best-coding-practices-1"><i class="fa fa-check"></i><b>3.6</b> Best coding practices</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#code-from-inside-out-running-the-smallest-bits-of-code-possible"><i class="fa fa-check"></i><b>3.6.1</b> Code from inside out, running the smallest bits of code possible</a></li>
+<li class="chapter" data-level="3.6.2" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#use-rstudio-to-your-advantage"><i class="fa fa-check"></i><b>3.6.2</b> Use RStudio to your advantage</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#debugging-1"><i class="fa fa-check"></i><b>3.7</b> Debugging</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#also-use-rstudio"><i class="fa fa-check"></i><b>3.7.1</b> Also use RStudio</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>4</b> Data Wrangling</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="data-wrangling.html"><a href="data-wrangling.html#connection-to-previous-work-on-data-organization"><i class="fa fa-check"></i><b>4.1</b> Connection to previous work on Data Organization</a></li>
+<li class="chapter" data-level="4.2" data-path="data-wrangling.html"><a href="data-wrangling.html#source"><i class="fa fa-check"></i><b>4.2</b> Source</a></li>
+<li class="chapter" data-level="4.3" data-path="data-wrangling.html"><a href="data-wrangling.html#introduction---example-dataset-nycflights13"><i class="fa fa-check"></i><b>4.3</b> 3.1 Introduction - Example dataset <code>nycflights13</code></a></li>
+<li class="chapter" data-level="4.4" data-path="data-wrangling.html"><a href="data-wrangling.html#section"><i class="fa fa-check"></i><b>4.4</b> 3.1.2</a></li>
+<li class="chapter" data-level="4.5" data-path="data-wrangling.html"><a href="data-wrangling.html#dplyr-basics"><i class="fa fa-check"></i><b>4.5</b> 3.1.3 dplyr basics</a></li>
+<li class="chapter" data-level="4.6" data-path="data-wrangling.html"><a href="data-wrangling.html#row-wise-functions"><i class="fa fa-check"></i><b>4.6</b> 3.2 Row-wise functions</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#filter"><i class="fa fa-check"></i><b>4.6.1</b> 3.2.1 filter()</a></li>
+<li class="chapter" data-level="4.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#arranging-rows"><i class="fa fa-check"></i><b>4.6.2</b> 3.2.3 Arranging rows</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="data-wrangling.html"><a href="data-wrangling.html#columns"><i class="fa fa-check"></i><b>4.7</b> 3.3 Columns</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#mutate---add-new-variables"><i class="fa fa-check"></i><b>4.7.1</b> 3.3.1 Mutate - Add new variables</a></li>
+<li class="chapter" data-level="4.7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#select"><i class="fa fa-check"></i><b>4.7.2</b> 3.3.2 Select</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="data-wrangling.html"><a href="data-wrangling.html#the-pipe"><i class="fa fa-check"></i><b>4.8</b> 3.4 The pipe</a></li>
+<li class="chapter" data-level="4.9" data-path="data-wrangling.html"><a href="data-wrangling.html#groups"><i class="fa fa-check"></i><b>4.9</b> 3.5 Groups</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html"><i class="fa fa-check"></i>Data Wrangling Examples</a>
+<ul>
+<li class="chapter" data-level="4.9.1" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#filter-1"><i class="fa fa-check"></i><b>4.9.1</b> Filter</a></li>
+<li class="chapter" data-level="4.9.2" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#arrange"><i class="fa fa-check"></i><b>4.9.2</b> Arrange</a></li>
+<li class="chapter" data-level="4.9.3" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#mutate---adds-a-new-column"><i class="fa fa-check"></i><b>4.9.3</b> Mutate - adds a new column</a></li>
+<li class="chapter" data-level="4.9.4" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#select-1"><i class="fa fa-check"></i><b>4.9.4</b> Select</a></li>
+<li class="chapter" data-level="4.9.5" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#grouped-summaries"><i class="fa fa-check"></i><b>4.9.5</b> Grouped summaries</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="summarizing-data.html"><a href="summarizing-data.html"><i class="fa fa-check"></i><b>5</b> Summarizing Data</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="summarizing-data.html"><a href="summarizing-data.html#learning-objectives"><i class="fa fa-check"></i><b>5.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="5.2" data-path="summarizing-data.html"><a href="summarizing-data.html#introduction"><i class="fa fa-check"></i><b>5.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="summarizing-data.html"><a href="summarizing-data.html#readings-complete-by-class-on-monday"><i class="fa fa-check"></i><b>5.2.1</b> Readings (complete by class on Monday)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="summarizing-data.html"><a href="summarizing-data.html#group_by-function-summarizing-info-based-on-typecharacteristic"><i class="fa fa-check"></i><b>5.3</b> <code>group_by</code> function: Summarizing info based on type/characteristic</a></li>
+<li class="chapter" data-level="5.4" data-path="summarizing-data.html"><a href="summarizing-data.html#grouping-with-multiple-variables"><i class="fa fa-check"></i><b>5.4</b> Grouping with multiple variables</a></li>
+<li class="chapter" data-level="5.5" data-path="summarizing-data.html"><a href="summarizing-data.html#tidying-and-untidying-data-with-pivot_-functions"><i class="fa fa-check"></i><b>5.5</b> Tidying and untidying data with <code>pivot_</code> functions</a></li>
+<li class="chapter" data-level="5.6" data-path="summarizing-data.html"><a href="summarizing-data.html#joins-and-binds-within-dplyr"><i class="fa fa-check"></i><b>5.6</b> Joins and Binds within <code>dplyr</code></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html"><i class="fa fa-check"></i>Summarizing Data Examples</a>
+<ul>
+<li class="chapter" data-level="5.7" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#tidying-and-untidying-data-with-pivot_-functions-1"><i class="fa fa-check"></i><b>5.7</b> Tidying and untidying data with <code>pivot_</code> functions</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#root-growth-inhibition-example"><i class="fa fa-check"></i><b>5.7.1</b> Root Growth Inhibition Example</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis and Numerical Methods for Biological Systems Engineers</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="summarizing-data" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">5</span> Summarizing Data<a href="summarizing-data.html#summarizing-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="learning-objectives" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Learning Objectives<a href="summarizing-data.html#learning-objectives" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This week we will:</p>
+<ul>
+<li>Practice summarizing large datasets by groups</li>
+<li>Tidy and untidy data with <code>pivot_longer</code> and <code>pivot_wider</code></li>
+<li>Join datasets using different <code>_join</code> functions</li>
+</ul>
+</div>
+<div id="introduction" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Introduction<a href="summarizing-data.html#introduction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This week we’re focused on building our ability to analyze data. We’ll incorporate new functions from the dplyr package, and explore table joins.</p>
+<p>The information below augments the readings. Following this, you’ll be in good shape to start this week’s exercises. Let’s get started!</p>
+<div id="readings-complete-by-class-on-monday" class="section level3 hasAnchor" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Readings (complete by class on Monday)<a href="summarizing-data.html#readings-complete-by-class-on-monday" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Required:</p>
+<ul>
+<li><a href="https://r4ds.hadley.nz/data-transform#groups">R for Data Science, section 3.5: Groups</a></li>
+<li><a href="https://r4ds.hadley.nz/data-tidy#sec-pivoting">R for Data Science, section 5.3 and 5.4: lengthening and Widening data</a></li>
+<li><a href="https://r4ds.hadley.nz/joins">R for Data Science, chapter 19: Joins</a></li>
+</ul>
+<p>As you read through, my suggestion is to have the markdown version of this document open in Posit where you can take notes on important functions/concepts and also code along with the examples. This way you’ll get a headstart on your cheat sheet for this week. The below summarizes and provides a different example, but feel free to copy in examples from the reading and tinker with them a bit.</p>
+<p>These optional readings will also be useful follow up:</p>
+<ul>
+<li><a href="https://datacarpentry.org/R-ecology-lesson/03-dplyr.html"><code>dplyr</code> lesson in Data Carpentry</a></li>
+<li><a href="https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html"><code>dplyr</code> vignette (long form example document)</a>: if you’re struggling, this provides additional examples that you can try on your own (and as a bonus they use a Star Wars data set). Package vignettes like this are an amazing resource for learning new packages, and evaluating their capabilities, once you get the basics.</li>
+<li><a href="https://tidyr.tidyverse.org/articles/pivot.html"><code>tidyr</code> pivot vignette</a> again provides some nice examples of the <code>pivot_longer</code> and <code>pivot_wider</code> functions with different data set (although none quite as fun as the Star Wars data, alas).</li>
+</ul>
+</div>
+</div>
+<div id="group_by-function-summarizing-info-based-on-typecharacteristic" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> <code>group_by</code> function: Summarizing info based on type/characteristic<a href="summarizing-data.html#group_by-function-summarizing-info-based-on-typecharacteristic" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><em>Based on reading from <a href="https://r4ds.hadley.nz/data-transform#groups">R for Data Science, section 3.5: Groups</a></em></p>
+<p><code>group_by(data, column_to_group_by)</code></p>
+<p>or with pipes</p>
+<p><code>data |&gt; group_by(column_to_group_by)</code></p>
+<ul>
+<li>combines rows into groups based on a column characteristic</li>
+<li><strong>provides ability to summarize information based on one or more variables in your dataset when combine with <code>summarize</code></strong></li>
+</ul>
+<p>Let’s start by activating the data sets package within R-studio. We’re going to explore the sleep data set.</p>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="summarizing-data.html#cb278-1" tabindex="-1"></a><span class="fu">library</span>(datasets)</span>
+<span id="cb278-2"><a href="summarizing-data.html#cb278-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb278-3"><a href="summarizing-data.html#cb278-3" tabindex="-1"></a>sleep</span></code></pre></div>
+<pre><code>##    extra group ID
+## 1    0.7     1  1
+## 2   -1.6     1  2
+## 3   -0.2     1  3
+## 4   -1.2     1  4
+## 5   -0.1     1  5
+## 6    3.4     1  6
+## 7    3.7     1  7
+## 8    0.8     1  8
+## 9    0.0     1  9
+## 10   2.0     1 10
+## 11   1.9     2  1
+## 12   0.8     2  2
+## 13   1.1     2  3
+## 14   0.1     2  4
+## 15  -0.1     2  5
+## 16   4.4     2  6
+## 17   5.5     2  7
+## 18   1.6     2  8
+## 19   4.6     2  9
+## 20   3.4     2 10</code></pre>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="summarizing-data.html#cb280-1" tabindex="-1"></a>?sleep</span></code></pre></div>
+<p>The dataset has 3 variables:</p>
+<ul>
+<li><code>extra</code>, is a numeric variable representing the increase in hours of sleep</li>
+<li><code>group</code> is a categorical factor variable representing the drug given</li>
+<li><code>ID</code> is another factor for the patient ID</li>
+</ul>
+<p>Suppose you want to know how the 2 drug treatment groups varied with respect to the extra hours of sleep. First we group the data by <code>group</code>, the drug given.</p>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="summarizing-data.html#cb281-1" tabindex="-1"></a>sleep <span class="sc">|&gt;</span> <span class="fu">group_by</span>(group)</span></code></pre></div>
+<pre><code>## # A tibble: 20 × 3
+## # Groups:   group [2]
+##    extra group ID   
+##    &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt;
+##  1   0.7 1     1    
+##  2  -1.6 1     2    
+##  3  -0.2 1     3    
+##  4  -1.2 1     4    
+##  5  -0.1 1     5    
+##  6   3.4 1     6    
+##  7   3.7 1     7    
+##  8   0.8 1     8    
+##  9   0   1     9    
+## 10   2   1     10   
+## 11   1.9 2     1    
+## 12   0.8 2     2    
+## 13   1.1 2     3    
+## 14   0.1 2     4    
+## 15  -0.1 2     5    
+## 16   4.4 2     6    
+## 17   5.5 2     7    
+## 18   1.6 2     8    
+## 19   4.6 2     9    
+## 20   3.4 2     10</code></pre>
+<p>Note that this looks the same as <code>sleep</code> only with <code>Groups: group [2]</code> as an attribute.</p>
+<p>Now you can use summarize function to calculate statistics for each group within the dataset. Here, we only have 2 groups so it’s a simple example.</p>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="summarizing-data.html#cb283-1" tabindex="-1"></a><span class="co"># summarize the number of rows for each group</span></span>
+<span id="cb283-2"><a href="summarizing-data.html#cb283-2" tabindex="-1"></a>sleep <span class="sc">|&gt;</span></span>
+<span id="cb283-3"><a href="summarizing-data.html#cb283-3" tabindex="-1"></a>  <span class="fu">group_by</span>(group) <span class="sc">|&gt;</span></span>
+<span id="cb283-4"><a href="summarizing-data.html#cb283-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">N =</span> <span class="fu">n</span>())</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 2
+##   group     N
+##   &lt;fct&gt; &lt;int&gt;
+## 1 1        10
+## 2 2        10</code></pre>
+<p>We can save this summary table as a new object</p>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="summarizing-data.html#cb285-1" tabindex="-1"></a>sleep_N <span class="ot">&lt;-</span></span>
+<span id="cb285-2"><a href="summarizing-data.html#cb285-2" tabindex="-1"></a>  sleep <span class="sc">|&gt;</span></span>
+<span id="cb285-3"><a href="summarizing-data.html#cb285-3" tabindex="-1"></a>  <span class="fu">group_by</span>(group) <span class="sc">|&gt;</span></span>
+<span id="cb285-4"><a href="summarizing-data.html#cb285-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">N =</span> <span class="fu">n</span>())</span>
+<span id="cb285-5"><a href="summarizing-data.html#cb285-5" tabindex="-1"></a>sleep_N</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 2
+##   group     N
+##   &lt;fct&gt; &lt;int&gt;
+## 1 1        10
+## 2 2        10</code></pre>
+<p>The result here is trivial, but imagine if you had a larger dataset, like the Dipodomys survey from last week. One technique in coding is to start with something small, where you can easily hand-calculate the answer.</p>
+<p>Let’s look at other functions you can use within <code>summarize</code>:</p>
+<ul>
+<li><p>basic stats: <a href="https://www.dummies.com/education/math/statistics/base-r-statistical-functions/" class="uri">https://www.dummies.com/education/math/statistics/base-r-statistical-functions/</a></p></li>
+<li><p><code>sum()</code></p></li>
+<li><p><code>mean()</code></p></li>
+<li><p><code>var()</code></p></li>
+<li><p><code>sd()</code></p></li>
+<li><p><code>range()</code></p></li>
+<li><p><code>cor()</code></p></li>
+<li><p><code>min()</code></p></li>
+<li><p><code>summary()</code></p></li>
+<li><p><code>max()</code></p></li>
+<li><p><code>quantile()</code></p></li>
+<li><p><code>median()</code></p></li>
+</ul>
+<p>Let’s look at the median number of extra sleep hours:</p>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="summarizing-data.html#cb287-1" tabindex="-1"></a>sleep <span class="sc">|&gt;</span></span>
+<span id="cb287-2"><a href="summarizing-data.html#cb287-2" tabindex="-1"></a>  <span class="fu">group_by</span>(group) <span class="sc">|&gt;</span></span>
+<span id="cb287-3"><a href="summarizing-data.html#cb287-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">median_extra_sleep =</span> <span class="fu">median</span>(extra))</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 2
+##   group median_extra_sleep
+##   &lt;fct&gt;              &lt;dbl&gt;
+## 1 1                   0.35
+## 2 2                   1.75</code></pre>
+<p>Now let’s look at what would happen if there was missing data by changing a value:</p>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="summarizing-data.html#cb289-1" tabindex="-1"></a><span class="co"># summarize the number of rows for each group</span></span>
+<span id="cb289-2"><a href="summarizing-data.html#cb289-2" tabindex="-1"></a>sleep[<span class="dv">1</span>,<span class="dv">1</span>] <span class="ot">=</span> <span class="cn">NA</span> <span class="co"># Oh I used `=` here to assign this, </span></span>
+<span id="cb289-3"><a href="summarizing-data.html#cb289-3" tabindex="-1"></a><span class="co"># the assignment arrows, `&lt;-` or `-&gt;`, are generally best-coding </span></span>
+<span id="cb289-4"><a href="summarizing-data.html#cb289-4" tabindex="-1"></a><span class="co"># practice as they differentiate variables and objects, from function </span></span>
+<span id="cb289-5"><a href="summarizing-data.html#cb289-5" tabindex="-1"></a><span class="co"># arguments</span></span></code></pre></div>
+<p>Now, if we implement the summarize command for the median sleep we’ll obtain a NA value:</p>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="summarizing-data.html#cb290-1" tabindex="-1"></a>sleep <span class="sc">|&gt;</span></span>
+<span id="cb290-2"><a href="summarizing-data.html#cb290-2" tabindex="-1"></a>  <span class="fu">group_by</span>(group) <span class="sc">|&gt;</span></span>
+<span id="cb290-3"><a href="summarizing-data.html#cb290-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">median_sleep =</span> <span class="fu">median</span>(extra))</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 2
+##   group median_sleep
+##   &lt;fct&gt;        &lt;dbl&gt;
+## 1 1            NA   
+## 2 2             1.75</code></pre>
+<p>So what can we do? Start by adding a na.rm = TRUE command.</p>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="summarizing-data.html#cb292-1" tabindex="-1"></a>sleep <span class="sc">|&gt;</span></span>
+<span id="cb292-2"><a href="summarizing-data.html#cb292-2" tabindex="-1"></a>  <span class="fu">group_by</span>(group) <span class="sc">|&gt;</span></span>
+<span id="cb292-3"><a href="summarizing-data.html#cb292-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">median_sleep =</span> <span class="fu">median</span>(extra, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 2
+##   group median_sleep
+##   &lt;fct&gt;        &lt;dbl&gt;
+## 1 1             0   
+## 2 2             1.75</code></pre>
+<p>If you still had NaN or some other troublesome value (depending on your data set), you could filter the data: <code>filter(data, !is.na(variable))</code></p>
+</div>
+<div id="grouping-with-multiple-variables" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Grouping with multiple variables<a href="summarizing-data.html#grouping-with-multiple-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><code>sleep</code> is a really simple data set, but what if we have a slightly bigger data set with multiple variables we wanted to group by and summarize? Let’s look at the “Carbon Dioxide Uptake in Grass Plants” <code>CO2</code> data set. This data set contains ambient CO<sub>2</sub> (<code>conc</code>) and CO<sub>2</sub> uptake rate (<code>uptake</code>) measurements for <em>Echinochloa crus-galli</em> grass species from Quebec or Mississippi (<code>type</code>) that have undergone a chilling treatment or not (<code>treatment</code>).</p>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="summarizing-data.html#cb294-1" tabindex="-1"></a><span class="fu">head</span>(CO2)</span></code></pre></div>
+<pre><code>##   Plant   Type  Treatment conc uptake
+## 1   Qn1 Quebec nonchilled   95   16.0
+## 2   Qn1 Quebec nonchilled  175   30.4
+## 3   Qn1 Quebec nonchilled  250   34.8
+## 4   Qn1 Quebec nonchilled  350   37.2
+## 5   Qn1 Quebec nonchilled  500   35.3
+## 6   Qn1 Quebec nonchilled  675   39.2</code></pre>
+<p>The obvious questions to ask of this data are:</p>
+<ul>
+<li>What effect does the origin/<code>type</code> of grass species have on CO<sub>2</sub> uptake?</li>
+<li>What effect does the chilling <code>treatment</code> have on CO<sub>2</sub> uptake?</li>
+<li>What effect does ambient CO<sub>2</sub> <code>conc</code> have on CO<sub>2</sub> uptake?</li>
+</ul>
+<p>Let’s try to answer these questions with one long pipe! The 3rd question is ideally a regression which we’ll save for after spring break, but we could separate the <code>conc</code> vector into a few groups and summarize the <code>uptake</code> for each group.</p>
+<p>So let’s make a plan. We want to group by <code>type</code> and <code>treatment</code> as well as <code>conc</code>, but first we need to make a simplified, <code>group_conc</code> variable. Remember we use <code>mutate</code> to make new variables. <code>case_when</code> or <code>cut</code> are a convenient functions to use in <code>mutate</code> to make categorical variables from numerical variables. The easiest way to figure out how <code>case_when</code> works is to check out the Examples section in <code>?case_when</code>. So we will,</p>
+<ol style="list-style-type: decimal">
+<li>Make a new <code>group_conc</code> to simplify data a bit (let’s say 95 ~ “low” and 1000 ~ “high”).</li>
+<li>Group by <code>Type</code>, <code>Treatment</code>, and <code>group_conc</code>.</li>
+<li>Summarize the mean and standard deviation CO<sub>2</sub> uptake of each group.</li>
+</ol>
+<p>This table will allow us to compare the average uptake values of each of these groups. <strong>All we need to do to summarize all of these combinations of variables is pass the three variable names to <code>group_by</code>!</strong></p>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="summarizing-data.html#cb296-1" tabindex="-1"></a>CO2 <span class="sc">|&gt;</span></span>
+<span id="cb296-2"><a href="summarizing-data.html#cb296-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">group_conc =</span> <span class="fu">case_when</span>(conc <span class="sc">==</span> <span class="dv">1000</span> <span class="sc">~</span> <span class="st">&quot;high&quot;</span>, </span>
+<span id="cb296-3"><a href="summarizing-data.html#cb296-3" tabindex="-1"></a>                               conc <span class="sc">==</span> <span class="dv">95</span> <span class="sc">~</span> <span class="st">&quot;low&quot;</span>, </span>
+<span id="cb296-4"><a href="summarizing-data.html#cb296-4" tabindex="-1"></a>                               <span class="at">.default =</span> <span class="cn">NA</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb296-5"><a href="summarizing-data.html#cb296-5" tabindex="-1"></a>  <span class="fu">group_by</span>(Type, Treatment, group_conc) <span class="sc">|&gt;</span></span>
+<span id="cb296-6"><a href="summarizing-data.html#cb296-6" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_uptake =</span> <span class="fu">mean</span>(uptake), </span>
+<span id="cb296-7"><a href="summarizing-data.html#cb296-7" tabindex="-1"></a>            <span class="at">sd_uptake =</span> <span class="fu">sd</span>(uptake))<span class="co"># -&gt; </span></span></code></pre></div>
+<pre><code>## `summarise()` has grouped output by &#39;Type&#39;, &#39;Treatment&#39;. You can override using
+## the `.groups` argument.</code></pre>
+<pre><code>## # A tibble: 12 × 5
+## # Groups:   Type, Treatment [4]
+##    Type        Treatment  group_conc mean_uptake sd_uptake
+##    &lt;fct&gt;       &lt;fct&gt;      &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;
+##  1 Quebec      nonchilled high              43.2      3.06
+##  2 Quebec      nonchilled low               15.3      1.45
+##  3 Quebec      nonchilled &lt;NA&gt;              37.8      4.91
+##  4 Quebec      chilled    high              40.8      1.91
+##  5 Quebec      chilled    low               12.9      3.12
+##  6 Quebec      chilled    &lt;NA&gt;              33.7      5.72
+##  7 Mississippi nonchilled high              31.6      3.85
+##  8 Mississippi nonchilled low               11.3      0.7 
+##  9 Mississippi nonchilled &lt;NA&gt;              27.8      4.45
+## 10 Mississippi chilled    high              18.7      3.88
+## 11 Mississippi chilled    low                9.6      1.65
+## 12 Mississippi chilled    &lt;NA&gt;              16.5      3.23</code></pre>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="summarizing-data.html#cb299-1" tabindex="-1"></a>  <span class="co">#CO2_summary</span></span></code></pre></div>
+<p>To make it easier for us to make some conclusions from this we can clean it up a little bit by removing the <code>NA</code> rows and <code>arrange</code>-ing by <code>mean_uptake</code>.</p>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="summarizing-data.html#cb300-1" tabindex="-1"></a>CO2 <span class="sc">|&gt;</span></span>
+<span id="cb300-2"><a href="summarizing-data.html#cb300-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">group_conc =</span> <span class="fu">case_when</span>(conc <span class="sc">==</span> <span class="dv">1000</span> <span class="sc">~</span> <span class="st">&quot;high&quot;</span>, </span>
+<span id="cb300-3"><a href="summarizing-data.html#cb300-3" tabindex="-1"></a>                               conc <span class="sc">==</span> <span class="dv">95</span> <span class="sc">~</span> <span class="st">&quot;low&quot;</span>, </span>
+<span id="cb300-4"><a href="summarizing-data.html#cb300-4" tabindex="-1"></a>                               <span class="at">.default =</span> <span class="cn">NA</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb300-5"><a href="summarizing-data.html#cb300-5" tabindex="-1"></a>  <span class="fu">group_by</span>(Type, Treatment, group_conc) <span class="sc">|&gt;</span></span>
+<span id="cb300-6"><a href="summarizing-data.html#cb300-6" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_uptake =</span> <span class="fu">mean</span>(uptake), </span>
+<span id="cb300-7"><a href="summarizing-data.html#cb300-7" tabindex="-1"></a>            <span class="at">sd_uptake =</span> <span class="fu">sd</span>(uptake)) <span class="sc">|&gt;</span></span>
+<span id="cb300-8"><a href="summarizing-data.html#cb300-8" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(group_conc)) <span class="sc">|&gt;</span></span>
+<span id="cb300-9"><a href="summarizing-data.html#cb300-9" tabindex="-1"></a>  <span class="fu">arrange</span>(mean_uptake)</span></code></pre></div>
+<pre><code>## `summarise()` has grouped output by &#39;Type&#39;, &#39;Treatment&#39;. You can override using
+## the `.groups` argument.</code></pre>
+<pre><code>## # A tibble: 8 × 5
+## # Groups:   Type, Treatment [4]
+##   Type        Treatment  group_conc mean_uptake sd_uptake
+##   &lt;fct&gt;       &lt;fct&gt;      &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;
+## 1 Mississippi chilled    low                9.6      1.65
+## 2 Mississippi nonchilled low               11.3      0.7 
+## 3 Quebec      chilled    low               12.9      3.12
+## 4 Quebec      nonchilled low               15.3      1.45
+## 5 Mississippi chilled    high              18.7      3.88
+## 6 Mississippi nonchilled high              31.6      3.85
+## 7 Quebec      chilled    high              40.8      1.91
+## 8 Quebec      nonchilled high              43.2      3.06</code></pre>
+<p>Now looking at this final summary table we can see Quebec varieties had higher uptake rates than Mississippi, the chilling treatment reduced uptake rates, and high ambient concentrations increase uptake rates.</p>
+</div>
+<div id="tidying-and-untidying-data-with-pivot_-functions" class="section level2 hasAnchor" number="5.5">
+<h2><span class="header-section-number">5.5</span> Tidying and untidying data with <code>pivot_</code> functions<a href="summarizing-data.html#tidying-and-untidying-data-with-pivot_-functions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><em>Based on reading from <a href="https://r4ds.hadley.nz/data-tidy#sec-pivoting">R for Data Science, section 5.3 and 5.4: Lengthening and Widening data</a></em></p>
+<p>Data can come your way in untidy forms which you will need to tidy up for analysis. Also, occasionally you may want to intentionally untidy data to do some analyses, or present the data in a shorter form table. For these tasks, so long as the data is organized systematically, you can make use of the tidyr package functions <code>pivot_longer</code> or <code>pivot_wider</code>.</p>
+<p>For tidying untidy data, we can use <code>pivot_longer</code>. For example if a variable is encoded in column names, like “cell_growth_5ug_ml_cefo” in which a column has cell growth measurements (or “observations”) at a specific concentration of an antibiotic, 5 µg/mL cefotaxime in this case.</p>
+<p>The reading uses a fun <code>billboard</code> data set.</p>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="summarizing-data.html#cb303-1" tabindex="-1"></a>billboard</span></code></pre></div>
+<pre><code>## # A tibble: 317 × 79
+##    artist     track date.entered   wk1   wk2   wk3   wk4   wk5   wk6   wk7   wk8
+##    &lt;chr&gt;      &lt;chr&gt; &lt;date&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 2 Pac      Baby… 2000-02-26      87    82    72    77    87    94    99    NA
+##  2 2Ge+her    The … 2000-09-02      91    87    92    NA    NA    NA    NA    NA
+##  3 3 Doors D… Kryp… 2000-04-08      81    70    68    67    66    57    54    53
+##  4 3 Doors D… Loser 2000-10-21      76    76    72    69    67    65    55    59
+##  5 504 Boyz   Wobb… 2000-04-15      57    34    25    17    17    31    36    49
+##  6 98^0       Give… 2000-08-19      51    39    34    26    26    19     2     2
+##  7 A*Teens    Danc… 2000-07-08      97    97    96    95   100    NA    NA    NA
+##  8 Aaliyah    I Do… 2000-01-29      84    62    51    41    38    35    35    38
+##  9 Aaliyah    Try … 2000-03-18      59    53    38    28    21    18    16    14
+## 10 Adams, Yo… Open… 2000-08-26      76    76    74    69    68    67    61    58
+## # ℹ 307 more rows
+## # ℹ 68 more variables: wk9 &lt;dbl&gt;, wk10 &lt;dbl&gt;, wk11 &lt;dbl&gt;, wk12 &lt;dbl&gt;,
+## #   wk13 &lt;dbl&gt;, wk14 &lt;dbl&gt;, wk15 &lt;dbl&gt;, wk16 &lt;dbl&gt;, wk17 &lt;dbl&gt;, wk18 &lt;dbl&gt;,
+## #   wk19 &lt;dbl&gt;, wk20 &lt;dbl&gt;, wk21 &lt;dbl&gt;, wk22 &lt;dbl&gt;, wk23 &lt;dbl&gt;, wk24 &lt;dbl&gt;,
+## #   wk25 &lt;dbl&gt;, wk26 &lt;dbl&gt;, wk27 &lt;dbl&gt;, wk28 &lt;dbl&gt;, wk29 &lt;dbl&gt;, wk30 &lt;dbl&gt;,
+## #   wk31 &lt;dbl&gt;, wk32 &lt;dbl&gt;, wk33 &lt;dbl&gt;, wk34 &lt;dbl&gt;, wk35 &lt;dbl&gt;, wk36 &lt;dbl&gt;,
+## #   wk37 &lt;dbl&gt;, wk38 &lt;dbl&gt;, wk39 &lt;dbl&gt;, wk40 &lt;dbl&gt;, wk41 &lt;dbl&gt;, wk42 &lt;dbl&gt;, …</code></pre>
+<p>Looking at this dataset we can see each row is a song and there are columns for each week of the year which contains the position of the song on the billboard chart. Definitely not tidy, right?! The “week” columns are actually a variable themselves. An easy way to identify this sort of untidiness is that column names provide no indication of what values they contain.</p>
+<p>To tidy this we want to make the wide table of weeks into a long table that has “week” as a variable, and “position” as a variable. This would be an enormous task to do, but fortunately <code>pivot_longer</code> makes it pretty easy. The arguments to <code>pivot_longer</code> are <code>cols</code> which is list of column names you want to condense into a single column. To the <code>cols</code> argument we can pass helper “tidy-select” functions which are</p>
+<ul>
+<li><p><code>starts_with("a")</code>: names that start with <code>"a"</code>.</p></li>
+<li><p><code>ends_with("z")</code>: names that end with <code>"z"</code>.</p></li>
+<li><p><code>contains("b")</code>: names that contain <code>"b"</code>.</p></li>
+<li><p><code>matches("x.y")</code>: names that match regular expression <code>x.y</code>.</p></li>
+<li><p><code>num_range(x, 1:4)</code>: names following the pattern, <code>x1</code>, <code>x2</code>, …, <code>x4</code>.</p></li>
+<li><p>`all_of(vars)`` will match just the variables that exist.</p></li>
+<li><p><code>everything()</code>: all variables.</p></li>
+<li><p><code>last_col()</code>: furthest column on the right.</p></li>
+<li><p><code>where(is.numeric)</code>: all variables where <code>is.numeric()</code> returns <code>TRUE</code>.</p></li>
+</ul>
+<p>Let’s use <code>starts_with()</code> to grab all the columns that start with “wk”. The other arguments that we need are <code>names_to</code> and <code>values_to</code></p>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="summarizing-data.html#cb305-1" tabindex="-1"></a>billboard <span class="sc">|&gt;</span> </span>
+<span id="cb305-2"><a href="summarizing-data.html#cb305-2" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb305-3"><a href="summarizing-data.html#cb305-3" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;wk&quot;</span>), </span>
+<span id="cb305-4"><a href="summarizing-data.html#cb305-4" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;week&quot;</span>, </span>
+<span id="cb305-5"><a href="summarizing-data.html#cb305-5" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;rank&quot;</span></span>
+<span id="cb305-6"><a href="summarizing-data.html#cb305-6" tabindex="-1"></a>  )</span></code></pre></div>
+<pre><code>## # A tibble: 24,092 × 5
+##    artist track                   date.entered week   rank
+##    &lt;chr&gt;  &lt;chr&gt;                   &lt;date&gt;       &lt;chr&gt; &lt;dbl&gt;
+##  1 2 Pac  Baby Don&#39;t Cry (Keep... 2000-02-26   wk1      87
+##  2 2 Pac  Baby Don&#39;t Cry (Keep... 2000-02-26   wk2      82
+##  3 2 Pac  Baby Don&#39;t Cry (Keep... 2000-02-26   wk3      72
+##  4 2 Pac  Baby Don&#39;t Cry (Keep... 2000-02-26   wk4      77
+##  5 2 Pac  Baby Don&#39;t Cry (Keep... 2000-02-26   wk5      87
+##  6 2 Pac  Baby Don&#39;t Cry (Keep... 2000-02-26   wk6      94
+##  7 2 Pac  Baby Don&#39;t Cry (Keep... 2000-02-26   wk7      99
+##  8 2 Pac  Baby Don&#39;t Cry (Keep... 2000-02-26   wk8      NA
+##  9 2 Pac  Baby Don&#39;t Cry (Keep... 2000-02-26   wk9      NA
+## 10 2 Pac  Baby Don&#39;t Cry (Keep... 2000-02-26   wk10     NA
+## # ℹ 24,082 more rows</code></pre>
+<p>Note how long this longer table is now, 24 thousand rows! This tidied dataset can now be analyzed and plottes with ease.</p>
+<p>However we can’t fit this dataset (or at least a few songs) onto a page easily in it’s tidy form. For that we need to widen. It is rarely the case that we need to use <code>pivot_wider</code> except for trying to display data in a more convenient table. We could pivot_wider our billboard dataset back to the original for example. The arguments are just the opposite, <code>names_from = "week"</code> and <code>values_from = "rank"</code>.</p>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="summarizing-data.html#cb307-1" tabindex="-1"></a>billboard <span class="sc">|&gt;</span> </span>
+<span id="cb307-2"><a href="summarizing-data.html#cb307-2" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb307-3"><a href="summarizing-data.html#cb307-3" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;wk&quot;</span>), </span>
+<span id="cb307-4"><a href="summarizing-data.html#cb307-4" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;week&quot;</span>, </span>
+<span id="cb307-5"><a href="summarizing-data.html#cb307-5" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;rank&quot;</span></span>
+<span id="cb307-6"><a href="summarizing-data.html#cb307-6" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb307-7"><a href="summarizing-data.html#cb307-7" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb307-8"><a href="summarizing-data.html#cb307-8" tabindex="-1"></a>    <span class="at">names_from =</span> <span class="st">&quot;week&quot;</span>, </span>
+<span id="cb307-9"><a href="summarizing-data.html#cb307-9" tabindex="-1"></a>    <span class="at">values_from =</span> <span class="st">&quot;rank&quot;</span></span>
+<span id="cb307-10"><a href="summarizing-data.html#cb307-10" tabindex="-1"></a>  )</span></code></pre></div>
+<pre><code>## # A tibble: 317 × 79
+##    artist     track date.entered   wk1   wk2   wk3   wk4   wk5   wk6   wk7   wk8
+##    &lt;chr&gt;      &lt;chr&gt; &lt;date&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 2 Pac      Baby… 2000-02-26      87    82    72    77    87    94    99    NA
+##  2 2Ge+her    The … 2000-09-02      91    87    92    NA    NA    NA    NA    NA
+##  3 3 Doors D… Kryp… 2000-04-08      81    70    68    67    66    57    54    53
+##  4 3 Doors D… Loser 2000-10-21      76    76    72    69    67    65    55    59
+##  5 504 Boyz   Wobb… 2000-04-15      57    34    25    17    17    31    36    49
+##  6 98^0       Give… 2000-08-19      51    39    34    26    26    19     2     2
+##  7 A*Teens    Danc… 2000-07-08      97    97    96    95   100    NA    NA    NA
+##  8 Aaliyah    I Do… 2000-01-29      84    62    51    41    38    35    35    38
+##  9 Aaliyah    Try … 2000-03-18      59    53    38    28    21    18    16    14
+## 10 Adams, Yo… Open… 2000-08-26      76    76    74    69    68    67    61    58
+## # ℹ 307 more rows
+## # ℹ 68 more variables: wk9 &lt;dbl&gt;, wk10 &lt;dbl&gt;, wk11 &lt;dbl&gt;, wk12 &lt;dbl&gt;,
+## #   wk13 &lt;dbl&gt;, wk14 &lt;dbl&gt;, wk15 &lt;dbl&gt;, wk16 &lt;dbl&gt;, wk17 &lt;dbl&gt;, wk18 &lt;dbl&gt;,
+## #   wk19 &lt;dbl&gt;, wk20 &lt;dbl&gt;, wk21 &lt;dbl&gt;, wk22 &lt;dbl&gt;, wk23 &lt;dbl&gt;, wk24 &lt;dbl&gt;,
+## #   wk25 &lt;dbl&gt;, wk26 &lt;dbl&gt;, wk27 &lt;dbl&gt;, wk28 &lt;dbl&gt;, wk29 &lt;dbl&gt;, wk30 &lt;dbl&gt;,
+## #   wk31 &lt;dbl&gt;, wk32 &lt;dbl&gt;, wk33 &lt;dbl&gt;, wk34 &lt;dbl&gt;, wk35 &lt;dbl&gt;, wk36 &lt;dbl&gt;,
+## #   wk37 &lt;dbl&gt;, wk38 &lt;dbl&gt;, wk39 &lt;dbl&gt;, wk40 &lt;dbl&gt;, wk41 &lt;dbl&gt;, wk42 &lt;dbl&gt;, …</code></pre>
+</div>
+<div id="joins-and-binds-within-dplyr" class="section level2 hasAnchor" number="5.6">
+<h2><span class="header-section-number">5.6</span> Joins and Binds within <code>dplyr</code><a href="summarizing-data.html#joins-and-binds-within-dplyr" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><em>Based on reading from <a href="https://r4ds.hadley.nz/joins">R for Data Science, chapter 19: Joins</a></em></p>
+<p>Within Biological Systems Engineering and the larger field, there are many times when we use multiple tables to reduce redundant data, particularly as data is being collected. Imagine you have a very large table that repeats double-precision data over and over again, resulting in a dataset that occupies more computer memory. While modern computers are incredible in their storage capacity, I can attest that processing speed and memory allocation is and will still be a consideration in your work. Here are some examples of such tasks:</p>
+<ol style="list-style-type: decimal">
+<li><p>Perhaps, your experiment spans many days and you collected each day’s data in a different sheet that you now want to compile.</p></li>
+<li><p>Perhaps, you didn’t want to write down complete experimental conditions for each sample and instead used a code or number to indicate different conditions, now you want to add the full info to the table. Or maybe you measured something at a place over time and want to add weather station data as new columns.</p></li>
+</ol>
+<p>The above are two different tasks: 1) just stitching datasets together is a <code>bind_</code>, whereas examples in 2) are adding new variables based on the values in some key/code variable, like the experiment code or date, which is a <code>_join</code>.</p>
+<p>In dplyr we can use <code>bind_rows</code> to add new observations to a dataset, like binding multiple days data tables together. <code>bind_rows</code> will return an error if the column names of the tables we are joining are not the same.</p>
+<p>You can also use <code>bind_cols</code> to add new columns to a dataset without any key or identifier variable, but this is risky, as there is no guarantee that the rows (observations) will be in the same order. It’s better to use a <code>_join</code> function which checks that the rows match based on shared variables.</p>
+<p>Let’s illustrate joins using data from the Problem Set.</p>
+<p>We’ll first read each of these into the workspace:</p>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="summarizing-data.html#cb309-1" tabindex="-1"></a>plots <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/plots.csv&quot;</span>)</span></code></pre></div>
+<pre><code>## Rows: 24 Columns: 2
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (1): plot_type
+## dbl (1): plot_id
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="summarizing-data.html#cb311-1" tabindex="-1"></a>species <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/species.csv&quot;</span>)</span></code></pre></div>
+<pre><code>## Rows: 54 Columns: 4
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (4): species_id, genus, species, taxa
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="summarizing-data.html#cb313-1" tabindex="-1"></a>surveys <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/surveys.csv&quot;</span>)</span></code></pre></div>
+<pre><code>## Rows: 35549 Columns: 9
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (2): species_id, sex
+## dbl (7): record_id, month, day, year, plot_id, hindfoot_length, weight
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<p>Note that when you do this, there are 24 plots, 54 types of species, but 35,549 lines of data in the surveys dataset!</p>
+<p>These tables are all related the question is: “What is the column that is shared by, <strong>or links</strong>, the plots and surveys dataset?”</p>
+<p><code>plot_id</code>!</p>
+<p>What is the column that links the surveys dataset with the species?</p>
+<p><code>species_id</code>!</p>
+<p>If we want to combine the dataset, let’s look at how we would do this. We’ll employ the command:</p>
+<p><code>inner_join</code></p>
+<p>From help:</p>
+<p>The mutating joins add columns from dataset <code>y</code> to dataset <code>x</code>, matching rows based on the keys:</p>
+<ul>
+<li><p><code>inner_join(x,y)</code>: includes all rows in <code>x</code> and <code>y</code>.</p></li>
+<li><p><code>left_join(x,y)</code>: includes all rows in <code>x</code>.</p></li>
+<li><p><code>right_join(x,y)</code>: includes all rows in <code>y</code>.</p></li>
+<li><p><code>full_join(x,y)</code>: includes all rows in <code>x</code> or <code>y</code>. If a row in <code>x</code> matches multiple rows in <code>y</code>, all the rows in <code>y</code> will be returned once for each matching row in <code>x</code>.</p></li>
+</ul>
+<p>The <a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">dplyr cheat sheet</a> (also up in the Help&gt;Cheat Sheets menu) demonstrates this visually.</p>
+<p>If you want to include the detailed names contained within the species table, use an inner join and join based on the common variable <code>species_id</code>, using the <code>by</code> argument to specify the column name(s), <strong>as a character vector</strong>, that you want to link the two datasets.</p>
+<p>In this case, you end up with 3 additional variables that are within the species table added to the surveys data.</p>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="summarizing-data.html#cb315-1" tabindex="-1"></a>combo <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(surveys, species, <span class="at">by =</span> <span class="st">&quot;species_id&quot;</span>)</span>
+<span id="cb315-2"><a href="summarizing-data.html#cb315-2" tabindex="-1"></a><span class="fu">head</span>(combo)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 12
+##   record_id month   day  year plot_id species_id sex   hindfoot_length weight
+##       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;           &lt;dbl&gt;  &lt;dbl&gt;
+## 1         1     7    16  1977       2 NL         M                  32     NA
+## 2         2     7    16  1977       3 NL         M                  33     NA
+## 3         3     7    16  1977       2 DM         F                  37     NA
+## 4         4     7    16  1977       7 DM         M                  36     NA
+## 5         5     7    16  1977       3 DM         M                  35     NA
+## 6         6     7    16  1977       1 PF         M                  14     NA
+## # ℹ 3 more variables: genus &lt;chr&gt;, species &lt;chr&gt;, taxa &lt;chr&gt;</code></pre>
+<p>If you wanted to join all three tables together we could add this to the first combo:</p>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="summarizing-data.html#cb317-1" tabindex="-1"></a>combo2 <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(combo, plots, <span class="at">by =</span> <span class="st">&quot;plot_id&quot;</span>)</span></code></pre></div>
+<p>Or use pipes. This is actually more efficient because you aren’t creating the intermediate combo object that takes up memory, plus, this way you don’t accidentally mix up <code>combo</code> and <code>combo2</code>. As always more descriptive names would be better!</p>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="summarizing-data.html#cb318-1" tabindex="-1"></a>combo2 <span class="ot">&lt;-</span> surveys <span class="sc">%&gt;%</span> <span class="co"># oops this is what the pipe symbol used to be</span></span>
+<span id="cb318-2"><a href="summarizing-data.html#cb318-2" tabindex="-1"></a>  <span class="fu">inner_join</span>(species, <span class="at">by =</span> <span class="st">&quot;species_id&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb318-3"><a href="summarizing-data.html#cb318-3" tabindex="-1"></a>  <span class="fu">inner_join</span>(plots, <span class="at">by =</span> <span class="st">&quot;plot_id&quot;</span>)</span>
+<span id="cb318-4"><a href="summarizing-data.html#cb318-4" tabindex="-1"></a><span class="fu">head</span>(combo2)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 13
+##   record_id month   day  year plot_id species_id sex   hindfoot_length weight
+##       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;           &lt;dbl&gt;  &lt;dbl&gt;
+## 1         1     7    16  1977       2 NL         M                  32     NA
+## 2         2     7    16  1977       3 NL         M                  33     NA
+## 3         3     7    16  1977       2 DM         F                  37     NA
+## 4         4     7    16  1977       7 DM         M                  36     NA
+## 5         5     7    16  1977       3 DM         M                  35     NA
+## 6         6     7    16  1977       1 PF         M                  14     NA
+## # ℹ 4 more variables: genus &lt;chr&gt;, species &lt;chr&gt;, taxa &lt;chr&gt;, plot_type &lt;chr&gt;</code></pre>
+<p>While it is best practice to specify the columns you are using to uniquely match the datasets (called unique identifiers sometimes) the <code>_join</code> functions are pretty smart and will find variables that match between the datasets automatically as well!</p>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="summarizing-data.html#cb320-1" tabindex="-1"></a>surveys <span class="sc">|&gt;</span></span>
+<span id="cb320-2"><a href="summarizing-data.html#cb320-2" tabindex="-1"></a>  <span class="fu">inner_join</span>(species) <span class="sc">|&gt;</span></span>
+<span id="cb320-3"><a href="summarizing-data.html#cb320-3" tabindex="-1"></a>  <span class="fu">inner_join</span>(plots) <span class="sc">|&gt;</span></span>
+<span id="cb320-4"><a href="summarizing-data.html#cb320-4" tabindex="-1"></a>  <span class="fu">head</span>() </span></code></pre></div>
+<pre><code>## Joining with `by = join_by(species_id)`
+## Joining with `by = join_by(plot_id)`</code></pre>
+<pre><code>## # A tibble: 6 × 13
+##   record_id month   day  year plot_id species_id sex   hindfoot_length weight
+##       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;           &lt;dbl&gt;  &lt;dbl&gt;
+## 1         1     7    16  1977       2 NL         M                  32     NA
+## 2         2     7    16  1977       3 NL         M                  33     NA
+## 3         3     7    16  1977       2 DM         F                  37     NA
+## 4         4     7    16  1977       7 DM         M                  36     NA
+## 5         5     7    16  1977       3 DM         M                  35     NA
+## 6         6     7    16  1977       1 PF         M                  14     NA
+## # ℹ 4 more variables: genus &lt;chr&gt;, species &lt;chr&gt;, taxa &lt;chr&gt;, plot_type &lt;chr&gt;</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="data-wrangling-examples.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="summarizing-data-examples.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/VT-BSE3144/bookdown/edit/BRANCH/05-0_Intro.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

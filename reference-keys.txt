@@ -131,3 +131,14 @@ arrange
 mutate---adds-a-new-column
 select-1
 grouped-summaries
+summarizing-data
+learning-objectives
+introduction
+readings-complete-by-class-on-monday
+group_by-function-summarizing-info-based-on-typecharacteristic
+grouping-with-multiple-variables
+tidying-and-untidying-data-with-pivot_-functions
+joins-and-binds-within-dplyr
+tidying-and-untidying-data-with-pivot_-functions-1
+root-growth-inhibition-example
+introduction-1
