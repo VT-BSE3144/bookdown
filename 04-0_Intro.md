@@ -1,5 +1,7 @@
 ---
 output: html_document
+params:
+  version: 1.1
 ---
 
 # Data Wrangling
