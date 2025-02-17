@@ -105,6 +105,7 @@ To demonstrate what a vector is let's load some data!
 
 
 ```{r}
+library(readxl)
 storm <- read_excel(path = "data/hazards.xlsx", sheet = 2)
 storm
 ```
