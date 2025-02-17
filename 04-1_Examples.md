@@ -14,26 +14,90 @@ These examples are adapted from R4DS <https://r4ds.hadley.nz/data-transform>.
 
 These are additional practice to those in the book to reinforce the reading and try by doing. Solutions for each are given below. Our suggestion is to try first and test your skill.
 
+
+``` r
+nycflights13::flights
+```
+
+```
+## # A tibble: 336,776 × 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+##    <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
+##  1  2013     1     1      517            515         2      830            819
+##  2  2013     1     1      533            529         4      850            830
+##  3  2013     1     1      542            540         2      923            850
+##  4  2013     1     1      544            545        -1     1004           1022
+##  5  2013     1     1      554            600        -6      812            837
+##  6  2013     1     1      554            558        -4      740            728
+##  7  2013     1     1      555            600        -5      913            854
+##  8  2013     1     1      557            600        -3      709            723
+##  9  2013     1     1      557            600        -3      838            846
+## 10  2013     1     1      558            600        -2      753            745
+## # ℹ 336,766 more rows
+## # ℹ 11 more variables: arr_delay <dbl>, carrier <chr>, flight <int>,
+## #   tailnum <chr>, origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>,
+## #   hour <dbl>, minute <dbl>, time_hour <dttm>
+```
+
 1.  Find all flights that:
 
 
 ``` r
 # 1.1 Had an arrival delay of two or more hours (10,034 flights)
+flights |> filter(arr_delay < 120)
+```
 
+```
+## # A tibble: 317,146 × 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+##    <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
+##  1  2013     1     1      517            515         2      830            819
+##  2  2013     1     1      533            529         4      850            830
+##  3  2013     1     1      542            540         2      923            850
+##  4  2013     1     1      544            545        -1     1004           1022
+##  5  2013     1     1      554            600        -6      812            837
+##  6  2013     1     1      554            558        -4      740            728
+##  7  2013     1     1      555            600        -5      913            854
+##  8  2013     1     1      557            600        -3      709            723
+##  9  2013     1     1      557            600        -3      838            846
+## 10  2013     1     1      558            600        -2      753            745
+## # ℹ 317,136 more rows
+## # ℹ 11 more variables: arr_delay <dbl>, carrier <chr>, flight <int>,
+## #   tailnum <chr>, origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>,
+## #   hour <dbl>, minute <dbl>, time_hour <dttm>
+```
+
+
+``` r
 # 1.2 Flew to Houston (IAH or HOU) (9,313 flights)
+```
 
+
+``` r
 # 1.3 Were operated by United, American, or Delta (139,504 flights)
+```
 
+
+``` r
 # 1.4 Departed in summer (July, August, and September) (86,326 flights)
+```
 
+
+``` r
 # 1.5 Arrived more than two hours late, but didn't leave late (3 flights)
+```
 
+
+``` r
 # 1.6 Were delayed by at least an hour, but made up over 30 minutes in flight (1,819 flights)
+```
 
+
+``` r
 # 1.7 Departed between midnight and 6am (inclusive) (9,373 flights)
 ```
 
-2.  Another useful dplyr filtering helper is between(). What does it do? Can you use it to simplify the code needed to answer 1.7? (hint: look up bwetween in the help menu. You'll see the required syntax, where x = vector, and left and right at the boundary values. You will also need to add an OR statement to include departure times at exactly 2400 since the dataframe has departures at both 0 and 2400)
+2.  Another useful dplyr filtering helper is between(). What does it do? Can you use it to simplify the code needed to answer 1.7? (hint: look up between in the help menu. You'll see the required syntax, where x = vector, and left and right at the boundary values. You will also need to add an OR statement to include departure times at exactly 2400 since the dataframe has departures at both 0 and 2400)
 
 
 
@@ -175,6 +239,8 @@ flights |> mutate(check_arr_delay = sched_arr_time - arr_time,
 ```
 
 ### Grouped summaries
+
+To make summary tables we will use the pipe combining `group_by` and `summarize`.  
 
 
 ``` r
