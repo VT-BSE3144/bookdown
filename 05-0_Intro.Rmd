@@ -1,0 +1,366 @@
+---
+output: html_document
+params:
+  version: 1.0
+---
+
+
+# Summarizing Data
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+require(tidyverse) # require gives more informative errors than library
+```
+
+## Learning Objectives
+
+This week we will:
+
+-   Practice summarizing large datasets by groups
+-   Tidy and untidy data with `pivot_longer` and `pivot_wider`
+-   Join datasets using different `_join` functions
+
+## Introduction
+
+This week we're focused on building our ability to analyze data. We'll incorporate new functions from the dplyr package, and explore table joins.
+
+The information below augments the readings. Following this, you'll be in good shape to start this week's exercises. Let's get started!
+
+### Readings (complete by class on Monday)
+
+Required:
+
+-   [R for Data Science, section 3.5: Groups](https://r4ds.hadley.nz/data-transform#groups)
+-   [R for Data Science, section 5.3 and 5.4: lengthening and Widening data](https://r4ds.hadley.nz/data-tidy#sec-pivoting)
+-   [R for Data Science, chapter 19: Joins](https://r4ds.hadley.nz/joins)
+
+As you read through, my suggestion is to have the markdown version of this document open in Posit where you can take notes on important functions/concepts and also code along with the examples. This way you’ll get a headstart on your cheat sheet for this week. The below summarizes and provides a different example, but feel free to copy in examples from the reading and tinker with them a bit.
+
+These optional readings will also be useful follow up:
+
+-   [`dplyr` lesson in Data Carpentry](https://datacarpentry.org/R-ecology-lesson/03-dplyr.html)
+-   [`dplyr` vignette (long form example document)](https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html): if you’re struggling, this provides additional examples that you can try on your own (and as a bonus they use a Star Wars data set). Package vignettes like this are an amazing resource for learning new packages, and evaluating their capabilities, once you get the basics.
+-   [`tidyr` pivot vignette](https://tidyr.tidyverse.org/articles/pivot.html) again provides some nice examples of the `pivot_longer` and `pivot_wider` functions with different data set (although none quite as fun as the Star Wars data, alas).
+
+## `group_by` function: Summarizing info based on type/characteristic
+
+*Based on reading from [R for Data Science, section 3.5: Groups](https://r4ds.hadley.nz/data-transform#groups)*
+
+`group_by(data, column_to_group_by)`
+
+or with pipes
+
+`data |> group_by(column_to_group_by)`
+
+-   combines rows into groups based on a column characteristic
+-   **provides ability to summarize information based on one or more variables in your dataset when combine with `summarize`**
+
+Let's start by activating the data sets package within R-studio. We're going to explore the sleep data set.
+
+```{r}
+library(datasets)
+library(dplyr)
+sleep
+?sleep
+```
+
+The dataset has 3 variables:
+
+-   `extra`, is a numeric variable representing the increase in hours of sleep
+-   `group` is a categorical factor variable representing the drug given
+-   `ID` is another factor for the patient ID
+
+Suppose you want to know how the 2 drug treatment groups varied with respect to the extra hours of sleep. First we group the data by `group`, the drug given.
+
+```{r}
+sleep |> group_by(group)
+```
+
+Note that this looks the same as `sleep` only with `Groups: group [2]` as an attribute.
+
+Now you can use summarize function to calculate statistics for each group within the dataset. Here, we only have 2 groups so it's a simple example.
+
+```{r}
+# summarize the number of rows for each group
+sleep |>
+  group_by(group) |>
+  summarize(N = n())
+```
+
+We can save this summary table as a new object
+
+```{r}
+sleep_N <-
+  sleep |>
+  group_by(group) |>
+  summarize(N = n())
+sleep_N
+```
+
+The result here is trivial, but imagine if you had a larger dataset, like the Dipodomys survey from last week. One technique in coding is to start with something small, where you can easily hand-calculate the answer.
+
+Let's look at other functions you can use within `summarize`:
+
+-   basic stats: <https://www.dummies.com/education/math/statistics/base-r-statistical-functions/>
+
+-   `sum()`
+
+-   `mean()`
+
+-   `var()`
+
+-   `sd()`
+
+-   `range()`
+
+-   `cor()`
+
+-   `min()`
+
+-   `summary()`
+
+-   `max()`
+
+-   `quantile()`
+
+-   `median()`
+
+Let's look at the median number of extra sleep hours:
+
+```{r}
+sleep |>
+  group_by(group) |>
+  summarize(median_extra_sleep = median(extra))
+```
+
+Now let's look at what would happen if there was missing data by changing a value:
+
+```{r}
+# summarize the number of rows for each group
+sleep[1,1] = NA # Oh I used `=` here to assign this, 
+# the assignment arrows, `<-` or `->`, are generally best-coding 
+# practice as they differentiate variables and objects, from function 
+# arguments
+```
+
+Now, if we implement the summarize command for the median sleep we'll obtain a NA value:
+
+```{r}
+sleep |>
+  group_by(group) |>
+  summarize(median_sleep = median(extra))
+```
+
+So what can we do? Start by adding a na.rm = TRUE command.
+
+```{r}
+sleep |>
+  group_by(group) |>
+  summarize(median_sleep = median(extra, na.rm = TRUE))
+```
+
+If you still had NaN or some other troublesome value (depending on your data set), you could filter the data: `filter(data, !is.na(variable))`
+
+## Grouping with multiple variables
+
+`sleep` is a really simple data set, but what if we have a slightly bigger data set with multiple variables we wanted to group by and summarize? Let's look at the "Carbon Dioxide Uptake in Grass Plants" `CO2` data set. This data set contains ambient CO~2~ (`conc`) and CO~2~ uptake rate (`uptake`) measurements for *Echinochloa crus-galli* grass species from Quebec or Mississippi (`type`) that have undergone a chilling treatment or not (`treatment`).
+
+```{r}
+head(CO2)
+```
+
+The obvious questions to ask of this data are:
+
+-   What effect does the origin/`type` of grass species have on CO~2~ uptake?
+-   What effect does the chilling `treatment` have on CO~2~ uptake?
+-   What effect does ambient CO~2~ `conc` have on CO~2~ uptake?
+
+Let's try to answer these questions with one long pipe! The 3rd question is ideally a regression which we'll save for after spring break, but we could separate the `conc` vector into a few groups and summarize the `uptake` for each group.
+
+So let's make a plan. We want to group by `type` and `treatment` as well as `conc`, but first we need to make a simplified, `group_conc` variable. Remember we use `mutate` to make new variables. `case_when` or `cut` are a convenient functions to use in `mutate` to make categorical variables from numerical variables. The easiest way to figure out how `case_when` works is to check out the Examples section in `?case_when`. So we will,
+
+1.  Make a new `group_conc` to simplify data a bit (let's say 95 \~ "low" and 1000 \~ "high").
+2.  Group by `Type`, `Treatment`, and `group_conc`.
+3.  Summarize the mean and standard deviation CO~2~ uptake of each group.
+
+This table will allow us to compare the average uptake values of each of these groups. **All we need to do to summarize all of these combinations of variables is pass the three variable names to `group_by`!**
+
+```{r}
+CO2 |>
+  mutate(group_conc = case_when(conc == 1000 ~ "high", 
+                               conc == 95 ~ "low", 
+                               .default = NA)) |>
+  group_by(Type, Treatment, group_conc) |>
+  summarise(mean_uptake = mean(uptake), 
+            sd_uptake = sd(uptake))# -> 
+  #CO2_summary
+```
+
+To make it easier for us to make some conclusions from this we can clean it up a little bit by removing the `NA` rows and `arrange`-ing by `mean_uptake`.
+
+```{r}
+CO2 |>
+  mutate(group_conc = case_when(conc == 1000 ~ "high", 
+                               conc == 95 ~ "low", 
+                               .default = NA)) |>
+  group_by(Type, Treatment, group_conc) |>
+  summarise(mean_uptake = mean(uptake), 
+            sd_uptake = sd(uptake)) |>
+  filter(!is.na(group_conc)) |>
+  arrange(mean_uptake)
+
+```
+
+Now looking at this final summary table we can see Quebec varieties had higher uptake rates than Mississippi, the chilling treatment reduced uptake rates, and high ambient concentrations increase uptake rates.
+
+## Tidying and untidying data with `pivot_` functions
+
+*Based on reading from [R for Data Science, section 5.3 and 5.4: Lengthening and Widening data](https://r4ds.hadley.nz/data-tidy#sec-pivoting)*
+
+Data can come your way in untidy forms which you will need to tidy up for analysis. Also, occasionally you may want to intentionally untidy data to do some analyses, or present the data in a shorter form table. For these tasks, so long as the data is organized systematically, you can make use of the tidyr package functions `pivot_longer` or `pivot_wider`.
+
+For tidying untidy data, we can use `pivot_longer`. For example if a variable is encoded in column names, like "cell_growth_5ug_ml_cefo" in which a column has cell growth measurements (or "observations") at a specific concentration of an antibiotic, 5 µg/mL cefotaxime in this case.
+
+The reading uses a fun `billboard` data set.
+
+```{r}
+billboard
+```
+
+Looking at this dataset we can see each row is a song and there are columns for each week of the year which contains the position of the song on the billboard chart. Definitely not tidy, right?! The "week" columns are actually a variable themselves. An easy way to identify this sort of untidiness is that column names provide no indication of what values they contain.
+
+To tidy this we want to make the wide table of weeks into a long table that has "week" as a variable, and "position" as a variable. This would be an enormous task to do, but fortunately `pivot_longer` makes it pretty easy. The arguments to `pivot_longer` are `cols` which is list of column names you want to condense into a single column. To the `cols` argument we can pass helper "tidy-select" functions which are
+
+-   `starts_with("a")`: names that start with `"a"`.
+
+-   `ends_with("z")`: names that end with `"z"`.
+
+-   `contains("b")`: names that contain `"b"`.
+
+-   `matches("x.y")`: names that match regular expression `x.y`.
+
+-   `num_range(x, 1:4)`: names following the pattern, `x1`, `x2`, ..., `x4`.
+
+-   \`all_of(vars)\`\` will match just the variables that exist.
+
+-   `everything()`: all variables.
+
+-   `last_col()`: furthest column on the right.
+
+-   `where(is.numeric)`: all variables where `is.numeric()` returns `TRUE`.
+
+Let's use `starts_with()` to grab all the columns that start with "wk". The other arguments that we need are `names_to` and `values_to`
+
+```{r}
+billboard |> 
+  pivot_longer(
+    cols = starts_with("wk"), 
+    names_to = "week", 
+    values_to = "rank"
+  )
+```
+
+Note how long this longer table is now, 24 thousand rows! This tidied dataset can now be analyzed and plottes with ease.
+
+However we can't fit this dataset (or at least a few songs) onto a page easily in it's tidy form. For that we need to widen. It is rarely the case that we need to use `pivot_wider` except for trying to display data in a more convenient table. We could pivot_wider our billboard dataset back to the original for example. The arguments are just the opposite, `names_from = "week"` and `values_from = "rank"`.
+
+```{r}
+billboard |> 
+  pivot_longer(
+    cols = starts_with("wk"), 
+    names_to = "week", 
+    values_to = "rank"
+  ) |>
+  pivot_wider(
+    names_from = "week", 
+    values_from = "rank"
+  )
+```
+
+## Joins and Binds within `dplyr`
+
+*Based on reading from [R for Data Science, chapter 19: Joins](https://r4ds.hadley.nz/joins)*
+
+Within Biological Systems Engineering and the larger field, there are many times when we use multiple tables to reduce redundant data, particularly as data is being collected. Imagine you have a very large table that repeats double-precision data over and over again, resulting in a dataset that occupies more computer memory. While modern computers are incredible in their storage capacity, I can attest that processing speed and memory allocation is and will still be a consideration in your work. Here are some examples of such tasks:
+
+1) Perhaps, your experiment spans many days and you collected each day's data in a different sheet that you now want to compile. 
+
+2) Perhaps, you didn't want to write down complete experimental conditions for each sample and instead used a code or number to indicate different conditions, now you want to add the full info to the table. Or maybe you measured something at a place over time and want to add weather station data as new columns.
+
+The above are two different tasks: 1) just stitching datasets together is a `bind_`, whereas examples in 2) are adding new variables based on the values in some key/code variable, like the experiment code or date, which is a `_join`.
+
+In dplyr we can use `bind_rows` to add new observations to a dataset, like binding multiple days data tables together. `bind_rows` will return an error if the column names of the tables we are joining are not the same. 
+
+You can also use `bind_cols` to add new columns to a dataset without any key or identifier variable, but this is risky, as there is no guarantee that the rows (observations) will be in the same order. It's better to use a `_join` function which checks that the rows match based on shared variables.
+
+Let's illustrate joins using data from the Problem Set.
+
+We'll first read each of these into the workspace:
+
+```{r}
+plots <- read_csv("data/plots.csv")
+species <- read_csv("data/species.csv")
+surveys <- read_csv("data/surveys.csv")
+```
+
+Note that when you do this, there are 24 plots, 54 types of species, but 35,549 lines of data in the surveys dataset!
+
+These tables are all related the question is: "What is the column that is shared by, **or links**, the plots and surveys dataset?"
+
+`plot_id`!
+
+What is the column that links the surveys dataset with the species?
+
+`species_id`!
+
+If we want to combine the dataset, let's look at how we would do this. We'll employ the command:
+
+`inner_join`
+
+From help:
+
+The mutating joins add columns from dataset `y` to dataset `x`, matching rows based on the keys:
+
+-   `inner_join(x,y)`: includes all rows in `x` and `y`.
+
+-   `left_join(x,y)`: includes all rows in `x`.
+
+-   `right_join(x,y)`: includes all rows in `y`.
+
+-   `full_join(x,y)`: includes all rows in `x` or `y`. If a row in `x` matches multiple rows in `y`, all the rows in `y` will be returned once for each matching row in `x`.
+
+The [dplyr cheat sheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf) (also up in the Help\>Cheat Sheets menu) demonstrates this visually.
+
+If you want to include the detailed names contained within the species table, use an inner join and join based on the common variable `species_id`, using the `by` argument to specify the column name(s), **as a character vector**, that you want to link the two datasets.
+
+In this case, you end up with 3 additional variables that are within the species table added to the surveys data.
+
+```{r}
+combo <- inner_join(surveys, species, by = "species_id")
+head(combo)
+```
+
+If you wanted to join all three tables together we could add this to the first combo:
+
+```{r}
+combo2 <- inner_join(combo, plots, by = "plot_id")
+```
+
+Or use pipes. This is actually more efficient because you aren't creating the intermediate combo object that takes up memory, plus, this way you don't accidentally mix up `combo` and `combo2`. As always more descriptive names would be better!
+
+```{r}
+combo2 <- surveys %>% # oops this is what the pipe symbol used to be
+  inner_join(species, by = "species_id") |>
+  inner_join(plots, by = "plot_id")
+head(combo2)
+```
+
+While it is best practice to specify the columns you are using to uniquely match the datasets (called unique identifiers sometimes) the `_join` functions are pretty smart and will find variables that match between the datasets automatically as well!
+
+```{r}
+surveys |>
+  inner_join(species) |>
+  inner_join(plots) |>
+  head() 
+```
+

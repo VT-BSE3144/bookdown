@@ -1,0 +1,123 @@
+---
+output: html_document
+params:
+  version: 1.0
+---
+
+
+# Summarizing Data Examples {-}
+
+```{r setup}
+library(tidyverse)
+library(readxl)
+```
+
+## Tidying and untidying data with `pivot_` functions
+
+### Root Growth Inhibition Example
+
+#### Introduction
+
+In my research group we study plant genes and how they function. One interesting thing about plants is that their genomes are quite large compared to other organisms and one of the reasons for that is their genomes have been duplicated several times throughout the history of their evolution
+
+![gnome duplication](data/Largest-collection-of-garden-gnomes-60at60-photo2_tcm25-386214.webp)
+
+These genome duplications have generated families of genes which have similar but slightly different functions. Often we think about each of these genes in a family as playing a distinct role, and by **adding** together their function we could approximate their total function. However that's not always the case because these genes might interact with one another—directly through binding or indirectly through competition—to perform their total function. These interactions might cause some deviation from our **additive** model of function; in genetics this is called **epistasis**.
+
+This dataset is from [Prigge *et al*. 2020](), who collected measurements of several phenotypes for combinations of mutants in the TIR1/AFB auxin receptor genes which my group studies and engineers.
+
+```{r}
+root_growth_inh_0 <- read_xlsx("data/elife-54740-fig1-figsupp3-data1-v2_data-only_tir1afb1.xlsx", sheet = "Primary Root Growth Inh EtOH", skip = 1)
+root_growth_inh_20 <- read_xlsx("data/elife-54740-fig1-figsupp3-data1-v2_data-only_tir1afb1.xlsx", sheet = "Primary Root Growth Inh 20 nM", skip = 1)
+root_growth_inh_100 <- read_xlsx("data/elife-54740-fig1-figsupp3-data1-v2_data-only_tir1afb1.xlsx", sheet = "Primary Root Growth Inh 100 nM", skip = 1)
+root_growth_inh_500 <- read_xlsx("data/elife-54740-fig1-figsupp3-data1-v2_data-only_tir1afb1.xlsx", sheet = "Primary Root Growth Inh 500 nM", skip = 1)
+
+root_growth_plonger <- function(data){
+  data |> 
+  pivot_longer(cols = -line, 
+               names_to = "genotype", 
+               values_to = "root_growth_mm") %>%
+  mutate(batch = str_extract(genotype, "\\s(.*)$")) %>%
+  mutate(batch = str_remove_all(batch, "\\s")) %>%
+  mutate(genotype = str_remove(genotype, "\\s.*")) %>%
+  mutate(batch = if_else(is.na(batch), "a", batch)) %>%
+  na.omit()
+}
+root_growth_inh_0 <- root_growth_plonger(root_growth_inh_0)
+root_growth_inh_0$treatment <- 0
+
+root_growth_inh_20 <- root_growth_plonger(root_growth_inh_20)
+root_growth_inh_20$treatment <- 20
+
+root_growth_inh_100 <- root_growth_plonger(root_growth_inh_100)
+root_growth_inh_100$treatment <- 100
+
+root_growth_inh_500 <- root_growth_plonger(root_growth_inh_500)
+root_growth_inh_500$treatment <- 500
+
+root_growth_inh <- bind_rows(root_growth_inh_0, 
+                             root_growth_inh_20, 
+                             root_growth_inh_100, 
+                             root_growth_inh_500)
+
+root_growth_inh %>% group_by(batch) %>% 
+  mutate(percent_inh = root_growth_mm / 
+           mean(root_growth_mm[genotype == "Col-0" & treatment == 0]) * 100) ->
+  root_growth_inh
+```
+
+```{r}
+root_growth_inh_aov <- aov(percent_inh ~ genotype*treatment + batch, data = root_growth_inh)
+summary(root_growth_inh_aov)
+
+root_growth_inh$fac_treat <- as.factor(root_growth_inh$treatment)
+root_growth_inh_aov <- aov(percent_inh ~ genotype*fac_treat + batch, data = root_growth_inh)
+summary(root_growth_inh_aov)
+root_growth_inh_aov.HSD <- broom::tidy(TukeyHSD(root_growth_inh_aov))
+root_growth_inh_aov.HSD[which(root_growth_inh_aov.HSD$adj.p.value < 0.05),]
+```
+
+Looks like there are no strong batch effects here.
+
+```{r}
+root_growth_inh %>% filter(genotype != "tir1-10") %>%
+  filter(treatment %in% c(0,100)) %>%
+  mutate(TIR1 = !str_detect(genotype, "tir1"), 
+                            AFB1 = !str_detect(genotype, "afb1")) ->
+  root_growth_inh
+```
+
+For now let's look at the whole dataset.
+
+```{r}
+root_growth_inh.int <- aov(percent_inh ~ TIR1*AFB1*treatment, data = root_growth_inh)
+summary(root_growth_inh.int)
+```
+
+```{r}
+root_growth_inh.int <- aov(percent_inh ~ TIR1*AFB1*fac_treat, data = root_growth_inh)
+summary(root_growth_inh.int)
+```
+
+```{r}
+ggplot(data = root_growth_inh, aes(x = fac_treat, y = percent_inh, color = genotype)) + 
+  geom_boxplot() + geom_point(position = position_jitterdodge(jitter.width = 0.2))
+```
+
+Strong case for an interaction, but not dependent on treatment, interesting.
+
+To make this easier to explain we can repeat this analysis after stratifying by treatment.
+
+```{r}
+root_growth_inh0.int <- aov(percent_inh ~ TIR1*AFB1, data = filter(root_growth_inh, treatment == 0))
+summary(root_growth_inh0.int)
+```
+
+This matches expectations mostly, I would have expected AFB1 to have less effect, but in this model the double mutant is also contributing to this effect size. The interaction here is still a strong effect. 100 nM should be more telling even.
+
+```{r}
+root_growth_inh100.int <- aov(percent_inh ~ TIR1*AFB1, data = filter(root_growth_inh, treatment == 100))
+summary(root_growth_inh100.int)
+```
+
+Very interesting, TIR1 has a very strong effect as expected at this high auxin concentration, whereas AFB1 does not, but the interaction term is significant at both 0 nM and 100 nM IAA.
