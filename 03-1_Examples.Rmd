@@ -1,0 +1,148 @@
+---
+output: html_document
+params:
+  version: 1.1
+---
+
+# Functions, Best-coding Practices, and Debugging Examples {-}
+
+## Functions
+
+### Example 1
+
+Practice turning the following code snippets into functions. Think about what each function does. What would you call it? How many arguments does it need?
+
+```{r}
+mean(is.na(x))
+mean(is.na(y))
+mean(is.na(z))
+
+x / sum(x, na.rm = TRUE)
+y / sum(y, na.rm = TRUE)
+z / sum(z, na.rm = TRUE)
+
+round(x / sum(x, na.rm = TRUE) * 100, 1)
+round(y / sum(y, na.rm = TRUE) * 100, 1)
+round(z / sum(z, na.rm = TRUE) * 100, 1)
+```
+
+```{r, error=TRUE}
+percent_total <- function(xvec) {
+  mean(is.na(x))
+  x / sum(x, na.rm = TRUE)
+  round(x / sum(x, na.rm = TRUE) * 100, 1)
+}
+
+percent_total(xvec = 1)
+```
+
+Note that clicking show traceback will allow you to see where the error occured.
+
+```{r, error=TRUE}
+percent_total <- function(xvec) {
+  mean(is.na(xvec)) # % of values that are NA
+  xvec / sum(xvec, na.rm = TRUE)
+  return(round(xvec / sum(xvec, na.rm = TRUE) * 100, 1))
+}
+
+percent_total(xvec = c(1, NA, 1))
+
+mean(is.na(c(1, NA, 1)))
+```
+
+```{r}
+library(tidyverse)
+percent_total <- function(xvec) {
+  tibble(# % of values that are NA
+    mean(is.na(xvec)),
+    # fraction of total for each value
+    xvec / sum(xvec, na.rm = TRUE),
+    # percent of total to 1 decimal
+    round(xvec / sum(xvec, na.rm = TRUE) * 100, 1))
+}
+
+percent_total(xvec = c(1, NA, 1))
+```
+
+
+### Example 2
+
+-   Create a function `LW()` with three arguments: a vector lengths, and values a and b
+
+-   It returns the weights of fishes using the length-weight equation: $W = aL^b$
+
+-   Use the function to calculate the weight (in g) of fish of length 100, 200, 300 cm for:
+
+    -   Mola mola, a = 0.0454, b = 3.05
+
+    -   Regalecus glesne, a = 0.0039, b = 2.90
+    
+```{r}
+#' Title
+#'
+#' @param lengths in centimeters
+#' @param a constant
+#' @param b exponent
+#'
+#' @return weight in grams
+#' @export
+#'
+#' @examples
+#' 
+LW <- function(lengths, a, b){
+  return(a * lengths ^ b)
+}
+
+LW(lengths = c(100, 200, 300), a = 0.0454, b = 3.05)
+
+```
+
+    
+## Best coding practices
+
+### Code from inside out, running the smallest bits of code possible
+
+### Use RStudio to your advantage
+
+-   Tab-complete
+-   Reformat code
+-   Reindent lines
+-   Rainbow parentheses
+
+
+## Debugging
+
+-   Missing parentheses/brackets
+
+```{r}
+mean(x
+```
+
+-   Missing quotes
+
+```{r}
+print("Hello)
+```
+
+-   Misplaced, missing commas
+
+```{r}
+x <- c("1" "3", "7", "Emma")
+
+is.numeric(x)
+```
+
+-   Misspelled object names
+
+```{r}
+
+```
+
+
+### Also use RStudio
+
+-   Debug menu is helpful for writing more advanced functions
+
+
+
+
