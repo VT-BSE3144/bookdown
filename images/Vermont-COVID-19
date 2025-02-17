@@ -1,0 +1,43 @@
+**Summary**
+
+Vermont coronavirus COVID-19 cases by county time series with data from the Vermont Department of Health.
+
+Table containing daily cases and deaths broken down by county as received by the Department of Health. Data is as received by the Vermont Department of Health. As of Wednesday, May 18, 2022, the VT COVID-19 Cases by County Time Series table is updated weekly--every Wednesday.
+
+  
+
+Total Cases (**C_Total**) and New Daily Cases (**C_New**) reflect tests at VDH, commercial, and other public health labs. Includes non-Vermont residents who were tested in Vermont (i.e. seeking care in Vermont, visiting Vermont).
+
+  
+
+Total Deaths (**D_Total**) and New Daily Deaths (**D_New**) include deaths among confirmed and probable cases. Both probable and confirmed deaths have COVID-19 as a cause or contributing condition on their death certificate.
+
+  
+
+County (**map_county**): People who tested positive for COVID-19 in Vermont while visiting or seeking care are included in the Vermont county where they were identified. Some cases may still be under investigation and county is not yet assigned. In these instances, Pending Validation is temporarily used.
+
+  
+
+All data are compiled by the [Vermont Department of Health](https://www.healthvermont.gov/), and are preliminary and subject to change. The VT COVID-19 Cases by County Time Series information is updated weekly by 1:00 p.m. on Wednesdays (reflecting the status as of the end of the previous day). For more information, see the full [VDH COVID-19 page](https://www.healthvermont.gov/response/infectious-disease/2019-novel-coronavirus). This open data service is provided in accord with the [COVID-19 Life Cycle Policy](https://maps.vcgi.vermont.gov/opendata/lifecycle/VCGI_COVID19_LifeCyclePolicy.pdf).
+
+  
+
+  
+
+**FIELD DESCRIPTIONS----------**
+
+-----**date:** Data 'as of' date
+
+-----**map_county:** County
+
+-----**CNTYGEOID:** County Geographic Area Code per [VT Geographic Area Codes Standard](https://vcgi.vermont.gov/document/vt-geographic-area-codes-standard)
+
+-----**C_New:** New daily cases
+
+-----**C_Total:** Total cases
+
+-----**D_New:** New daily deaths
+
+-----**D_Total:** Total deaths
+
+**----------------------------**
