@@ -38,7 +38,7 @@ source
 introduction---example-dataset-nycflights13
 section
 dplyr-basics
-rows
+row-wise-functions
 filter
 logical-operators
 missing-values
