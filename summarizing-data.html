@@ -29,7 +29,7 @@ Systems using Numerical Methods.</p>" />
 <meta name="author" content="R. Clay Wright" />
 
 
-<meta name="date" content="2025-02-17" />
+<meta name="date" content="2025-02-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -402,9 +402,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><strong>provides ability to summarize information based on one or more variables in your dataset when combine with <code>summarize</code></strong></li>
 </ul>
 <p>Let’s start by activating the data sets package within R-studio. We’re going to explore the sleep data set.</p>
-<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="summarizing-data.html#cb278-1" tabindex="-1"></a><span class="fu">library</span>(datasets)</span>
-<span id="cb278-2"><a href="summarizing-data.html#cb278-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb278-3"><a href="summarizing-data.html#cb278-3" tabindex="-1"></a>sleep</span></code></pre></div>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="summarizing-data.html#cb286-1" tabindex="-1"></a><span class="fu">library</span>(datasets)</span>
+<span id="cb286-2"><a href="summarizing-data.html#cb286-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb286-3"><a href="summarizing-data.html#cb286-3" tabindex="-1"></a>sleep</span></code></pre></div>
 <pre><code>##    extra group ID
 ## 1    0.7     1  1
 ## 2   -1.6     1  2
@@ -426,7 +426,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 18   1.6     2  8
 ## 19   4.6     2  9
 ## 20   3.4     2 10</code></pre>
-<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="summarizing-data.html#cb280-1" tabindex="-1"></a>?sleep</span></code></pre></div>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="summarizing-data.html#cb288-1" tabindex="-1"></a>?sleep</span></code></pre></div>
 <p>The dataset has 3 variables:</p>
 <ul>
 <li><code>extra</code>, is a numeric variable representing the increase in hours of sleep</li>
@@ -434,7 +434,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>ID</code> is another factor for the patient ID</li>
 </ul>
 <p>Suppose you want to know how the 2 drug treatment groups varied with respect to the extra hours of sleep. First we group the data by <code>group</code>, the drug given.</p>
-<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="summarizing-data.html#cb281-1" tabindex="-1"></a>sleep <span class="sc">|&gt;</span> <span class="fu">group_by</span>(group)</span></code></pre></div>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="summarizing-data.html#cb289-1" tabindex="-1"></a>sleep <span class="sc">|&gt;</span> <span class="fu">group_by</span>(group)</span></code></pre></div>
 <pre><code>## # A tibble: 20 × 3
 ## # Groups:   group [2]
 ##    extra group ID   
@@ -461,21 +461,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 20   3.4 2     10</code></pre>
 <p>Note that this looks the same as <code>sleep</code> only with <code>Groups: group [2]</code> as an attribute.</p>
 <p>Now you can use summarize function to calculate statistics for each group within the dataset. Here, we only have 2 groups so it’s a simple example.</p>
-<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="summarizing-data.html#cb283-1" tabindex="-1"></a><span class="co"># summarize the number of rows for each group</span></span>
-<span id="cb283-2"><a href="summarizing-data.html#cb283-2" tabindex="-1"></a>sleep <span class="sc">|&gt;</span></span>
-<span id="cb283-3"><a href="summarizing-data.html#cb283-3" tabindex="-1"></a>  <span class="fu">group_by</span>(group) <span class="sc">|&gt;</span></span>
-<span id="cb283-4"><a href="summarizing-data.html#cb283-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">N =</span> <span class="fu">n</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="summarizing-data.html#cb291-1" tabindex="-1"></a><span class="co"># summarize the number of rows for each group</span></span>
+<span id="cb291-2"><a href="summarizing-data.html#cb291-2" tabindex="-1"></a>sleep <span class="sc">|&gt;</span></span>
+<span id="cb291-3"><a href="summarizing-data.html#cb291-3" tabindex="-1"></a>  <span class="fu">group_by</span>(group) <span class="sc">|&gt;</span></span>
+<span id="cb291-4"><a href="summarizing-data.html#cb291-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">N =</span> <span class="fu">n</span>())</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 2
 ##   group     N
 ##   &lt;fct&gt; &lt;int&gt;
 ## 1 1        10
 ## 2 2        10</code></pre>
 <p>We can save this summary table as a new object</p>
-<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="summarizing-data.html#cb285-1" tabindex="-1"></a>sleep_N <span class="ot">&lt;-</span></span>
-<span id="cb285-2"><a href="summarizing-data.html#cb285-2" tabindex="-1"></a>  sleep <span class="sc">|&gt;</span></span>
-<span id="cb285-3"><a href="summarizing-data.html#cb285-3" tabindex="-1"></a>  <span class="fu">group_by</span>(group) <span class="sc">|&gt;</span></span>
-<span id="cb285-4"><a href="summarizing-data.html#cb285-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">N =</span> <span class="fu">n</span>())</span>
-<span id="cb285-5"><a href="summarizing-data.html#cb285-5" tabindex="-1"></a>sleep_N</span></code></pre></div>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="summarizing-data.html#cb293-1" tabindex="-1"></a>sleep_N <span class="ot">&lt;-</span></span>
+<span id="cb293-2"><a href="summarizing-data.html#cb293-2" tabindex="-1"></a>  sleep <span class="sc">|&gt;</span></span>
+<span id="cb293-3"><a href="summarizing-data.html#cb293-3" tabindex="-1"></a>  <span class="fu">group_by</span>(group) <span class="sc">|&gt;</span></span>
+<span id="cb293-4"><a href="summarizing-data.html#cb293-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">N =</span> <span class="fu">n</span>())</span>
+<span id="cb293-5"><a href="summarizing-data.html#cb293-5" tabindex="-1"></a>sleep_N</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 2
 ##   group     N
 ##   &lt;fct&gt; &lt;int&gt;
@@ -498,33 +498,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><code>median()</code></p></li>
 </ul>
 <p>Let’s look at the median number of extra sleep hours:</p>
-<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="summarizing-data.html#cb287-1" tabindex="-1"></a>sleep <span class="sc">|&gt;</span></span>
-<span id="cb287-2"><a href="summarizing-data.html#cb287-2" tabindex="-1"></a>  <span class="fu">group_by</span>(group) <span class="sc">|&gt;</span></span>
-<span id="cb287-3"><a href="summarizing-data.html#cb287-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">median_extra_sleep =</span> <span class="fu">median</span>(extra))</span></code></pre></div>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="summarizing-data.html#cb295-1" tabindex="-1"></a>sleep <span class="sc">|&gt;</span></span>
+<span id="cb295-2"><a href="summarizing-data.html#cb295-2" tabindex="-1"></a>  <span class="fu">group_by</span>(group) <span class="sc">|&gt;</span></span>
+<span id="cb295-3"><a href="summarizing-data.html#cb295-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">median_extra_sleep =</span> <span class="fu">median</span>(extra))</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 2
 ##   group median_extra_sleep
 ##   &lt;fct&gt;              &lt;dbl&gt;
 ## 1 1                   0.35
 ## 2 2                   1.75</code></pre>
 <p>Now let’s look at what would happen if there was missing data by changing a value:</p>
-<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="summarizing-data.html#cb289-1" tabindex="-1"></a><span class="co"># summarize the number of rows for each group</span></span>
-<span id="cb289-2"><a href="summarizing-data.html#cb289-2" tabindex="-1"></a>sleep[<span class="dv">1</span>,<span class="dv">1</span>] <span class="ot">=</span> <span class="cn">NA</span> <span class="co"># Oh I used `=` here to assign this, </span></span>
-<span id="cb289-3"><a href="summarizing-data.html#cb289-3" tabindex="-1"></a><span class="co"># the assignment arrows, `&lt;-` or `-&gt;`, are generally best-coding </span></span>
-<span id="cb289-4"><a href="summarizing-data.html#cb289-4" tabindex="-1"></a><span class="co"># practice as they differentiate variables and objects, from function </span></span>
-<span id="cb289-5"><a href="summarizing-data.html#cb289-5" tabindex="-1"></a><span class="co"># arguments</span></span></code></pre></div>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="summarizing-data.html#cb297-1" tabindex="-1"></a><span class="co"># summarize the number of rows for each group</span></span>
+<span id="cb297-2"><a href="summarizing-data.html#cb297-2" tabindex="-1"></a>sleep[<span class="dv">1</span>,<span class="dv">1</span>] <span class="ot">=</span> <span class="cn">NA</span> <span class="co"># Oh I used `=` here to assign this, </span></span>
+<span id="cb297-3"><a href="summarizing-data.html#cb297-3" tabindex="-1"></a><span class="co"># the assignment arrows, `&lt;-` or `-&gt;`, are generally best-coding </span></span>
+<span id="cb297-4"><a href="summarizing-data.html#cb297-4" tabindex="-1"></a><span class="co"># practice as they differentiate variables and objects, from function </span></span>
+<span id="cb297-5"><a href="summarizing-data.html#cb297-5" tabindex="-1"></a><span class="co"># arguments</span></span></code></pre></div>
 <p>Now, if we implement the summarize command for the median sleep we’ll obtain a NA value:</p>
-<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="summarizing-data.html#cb290-1" tabindex="-1"></a>sleep <span class="sc">|&gt;</span></span>
-<span id="cb290-2"><a href="summarizing-data.html#cb290-2" tabindex="-1"></a>  <span class="fu">group_by</span>(group) <span class="sc">|&gt;</span></span>
-<span id="cb290-3"><a href="summarizing-data.html#cb290-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">median_sleep =</span> <span class="fu">median</span>(extra))</span></code></pre></div>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="summarizing-data.html#cb298-1" tabindex="-1"></a>sleep <span class="sc">|&gt;</span></span>
+<span id="cb298-2"><a href="summarizing-data.html#cb298-2" tabindex="-1"></a>  <span class="fu">group_by</span>(group) <span class="sc">|&gt;</span></span>
+<span id="cb298-3"><a href="summarizing-data.html#cb298-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">median_sleep =</span> <span class="fu">median</span>(extra))</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 2
 ##   group median_sleep
 ##   &lt;fct&gt;        &lt;dbl&gt;
 ## 1 1            NA   
 ## 2 2             1.75</code></pre>
 <p>So what can we do? Start by adding a na.rm = TRUE command.</p>
-<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="summarizing-data.html#cb292-1" tabindex="-1"></a>sleep <span class="sc">|&gt;</span></span>
-<span id="cb292-2"><a href="summarizing-data.html#cb292-2" tabindex="-1"></a>  <span class="fu">group_by</span>(group) <span class="sc">|&gt;</span></span>
-<span id="cb292-3"><a href="summarizing-data.html#cb292-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">median_sleep =</span> <span class="fu">median</span>(extra, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="summarizing-data.html#cb300-1" tabindex="-1"></a>sleep <span class="sc">|&gt;</span></span>
+<span id="cb300-2"><a href="summarizing-data.html#cb300-2" tabindex="-1"></a>  <span class="fu">group_by</span>(group) <span class="sc">|&gt;</span></span>
+<span id="cb300-3"><a href="summarizing-data.html#cb300-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">median_sleep =</span> <span class="fu">median</span>(extra, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 2
 ##   group median_sleep
 ##   &lt;fct&gt;        &lt;dbl&gt;
@@ -535,7 +535,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="grouping-with-multiple-variables" class="section level2 hasAnchor" number="5.4">
 <h2><span class="header-section-number">5.4</span> Grouping with multiple variables<a href="summarizing-data.html#grouping-with-multiple-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><code>sleep</code> is a really simple data set, but what if we have a slightly bigger data set with multiple variables we wanted to group by and summarize? Let’s look at the “Carbon Dioxide Uptake in Grass Plants” <code>CO2</code> data set. This data set contains ambient CO<sub>2</sub> (<code>conc</code>) and CO<sub>2</sub> uptake rate (<code>uptake</code>) measurements for <em>Echinochloa crus-galli</em> grass species from Quebec or Mississippi (<code>type</code>) that have undergone a chilling treatment or not (<code>treatment</code>).</p>
-<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="summarizing-data.html#cb294-1" tabindex="-1"></a><span class="fu">head</span>(CO2)</span></code></pre></div>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="summarizing-data.html#cb302-1" tabindex="-1"></a><span class="fu">head</span>(CO2)</span></code></pre></div>
 <pre><code>##   Plant   Type  Treatment conc uptake
 ## 1   Qn1 Quebec nonchilled   95   16.0
 ## 2   Qn1 Quebec nonchilled  175   30.4
@@ -557,13 +557,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Summarize the mean and standard deviation CO<sub>2</sub> uptake of each group.</li>
 </ol>
 <p>This table will allow us to compare the average uptake values of each of these groups. <strong>All we need to do to summarize all of these combinations of variables is pass the three variable names to <code>group_by</code>!</strong></p>
-<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="summarizing-data.html#cb296-1" tabindex="-1"></a>CO2 <span class="sc">|&gt;</span></span>
-<span id="cb296-2"><a href="summarizing-data.html#cb296-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">group_conc =</span> <span class="fu">case_when</span>(conc <span class="sc">==</span> <span class="dv">1000</span> <span class="sc">~</span> <span class="st">&quot;high&quot;</span>, </span>
-<span id="cb296-3"><a href="summarizing-data.html#cb296-3" tabindex="-1"></a>                               conc <span class="sc">==</span> <span class="dv">95</span> <span class="sc">~</span> <span class="st">&quot;low&quot;</span>, </span>
-<span id="cb296-4"><a href="summarizing-data.html#cb296-4" tabindex="-1"></a>                               <span class="at">.default =</span> <span class="cn">NA</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb296-5"><a href="summarizing-data.html#cb296-5" tabindex="-1"></a>  <span class="fu">group_by</span>(Type, Treatment, group_conc) <span class="sc">|&gt;</span></span>
-<span id="cb296-6"><a href="summarizing-data.html#cb296-6" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_uptake =</span> <span class="fu">mean</span>(uptake), </span>
-<span id="cb296-7"><a href="summarizing-data.html#cb296-7" tabindex="-1"></a>            <span class="at">sd_uptake =</span> <span class="fu">sd</span>(uptake))<span class="co"># -&gt; </span></span></code></pre></div>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="summarizing-data.html#cb304-1" tabindex="-1"></a>CO2 <span class="sc">|&gt;</span></span>
+<span id="cb304-2"><a href="summarizing-data.html#cb304-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">group_conc =</span> <span class="fu">case_when</span>(conc <span class="sc">==</span> <span class="dv">1000</span> <span class="sc">~</span> <span class="st">&quot;high&quot;</span>, </span>
+<span id="cb304-3"><a href="summarizing-data.html#cb304-3" tabindex="-1"></a>                               conc <span class="sc">==</span> <span class="dv">95</span> <span class="sc">~</span> <span class="st">&quot;low&quot;</span>, </span>
+<span id="cb304-4"><a href="summarizing-data.html#cb304-4" tabindex="-1"></a>                               <span class="at">.default =</span> <span class="cn">NA</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb304-5"><a href="summarizing-data.html#cb304-5" tabindex="-1"></a>  <span class="fu">group_by</span>(Type, Treatment, group_conc) <span class="sc">|&gt;</span></span>
+<span id="cb304-6"><a href="summarizing-data.html#cb304-6" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_uptake =</span> <span class="fu">mean</span>(uptake), </span>
+<span id="cb304-7"><a href="summarizing-data.html#cb304-7" tabindex="-1"></a>            <span class="at">sd_uptake =</span> <span class="fu">sd</span>(uptake))<span class="co"># -&gt; </span></span></code></pre></div>
 <pre><code>## `summarise()` has grouped output by &#39;Type&#39;, &#39;Treatment&#39;. You can override using
 ## the `.groups` argument.</code></pre>
 <pre><code>## # A tibble: 12 × 5
@@ -582,17 +582,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10 Mississippi chilled    high              18.7      3.88
 ## 11 Mississippi chilled    low                9.6      1.65
 ## 12 Mississippi chilled    &lt;NA&gt;              16.5      3.23</code></pre>
-<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="summarizing-data.html#cb299-1" tabindex="-1"></a>  <span class="co">#CO2_summary</span></span></code></pre></div>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="summarizing-data.html#cb307-1" tabindex="-1"></a>  <span class="co">#CO2_summary</span></span></code></pre></div>
 <p>To make it easier for us to make some conclusions from this we can clean it up a little bit by removing the <code>NA</code> rows and <code>arrange</code>-ing by <code>mean_uptake</code>.</p>
-<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="summarizing-data.html#cb300-1" tabindex="-1"></a>CO2 <span class="sc">|&gt;</span></span>
-<span id="cb300-2"><a href="summarizing-data.html#cb300-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">group_conc =</span> <span class="fu">case_when</span>(conc <span class="sc">==</span> <span class="dv">1000</span> <span class="sc">~</span> <span class="st">&quot;high&quot;</span>, </span>
-<span id="cb300-3"><a href="summarizing-data.html#cb300-3" tabindex="-1"></a>                               conc <span class="sc">==</span> <span class="dv">95</span> <span class="sc">~</span> <span class="st">&quot;low&quot;</span>, </span>
-<span id="cb300-4"><a href="summarizing-data.html#cb300-4" tabindex="-1"></a>                               <span class="at">.default =</span> <span class="cn">NA</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb300-5"><a href="summarizing-data.html#cb300-5" tabindex="-1"></a>  <span class="fu">group_by</span>(Type, Treatment, group_conc) <span class="sc">|&gt;</span></span>
-<span id="cb300-6"><a href="summarizing-data.html#cb300-6" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_uptake =</span> <span class="fu">mean</span>(uptake), </span>
-<span id="cb300-7"><a href="summarizing-data.html#cb300-7" tabindex="-1"></a>            <span class="at">sd_uptake =</span> <span class="fu">sd</span>(uptake)) <span class="sc">|&gt;</span></span>
-<span id="cb300-8"><a href="summarizing-data.html#cb300-8" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(group_conc)) <span class="sc">|&gt;</span></span>
-<span id="cb300-9"><a href="summarizing-data.html#cb300-9" tabindex="-1"></a>  <span class="fu">arrange</span>(mean_uptake)</span></code></pre></div>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="summarizing-data.html#cb308-1" tabindex="-1"></a>CO2 <span class="sc">|&gt;</span></span>
+<span id="cb308-2"><a href="summarizing-data.html#cb308-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">group_conc =</span> <span class="fu">case_when</span>(conc <span class="sc">==</span> <span class="dv">1000</span> <span class="sc">~</span> <span class="st">&quot;high&quot;</span>, </span>
+<span id="cb308-3"><a href="summarizing-data.html#cb308-3" tabindex="-1"></a>                               conc <span class="sc">==</span> <span class="dv">95</span> <span class="sc">~</span> <span class="st">&quot;low&quot;</span>, </span>
+<span id="cb308-4"><a href="summarizing-data.html#cb308-4" tabindex="-1"></a>                               <span class="at">.default =</span> <span class="cn">NA</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb308-5"><a href="summarizing-data.html#cb308-5" tabindex="-1"></a>  <span class="fu">group_by</span>(Type, Treatment, group_conc) <span class="sc">|&gt;</span></span>
+<span id="cb308-6"><a href="summarizing-data.html#cb308-6" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_uptake =</span> <span class="fu">mean</span>(uptake), </span>
+<span id="cb308-7"><a href="summarizing-data.html#cb308-7" tabindex="-1"></a>            <span class="at">sd_uptake =</span> <span class="fu">sd</span>(uptake)) <span class="sc">|&gt;</span></span>
+<span id="cb308-8"><a href="summarizing-data.html#cb308-8" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(group_conc)) <span class="sc">|&gt;</span></span>
+<span id="cb308-9"><a href="summarizing-data.html#cb308-9" tabindex="-1"></a>  <span class="fu">arrange</span>(mean_uptake)</span></code></pre></div>
 <pre><code>## `summarise()` has grouped output by &#39;Type&#39;, &#39;Treatment&#39;. You can override using
 ## the `.groups` argument.</code></pre>
 <pre><code>## # A tibble: 8 × 5
@@ -615,7 +615,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Data can come your way in untidy forms which you will need to tidy up for analysis. Also, occasionally you may want to intentionally untidy data to do some analyses, or present the data in a shorter form table. For these tasks, so long as the data is organized systematically, you can make use of the tidyr package functions <code>pivot_longer</code> or <code>pivot_wider</code>.</p>
 <p>For tidying untidy data, we can use <code>pivot_longer</code>. For example if a variable is encoded in column names, like “cell_growth_5ug_ml_cefo” in which a column has cell growth measurements (or “observations”) at a specific concentration of an antibiotic, 5 µg/mL cefotaxime in this case.</p>
 <p>The reading uses a fun <code>billboard</code> data set.</p>
-<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="summarizing-data.html#cb303-1" tabindex="-1"></a>billboard</span></code></pre></div>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="summarizing-data.html#cb311-1" tabindex="-1"></a>billboard</span></code></pre></div>
 <pre><code>## # A tibble: 317 × 79
 ##    artist     track date.entered   wk1   wk2   wk3   wk4   wk5   wk6   wk7   wk8
 ##    &lt;chr&gt;      &lt;chr&gt; &lt;date&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -650,12 +650,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><code>where(is.numeric)</code>: all variables where <code>is.numeric()</code> returns <code>TRUE</code>.</p></li>
 </ul>
 <p>Let’s use <code>starts_with()</code> to grab all the columns that start with “wk”. The other arguments that we need are <code>names_to</code> and <code>values_to</code></p>
-<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="summarizing-data.html#cb305-1" tabindex="-1"></a>billboard <span class="sc">|&gt;</span> </span>
-<span id="cb305-2"><a href="summarizing-data.html#cb305-2" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb305-3"><a href="summarizing-data.html#cb305-3" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;wk&quot;</span>), </span>
-<span id="cb305-4"><a href="summarizing-data.html#cb305-4" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;week&quot;</span>, </span>
-<span id="cb305-5"><a href="summarizing-data.html#cb305-5" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;rank&quot;</span></span>
-<span id="cb305-6"><a href="summarizing-data.html#cb305-6" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="summarizing-data.html#cb313-1" tabindex="-1"></a>billboard <span class="sc">|&gt;</span> </span>
+<span id="cb313-2"><a href="summarizing-data.html#cb313-2" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb313-3"><a href="summarizing-data.html#cb313-3" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;wk&quot;</span>), </span>
+<span id="cb313-4"><a href="summarizing-data.html#cb313-4" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;week&quot;</span>, </span>
+<span id="cb313-5"><a href="summarizing-data.html#cb313-5" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;rank&quot;</span></span>
+<span id="cb313-6"><a href="summarizing-data.html#cb313-6" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>## # A tibble: 24,092 × 5
 ##    artist track                   date.entered week   rank
 ##    &lt;chr&gt;  &lt;chr&gt;                   &lt;date&gt;       &lt;chr&gt; &lt;dbl&gt;
@@ -672,16 +672,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # ℹ 24,082 more rows</code></pre>
 <p>Note how long this longer table is now, 24 thousand rows! This tidied dataset can now be analyzed and plottes with ease.</p>
 <p>However we can’t fit this dataset (or at least a few songs) onto a page easily in it’s tidy form. For that we need to widen. It is rarely the case that we need to use <code>pivot_wider</code> except for trying to display data in a more convenient table. We could pivot_wider our billboard dataset back to the original for example. The arguments are just the opposite, <code>names_from = "week"</code> and <code>values_from = "rank"</code>.</p>
-<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="summarizing-data.html#cb307-1" tabindex="-1"></a>billboard <span class="sc">|&gt;</span> </span>
-<span id="cb307-2"><a href="summarizing-data.html#cb307-2" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb307-3"><a href="summarizing-data.html#cb307-3" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;wk&quot;</span>), </span>
-<span id="cb307-4"><a href="summarizing-data.html#cb307-4" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;week&quot;</span>, </span>
-<span id="cb307-5"><a href="summarizing-data.html#cb307-5" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;rank&quot;</span></span>
-<span id="cb307-6"><a href="summarizing-data.html#cb307-6" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb307-7"><a href="summarizing-data.html#cb307-7" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
-<span id="cb307-8"><a href="summarizing-data.html#cb307-8" tabindex="-1"></a>    <span class="at">names_from =</span> <span class="st">&quot;week&quot;</span>, </span>
-<span id="cb307-9"><a href="summarizing-data.html#cb307-9" tabindex="-1"></a>    <span class="at">values_from =</span> <span class="st">&quot;rank&quot;</span></span>
-<span id="cb307-10"><a href="summarizing-data.html#cb307-10" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="summarizing-data.html#cb315-1" tabindex="-1"></a>billboard <span class="sc">|&gt;</span> </span>
+<span id="cb315-2"><a href="summarizing-data.html#cb315-2" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb315-3"><a href="summarizing-data.html#cb315-3" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;wk&quot;</span>), </span>
+<span id="cb315-4"><a href="summarizing-data.html#cb315-4" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;week&quot;</span>, </span>
+<span id="cb315-5"><a href="summarizing-data.html#cb315-5" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;rank&quot;</span></span>
+<span id="cb315-6"><a href="summarizing-data.html#cb315-6" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb315-7"><a href="summarizing-data.html#cb315-7" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb315-8"><a href="summarizing-data.html#cb315-8" tabindex="-1"></a>    <span class="at">names_from =</span> <span class="st">&quot;week&quot;</span>, </span>
+<span id="cb315-9"><a href="summarizing-data.html#cb315-9" tabindex="-1"></a>    <span class="at">values_from =</span> <span class="st">&quot;rank&quot;</span></span>
+<span id="cb315-10"><a href="summarizing-data.html#cb315-10" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>## # A tibble: 317 × 79
 ##    artist     track date.entered   wk1   wk2   wk3   wk4   wk5   wk6   wk7   wk8
 ##    &lt;chr&gt;      &lt;chr&gt; &lt;date&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -716,7 +716,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>You can also use <code>bind_cols</code> to add new columns to a dataset without any key or identifier variable, but this is risky, as there is no guarantee that the rows (observations) will be in the same order. It’s better to use a <code>_join</code> function which checks that the rows match based on shared variables.</p>
 <p>Let’s illustrate joins using data from the Problem Set.</p>
 <p>We’ll first read each of these into the workspace:</p>
-<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="summarizing-data.html#cb309-1" tabindex="-1"></a>plots <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/plots.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="summarizing-data.html#cb317-1" tabindex="-1"></a>plots <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/plots.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Rows: 24 Columns: 2
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
@@ -725,7 +725,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="summarizing-data.html#cb311-1" tabindex="-1"></a>species <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/species.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="summarizing-data.html#cb319-1" tabindex="-1"></a>species <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/species.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Rows: 54 Columns: 4
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
@@ -733,7 +733,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="summarizing-data.html#cb313-1" tabindex="-1"></a>surveys <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/surveys.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="summarizing-data.html#cb321-1" tabindex="-1"></a>surveys <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/surveys.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Rows: 35549 Columns: 9
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
@@ -760,8 +760,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The <a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">dplyr cheat sheet</a> (also up in the Help&gt;Cheat Sheets menu) demonstrates this visually.</p>
 <p>If you want to include the detailed names contained within the species table, use an inner join and join based on the common variable <code>species_id</code>, using the <code>by</code> argument to specify the column name(s), <strong>as a character vector</strong>, that you want to link the two datasets.</p>
 <p>In this case, you end up with 3 additional variables that are within the species table added to the surveys data.</p>
-<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="summarizing-data.html#cb315-1" tabindex="-1"></a>combo <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(surveys, species, <span class="at">by =</span> <span class="st">&quot;species_id&quot;</span>)</span>
-<span id="cb315-2"><a href="summarizing-data.html#cb315-2" tabindex="-1"></a><span class="fu">head</span>(combo)</span></code></pre></div>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="summarizing-data.html#cb323-1" tabindex="-1"></a>combo <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(surveys, species, <span class="at">by =</span> <span class="st">&quot;species_id&quot;</span>)</span>
+<span id="cb323-2"><a href="summarizing-data.html#cb323-2" tabindex="-1"></a><span class="fu">head</span>(combo)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 12
 ##   record_id month   day  year plot_id species_id sex   hindfoot_length weight
 ##       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;           &lt;dbl&gt;  &lt;dbl&gt;
@@ -773,12 +773,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 6         6     7    16  1977       1 PF         M                  14     NA
 ## # ℹ 3 more variables: genus &lt;chr&gt;, species &lt;chr&gt;, taxa &lt;chr&gt;</code></pre>
 <p>If you wanted to join all three tables together we could add this to the first combo:</p>
-<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="summarizing-data.html#cb317-1" tabindex="-1"></a>combo2 <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(combo, plots, <span class="at">by =</span> <span class="st">&quot;plot_id&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="summarizing-data.html#cb325-1" tabindex="-1"></a>combo2 <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(combo, plots, <span class="at">by =</span> <span class="st">&quot;plot_id&quot;</span>)</span></code></pre></div>
 <p>Or use pipes. This is actually more efficient because you aren’t creating the intermediate combo object that takes up memory, plus, this way you don’t accidentally mix up <code>combo</code> and <code>combo2</code>. As always more descriptive names would be better!</p>
-<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="summarizing-data.html#cb318-1" tabindex="-1"></a>combo2 <span class="ot">&lt;-</span> surveys <span class="sc">%&gt;%</span> <span class="co"># oops this is what the pipe symbol used to be</span></span>
-<span id="cb318-2"><a href="summarizing-data.html#cb318-2" tabindex="-1"></a>  <span class="fu">inner_join</span>(species, <span class="at">by =</span> <span class="st">&quot;species_id&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb318-3"><a href="summarizing-data.html#cb318-3" tabindex="-1"></a>  <span class="fu">inner_join</span>(plots, <span class="at">by =</span> <span class="st">&quot;plot_id&quot;</span>)</span>
-<span id="cb318-4"><a href="summarizing-data.html#cb318-4" tabindex="-1"></a><span class="fu">head</span>(combo2)</span></code></pre></div>
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="summarizing-data.html#cb326-1" tabindex="-1"></a>combo2 <span class="ot">&lt;-</span> surveys <span class="sc">%&gt;%</span> <span class="co"># oops this is what the pipe symbol used to be</span></span>
+<span id="cb326-2"><a href="summarizing-data.html#cb326-2" tabindex="-1"></a>  <span class="fu">inner_join</span>(species, <span class="at">by =</span> <span class="st">&quot;species_id&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb326-3"><a href="summarizing-data.html#cb326-3" tabindex="-1"></a>  <span class="fu">inner_join</span>(plots, <span class="at">by =</span> <span class="st">&quot;plot_id&quot;</span>)</span>
+<span id="cb326-4"><a href="summarizing-data.html#cb326-4" tabindex="-1"></a><span class="fu">head</span>(combo2)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 13
 ##   record_id month   day  year plot_id species_id sex   hindfoot_length weight
 ##       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;           &lt;dbl&gt;  &lt;dbl&gt;
@@ -790,10 +790,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 6         6     7    16  1977       1 PF         M                  14     NA
 ## # ℹ 4 more variables: genus &lt;chr&gt;, species &lt;chr&gt;, taxa &lt;chr&gt;, plot_type &lt;chr&gt;</code></pre>
 <p>While it is best practice to specify the columns you are using to uniquely match the datasets (called unique identifiers sometimes) the <code>_join</code> functions are pretty smart and will find variables that match between the datasets automatically as well!</p>
-<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="summarizing-data.html#cb320-1" tabindex="-1"></a>surveys <span class="sc">|&gt;</span></span>
-<span id="cb320-2"><a href="summarizing-data.html#cb320-2" tabindex="-1"></a>  <span class="fu">inner_join</span>(species) <span class="sc">|&gt;</span></span>
-<span id="cb320-3"><a href="summarizing-data.html#cb320-3" tabindex="-1"></a>  <span class="fu">inner_join</span>(plots) <span class="sc">|&gt;</span></span>
-<span id="cb320-4"><a href="summarizing-data.html#cb320-4" tabindex="-1"></a>  <span class="fu">head</span>() </span></code></pre></div>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="summarizing-data.html#cb328-1" tabindex="-1"></a>surveys <span class="sc">|&gt;</span></span>
+<span id="cb328-2"><a href="summarizing-data.html#cb328-2" tabindex="-1"></a>  <span class="fu">inner_join</span>(species) <span class="sc">|&gt;</span></span>
+<span id="cb328-3"><a href="summarizing-data.html#cb328-3" tabindex="-1"></a>  <span class="fu">inner_join</span>(plots) <span class="sc">|&gt;</span></span>
+<span id="cb328-4"><a href="summarizing-data.html#cb328-4" tabindex="-1"></a>  <span class="fu">head</span>() </span></code></pre></div>
 <pre><code>## Joining with `by = join_by(species_id)`
 ## Joining with `by = join_by(plot_id)`</code></pre>
 <pre><code>## # A tibble: 6 × 13

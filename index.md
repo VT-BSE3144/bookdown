@@ -3,7 +3,7 @@ title: "Data Analysis and Numerical Methods for Biological Systems Engineers"
 shorttitle: "Data Analysis and Numerical Methods"
 author: "R. Clay Wright"
 correspondence: "Clay Wright (<wrightrc@vt.edu>)"
-date: "2025-02-17"
+date: "2025-02-19"
 
 site: bookdown::bookdown_site
 
