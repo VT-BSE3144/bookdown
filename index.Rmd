@@ -1,8 +1,9 @@
 --- 
 title: "Data Analysis and Numerical Methods for Biological Systems Engineers"
 shorttitle: "Data Analysis and Numerical Methods"
-author: "Durelle Scott"
-author: "R. Clay Wright"
+author: 
+  - Durelle Scott
+  - R. Clay Wright
 correspondence: "Clay Wright (<wrightrc@vt.edu>)"
 date: "`r Sys.Date()`"
 
