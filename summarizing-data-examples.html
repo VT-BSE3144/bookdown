@@ -30,7 +30,7 @@ Systems using Numerical Methods.</p>" />
 <meta name="author" content="R. Clay Wright" />
 
 
-<meta name="date" content="2025-02-20" />
+<meta name="date" content="2025-02-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -335,9 +335,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html"><i class="fa fa-check"></i>Summarizing Data Examples</a>
 <ul>
-<li class="chapter" data-level="5.7" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#tidying-and-untidying-data-with-pivot_-functions-1"><i class="fa fa-check"></i><b>5.7</b> Tidying and untidying data with <code>pivot_</code> functions</a>
+<li class="chapter" data-level="5.7" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#bioreactor-data-analysis"><i class="fa fa-check"></i><b>5.7</b> Bioreactor Data Analysis</a>
 <ul>
-<li class="chapter" data-level="5.7.1" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#root-growth-inhibition-example"><i class="fa fa-check"></i><b>5.7.1</b> Root Growth Inhibition Example</a></li>
+<li class="chapter" data-level="5.7.1" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#background"><i class="fa fa-check"></i><b>5.7.1</b> Background</a></li>
+<li class="chapter" data-level="5.7.2" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#tasks-1"><i class="fa fa-check"></i><b>5.7.2</b> Tasks</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#root-growth-inhibition-example"><i class="fa fa-check"></i><b>5.8</b> Root Growth Inhibition Example</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#introduction-1"><i class="fa fa-check"></i><b>5.8.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.8.2" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#read-in-data"><i class="fa fa-check"></i><b>5.8.2</b> Read in data</a></li>
+<li class="chapter" data-level="5.8.3" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#write-a-function-for-tidying-this-data"><i class="fa fa-check"></i><b>5.8.3</b> Write a function for tidying this data</a></li>
+<li class="chapter" data-level="5.8.4" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#tidy-the-individual-datasets"><i class="fa fa-check"></i><b>5.8.4</b> Tidy the individual datasets</a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -374,12 +382,156 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## ✖ dplyr::lag()    masks stats::lag()
 ## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 <div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="summarizing-data-examples.html#cb333-1" tabindex="-1"></a><span class="fu">library</span>(readxl)</span></code></pre></div>
-<div id="tidying-and-untidying-data-with-pivot_-functions-1" class="section level2 hasAnchor" number="5.7">
-<h2><span class="header-section-number">5.7</span> Tidying and untidying data with <code>pivot_</code> functions<a href="summarizing-data-examples.html#tidying-and-untidying-data-with-pivot_-functions-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="root-growth-inhibition-example" class="section level3 hasAnchor" number="5.7.1">
-<h3><span class="header-section-number">5.7.1</span> Root Growth Inhibition Example<a href="summarizing-data-examples.html#root-growth-inhibition-example" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="introduction-1" class="section level4 hasAnchor" number="5.7.1.1">
-<h4><span class="header-section-number">5.7.1.1</span> Introduction<a href="summarizing-data-examples.html#introduction-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="bioreactor-data-analysis" class="section level2 hasAnchor" number="5.7">
+<h2><span class="header-section-number">5.7</span> Bioreactor Data Analysis<a href="summarizing-data-examples.html#bioreactor-data-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="background" class="section level3 hasAnchor" number="5.7.1">
+<h3><span class="header-section-number">5.7.1</span> Background<a href="summarizing-data-examples.html#background" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In a bioprocess engineering lab, several bioreactor runs were performed to study the effect of different feed types on process performance. Two datasets were collected:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Bioreactor Readings</strong><br />
+This dataset (<code>bioreactor_readings.csv</code>) contains time-series measurements recorded during each run. It is provided in a wide format with columns for the run number, time (in hours), and various sensor readings:</p>
+<ul>
+<li><p><code>Run</code>: Identifier for the bioreactor run.</p></li>
+<li><p><code>Time</code>: Time stamp (hours).</p></li>
+<li><p><code>Temp</code>: Temperature (°C).</p></li>
+<li><p><code>pH</code>: pH level.</p></li>
+<li><p><code>DO</code>: Dissolved Oxygen (mg/L).</p></li>
+<li><p><code>Substrate</code>: Substrate concentration (g/L).</p></li>
+</ul></li>
+<li><p><strong>Experimental Metadata</strong><br />
+This dataset (<code>experiment_info.csv</code>) contains metadata about each run:</p>
+<ul>
+<li><p><code>Run</code>: Run identifier (matching the bioreactor dataset).</p></li>
+<li><p><code>Feed</code>: Type of feed (e.g., “Glucose”, “Glycerol”).</p></li>
+<li><p><code>Inoculum</code>: Inoculum concentration (OD units).</p></li>
+<li><p><code>Operator</code>: Name of the operator in charge.</p></li>
+</ul></li>
+</ol>
+</div>
+<div id="tasks-1" class="section level3 hasAnchor" number="5.7.2">
+<h3><span class="header-section-number">5.7.2</span> Tasks<a href="summarizing-data-examples.html#tasks-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="import-and-inspect-the-data" class="section level4 hasAnchor" number="5.7.2.1">
+<h4><span class="header-section-number">5.7.2.1</span> 1. Import and Inspect the Data<a href="summarizing-data-examples.html#import-and-inspect-the-data" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<pre><code>-   Load both CSV files into R as data frames.
+
+-   Use the `head()` function (or similar) to inspect the first few rows of each dataset.</code></pre>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="summarizing-data-examples.html#cb335-1" tabindex="-1"></a><span class="co"># Load libraries</span></span>
+<span id="cb335-2"><a href="summarizing-data-examples.html#cb335-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb335-3"><a href="summarizing-data-examples.html#cb335-3" tabindex="-1"></a></span>
+<span id="cb335-4"><a href="summarizing-data-examples.html#cb335-4" tabindex="-1"></a><span class="co"># Import data</span></span>
+<span id="cb335-5"><a href="summarizing-data-examples.html#cb335-5" tabindex="-1"></a>bioreactor <span class="ot">&lt;-</span></span>
+<span id="cb335-6"><a href="summarizing-data-examples.html#cb335-6" tabindex="-1"></a>  <span class="fu">read_csv</span>(<span class="st">&quot;data/bioreactor_readings.csv&quot;</span>)</span></code></pre></div>
+<pre><code>## Rows: 10 Columns: 6
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## dbl (6): Run, Time, Temp, pH, DO, Substrate
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="summarizing-data-examples.html#cb337-1" tabindex="-1"></a>experiment <span class="ot">&lt;-</span></span>
+<span id="cb337-2"><a href="summarizing-data-examples.html#cb337-2" tabindex="-1"></a>  <span class="fu">read_csv</span>(<span class="st">&quot;data/experiment_info.csv&quot;</span>)</span></code></pre></div>
+<pre><code>## Rows: 2 Columns: 4
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (2): Feed, Operator
+## dbl (2): Run, Inoculum
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="summarizing-data-examples.html#cb339-1" tabindex="-1"></a><span class="fu">head</span>(bioreactor)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 6
+##     Run  Time  Temp    pH    DO Substrate
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
+## 1     1     0  30     7     6.5       1.5
+## 2     1     1  30.5   7.1   6.4       1.3
+## 3     1     2  31     7.2   6.3       1.1
+## 4     1     3  31.2   7.1   6.2       0.9
+## 5     1     4  31     7     6         0.8
+## 6     2     0  29.5   6.8   6.8       1</code></pre>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="summarizing-data-examples.html#cb341-1" tabindex="-1"></a><span class="fu">head</span>(experiment)</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 4
+##     Run Feed     Inoculum Operator
+##   &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;   
+## 1     1 Glucose      0.15 Alice   
+## 2     2 Glycerol     0.12 Bob</code></pre>
+</div>
+<div id="data-tidying-pivoting" class="section level4 hasAnchor" number="5.7.2.2">
+<h4><span class="header-section-number">5.7.2.2</span> 2. Data Tidying (Pivoting)<a href="summarizing-data-examples.html#data-tidying-pivoting" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<pre><code>-   **Pivot Longer:**\
+    Convert the bioreactor readings from wide format into a long (tidy) format so that all measurements (Temp, pH, DO, Substrate) are in a single column named `Parameter` with corresponding values in a column named `Value`.\
+    *Hint: Use `tidyr::pivot_longer()`.*
+
+-   **Pivot Wider:**\
+    After some analysis, you decide to reshape the long dataset back into a wide format, but now grouping by `Run` and `Time` such that each parameter becomes its own column again.\
+    *Hint: Use `tidyr::pivot_wider()`.*
+    </code></pre>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="summarizing-data-examples.html#cb344-1" tabindex="-1"></a><span class="co"># 2. Pivot longer: Tidy the bioreactor data</span></span>
+<span id="cb344-2"><a href="summarizing-data-examples.html#cb344-2" tabindex="-1"></a>bioreactor_long <span class="ot">&lt;-</span> bioreactor <span class="sc">%&gt;%</span></span>
+<span id="cb344-3"><a href="summarizing-data-examples.html#cb344-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> Temp<span class="sc">:</span>Substrate, </span>
+<span id="cb344-4"><a href="summarizing-data-examples.html#cb344-4" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;Parameter&quot;</span>, </span>
+<span id="cb344-5"><a href="summarizing-data-examples.html#cb344-5" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;Value&quot;</span>)</span>
+<span id="cb344-6"><a href="summarizing-data-examples.html#cb344-6" tabindex="-1"></a></span>
+<span id="cb344-7"><a href="summarizing-data-examples.html#cb344-7" tabindex="-1"></a><span class="co"># This would allow us to plot both parameters on the same plot</span></span>
+<span id="cb344-8"><a href="summarizing-data-examples.html#cb344-8" tabindex="-1"></a></span>
+<span id="cb344-9"><a href="summarizing-data-examples.html#cb344-9" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> bioreactor_long, </span>
+<span id="cb344-10"><a href="summarizing-data-examples.html#cb344-10" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Time, </span>
+<span id="cb344-11"><a href="summarizing-data-examples.html#cb344-11" tabindex="-1"></a>                     <span class="at">y =</span> Value, </span>
+<span id="cb344-12"><a href="summarizing-data-examples.html#cb344-12" tabindex="-1"></a>                     <span class="at">color =</span> Parameter, </span>
+<span id="cb344-13"><a href="summarizing-data-examples.html#cb344-13" tabindex="-1"></a>                     <span class="at">linetype =</span> <span class="fu">as.factor</span>(Run))) <span class="sc">+</span> </span>
+<span id="cb344-14"><a href="summarizing-data-examples.html#cb344-14" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div>
+<p><img src="05-1_Examples_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
+<div id="b.-pivot-wider-reshape-back-to-wide-format-if-needed" class="section level4 hasAnchor" number="5.7.2.3">
+<h4><span class="header-section-number">5.7.2.3</span> 2b. Pivot wider: Reshape back to wide format if needed<a href="summarizing-data-examples.html#b.-pivot-wider-reshape-back-to-wide-format-if-needed" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="summarizing-data-examples.html#cb345-1" tabindex="-1"></a>bioreactor_wide <span class="ot">&lt;-</span> bioreactor_long <span class="sc">%&gt;%</span></span>
+<span id="cb345-2"><a href="summarizing-data-examples.html#cb345-2" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Parameter, <span class="at">values_from =</span> Value)</span></code></pre></div>
+</div>
+<div id="joining-datasets" class="section level4 hasAnchor" number="5.7.2.4">
+<h4><span class="header-section-number">5.7.2.4</span> 3. Joining Datasets<a href="summarizing-data-examples.html#joining-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<pre><code>-   Merge the reshaped bioreactor dataset with the experimental metadata using the common `Run` column.\
+    *Hint: Use one of the join functions (e.g., `dplyr::left_join()`).*
+    </code></pre>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="summarizing-data-examples.html#cb347-1" tabindex="-1"></a><span class="co"># 3. Join datasets by &#39;Run&#39;</span></span>
+<span id="cb347-2"><a href="summarizing-data-examples.html#cb347-2" tabindex="-1"></a>merged_data <span class="ot">&lt;-</span> bioreactor_wide <span class="sc">%&gt;%</span></span>
+<span id="cb347-3"><a href="summarizing-data-examples.html#cb347-3" tabindex="-1"></a>  <span class="fu">left_join</span>(experiment, <span class="at">by =</span> <span class="st">&quot;Run&quot;</span>)</span></code></pre></div>
+</div>
+<div id="grouping-and-summarizing" class="section level4 hasAnchor" number="5.7.2.5">
+<h4><span class="header-section-number">5.7.2.5</span> 4. Grouping and Summarizing<a href="summarizing-data-examples.html#grouping-and-summarizing" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<pre><code>-   Group the merged dataset by the `Feed` type.
+
+-   Calculate summary statistics (e.g., mean and standard deviation, or min and max) for key measurements such as `Temp`, `pH`, and `Substrate` across all time points and runs for each feed type.\
+    *Hint: Use `dplyr::group_by()` and `dplyr::summarize()`.*</code></pre>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="summarizing-data-examples.html#cb349-1" tabindex="-1"></a><span class="co"># 4. Group and summarize by &#39;Feed&#39;</span></span>
+<span id="cb349-2"><a href="summarizing-data-examples.html#cb349-2" tabindex="-1"></a>summary_stats <span class="ot">&lt;-</span> merged_data <span class="sc">%&gt;%</span></span>
+<span id="cb349-3"><a href="summarizing-data-examples.html#cb349-3" tabindex="-1"></a>  <span class="fu">group_by</span>(Feed) <span class="sc">%&gt;%</span></span>
+<span id="cb349-4"><a href="summarizing-data-examples.html#cb349-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_Temp =</span> <span class="fu">mean</span>(Temp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb349-5"><a href="summarizing-data-examples.html#cb349-5" tabindex="-1"></a>            <span class="at">sd_Temp   =</span> <span class="fu">sd</span>(Temp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb349-6"><a href="summarizing-data-examples.html#cb349-6" tabindex="-1"></a>            <span class="at">mean_pH   =</span> <span class="fu">mean</span>(pH, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb349-7"><a href="summarizing-data-examples.html#cb349-7" tabindex="-1"></a>            <span class="at">sd_pH     =</span> <span class="fu">sd</span>(pH, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb349-8"><a href="summarizing-data-examples.html#cb349-8" tabindex="-1"></a>            <span class="at">max_Subs  =</span> <span class="fu">max</span>(Substrate, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb349-9"><a href="summarizing-data-examples.html#cb349-9" tabindex="-1"></a>            <span class="at">min_Subs  =</span> <span class="fu">min</span>(Substrate, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb349-10"><a href="summarizing-data-examples.html#cb349-10" tabindex="-1"></a></span>
+<span id="cb349-11"><a href="summarizing-data-examples.html#cb349-11" tabindex="-1"></a><span class="co"># View summary statistics</span></span>
+<span id="cb349-12"><a href="summarizing-data-examples.html#cb349-12" tabindex="-1"></a><span class="fu">print</span>(summary_stats)</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 7
+##   Feed     mean_Temp sd_Temp mean_pH  sd_pH max_Subs min_Subs
+##   &lt;chr&gt;        &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+## 1 Glucose       30.7   0.488    7.08 0.0837      1.5      0.8
+## 2 Glycerol      30.2   0.488    6.88 0.0837      1.1      1</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li><p><strong>Interpreting the Results</strong></p>
+<ul>
+<li><p>Discuss how different feed types glucose vs glycerol may be affecting the reactor conditions based on your summary statistics.</p></li>
+<li><p>What potential insights could an engineer draw from these analyses?</p></li>
+</ul></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="root-growth-inhibition-example" class="section level2 hasAnchor" number="5.8">
+<h2><span class="header-section-number">5.8</span> Root Growth Inhibition Example<a href="summarizing-data-examples.html#root-growth-inhibition-example" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="introduction-1" class="section level3 hasAnchor" number="5.8.1">
+<h3><span class="header-section-number">5.8.1</span> Introduction<a href="summarizing-data-examples.html#introduction-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In my research group we study plant genes and how they function. One interesting thing about plants is that their genomes are quite large compared to other organisms and one of the reasons for that is their genomes have been duplicated several times throughout the history of their evolution</p>
 <div class="float">
 <img src="data/Largest-collection-of-garden-gnomes-60at60-photo2_tcm25-386214.webp" alt="gnome duplication" />
@@ -387,45 +539,53 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>These genome duplications have generated families of genes which have similar but slightly different functions. Often we think about each of these genes in a family as playing a distinct role, and by <strong>adding</strong> together their function we could approximate their total function. However that’s not always the case because these genes might interact with one another—directly through binding or indirectly through competition—to perform their total function. These interactions might cause some deviation from our <strong>additive</strong> model of function; in genetics this is called <strong>epistasis</strong>.</p>
 <p>This dataset is from <a href="">Prigge <em>et al</em>. 2020</a>, who collected measurements of several phenotypes for combinations of mutants in the TIR1/AFB auxin receptor genes which my group studies and engineers.</p>
-<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="summarizing-data-examples.html#cb334-1" tabindex="-1"></a>root_growth_inh_0 <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">&quot;data/elife-54740-fig1-figsupp3-data1-v2_data-only_tir1afb1.xlsx&quot;</span>, <span class="at">sheet =</span> <span class="st">&quot;Primary Root Growth Inh EtOH&quot;</span>, <span class="at">skip =</span> <span class="dv">1</span>)</span>
-<span id="cb334-2"><a href="summarizing-data-examples.html#cb334-2" tabindex="-1"></a>root_growth_inh_20 <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">&quot;data/elife-54740-fig1-figsupp3-data1-v2_data-only_tir1afb1.xlsx&quot;</span>, <span class="at">sheet =</span> <span class="st">&quot;Primary Root Growth Inh 20 nM&quot;</span>, <span class="at">skip =</span> <span class="dv">1</span>)</span>
-<span id="cb334-3"><a href="summarizing-data-examples.html#cb334-3" tabindex="-1"></a>root_growth_inh_100 <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">&quot;data/elife-54740-fig1-figsupp3-data1-v2_data-only_tir1afb1.xlsx&quot;</span>, <span class="at">sheet =</span> <span class="st">&quot;Primary Root Growth Inh 100 nM&quot;</span>, <span class="at">skip =</span> <span class="dv">1</span>)</span>
-<span id="cb334-4"><a href="summarizing-data-examples.html#cb334-4" tabindex="-1"></a>root_growth_inh_500 <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">&quot;data/elife-54740-fig1-figsupp3-data1-v2_data-only_tir1afb1.xlsx&quot;</span>, <span class="at">sheet =</span> <span class="st">&quot;Primary Root Growth Inh 500 nM&quot;</span>, <span class="at">skip =</span> <span class="dv">1</span>)</span>
-<span id="cb334-5"><a href="summarizing-data-examples.html#cb334-5" tabindex="-1"></a></span>
-<span id="cb334-6"><a href="summarizing-data-examples.html#cb334-6" tabindex="-1"></a>root_growth_plonger <span class="ot">&lt;-</span> <span class="cf">function</span>(data){</span>
-<span id="cb334-7"><a href="summarizing-data-examples.html#cb334-7" tabindex="-1"></a>  data <span class="sc">|&gt;</span> </span>
-<span id="cb334-8"><a href="summarizing-data-examples.html#cb334-8" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>line, </span>
-<span id="cb334-9"><a href="summarizing-data-examples.html#cb334-9" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;genotype&quot;</span>, </span>
-<span id="cb334-10"><a href="summarizing-data-examples.html#cb334-10" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;root_growth_mm&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb334-11"><a href="summarizing-data-examples.html#cb334-11" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">batch =</span> <span class="fu">str_extract</span>(genotype, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">s(.*)$&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb334-12"><a href="summarizing-data-examples.html#cb334-12" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">batch =</span> <span class="fu">str_remove_all</span>(batch, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">s&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb334-13"><a href="summarizing-data-examples.html#cb334-13" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">genotype =</span> <span class="fu">str_remove</span>(genotype, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">s.*&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb334-14"><a href="summarizing-data-examples.html#cb334-14" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">batch =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(batch), <span class="st">&quot;a&quot;</span>, batch)) <span class="sc">%&gt;%</span></span>
-<span id="cb334-15"><a href="summarizing-data-examples.html#cb334-15" tabindex="-1"></a>  <span class="fu">na.omit</span>()</span>
-<span id="cb334-16"><a href="summarizing-data-examples.html#cb334-16" tabindex="-1"></a>}</span>
-<span id="cb334-17"><a href="summarizing-data-examples.html#cb334-17" tabindex="-1"></a>root_growth_inh_0 <span class="ot">&lt;-</span> <span class="fu">root_growth_plonger</span>(root_growth_inh_0)</span>
-<span id="cb334-18"><a href="summarizing-data-examples.html#cb334-18" tabindex="-1"></a>root_growth_inh_0<span class="sc">$</span>treatment <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb334-19"><a href="summarizing-data-examples.html#cb334-19" tabindex="-1"></a></span>
-<span id="cb334-20"><a href="summarizing-data-examples.html#cb334-20" tabindex="-1"></a>root_growth_inh_20 <span class="ot">&lt;-</span> <span class="fu">root_growth_plonger</span>(root_growth_inh_20)</span>
-<span id="cb334-21"><a href="summarizing-data-examples.html#cb334-21" tabindex="-1"></a>root_growth_inh_20<span class="sc">$</span>treatment <span class="ot">&lt;-</span> <span class="dv">20</span></span>
-<span id="cb334-22"><a href="summarizing-data-examples.html#cb334-22" tabindex="-1"></a></span>
-<span id="cb334-23"><a href="summarizing-data-examples.html#cb334-23" tabindex="-1"></a>root_growth_inh_100 <span class="ot">&lt;-</span> <span class="fu">root_growth_plonger</span>(root_growth_inh_100)</span>
-<span id="cb334-24"><a href="summarizing-data-examples.html#cb334-24" tabindex="-1"></a>root_growth_inh_100<span class="sc">$</span>treatment <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb334-25"><a href="summarizing-data-examples.html#cb334-25" tabindex="-1"></a></span>
-<span id="cb334-26"><a href="summarizing-data-examples.html#cb334-26" tabindex="-1"></a>root_growth_inh_500 <span class="ot">&lt;-</span> <span class="fu">root_growth_plonger</span>(root_growth_inh_500)</span>
-<span id="cb334-27"><a href="summarizing-data-examples.html#cb334-27" tabindex="-1"></a>root_growth_inh_500<span class="sc">$</span>treatment <span class="ot">&lt;-</span> <span class="dv">500</span></span>
-<span id="cb334-28"><a href="summarizing-data-examples.html#cb334-28" tabindex="-1"></a></span>
-<span id="cb334-29"><a href="summarizing-data-examples.html#cb334-29" tabindex="-1"></a>root_growth_inh <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(root_growth_inh_0, </span>
-<span id="cb334-30"><a href="summarizing-data-examples.html#cb334-30" tabindex="-1"></a>                             root_growth_inh_20, </span>
-<span id="cb334-31"><a href="summarizing-data-examples.html#cb334-31" tabindex="-1"></a>                             root_growth_inh_100, </span>
-<span id="cb334-32"><a href="summarizing-data-examples.html#cb334-32" tabindex="-1"></a>                             root_growth_inh_500)</span>
-<span id="cb334-33"><a href="summarizing-data-examples.html#cb334-33" tabindex="-1"></a></span>
-<span id="cb334-34"><a href="summarizing-data-examples.html#cb334-34" tabindex="-1"></a>root_growth_inh <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(batch) <span class="sc">%&gt;%</span> </span>
-<span id="cb334-35"><a href="summarizing-data-examples.html#cb334-35" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent_inh =</span> root_growth_mm <span class="sc">/</span> </span>
-<span id="cb334-36"><a href="summarizing-data-examples.html#cb334-36" tabindex="-1"></a>           <span class="fu">mean</span>(root_growth_mm[genotype <span class="sc">==</span> <span class="st">&quot;Col-0&quot;</span> <span class="sc">&amp;</span> treatment <span class="sc">==</span> <span class="dv">0</span>]) <span class="sc">*</span> <span class="dv">100</span>) <span class="ot">-&gt;</span></span>
-<span id="cb334-37"><a href="summarizing-data-examples.html#cb334-37" tabindex="-1"></a>  root_growth_inh</span></code></pre></div>
-<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="summarizing-data-examples.html#cb335-1" tabindex="-1"></a>root_growth_inh_aov <span class="ot">&lt;-</span> <span class="fu">aov</span>(percent_inh <span class="sc">~</span> genotype<span class="sc">*</span>treatment <span class="sc">+</span> batch, <span class="at">data =</span> root_growth_inh)</span>
-<span id="cb335-2"><a href="summarizing-data-examples.html#cb335-2" tabindex="-1"></a><span class="fu">summary</span>(root_growth_inh_aov)</span></code></pre></div>
+</div>
+<div id="read-in-data" class="section level3 hasAnchor" number="5.8.2">
+<h3><span class="header-section-number">5.8.2</span> Read in data<a href="summarizing-data-examples.html#read-in-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="summarizing-data-examples.html#cb351-1" tabindex="-1"></a>root_growth_inh_0 <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">&quot;data/elife-54740-fig1-figsupp3-data1-v2_data-only_tir1afb1.xlsx&quot;</span>, <span class="at">sheet =</span> <span class="st">&quot;Primary Root Growth Inh EtOH&quot;</span>, <span class="at">skip =</span> <span class="dv">1</span>)</span>
+<span id="cb351-2"><a href="summarizing-data-examples.html#cb351-2" tabindex="-1"></a>root_growth_inh_20 <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">&quot;data/elife-54740-fig1-figsupp3-data1-v2_data-only_tir1afb1.xlsx&quot;</span>, <span class="at">sheet =</span> <span class="st">&quot;Primary Root Growth Inh 20 nM&quot;</span>, <span class="at">skip =</span> <span class="dv">1</span>)</span>
+<span id="cb351-3"><a href="summarizing-data-examples.html#cb351-3" tabindex="-1"></a>root_growth_inh_100 <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">&quot;data/elife-54740-fig1-figsupp3-data1-v2_data-only_tir1afb1.xlsx&quot;</span>, <span class="at">sheet =</span> <span class="st">&quot;Primary Root Growth Inh 100 nM&quot;</span>, <span class="at">skip =</span> <span class="dv">1</span>)</span>
+<span id="cb351-4"><a href="summarizing-data-examples.html#cb351-4" tabindex="-1"></a>root_growth_inh_500 <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">&quot;data/elife-54740-fig1-figsupp3-data1-v2_data-only_tir1afb1.xlsx&quot;</span>, <span class="at">sheet =</span> <span class="st">&quot;Primary Root Growth Inh 500 nM&quot;</span>, <span class="at">skip =</span> <span class="dv">1</span>)</span></code></pre></div>
+</div>
+<div id="write-a-function-for-tidying-this-data" class="section level3 hasAnchor" number="5.8.3">
+<h3><span class="header-section-number">5.8.3</span> Write a function for tidying this data<a href="summarizing-data-examples.html#write-a-function-for-tidying-this-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="summarizing-data-examples.html#cb352-1" tabindex="-1"></a>root_growth_plonger <span class="ot">&lt;-</span> <span class="cf">function</span>(data){</span>
+<span id="cb352-2"><a href="summarizing-data-examples.html#cb352-2" tabindex="-1"></a>  data <span class="sc">|&gt;</span> </span>
+<span id="cb352-3"><a href="summarizing-data-examples.html#cb352-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>line, </span>
+<span id="cb352-4"><a href="summarizing-data-examples.html#cb352-4" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;genotype&quot;</span>, </span>
+<span id="cb352-5"><a href="summarizing-data-examples.html#cb352-5" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;root_growth_mm&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb352-6"><a href="summarizing-data-examples.html#cb352-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">batch =</span> <span class="fu">str_extract</span>(genotype, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">s(.*)$&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb352-7"><a href="summarizing-data-examples.html#cb352-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">batch =</span> <span class="fu">str_remove_all</span>(batch, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">s&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb352-8"><a href="summarizing-data-examples.html#cb352-8" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">genotype =</span> <span class="fu">str_remove</span>(genotype, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">s.*&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb352-9"><a href="summarizing-data-examples.html#cb352-9" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">batch =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(batch), <span class="st">&quot;a&quot;</span>, batch)) <span class="sc">%&gt;%</span></span>
+<span id="cb352-10"><a href="summarizing-data-examples.html#cb352-10" tabindex="-1"></a>  <span class="fu">na.omit</span>()</span>
+<span id="cb352-11"><a href="summarizing-data-examples.html#cb352-11" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="tidy-the-individual-datasets" class="section level3 hasAnchor" number="5.8.4">
+<h3><span class="header-section-number">5.8.4</span> Tidy the individual datasets<a href="summarizing-data-examples.html#tidy-the-individual-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="summarizing-data-examples.html#cb353-1" tabindex="-1"></a>root_growth_inh_0 <span class="ot">&lt;-</span> <span class="fu">root_growth_plonger</span>(root_growth_inh_0)</span>
+<span id="cb353-2"><a href="summarizing-data-examples.html#cb353-2" tabindex="-1"></a>root_growth_inh_0<span class="sc">$</span>treatment <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb353-3"><a href="summarizing-data-examples.html#cb353-3" tabindex="-1"></a></span>
+<span id="cb353-4"><a href="summarizing-data-examples.html#cb353-4" tabindex="-1"></a>root_growth_inh_20 <span class="ot">&lt;-</span> <span class="fu">root_growth_plonger</span>(root_growth_inh_20)</span>
+<span id="cb353-5"><a href="summarizing-data-examples.html#cb353-5" tabindex="-1"></a>root_growth_inh_20<span class="sc">$</span>treatment <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb353-6"><a href="summarizing-data-examples.html#cb353-6" tabindex="-1"></a></span>
+<span id="cb353-7"><a href="summarizing-data-examples.html#cb353-7" tabindex="-1"></a>root_growth_inh_100 <span class="ot">&lt;-</span> <span class="fu">root_growth_plonger</span>(root_growth_inh_100)</span>
+<span id="cb353-8"><a href="summarizing-data-examples.html#cb353-8" tabindex="-1"></a>root_growth_inh_100<span class="sc">$</span>treatment <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb353-9"><a href="summarizing-data-examples.html#cb353-9" tabindex="-1"></a></span>
+<span id="cb353-10"><a href="summarizing-data-examples.html#cb353-10" tabindex="-1"></a>root_growth_inh_500 <span class="ot">&lt;-</span> <span class="fu">root_growth_plonger</span>(root_growth_inh_500)</span>
+<span id="cb353-11"><a href="summarizing-data-examples.html#cb353-11" tabindex="-1"></a>root_growth_inh_500<span class="sc">$</span>treatment <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb353-12"><a href="summarizing-data-examples.html#cb353-12" tabindex="-1"></a></span>
+<span id="cb353-13"><a href="summarizing-data-examples.html#cb353-13" tabindex="-1"></a>root_growth_inh <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(root_growth_inh_0, </span>
+<span id="cb353-14"><a href="summarizing-data-examples.html#cb353-14" tabindex="-1"></a>                             root_growth_inh_20, </span>
+<span id="cb353-15"><a href="summarizing-data-examples.html#cb353-15" tabindex="-1"></a>                             root_growth_inh_100, </span>
+<span id="cb353-16"><a href="summarizing-data-examples.html#cb353-16" tabindex="-1"></a>                             root_growth_inh_500)</span>
+<span id="cb353-17"><a href="summarizing-data-examples.html#cb353-17" tabindex="-1"></a></span>
+<span id="cb353-18"><a href="summarizing-data-examples.html#cb353-18" tabindex="-1"></a>root_growth_inh <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(batch) <span class="sc">%&gt;%</span> </span>
+<span id="cb353-19"><a href="summarizing-data-examples.html#cb353-19" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent_inh =</span> root_growth_mm <span class="sc">/</span> </span>
+<span id="cb353-20"><a href="summarizing-data-examples.html#cb353-20" tabindex="-1"></a>           <span class="fu">mean</span>(root_growth_mm[genotype <span class="sc">==</span> <span class="st">&quot;Col-0&quot;</span> <span class="sc">&amp;</span> treatment <span class="sc">==</span> <span class="dv">0</span>]) <span class="sc">*</span> <span class="dv">100</span>) <span class="ot">-&gt;</span></span>
+<span id="cb353-21"><a href="summarizing-data-examples.html#cb353-21" tabindex="-1"></a>  root_growth_inh</span></code></pre></div>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="summarizing-data-examples.html#cb354-1" tabindex="-1"></a>root_growth_inh_aov <span class="ot">&lt;-</span> <span class="fu">aov</span>(percent_inh <span class="sc">~</span> genotype<span class="sc">*</span>treatment <span class="sc">+</span> batch, <span class="at">data =</span> root_growth_inh)</span>
+<span id="cb354-2"><a href="summarizing-data-examples.html#cb354-2" tabindex="-1"></a><span class="fu">summary</span>(root_growth_inh_aov)</span></code></pre></div>
 <pre><code>##                     Df Sum Sq Mean Sq F value   Pr(&gt;F)    
 ## genotype             4   4807    1202   1.865  0.11536    
 ## treatment            1 423486  423486 657.249  &lt; 2e-16 ***
@@ -434,9 +594,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Residuals          479 308635     644                     
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="summarizing-data-examples.html#cb337-1" tabindex="-1"></a>root_growth_inh<span class="sc">$</span>fac_treat <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(root_growth_inh<span class="sc">$</span>treatment)</span>
-<span id="cb337-2"><a href="summarizing-data-examples.html#cb337-2" tabindex="-1"></a>root_growth_inh_aov <span class="ot">&lt;-</span> <span class="fu">aov</span>(percent_inh <span class="sc">~</span> genotype<span class="sc">*</span>fac_treat <span class="sc">+</span> batch, <span class="at">data =</span> root_growth_inh)</span>
-<span id="cb337-3"><a href="summarizing-data-examples.html#cb337-3" tabindex="-1"></a><span class="fu">summary</span>(root_growth_inh_aov)</span></code></pre></div>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="summarizing-data-examples.html#cb356-1" tabindex="-1"></a>root_growth_inh<span class="sc">$</span>fac_treat <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(root_growth_inh<span class="sc">$</span>treatment)</span>
+<span id="cb356-2"><a href="summarizing-data-examples.html#cb356-2" tabindex="-1"></a>root_growth_inh_aov <span class="ot">&lt;-</span> <span class="fu">aov</span>(percent_inh <span class="sc">~</span> genotype<span class="sc">*</span>fac_treat <span class="sc">+</span> batch, <span class="at">data =</span> root_growth_inh)</span>
+<span id="cb356-3"><a href="summarizing-data-examples.html#cb356-3" tabindex="-1"></a><span class="fu">summary</span>(root_growth_inh_aov)</span></code></pre></div>
 <pre><code>##                     Df Sum Sq Mean Sq  F value   Pr(&gt;F)    
 ## genotype             4   4807    1202   10.951 1.69e-08 ***
 ## fac_treat            3 708852  236284 2153.098  &lt; 2e-16 ***
@@ -445,8 +605,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Residuals          472  51798     110                      
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="summarizing-data-examples.html#cb339-1" tabindex="-1"></a>root_growth_inh_aov.HSD <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">tidy</span>(<span class="fu">TukeyHSD</span>(root_growth_inh_aov))</span>
-<span id="cb339-2"><a href="summarizing-data-examples.html#cb339-2" tabindex="-1"></a>root_growth_inh_aov.HSD[<span class="fu">which</span>(root_growth_inh_aov.HSD<span class="sc">$</span>adj.p.value <span class="sc">&lt;</span> <span class="fl">0.05</span>),]</span></code></pre></div>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="summarizing-data-examples.html#cb358-1" tabindex="-1"></a>root_growth_inh_aov.HSD <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">tidy</span>(<span class="fu">TukeyHSD</span>(root_growth_inh_aov))</span>
+<span id="cb358-2"><a href="summarizing-data-examples.html#cb358-2" tabindex="-1"></a>root_growth_inh_aov.HSD[<span class="fu">which</span>(root_growth_inh_aov.HSD<span class="sc">$</span>adj.p.value <span class="sc">&lt;</span> <span class="fl">0.05</span>),]</span></code></pre></div>
 <pre><code>## # A tibble: 121 × 7
 ##    term              contrast null.value estimate conf.low conf.high adj.p.value
 ##    &lt;chr&gt;             &lt;chr&gt;         &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
@@ -462,14 +622,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10 genotype:fac_tre… tir1-10…          0    15.4      2.19     28.6     6.04e- 3
 ## # ℹ 111 more rows</code></pre>
 <p>Looks like there are no strong batch effects here.</p>
-<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="summarizing-data-examples.html#cb341-1" tabindex="-1"></a>root_growth_inh <span class="sc">%&gt;%</span> <span class="fu">filter</span>(genotype <span class="sc">!=</span> <span class="st">&quot;tir1-10&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb341-2"><a href="summarizing-data-examples.html#cb341-2" tabindex="-1"></a>  <span class="fu">filter</span>(treatment <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb341-3"><a href="summarizing-data-examples.html#cb341-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">TIR1 =</span> <span class="sc">!</span><span class="fu">str_detect</span>(genotype, <span class="st">&quot;tir1&quot;</span>), </span>
-<span id="cb341-4"><a href="summarizing-data-examples.html#cb341-4" tabindex="-1"></a>                            <span class="at">AFB1 =</span> <span class="sc">!</span><span class="fu">str_detect</span>(genotype, <span class="st">&quot;afb1&quot;</span>)) <span class="ot">-&gt;</span></span>
-<span id="cb341-5"><a href="summarizing-data-examples.html#cb341-5" tabindex="-1"></a>  root_growth_inh</span></code></pre></div>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="summarizing-data-examples.html#cb360-1" tabindex="-1"></a>root_growth_inh <span class="sc">%&gt;%</span> <span class="fu">filter</span>(genotype <span class="sc">!=</span> <span class="st">&quot;tir1-10&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb360-2"><a href="summarizing-data-examples.html#cb360-2" tabindex="-1"></a>  <span class="fu">filter</span>(treatment <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb360-3"><a href="summarizing-data-examples.html#cb360-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">TIR1 =</span> <span class="sc">!</span><span class="fu">str_detect</span>(genotype, <span class="st">&quot;tir1&quot;</span>), </span>
+<span id="cb360-4"><a href="summarizing-data-examples.html#cb360-4" tabindex="-1"></a>                            <span class="at">AFB1 =</span> <span class="sc">!</span><span class="fu">str_detect</span>(genotype, <span class="st">&quot;afb1&quot;</span>)) <span class="ot">-&gt;</span></span>
+<span id="cb360-5"><a href="summarizing-data-examples.html#cb360-5" tabindex="-1"></a>  root_growth_inh</span></code></pre></div>
 <p>For now let’s look at the whole dataset.</p>
-<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="summarizing-data-examples.html#cb342-1" tabindex="-1"></a>root_growth_inh.int <span class="ot">&lt;-</span> <span class="fu">aov</span>(percent_inh <span class="sc">~</span> TIR1<span class="sc">*</span>AFB1<span class="sc">*</span>treatment, <span class="at">data =</span> root_growth_inh)</span>
-<span id="cb342-2"><a href="summarizing-data-examples.html#cb342-2" tabindex="-1"></a><span class="fu">summary</span>(root_growth_inh.int)</span></code></pre></div>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="summarizing-data-examples.html#cb361-1" tabindex="-1"></a>root_growth_inh.int <span class="ot">&lt;-</span> <span class="fu">aov</span>(percent_inh <span class="sc">~</span> TIR1<span class="sc">*</span>AFB1<span class="sc">*</span>treatment, <span class="at">data =</span> root_growth_inh)</span>
+<span id="cb361-2"><a href="summarizing-data-examples.html#cb361-2" tabindex="-1"></a><span class="fu">summary</span>(root_growth_inh.int)</span></code></pre></div>
 <pre><code>##                      Df Sum Sq Mean Sq  F value   Pr(&gt;F)    
 ## TIR1                  1   6758    6758   48.681 2.69e-11 ***
 ## AFB1                  1    470     470    3.386  0.06692 .  
@@ -481,8 +641,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Residuals           250  34704     139                      
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="summarizing-data-examples.html#cb344-1" tabindex="-1"></a>root_growth_inh.int <span class="ot">&lt;-</span> <span class="fu">aov</span>(percent_inh <span class="sc">~</span> TIR1<span class="sc">*</span>AFB1<span class="sc">*</span>fac_treat, <span class="at">data =</span> root_growth_inh)</span>
-<span id="cb344-2"><a href="summarizing-data-examples.html#cb344-2" tabindex="-1"></a><span class="fu">summary</span>(root_growth_inh.int)</span></code></pre></div>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="summarizing-data-examples.html#cb363-1" tabindex="-1"></a>root_growth_inh.int <span class="ot">&lt;-</span> <span class="fu">aov</span>(percent_inh <span class="sc">~</span> TIR1<span class="sc">*</span>AFB1<span class="sc">*</span>fac_treat, <span class="at">data =</span> root_growth_inh)</span>
+<span id="cb363-2"><a href="summarizing-data-examples.html#cb363-2" tabindex="-1"></a><span class="fu">summary</span>(root_growth_inh.int)</span></code></pre></div>
 <pre><code>##                      Df Sum Sq Mean Sq  F value   Pr(&gt;F)    
 ## TIR1                  1   6758    6758   48.681 2.69e-11 ***
 ## AFB1                  1    470     470    3.386  0.06692 .  
@@ -494,13 +654,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Residuals           250  34704     139                      
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="summarizing-data-examples.html#cb346-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> root_growth_inh, <span class="fu">aes</span>(<span class="at">x =</span> fac_treat, <span class="at">y =</span> percent_inh, <span class="at">color =</span> genotype)) <span class="sc">+</span> </span>
-<span id="cb346-2"><a href="summarizing-data-examples.html#cb346-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitterdodge</span>(<span class="at">jitter.width =</span> <span class="fl">0.2</span>))</span></code></pre></div>
-<p><img src="05-1_Examples_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="summarizing-data-examples.html#cb365-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> root_growth_inh, <span class="fu">aes</span>(<span class="at">x =</span> fac_treat, <span class="at">y =</span> percent_inh, <span class="at">color =</span> genotype)) <span class="sc">+</span> </span>
+<span id="cb365-2"><a href="summarizing-data-examples.html#cb365-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitterdodge</span>(<span class="at">jitter.width =</span> <span class="fl">0.2</span>))</span></code></pre></div>
+<p><img src="05-1_Examples_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p>Strong case for an interaction, but not dependent on treatment, interesting.</p>
 <p>To make this easier to explain we can repeat this analysis after stratifying by treatment.</p>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="summarizing-data-examples.html#cb347-1" tabindex="-1"></a>root_growth_inh0.int <span class="ot">&lt;-</span> <span class="fu">aov</span>(percent_inh <span class="sc">~</span> TIR1<span class="sc">*</span>AFB1, <span class="at">data =</span> <span class="fu">filter</span>(root_growth_inh, treatment <span class="sc">==</span> <span class="dv">0</span>))</span>
-<span id="cb347-2"><a href="summarizing-data-examples.html#cb347-2" tabindex="-1"></a><span class="fu">summary</span>(root_growth_inh0.int)</span></code></pre></div>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="summarizing-data-examples.html#cb366-1" tabindex="-1"></a>root_growth_inh0.int <span class="ot">&lt;-</span> <span class="fu">aov</span>(percent_inh <span class="sc">~</span> TIR1<span class="sc">*</span>AFB1, <span class="at">data =</span> <span class="fu">filter</span>(root_growth_inh, treatment <span class="sc">==</span> <span class="dv">0</span>))</span>
+<span id="cb366-2"><a href="summarizing-data-examples.html#cb366-2" tabindex="-1"></a><span class="fu">summary</span>(root_growth_inh0.int)</span></code></pre></div>
 <pre><code>##              Df Sum Sq Mean Sq F value   Pr(&gt;F)    
 ## TIR1          1     43    42.5    0.26 0.611331    
 ## AFB1          1   2030  2030.3   12.40 0.000598 ***
@@ -509,8 +669,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>This matches expectations mostly, I would have expected AFB1 to have less effect, but in this model the double mutant is also contributing to this effect size. The interaction here is still a strong effect. 100 nM should be more telling even.</p>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="summarizing-data-examples.html#cb349-1" tabindex="-1"></a>root_growth_inh100.int <span class="ot">&lt;-</span> <span class="fu">aov</span>(percent_inh <span class="sc">~</span> TIR1<span class="sc">*</span>AFB1, <span class="at">data =</span> <span class="fu">filter</span>(root_growth_inh, treatment <span class="sc">==</span> <span class="dv">100</span>))</span>
-<span id="cb349-2"><a href="summarizing-data-examples.html#cb349-2" tabindex="-1"></a><span class="fu">summary</span>(root_growth_inh100.int)</span></code></pre></div>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="summarizing-data-examples.html#cb368-1" tabindex="-1"></a>root_growth_inh100.int <span class="ot">&lt;-</span> <span class="fu">aov</span>(percent_inh <span class="sc">~</span> TIR1<span class="sc">*</span>AFB1, <span class="at">data =</span> <span class="fu">filter</span>(root_growth_inh, treatment <span class="sc">==</span> <span class="dv">100</span>))</span>
+<span id="cb368-2"><a href="summarizing-data-examples.html#cb368-2" tabindex="-1"></a><span class="fu">summary</span>(root_growth_inh100.int)</span></code></pre></div>
 <pre><code>##              Df Sum Sq Mean Sq F value   Pr(&gt;F)    
 ## TIR1          1   9623    9623  85.129 9.93e-16 ***
 ## AFB1          1     84      84   0.746  0.38945    
@@ -520,7 +680,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Very interesting, TIR1 has a very strong effect as expected at this high auxin concentration, whereas AFB1 does not, but the interaction term is significant at both 0 nM and 100 nM IAA.</p>
 
-</div>
 </div>
 </div>
 </div>
@@ -544,43 +703,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": false,
-"twitter": false,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": ["_main.pdf", "_main.epub"],
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection",
-"scroll_highlight": true
-}
+  "sharing": {
+    "github": false,
+    "facebook": false,
+    "twitter": false,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf", "_main.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection",
+    "scroll_highlight": true
+  }
 });
 });
 </script>

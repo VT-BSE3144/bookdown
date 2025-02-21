@@ -139,6 +139,16 @@ group_by-function-summarizing-info-based-on-typecharacteristic
 grouping-with-multiple-variables
 tidying-and-untidying-data-with-pivot_-functions
 joins-and-binds-within-dplyr
-tidying-and-untidying-data-with-pivot_-functions-1
+bioreactor-data-analysis
+background
+tasks-1
+import-and-inspect-the-data
+data-tidying-pivoting
+b.-pivot-wider-reshape-back-to-wide-format-if-needed
+joining-datasets
+grouping-and-summarizing
 root-growth-inhibition-example
 introduction-1
+read-in-data
+write-a-function-for-tidying-this-data
+tidy-the-individual-datasets

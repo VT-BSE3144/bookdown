@@ -4,8 +4,7 @@ params:
   version: 1.0
 ---
 
-
-# Summarizing Data Examples {-}
+# Summarizing Data Examples {.unnumbered}
 
 
 ``` r
@@ -29,11 +28,203 @@ library(tidyverse)
 library(readxl)
 ```
 
-## Tidying and untidying data with `pivot_` functions
+## Bioreactor Data Analysis
 
-### Root Growth Inhibition Example
+### Background
 
-#### Introduction
+In a bioprocess engineering lab, several bioreactor runs were performed to study the effect of different feed types on process performance. Two datasets were collected:
+
+1.  **Bioreactor Readings**\
+    This dataset (`bioreactor_readings.csv`) contains time-series measurements recorded during each run. It is provided in a wide format with columns for the run number, time (in hours), and various sensor readings:
+
+    -   `Run`: Identifier for the bioreactor run.
+
+    -   `Time`: Time stamp (hours).
+
+    -   `Temp`: Temperature (°C).
+
+    -   `pH`: pH level.
+
+    -   `DO`: Dissolved Oxygen (mg/L).
+
+    -   `Substrate`: Substrate concentration (g/L).
+
+2.  **Experimental Metadata**\
+    This dataset (`experiment_info.csv`) contains metadata about each run:
+
+    -   `Run`: Run identifier (matching the bioreactor dataset).
+
+    -   `Feed`: Type of feed (e.g., “Glucose”, “Glycerol”).
+
+    -   `Inoculum`: Inoculum concentration (OD units).
+
+    -   `Operator`: Name of the operator in charge.
+
+### Tasks
+
+#### 1. Import and Inspect the Data
+
+    -   Load both CSV files into R as data frames.
+
+    -   Use the `head()` function (or similar) to inspect the first few rows of each dataset.
+
+
+``` r
+# Load libraries
+library(tidyverse)
+
+# Import data
+bioreactor <-
+  read_csv("data/bioreactor_readings.csv")
+```
+
+```
+## Rows: 10 Columns: 6
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: ","
+## dbl (6): Run, Time, Temp, pH, DO, Substrate
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+```
+
+``` r
+experiment <-
+  read_csv("data/experiment_info.csv")
+```
+
+```
+## Rows: 2 Columns: 4
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: ","
+## chr (2): Feed, Operator
+## dbl (2): Run, Inoculum
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+```
+
+``` r
+head(bioreactor)
+```
+
+```
+## # A tibble: 6 × 6
+##     Run  Time  Temp    pH    DO Substrate
+##   <dbl> <dbl> <dbl> <dbl> <dbl>     <dbl>
+## 1     1     0  30     7     6.5       1.5
+## 2     1     1  30.5   7.1   6.4       1.3
+## 3     1     2  31     7.2   6.3       1.1
+## 4     1     3  31.2   7.1   6.2       0.9
+## 5     1     4  31     7     6         0.8
+## 6     2     0  29.5   6.8   6.8       1
+```
+
+``` r
+head(experiment)
+```
+
+```
+## # A tibble: 2 × 4
+##     Run Feed     Inoculum Operator
+##   <dbl> <chr>       <dbl> <chr>   
+## 1     1 Glucose      0.15 Alice   
+## 2     2 Glycerol     0.12 Bob
+```
+
+#### 2. Data Tidying (Pivoting)
+
+    -   **Pivot Longer:**\
+        Convert the bioreactor readings from wide format into a long (tidy) format so that all measurements (Temp, pH, DO, Substrate) are in a single column named `Parameter` with corresponding values in a column named `Value`.\
+        *Hint: Use `tidyr::pivot_longer()`.*
+
+    -   **Pivot Wider:**\
+        After some analysis, you decide to reshape the long dataset back into a wide format, but now grouping by `Run` and `Time` such that each parameter becomes its own column again.\
+        *Hint: Use `tidyr::pivot_wider()`.*
+        
+
+``` r
+# 2. Pivot longer: Tidy the bioreactor data
+bioreactor_long <- bioreactor %>%
+  pivot_longer(cols = Temp:Substrate, 
+               names_to = "Parameter", 
+               values_to = "Value")
+
+# This would allow us to plot both parameters on the same plot
+
+ggplot(data = bioreactor_long, 
+       mapping = aes(x = Time, 
+                     y = Value, 
+                     color = Parameter, 
+                     linetype = as.factor(Run))) + 
+  geom_line()
+```
+
+<img src="05-1_Examples_files/figure-html/unnamed-chunk-2-1.png" width="672" />
+
+#### 2b. Pivot wider: Reshape back to wide format if needed
+
+``` r
+bioreactor_wide <- bioreactor_long %>%
+  pivot_wider(names_from = Parameter, values_from = Value)
+```
+
+
+#### 3. Joining Datasets
+
+    -   Merge the reshaped bioreactor dataset with the experimental metadata using the common `Run` column.\
+        *Hint: Use one of the join functions (e.g., `dplyr::left_join()`).*
+        
+
+``` r
+# 3. Join datasets by 'Run'
+merged_data <- bioreactor_wide %>%
+  left_join(experiment, by = "Run")
+```
+
+
+#### 4. Grouping and Summarizing
+
+    -   Group the merged dataset by the `Feed` type.
+
+    -   Calculate summary statistics (e.g., mean and standard deviation, or min and max) for key measurements such as `Temp`, `pH`, and `Substrate` across all time points and runs for each feed type.\
+        *Hint: Use `dplyr::group_by()` and `dplyr::summarize()`.*
+
+
+``` r
+# 4. Group and summarize by 'Feed'
+summary_stats <- merged_data %>%
+  group_by(Feed) %>%
+  summarize(mean_Temp = mean(Temp, na.rm = TRUE),
+            sd_Temp   = sd(Temp, na.rm = TRUE),
+            mean_pH   = mean(pH, na.rm = TRUE),
+            sd_pH     = sd(pH, na.rm = TRUE), 
+            max_Subs  = max(Substrate, na.rm = TRUE), 
+            min_Subs  = min(Substrate, na.rm = TRUE))
+
+# View summary statistics
+print(summary_stats)
+```
+
+```
+## # A tibble: 2 × 7
+##   Feed     mean_Temp sd_Temp mean_pH  sd_pH max_Subs min_Subs
+##   <chr>        <dbl>   <dbl>   <dbl>  <dbl>    <dbl>    <dbl>
+## 1 Glucose       30.7   0.488    7.08 0.0837      1.5      0.8
+## 2 Glycerol      30.2   0.488    6.88 0.0837      1.1      1
+```
+
+
+5.  **Interpreting the Results**
+
+    -   Discuss how different feed types glucose vs glycerol may be affecting the reactor conditions based on your summary statistics.
+
+    -   What potential insights could an engineer draw from these analyses?
+
+
+## Root Growth Inhibition Example
+
+### Introduction
 
 In my research group we study plant genes and how they function. One interesting thing about plants is that their genomes are quite large compared to other organisms and one of the reasons for that is their genomes have been duplicated several times throughout the history of their evolution
 
@@ -43,13 +234,20 @@ These genome duplications have generated families of genes which have similar bu
 
 This dataset is from [Prigge *et al*. 2020](), who collected measurements of several phenotypes for combinations of mutants in the TIR1/AFB auxin receptor genes which my group studies and engineers.
 
+### Read in data 
+
 
 ``` r
 root_growth_inh_0 <- read_xlsx("data/elife-54740-fig1-figsupp3-data1-v2_data-only_tir1afb1.xlsx", sheet = "Primary Root Growth Inh EtOH", skip = 1)
 root_growth_inh_20 <- read_xlsx("data/elife-54740-fig1-figsupp3-data1-v2_data-only_tir1afb1.xlsx", sheet = "Primary Root Growth Inh 20 nM", skip = 1)
 root_growth_inh_100 <- read_xlsx("data/elife-54740-fig1-figsupp3-data1-v2_data-only_tir1afb1.xlsx", sheet = "Primary Root Growth Inh 100 nM", skip = 1)
 root_growth_inh_500 <- read_xlsx("data/elife-54740-fig1-figsupp3-data1-v2_data-only_tir1afb1.xlsx", sheet = "Primary Root Growth Inh 500 nM", skip = 1)
+```
 
+### Write a function for tidying this data
+
+
+``` r
 root_growth_plonger <- function(data){
   data |> 
   pivot_longer(cols = -line, 
@@ -61,6 +259,12 @@ root_growth_plonger <- function(data){
   mutate(batch = if_else(is.na(batch), "a", batch)) %>%
   na.omit()
 }
+```
+
+### Tidy the individual datasets
+
+
+``` r
 root_growth_inh_0 <- root_growth_plonger(root_growth_inh_0)
 root_growth_inh_0$treatment <- 0
 
@@ -199,7 +403,7 @@ ggplot(data = root_growth_inh, aes(x = fac_treat, y = percent_inh, color = genot
   geom_boxplot() + geom_point(position = position_jitterdodge(jitter.width = 0.2))
 ```
 
-<img src="05-1_Examples_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+<img src="05-1_Examples_files/figure-html/unnamed-chunk-13-1.png" width="672" />
 
 Strong case for an interaction, but not dependent on treatment, interesting.
 
