@@ -1,0 +1,17 @@
+Time,Treatment,Biomass,Substrate
+0,Control,0.05,20.0
+0,Experimental,0.05,20.0
+2,Control,0.10,19.0
+2,Experimental,0.12,18.5
+4,Control,0.20,18.0
+4,Experimental,0.30,17.0
+6,Control,0.35,16.0
+6,Experimental,0.50,15.0
+8,Control,0.50,15.0
+8,Experimental,0.70,13.0
+10,Control,0.65,14.0
+10,Experimental,0.85,12.5
+12,Control,0.80,13.5
+12,Experimental,1.00,12.0
+14,Control,0.90,13.0
+14,Experimental,1.05,11.5
