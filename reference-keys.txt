@@ -152,3 +152,12 @@ introduction-1
 read-in-data
 write-a-function-for-tidying-this-data
 tidy-the-individual-datasets
+data-visualization
+reading-complete-by-class-on-monday
+tutorials-to-walk-through-on-your-own
+more-on-color-palettes
+previewing
+to-preview-the-document
+to-preview-the-presentation
+to-preview-the-interactive-document-with-shiny-components
+setup-for-the-homework

@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3 Functions, Best-coding Practices, and Debugging Intro | Data Analysis and Numerical Methods for Biological Systems Engineers</title>
+  <title>Data Visualization Examples | Data Analysis and Numerical Methods for Biological Systems Engineers</title>
   <meta name="description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
 Systems Engineering course BSE3144: Engineering Analysis for Biological
 Systems using Numerical Methods.</p>" />
   <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3 Functions, Best-coding Practices, and Debugging Intro | Data Analysis and Numerical Methods for Biological Systems Engineers" />
+  <meta property="og:title" content="Data Visualization Examples | Data Analysis and Numerical Methods for Biological Systems Engineers" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
@@ -19,7 +19,7 @@ Systems using Numerical Methods.</p>" />
   <meta name="github-repo" content="VT-BSE3144/bookdown" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3 Functions, Best-coding Practices, and Debugging Intro | Data Analysis and Numerical Methods for Biological Systems Engineers" />
+  <meta name="twitter:title" content="Data Visualization Examples | Data Analysis and Numerical Methods for Biological Systems Engineers" />
   
   <meta name="twitter:description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
 Systems Engineering course BSE3144: Engineering Analysis for Biological
@@ -37,8 +37,8 @@ Systems using Numerical Methods.</p>" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="the-r-language-and-tidy-data-examples.html"/>
-<link rel="next" href="functions-best-coding-practices-and-debugging-examples.html"/>
+<link rel="prev" href="data-visualization.html"/>
+
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -381,437 +381,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="functions-best-coding-practices-and-debugging-intro" class="section level1 hasAnchor" number="3">
-<h1><span class="header-section-number">3</span> Functions, Best-coding Practices, and Debugging Intro<a href="functions-best-coding-practices-and-debugging-intro.html#functions-best-coding-practices-and-debugging-intro" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Now that we have introduced Rstudio, markdown, R basics, and Tidy data,
-it is our goal this week to improve our programming skills such that as
-we go forward you will be able to practice your problem solving
-efficiently by staying organized, avoiding common errors, and
-effectively debugging errors when they occur.</p>
-<p>This week our goals are to be able to:</p>
+<div id="data-visualization-examples" class="section level1 unnumbered hasAnchor">
+<h1>Data Visualization Examples<a href="data-visualization-examples.html#data-visualization-examples" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="setup-for-the-homework" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> Setup for the Homework<a href="data-visualization-examples.html#setup-for-the-homework" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><a href="https://video.vt.edu/media/BSE%203144:%20Week6,%20Homework%20Hints_Help/1_zo40gr7q"><em>Video introduction / help for homework</em></a></p>
+<p>Hand in: a single pdf document with part 1 and part 2. Be sure that you explain why you chose the particular plots, and that the plots contain proper axis labels, formatting, etc.</p>
+<p><strong>Part 1.</strong></p>
+<p>Dr. Senger is a Metabolic Engineer in our department; perhaps you’ll have him or had him for Thermo. His work includes developing biosensors, and he has a recent publication in Pubmed (<a href="https://peerj.com/articles/9805/">see here</a>). Imagine you’re an undergrad researcher in Dr. Senger’s group, and are asked to recreate Figure 2a from the publication within Rstudio. The raw data for the figure is available in the supplemental information, and in the Rstudio workspace for this week as an excel file (file contains data for all figures). <em>Follow examples for bar graphs from the exercises (visualizing amounts).</em></p>
+<p>You’ll want your final bar graph to look similar to this one, but you can choose the theme/color scheme. Below, I used theme_economist().</p>
+<p><img src="images/phb-oleic-acid.png" /></p>
+<p><strong>Part 2.</strong></p>
+<p>Dr. Shortridge is a Hydrologist in our department, and her work includes analyzing large hydrologic datasets. Here, imagine you’re asked to compare approaches for visualizing the distribution of monthly streamflow in 2020 for the Rappahannock River at Fredericksburg. Based on the distribution exercise, create a boxplot, violin plot, strip-jitter plot, and ridge plot. See the examples below for good and bad plots; you’ll want your plots to be “good”. <strong>Choose one figure that you like the best, and provide an explanation why.</strong></p>
+<p><img src="images/wrong.png" /></p>
 <ul>
-<li>Understand the value of abstraction and “reusability” provided by
-functional programming</li>
-<li>Create basic functions</li>
-<li>Use Packages to access functions from the R community</li>
-<li>Organize code into logical blocks and use comments to help
-understand code</li>
-<li>Use RStudio’s formatting tools to avoid common errors</li>
-<li>Identify common errors and strategies for fixing/debugging them</li>
+<li>Axis labels missing labels, data does not make sense (e.g. not grouped by month)</li>
+<li>Ticks for y-axis are not between 0.1 - 100.</li>
 </ul>
-<p>Reading:</p>
+<p><img src="images/boxplot.png" /></p>
 <ul>
-<li>Skim <a href="https://r4ds.hadley.nz/program" class="uri">https://r4ds.hadley.nz/program</a></li>
-<li>Skim
-<a href="https://rstudio-education.github.io/hopr/basics.html#functions" class="uri">https://rstudio-education.github.io/hopr/basics.html#functions</a>
-down through 2.7 Summary</li>
-<li>Skim <a href="https://rstudio-education.github.io/hopr/packages.html" class="uri">https://rstudio-education.github.io/hopr/packages.html</a></li>
-<li>Skim <a href="https://r4ds.hadley.nz/workflow-style" class="uri">https://r4ds.hadley.nz/workflow-style</a></li>
-<li>Skim one of
-<ul>
-<li><a href="https://statsandr.com/blog/top-10-errors-in-r/" class="uri">https://statsandr.com/blog/top-10-errors-in-r/</a></li>
-<li><a href="https://bookdown.org/yih_huynh/Guide-to-R-Book/trouble.html" class="uri">https://bookdown.org/yih_huynh/Guide-to-R-Book/trouble.html</a></li>
-</ul></li>
+<li>Used simple theme in cowplot package</li>
+<li>Used x-variable in factor form (by using month function within lubridate and include label and abbr; type ?month)</li>
+<li>Normalized y-axis to 1000 :: aes (x = xvar, y =yvar/1000)</li>
+<li>Added group attribute in aes statement</li>
+<li>Added theme (e.g. theme_cowplot). Check out the cowplot package and ggthemes. There are many to choose from! Why do I like the theme above? Simple, axis labels slightly larger than tick labels, clear.</li>
 </ul>
-<p>Ooof, videos on these topics were pretty rough. Let me know if you find
-any that you liked!</p>
-<div id="functions-2" class="section level2 hasAnchor" number="3.1">
-<h2><span class="header-section-number">3.1</span> Functions<a href="functions-best-coding-practices-and-debugging-intro.html#functions-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Functions in programming are just like functions in math. In R they are
-even written just like they are in math</p>
-<p><span class="math inline">\(f(x)\)</span> in math is the same as <code>F(x)</code> in R</p>
-<p>Structured/Modular/Functional programming: a general programming concept
-where developers separate program functions into independent, modular,
-organized pieces, primarily functions.</p>
-<div id="functions-why-and-how" class="section level3 hasAnchor" number="3.1.1">
-<h3><span class="header-section-number">3.1.1</span> Functions… why and how<a href="functions-best-coding-practices-and-debugging-intro.html#functions-why-and-how" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li><p>Write functions to encapsulate sections of code</p></li>
-<li><p>Allows you to avoid global variables that can be accessed and
-changed anywhere (functions only know about arguments you
-specifically pass to them)</p></li>
-<li><p>To avoid duplicating code: if you have multiple copies of almost
-identical code, put it into a function</p></li>
-<li><p>Create a function when R does not have a built-in function for your
-needs</p></li>
-<li><p>When running an analysis over and over again, can just call the
-function (one line) instead of running many lines of code</p></li>
-</ul>
-</div>
-<div id="a-simple-function-cv" class="section level3 hasAnchor" number="3.1.2">
-<h3><span class="header-section-number">3.1.2</span> A simple function: CV()<a href="functions-best-coding-practices-and-debugging-intro.html#a-simple-function-cv" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>There is no R function for CV, or coefficient of variation (standard
-deviation divided by mean)</p>
-<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="functions-best-coding-practices-and-debugging-intro.html#cb150-1" tabindex="-1"></a><span class="co"># create the CV function</span></span>
-<span id="cb150-2"><a href="functions-best-coding-practices-and-debugging-intro.html#cb150-2" tabindex="-1"></a>CV <span class="ot">&lt;-</span> <span class="cf">function</span>(xvec) { </span>
-<span id="cb150-3"><a href="functions-best-coding-practices-and-debugging-intro.html#cb150-3" tabindex="-1"></a>   CV.value <span class="ot">&lt;-</span> <span class="fu">sd</span>(xvec)<span class="sc">/</span><span class="fu">mean</span>(xvec) </span>
-<span id="cb150-4"><a href="functions-best-coding-practices-and-debugging-intro.html#cb150-4" tabindex="-1"></a>   <span class="fu">return</span>(CV.value) </span>
-<span id="cb150-5"><a href="functions-best-coding-practices-and-debugging-intro.html#cb150-5" tabindex="-1"></a>}</span></code></pre></div>
-<p>Our CV function takes a single argument <code>xvec</code> which has no default
-value. (We could set a default value of 1 for example by using
-<code>xvec = 1</code> inside the <code>function(...)</code> function).</p>
-<p>It calculates the standard deviation divided by the mean and returns the
-result.</p>
-<p>The <code>return(CV.value)</code> indicates what is returned by the function. If
-there is no <code>return</code> function the result of the last line is returned.</p>
-</div>
-<div id="now-we-need-to-apply-our-function." class="section level3 hasAnchor" number="3.1.3">
-<h3><span class="header-section-number">3.1.3</span> Now we need to apply our function.<a href="functions-best-coding-practices-and-debugging-intro.html#now-we-need-to-apply-our-function." class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="functions-best-coding-practices-and-debugging-intro.html#cb151-1" tabindex="-1"></a><span class="co"># pick 1000 random values from a normal distribution with mean 5 and sd 2</span></span>
-<span id="cb151-2"><a href="functions-best-coding-practices-and-debugging-intro.html#cb151-2" tabindex="-1"></a>values <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n=</span><span class="dv">1000</span>, <span class="at">mean=</span><span class="dv">5</span>, <span class="at">sd=</span><span class="dv">2</span>) </span>
-<span id="cb151-3"><a href="functions-best-coding-practices-and-debugging-intro.html#cb151-3" tabindex="-1"></a></span>
-<span id="cb151-4"><a href="functions-best-coding-practices-and-debugging-intro.html#cb151-4" tabindex="-1"></a><span class="co"># now lets test our function</span></span>
-<span id="cb151-5"><a href="functions-best-coding-practices-and-debugging-intro.html#cb151-5" tabindex="-1"></a><span class="fu">CV</span>(values)</span></code></pre></div>
-<pre><code>## [1] 0.4119952</code></pre>
-</div>
-<div id="what-objects-are-available" class="section level3 hasAnchor" number="3.1.4">
-<h3><span class="header-section-number">3.1.4</span> What objects are available?<a href="functions-best-coding-practices-and-debugging-intro.html#what-objects-are-available" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Check out the environment now.</p>
-<p><img src="images/environment.png" /></p>
-<ul>
-<li><p>Only the new function <code>CV</code> and the object <code>values</code> are available in
-the Global Environment (they are global objects)</p></li>
-<li><p>Object <code>CV.value</code> (defined inside the function) is encapsulated
-within the function <code>CV</code> and not available outside it</p></li>
-</ul>
-</div>
-<div id="optional-arguments" class="section level3 hasAnchor" number="3.1.5">
-<h3><span class="header-section-number">3.1.5</span> Optional arguments<a href="functions-best-coding-practices-and-debugging-intro.html#optional-arguments" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Some functions have optional arguments. Optional arguments often have a
-default value, that is a value that is used if one isn’t provided by the
-user.</p>
-<p>For example, our CV function doesn’t work if <code>xvec</code> includes missing
-values.</p>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="functions-best-coding-practices-and-debugging-intro.html#cb153-1" tabindex="-1"></a><span class="co"># Set the 100th value in values to NA</span></span>
-<span id="cb153-2"><a href="functions-best-coding-practices-and-debugging-intro.html#cb153-2" tabindex="-1"></a>values[<span class="dv">100</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb153-3"><a href="functions-best-coding-practices-and-debugging-intro.html#cb153-3" tabindex="-1"></a></span>
-<span id="cb153-4"><a href="functions-best-coding-practices-and-debugging-intro.html#cb153-4" tabindex="-1"></a><span class="fu">CV</span>(values)</span></code></pre></div>
-<pre><code>## [1] NA</code></pre>
-<p>We could add an optional argument to allow it to remove NA values, as
-<code>sd</code> and <code>mean</code> both have <code>na.rm</code> optional arguments. When set to
-<code>na.rm = TRUE</code>, <code>NA</code> values are removed before the respective
-calculation.</p>
-<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="functions-best-coding-practices-and-debugging-intro.html#cb155-1" tabindex="-1"></a>CVnew <span class="ot">&lt;-</span> <span class="cf">function</span>(xvec, <span class="at">na.rm=</span>F) { </span>
-<span id="cb155-2"><a href="functions-best-coding-practices-and-debugging-intro.html#cb155-2" tabindex="-1"></a>   CV.value <span class="ot">&lt;-</span> <span class="fu">sd</span>(xvec, <span class="at">na.rm=</span>na.rm)<span class="sc">/</span><span class="fu">mean</span>(xvec, <span class="at">na.rm=</span>na.rm) </span>
-<span id="cb155-3"><a href="functions-best-coding-practices-and-debugging-intro.html#cb155-3" tabindex="-1"></a>   <span class="fu">return</span>(CV.value) </span>
-<span id="cb155-4"><a href="functions-best-coding-practices-and-debugging-intro.html#cb155-4" tabindex="-1"></a>}</span>
-<span id="cb155-5"><a href="functions-best-coding-practices-and-debugging-intro.html#cb155-5" tabindex="-1"></a></span>
-<span id="cb155-6"><a href="functions-best-coding-practices-and-debugging-intro.html#cb155-6" tabindex="-1"></a><span class="do">## this code could be tidied up, with Reformat Code</span></span>
-<span id="cb155-7"><a href="functions-best-coding-practices-and-debugging-intro.html#cb155-7" tabindex="-1"></a><span class="do">## try highlighting the code and using Code&gt;Reformat Code in the menu bar</span></span>
-<span id="cb155-8"><a href="functions-best-coding-practices-and-debugging-intro.html#cb155-8" tabindex="-1"></a></span>
-<span id="cb155-9"><a href="functions-best-coding-practices-and-debugging-intro.html#cb155-9" tabindex="-1"></a><span class="co"># Test out the new function</span></span>
-<span id="cb155-10"><a href="functions-best-coding-practices-and-debugging-intro.html#cb155-10" tabindex="-1"></a><span class="fu">CVnew</span>(values)</span></code></pre></div>
-<pre><code>## [1] NA</code></pre>
-<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="functions-best-coding-practices-and-debugging-intro.html#cb157-1" tabindex="-1"></a><span class="fu">CVnew</span>(values, <span class="at">na.rm =</span> T)</span></code></pre></div>
-<pre><code>## [1] 0.4119562</code></pre>
-</div>
-</div>
-<div id="packages" class="section level2 hasAnchor" number="3.2">
-<h2><span class="header-section-number">3.2</span> Packages<a href="functions-best-coding-practices-and-debugging-intro.html#packages" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li>Packages, as we have discussed, are collections of functions, code,
-and data collected and curated by the R community.</li>
-<li>Packages are available through 3 primary sources
-<ul>
-<li>CRAN <a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a> see “Packages” on the left</li>
-<li>Bioconductor <a href="https://www.bioconductor.org/" class="uri">https://www.bioconductor.org/</a></li>
-<li>GitHub</li>
-</ul></li>
-<li>CRAN and Bioconductor packages have undergone some peer review</li>
-<li>GitHub packages may or may not have been reviewed</li>
-</ul>
-<div id="installing-and-using-packages" class="section level3 hasAnchor" number="3.2.1">
-<h3><span class="header-section-number">3.2.1</span> Installing and using packages<a href="functions-best-coding-practices-and-debugging-intro.html#installing-and-using-packages" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li>To install CRAN packages you can
-<ul>
-<li>use the <code>install.packages</code> function with the argument being a
-character string of the package name</li>
-<li>use the Packages pane (which runs <code>install.packages</code> for you)</li>
-</ul></li>
-<li>Bioconductor and Github packages are a bit more tricky requiring
-packages to install their packages
-<ul>
-<li>Bioconductor install instructions
-<a href="https://www.bioconductor.org/install/" class="uri">https://www.bioconductor.org/install/</a></li>
-<li>To install Github packages you can use the remotes package
-<a href="https://cran.r-project.org/web/packages/remotes/index.html" class="uri">https://cran.r-project.org/web/packages/remotes/index.html</a></li>
-</ul></li>
-</ul>
-</div>
-<div id="installing-and-using-packages-1" class="section level3 hasAnchor" number="3.2.2">
-<h3><span class="header-section-number">3.2.2</span> Installing and using packages<a href="functions-best-coding-practices-and-debugging-intro.html#installing-and-using-packages-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><strong>Clicking on the link to a package in the package pane takes you to the
-documentation of the package</strong></p>
-<ul>
-<li>Documentation for most all CRAN and Bioconductor include
-<ul>
-<li>description files</li>
-<li>help pages for their functions</li>
-<li>examples for their functions</li>
-</ul></li>
-<li>Many also have “vignettes” which are worked examples of how to use
-the package</li>
-<li>You can find all of this in the Help pane for that package.</li>
-</ul>
-</div>
-</div>
-<div id="best-coding-practices" class="section level2 hasAnchor" number="3.3">
-<h2><span class="header-section-number">3.3</span> Best coding practices<a href="functions-best-coding-practices-and-debugging-intro.html#best-coding-practices" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="reproducibility" class="section level3 hasAnchor" number="3.3.1">
-<h3><span class="header-section-number">3.3.1</span> Reproducibility<a href="functions-best-coding-practices-and-debugging-intro.html#reproducibility" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li><p>I (almost) never save my R workspace</p></li>
-<li><p>It contains global variables that could mess up your future code</p></li>
-<li><p>I regularly clear the workspace or run rm(list=ls())</p></li>
-<li><p>Much better practice to rerun the entire script in an empty
-workspace</p></li>
-<li><p>Exception</p>
-<ul>
-<li>Results from analyses that take hours or days to run</li>
-</ul></li>
-</ul>
-</div>
-<div id="style-guides" class="section level3 hasAnchor" number="3.3.2">
-<h3><span class="header-section-number">3.3.2</span> Style guides<a href="functions-best-coding-practices-and-debugging-intro.html#style-guides" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li><p>Big companies have strict guidelines on how to organize your code,
-e.g. Google Style Guide</p>
-<ul>
-<li><p><a href="https://google.github.io/styleguide/Rguide.html" class="uri">https://google.github.io/styleguide/Rguide.html</a></p></li>
-<li><p><a href="http://adv-r.had.co.nz/Style.html" class="uri">http://adv-r.had.co.nz/Style.html</a> (Hadley Wickham’s guide)</p></li>
-</ul></li>
-<li><p>Indent your code inside a function, inside an if-statement, inside a
-for-loop, and if a statement goes over two lines</p></li>
-<li><p>Use meaningful object names</p>
-<ul>
-<li><p>Too long and you will get tired of typing</p></li>
-<li><p>Too short and you won’t know what the object contains</p></li>
-</ul></li>
-<li><p>Objects in R are <strong>global</strong> and available everywhere (more on this
-later)</p></li>
-</ul>
-</div>
-<div id="automated-code-stylingformatting" class="section level3 hasAnchor" number="3.3.3">
-<h3><span class="header-section-number">3.3.3</span> Automated code styling/formatting<a href="functions-best-coding-practices-and-debugging-intro.html#automated-code-stylingformatting" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li><p>Fortunately people have also written code to properly style your
-code according to common guidelines.</p></li>
-<li><p>In R-studio you can go to “Code” in the menu bar and “Reformat
-Code”.</p></li>
-<li><p>There is also a package called “styler” described a bit in
-<a href="https://r4ds.hadley.nz/workflow-style" class="uri">https://r4ds.hadley.nz/workflow-style</a></p></li>
-</ul>
-</div>
-</div>
-<div id="debugging" class="section level2 hasAnchor" number="3.4">
-<h2><span class="header-section-number">3.4</span> Debugging<a href="functions-best-coding-practices-and-debugging-intro.html#debugging" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The origin of debugging comes from literally removing a moth that
-shorted out one of the early computers at NASA. Admiral Grace Hopper
-said in a famous report they were “debugging” the computer and the term
-has stuck for all computers and code.</p>
-<div id="verifying-code" class="section level3 hasAnchor" number="3.4.1">
-<h3><span class="header-section-number">3.4.1</span> Verifying code<a href="functions-best-coding-practices-and-debugging-intro.html#verifying-code" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li><p>Test your code, test your code, test your code!</p></li>
-<li><p>Write the smallest possible amount of code (a portion of one line if
-possible)</p></li>
-<li><p>Then try simple examples you know the answer to (zero, negative
-number, positive number)</p></li>
-<li><p>Show the results: is this what you expected?</p></li>
-<li><p>Pay special attention if you are copying sections of code and
-changing a variable name (common to forget to change all
-occurrences)</p></li>
-</ul>
-</div>
-<div id="commenting-your-code" class="section level3 hasAnchor" number="3.4.2">
-<h3><span class="header-section-number">3.4.2</span> Commenting your code<a href="functions-best-coding-practices-and-debugging-intro.html#commenting-your-code" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li><p>R ignores everything on a line that follows a <code>#</code></p></li>
-<li><p>Comment at the top of your script/markdown</p>
-<ul>
-<li>What the code does, your name, email, date started</li>
-</ul></li>
-<li><p>Comment before each function or section of code</p>
-<ul>
-<li>What is the purpose of that section of code, what does it do</li>
-</ul></li>
-<li><p>Comment throughout</p>
-<ul>
-<li><p>Whenever an unusual function is used</p></li>
-<li><p>Whenever the code is hard to understand</p></li>
-<li><p>Whenever an algorithm is particularly useful</p></li>
-</ul></li>
-</ul>
-</div>
-<div id="commenting-out-code" class="section level3 hasAnchor" number="3.4.3">
-<h3><span class="header-section-number">3.4.3</span> “Commenting out” code<a href="functions-best-coding-practices-and-debugging-intro.html#commenting-out-code" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li><p>Instead of deleting code you might not need, or</p></li>
-<li><p>When you make modifications to your code, or</p></li>
-<li><p>During debugging</p>
-<ul>
-<li><p>Copy the code that works then comment it out by prefixing it
-with <code>#</code></p></li>
-<li><p>Change the new copy of the code</p></li>
-</ul></li>
-<li><p>If you need to revert to the old code, just remove the # before
-each line (“uncomment”)</p>
-<ul>
-<li>Delete the old commented out code only once you have thoroughly
-tested the new code</li>
-</ul></li>
-<li><p>ctrl+shift+C is a shortcut in Rstudio to comment/uncomment large
-blocks of code</p></li>
-</ul>
-<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="functions-best-coding-practices-and-debugging-intro.html#cb159-1" tabindex="-1"></a><span class="co">#plot(iris$Sepal.Length)</span></span>
-<span id="cb159-2"><a href="functions-best-coding-practices-and-debugging-intro.html#cb159-2" tabindex="-1"></a><span class="fu">plot</span>(iris<span class="sc">$</span>Petal.Length)</span></code></pre></div>
-<p><img src="03-0_Intro_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
-</div>
-<div id="common-errors-and-how-to-fix-them" class="section level3 hasAnchor" number="3.4.4">
-<h3><span class="header-section-number">3.4.4</span> Common errors and How to Fix Them<a href="functions-best-coding-practices-and-debugging-intro.html#common-errors-and-how-to-fix-them" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><strong>Semantic errors = mistyping errors</strong></p>
-<ul>
-<li>Missing parentheses/brackets</li>
-<li>Missing quotes</li>
-<li>Misplaced commas</li>
-<li>Misspelled object names</li>
-<li><strong>R is case-sensitive</strong></li>
-</ul>
-<p><strong>Resolving semantic errors</strong></p>
-<ul>
-<li><p>Semantic errors generally have useful error messages, except missing
-parentheses brackets</p></li>
-<li><p>Always make sure there is a <code>&gt;</code> in the console! A <code>+</code> means the last
-line wasn’t completed.</p>
-<ul>
-<li>Use ESC to get from <code>+</code> back to <code>&gt;</code></li>
-</ul></li>
-</ul>
-<div id="missing-parentheses-or-brackets" class="section level4 hasAnchor" number="3.4.4.1">
-<h4><span class="header-section-number">3.4.4.1</span> Missing Parentheses or Brackets<a href="functions-best-coding-practices-and-debugging-intro.html#missing-parentheses-or-brackets" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>If you forget a closing parenthesis <code>)</code>, bracket <code>]</code>, or curly brace
-<code>}</code>, R will show a continuation prompt in the console (<code>+</code>), meaning
-it’s waiting for you to finish the expression.</p>
-<p>Example (Missing Parenthesis)</p>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="functions-best-coding-practices-and-debugging-intro.html#cb160-1" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)  <span class="co"># Missing closing parenthesis</span></span></code></pre></div>
-<pre><code>## Error in parse(text = input): &lt;text&gt;:2:0: unexpected end of input
-## 1: mean(c(1, 2, 3)  # Missing closing parenthesis
-##    ^</code></pre>
-<p><strong>Error Message:</strong> None, but look in the console</p>
-<p><code>+ # Cursor is stuck at the continuation prompt</code></p>
-<p><strong>Fix:</strong></p>
-<p>Press ESC to return to the <code>&gt;</code> prompt, then add the missing <code>)</code>.</p>
-<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="functions-best-coding-practices-and-debugging-intro.html#cb162-1" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))  <span class="co"># Corrected</span></span></code></pre></div>
-<pre><code>## [1] 2</code></pre>
-<div id="missing-or-mismatched-quotes" class="section level5 hasAnchor" number="3.4.4.1.1">
-<h5><span class="header-section-number">3.4.4.1.1</span> Missing or Mismatched Quotes<a href="functions-best-coding-practices-and-debugging-intro.html#missing-or-mismatched-quotes" class="anchor-section" aria-label="Anchor link to header"></a></h5>
-<p>If you forget to close a string with a quotation mark (<code>"</code> or <code>'</code>), R
-doesn’t know where the string ends.</p>
-<p>Example (Missing Quote)</p>
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="functions-best-coding-practices-and-debugging-intro.html#cb164-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="st">&quot;Hello  # Missing closing quote</span></span></code></pre></div>
-<pre><code>## Error in parse(text = input): &lt;text&gt;:1:6: unexpected INCOMPLETE_STRING
-## 1: x &lt;- &quot;Hello  # Missing closing quote
-##          ^</code></pre>
-<p><strong>Error Message:</strong> None, but again look in the console</p>
-<p><code>+ # Cursor is stuck at the continuation prompt</code></p>
-<p><strong>Fix:</strong></p>
-<p>Press ESC to return to the <code>&gt;</code> prompt, then add the missing <code>)</code>.</p>
-<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="functions-best-coding-practices-and-debugging-intro.html#cb166-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="st">&quot;Hello&quot;</span>  <span class="co"># Corrected</span></span></code></pre></div>
-</div>
-</div>
-<div id="unexpected-symbols-e.g.-typos-missing-commas" class="section level4 hasAnchor" number="3.4.4.2">
-<h4><span class="header-section-number">3.4.4.2</span> Unexpected Symbols (e.g., Typos, Missing Commas)<a href="functions-best-coding-practices-and-debugging-intro.html#unexpected-symbols-e.g.-typos-missing-commas" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>If you forget a comma between function arguments or mistype a variable
-name, R will return an “unexpected symbol” error.</p>
-<p>Example (Missing Comma)</p>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="functions-best-coding-practices-and-debugging-intro.html#cb167-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span> <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>)  <span class="co"># Missing comma between 1 and 3</span></span></code></pre></div>
-<pre><code>## Error in parse(text = input): &lt;text&gt;:1:10: unexpected numeric constant
-## 1: x &lt;- c(1 3
-##              ^</code></pre>
-<p><strong>Error Message:</strong> <code>Error: unexpected numeric constant in "x &lt;- c(1 3"</code></p>
-<p><strong>Fix:</strong></p>
-<p>Add the missing comma.</p>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="functions-best-coding-practices-and-debugging-intro.html#cb169-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>)  <span class="co"># Corrected</span></span></code></pre></div>
-</div>
-<div id="object-not-found-using-undefined-variables-and-functions" class="section level4 hasAnchor" number="3.4.4.3">
-<h4><span class="header-section-number">3.4.4.3</span> Object Not Found (Using Undefined Variables and Functions)<a href="functions-best-coding-practices-and-debugging-intro.html#object-not-found-using-undefined-variables-and-functions" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>If you try to use a variable or function that hasn’t been defined, R
-will return an object not found error.</p>
-<p>Example (Misspelled Function)</p>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="functions-best-coding-practices-and-debugging-intro.html#cb170-1" tabindex="-1"></a><span class="fu">meann</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))  <span class="co"># Function name is incorrect</span></span></code></pre></div>
-<pre><code>## Error in meann(c(1, 2, 3)): could not find function &quot;meann&quot;</code></pre>
-<p><strong>Error Message:</strong></p>
-<p><code>Error in meann(c(1, 2, 3)) : could not find function "meann"</code></p>
-<p><strong>Fix:</strong></p>
-<p>Check for typos and use tab-completion.</p>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="functions-best-coding-practices-and-debugging-intro.html#cb172-1" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))  <span class="co"># Corrected</span></span></code></pre></div>
-<pre><code>## [1] 2</code></pre>
-<p>Example (Undefined Variable)</p>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="functions-best-coding-practices-and-debugging-intro.html#cb174-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> x <span class="sc">+</span> <span class="dv">10</span>  <span class="co"># x has not been defined yet</span></span></code></pre></div>
-<p><strong>Error Message:</strong></p>
-<p><code>Error: object 'x' not found</code></p>
-<p><strong>Fix:</strong></p>
-<p>Make sure x exists before using it.</p>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="functions-best-coding-practices-and-debugging-intro.html#cb175-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">5</span></span>
-<span id="cb175-2"><a href="functions-best-coding-practices-and-debugging-intro.html#cb175-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> x <span class="sc">+</span> <span class="dv">10</span>  <span class="co"># Now it works</span></span></code></pre></div>
-</div>
-<div id="type-mismatches-coercion-issues" class="section level4 hasAnchor" number="3.4.4.4">
-<h4><span class="header-section-number">3.4.4.4</span> Type Mismatches (Coercion Issues)<a href="functions-best-coding-practices-and-debugging-intro.html#type-mismatches-coercion-issues" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>R automatically converts mixed types in vectors. If you try to perform
-numeric operations on character strings, you’ll get an error or warning.</p>
-<p>Example (Mixing Numbers and Text)</p>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="functions-best-coding-practices-and-debugging-intro.html#cb176-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="st">&quot;Emma&quot;</span>)  <span class="co"># Mixed data types</span></span>
-<span id="cb176-2"><a href="functions-best-coding-practices-and-debugging-intro.html#cb176-2" tabindex="-1"></a><span class="fu">as.numeric</span>(x)  <span class="co"># Convert to numeric</span></span></code></pre></div>
-<pre><code>## Warning: NAs introduced by coercion</code></pre>
-<pre><code>## [1]  1  3 NA</code></pre>
-<p><strong>Warning message:</strong></p>
-<p><code>Warning: NAs introduced by coercion</code></p>
-<p><strong>Fix:</strong></p>
-<p>Ensure all elements are numeric or remove text values.</p>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="functions-best-coding-practices-and-debugging-intro.html#cb179-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)  <span class="co"># All numeric</span></span>
-<span id="cb179-2"><a href="functions-best-coding-practices-and-debugging-intro.html#cb179-2" tabindex="-1"></a><span class="fu">as.numeric</span>(x)  <span class="co"># Works fine</span></span></code></pre></div>
-<pre><code>## [1] 1 3 5</code></pre>
-<p>If you must handle mixed data, filter out text:</p>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="functions-best-coding-practices-and-debugging-intro.html#cb181-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="st">&quot;Emma&quot;</span>)</span>
-<span id="cb181-2"><a href="functions-best-coding-practices-and-debugging-intro.html#cb181-2" tabindex="-1"></a>x_numeric <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(x[<span class="sc">!</span><span class="fu">is.na</span>(<span class="fu">as.numeric</span>(x))])  <span class="co"># Removes text</span></span></code></pre></div>
-<pre><code>## Warning: NAs introduced by coercion</code></pre>
-</div>
-</div>
-<div id="warning-or-error" class="section level3 hasAnchor" number="3.4.5">
-<h3><span class="header-section-number">3.4.5</span> Warning or Error?<a href="functions-best-coding-practices-and-debugging-intro.html#warning-or-error" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li>Warnings are OK, just meant to inform you about something you might
-not intend to do.</li>
-</ul>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="functions-best-coding-practices-and-debugging-intro.html#cb183-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="st">&quot;Emma&quot;</span>)</span>
-<span id="cb183-2"><a href="functions-best-coding-practices-and-debugging-intro.html#cb183-2" tabindex="-1"></a></span>
-<span id="cb183-3"><a href="functions-best-coding-practices-and-debugging-intro.html#cb183-3" tabindex="-1"></a><span class="fu">as.numeric</span>(x)</span></code></pre></div>
-<pre><code>## Warning: NAs introduced by coercion</code></pre>
-<pre><code>## [1]  1  3  7 NA</code></pre>
-<ul>
-<li>Errors mean the code didn’t run properly</li>
-</ul>
-<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="functions-best-coding-practices-and-debugging-intro.html#cb186-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span> <span class="dv">3</span>, <span class="dv">7</span>, <span class="st">&quot;Emma&quot;</span>)</span>
-<span id="cb186-2"><a href="functions-best-coding-practices-and-debugging-intro.html#cb186-2" tabindex="-1"></a></span>
-<span id="cb186-3"><a href="functions-best-coding-practices-and-debugging-intro.html#cb186-3" tabindex="-1"></a><span class="fu">as.numeric</span>(x)</span></code></pre></div>
-<pre><code>## Error in parse(text = input): &lt;text&gt;:1:10: unexpected numeric constant
-## 1: x &lt;- c(1 3
-##              ^</code></pre>
-</div>
-<div id="debugging-is-scientific" class="section level3 hasAnchor" number="3.4.6">
-<h3><span class="header-section-number">3.4.6</span> Debugging is scientific<a href="functions-best-coding-practices-and-debugging-intro.html#debugging-is-scientific" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li>Hypothesis: If I execute this line of code, then variable <code>A</code> will
-change from value x to value y</li>
-<li>Method: create an observation to report the value of <code>A</code>, then run
-the line of code</li>
-<li>Results: is <code>A == y</code>?</li>
-<li>Discussion: If <code>A == y</code>, then we move to our next investigation.
-<code>A != y</code> then you have found the bug (or your hypothesis is wrong)</li>
-</ul>
+<p>Here’s another example using theme_economist. When you create a plot, assign it a variable. Then you can easily change themes/attributes of the plot.</p>
+<p><img src="images/theme.png" /></p>
+<p>For your ridge-line plot, choose a fill color that you like. You add the fill color within the <code>geom_density_ridges</code> function (e.g. <code>geom_density_ridges(rel_min_height = 0.01,fill="dodgerblue2")</code>. A list of colors can be found here: <a href="http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf" class="uri">http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf</a></p>
+<p><img src="images/ridgeline.png" /></p>
 
-</div>
 </div>
 </div>
             </section>
@@ -819,8 +418,8 @@ the line of code</li>
           </div>
         </div>
       </div>
-<a href="the-r-language-and-tidy-data-examples.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="functions-best-coding-practices-and-debugging-examples.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="data-visualization.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
