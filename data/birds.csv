@@ -1,0 +1,13 @@
+Season,Habitat,Bird_Count,Species_Richness
+Spring,Forest,150,35
+Spring,Grassland,120,30
+Spring,Wetland,100,25
+Summer,Forest,160,38
+Summer,Grassland,130,32
+Summer,Wetland,110,28
+Fall,Forest,140,33
+Fall,Grassland,115,29
+Fall,Wetland,90,22
+Winter,Forest,100,25
+Winter,Grassland,80,20
+Winter,Wetland,70,18
