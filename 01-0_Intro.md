@@ -245,7 +245,7 @@ We could change the YAML header of this document to make an HTML webpage version
 ---
 title: "01-0 Introduction to Posit, Rstudio, & Markdown"
 author: "Clay Wright"
-date: "2025-02-27"
+date: "2025-03-05"
 output: pdf_document
 ---
 ````
@@ -256,7 +256,7 @@ to
 ---
 title: "01-0 Introduction to Posit, Rstudio, & Markdown"
 author: "Clay Wright"
-date: "2025-02-27"
+date: "2025-03-05"
 output: html_document
 ---
 ````

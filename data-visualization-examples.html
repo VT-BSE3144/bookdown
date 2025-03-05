@@ -30,7 +30,7 @@ Systems using Numerical Methods.</p>" />
 <meta name="author" content="R. Clay Wright" />
 
 
-<meta name="date" content="2025-02-27" />
+<meta name="date" content="2025-03-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -359,7 +359,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="data-visualization-examples.html"><a href="data-visualization-examples.html"><i class="fa fa-check"></i>Data Visualization Examples</a>
 <ul>
-<li class="chapter" data-level="6.4" data-path="data-visualization-examples.html"><a href="data-visualization-examples.html#setup-for-the-homework"><i class="fa fa-check"></i><b>6.4</b> Setup for the Homework</a></li>
+<li class="chapter" data-level="6.4" data-path="data-visualization-examples.html"><a href="data-visualization-examples.html#background-1"><i class="fa fa-check"></i><b>6.4</b> Background</a></li>
+<li class="chapter" data-level="6.5" data-path="data-visualization-examples.html"><a href="data-visualization-examples.html#data-description"><i class="fa fa-check"></i><b>6.5</b> Data Description</a></li>
+<li class="chapter" data-level="6.6" data-path="data-visualization-examples.html"><a href="data-visualization-examples.html#tasks-2"><i class="fa fa-check"></i><b>6.6</b> Tasks</a></li>
+<li class="chapter" data-level="6.7" data-path="data-visualization-examples.html"><a href="data-visualization-examples.html#setup-for-the-homework"><i class="fa fa-check"></i><b>6.7</b> Setup for the Homework</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -383,8 +386,76 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="data-visualization-examples" class="section level1 unnumbered hasAnchor">
 <h1>Data Visualization Examples<a href="data-visualization-examples.html#data-visualization-examples" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="setup-for-the-homework" class="section level2 hasAnchor" number="6.4">
-<h2><span class="header-section-number">6.4</span> Setup for the Homework<a href="data-visualization-examples.html#setup-for-the-homework" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="data-visualization-examples.html#cb370-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+## ✔ dplyr     1.1.4     ✔ readr     2.1.5
+## ✔ forcats   1.0.0     ✔ stringr   1.5.1
+## ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+## ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+## ✔ purrr     1.0.4     
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<div id="background-1" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> Background<a href="data-visualization-examples.html#background-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Understanding how bird populations vary across different habitats and seasons is an important aspect of ecological research. In this homework, you will explore data collected from bird surveys conducted in three habitat types—<strong>Forest</strong>, <strong>Grassland</strong>, and <strong>Wetland</strong>—over four seasons. The dataset includes both the total bird count and the species richness (i.e., the number of different species observed) for each survey.</p>
+</div>
+<div id="data-description" class="section level2 hasAnchor" number="6.5">
+<h2><span class="header-section-number">6.5</span> Data Description<a href="data-visualization-examples.html#data-description" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>You are provided with a CSV file named <code>bird_survey_data.csv</code> that contains the following columns:</p>
+<ul>
+<li><p><strong>Season:</strong> The season when the survey was conducted (e.g., “Spring”, “Summer”, “Fall”, “Winter”).</p></li>
+<li><p><strong>Habitat:</strong> The habitat type where the survey was carried out (“Forest”, “Grassland”, or “Wetland”).</p></li>
+<li><p><strong>Bird_Count:</strong> The total number of birds counted during the survey.</p></li>
+<li><p><strong>Species_Richness:</strong> The number of different bird species observed.</p></li>
+</ul>
+</div>
+<div id="tasks-2" class="section level2 hasAnchor" number="6.6">
+<h2><span class="header-section-number">6.6</span> Tasks<a href="data-visualization-examples.html#tasks-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li><p><strong>Data Import &amp; Preparation:</strong></p>
+<ul>
+<li>Write an R script that reads the CSV file (<code>birds.csv</code>) into a data frame.</li>
+</ul></li>
+</ol>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="data-visualization-examples.html#cb372-1" tabindex="-1"></a>birds <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/birds.csv&quot;</span>)</span></code></pre></div>
+<pre><code>## Rows: 12 Columns: 4
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (2): Season, Habitat
+## dbl (2): Bird_Count, Species_Richness
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre><code>-   Ensure the data types are correctly set (e.g., `Season` and `Habitat` should be treated as factors with a logical ordering for `Season`).</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li><p><strong>Basic Visualization:</strong></p>
+<ul>
+<li><p>Use <strong>ggplot2</strong> to create a grouped bar plot of <strong>Bird_Count</strong> versus <strong>Season</strong>.</p></li>
+<li><p>Differentiate the three habitat types using different fill colors. Adjust the position so that bars for each season are grouped side by side.</p></li>
+</ul></li>
+</ol>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="data-visualization-examples.html#cb375-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> birds, </span>
+<span id="cb375-2"><a href="data-visualization-examples.html#cb375-2" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Habitat, </span>
+<span id="cb375-3"><a href="data-visualization-examples.html#cb375-3" tabindex="-1"></a>                     <span class="at">y =</span> Species_Richness, <span class="at">fill =</span> Season, <span class="at">group =</span> Season)) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Habitat type&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb375-4"><a href="data-visualization-examples.html#cb375-4" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span> <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="dv">4</span>)</span></code></pre></div>
+<p><img src="06-1_Examples_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<ol start="4" style="list-style-type: decimal">
+<li><p><strong>Enhanced Plot Features:</strong></p>
+<ul>
+<li><p>Customize your plot with informative axis labels (e.g., “Season” and “Bird Count”), a descriptive title, and a clear legend.</p></li>
+<li><p>Apply an appropriate theme (e.g., <code>theme_minimal()</code> or <code>theme_classic()</code>).</p></li>
+</ul></li>
+<li><p><strong>Optional Extension:</strong></p>
+<ul>
+<li><p>Create a second plot visualizing <strong>Species_Richness</strong> versus <strong>Season</strong> using a similar bar plot.</p></li>
+<li><p>Alternatively, explore using facets (with <code>facet_wrap()</code>) to compare both <strong>Bird_Count</strong> and <strong>Species_Richness</strong> across the different habitats in one multi-panel figure.</p></li>
+</ul></li>
+</ol>
+</div>
+<div id="setup-for-the-homework" class="section level2 hasAnchor" number="6.7">
+<h2><span class="header-section-number">6.7</span> Setup for the Homework<a href="data-visualization-examples.html#setup-for-the-homework" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><a href="https://video.vt.edu/media/BSE%203144:%20Week6,%20Homework%20Hints_Help/1_zo40gr7q"><em>Video introduction / help for homework</em></a></p>
 <p>Hand in: a single pdf document with part 1 and part 2. Be sure that you explain why you chose the particular plots, and that the plots contain proper axis labels, formatting, etc.</p>
 <p><strong>Part 1.</strong></p>
@@ -395,7 +466,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Dr. Shortridge is a Hydrologist in our department, and her work includes analyzing large hydrologic datasets. Here, imagine you’re asked to compare approaches for visualizing the distribution of monthly streamflow in 2020 for the Rappahannock River at Fredericksburg. Based on the distribution exercise, create a boxplot, violin plot, strip-jitter plot, and ridge plot. See the examples below for good and bad plots; you’ll want your plots to be “good”. <strong>Choose one figure that you like the best, and provide an explanation why.</strong></p>
 <p><img src="images/wrong.png" /></p>
 <ul>
-<li>Axis labels missing labels, data does not make sense (e.g. not grouped by month)</li>
+<li>Axis labels are just abbreviations and are missing units</li>
+<li>data does not make sense (e.g. not grouped by month)</li>
 <li>Ticks for y-axis are not between 0.1 - 100.</li>
 </ul>
 <p><img src="images/boxplot.png" /></p>

@@ -4,7 +4,96 @@ params:
   version: 1.0
 ---
 
-# Data Visualization Examples {-}
+# Data Visualization Examples {.unnumbered}
+
+
+``` r
+library(tidyverse)
+```
+
+```
+## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+## ✔ dplyr     1.1.4     ✔ readr     2.1.5
+## ✔ forcats   1.0.0     ✔ stringr   1.5.1
+## ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+## ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+## ✔ purrr     1.0.4     
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+```
+
+
+## Background
+
+Understanding how bird populations vary across different habitats and seasons is an important aspect of ecological research. In this homework, you will explore data collected from bird surveys conducted in three habitat types—**Forest**, **Grassland**, and **Wetland**—over four seasons. The dataset includes both the total bird count and the species richness (i.e., the number of different species observed) for each survey.
+
+## Data Description
+
+You are provided with a CSV file named `bird_survey_data.csv` that contains the following columns:
+
+-   **Season:** The season when the survey was conducted (e.g., "Spring", "Summer", "Fall", "Winter").
+
+-   **Habitat:** The habitat type where the survey was carried out ("Forest", "Grassland", or "Wetland").
+
+-   **Bird_Count:** The total number of birds counted during the survey.
+
+-   **Species_Richness:** The number of different bird species observed.
+
+## Tasks
+
+1.  **Data Import & Preparation:**
+
+    -   Write an R script that reads the CSV file (`birds.csv`) into a data frame.
+
+
+``` r
+birds <- read_csv("data/birds.csv")
+```
+
+```
+## Rows: 12 Columns: 4
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: ","
+## chr (2): Season, Habitat
+## dbl (2): Bird_Count, Species_Richness
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+```
+
+
+    -   Ensure the data types are correctly set (e.g., `Season` and `Habitat` should be treated as factors with a logical ordering for `Season`).
+
+3.  **Basic Visualization:**
+
+    -   Use **ggplot2** to create a grouped bar plot of **Bird_Count** versus **Season**.
+
+    -   Differentiate the three habitat types using different fill colors. Adjust the position so that bars for each season are grouped side by side.
+    
+
+``` r
+ggplot(data = birds, 
+       mapping = aes(x = Habitat, 
+                     y = Species_Richness, fill = Season, group = Season)) + labs(x = "Habitat type") + 
+  geom_bar(stat = "identity", position = "dodge") + scale_fill_brewer(palette = 4)
+```
+
+<img src="06-1_Examples_files/figure-html/unnamed-chunk-2-1.png" width="672" />
+
+
+4.  **Enhanced Plot Features:**
+
+    -   Customize your plot with informative axis labels (e.g., “Season” and “Bird Count”), a descriptive title, and a clear legend.
+
+    -   Apply an appropriate theme (e.g., `theme_minimal()` or `theme_classic()`).
+
+5.  **Optional Extension:**
+
+    -   Create a second plot visualizing **Species_Richness** versus **Season** using a similar bar plot.
+
+    -   Alternatively, explore using facets (with `facet_wrap()`) to compare both **Bird_Count** and **Species_Richness** across the different habitats in one multi-panel figure.
 
 ## Setup for the Homework
 
@@ -26,7 +115,8 @@ Dr. Shortridge is a Hydrologist in our department, and her work includes analyzi
 
 ![](images/wrong.png)
 
--   Axis labels missing labels, data does not make sense (e.g. not grouped by month)
+-   Axis labels are just abbreviations and are missing units
+- data does not make sense (e.g. not grouped by month)
 -   Ticks for y-axis are not between 0.1 - 100.
 
 ![](images/boxplot.png)
@@ -44,4 +134,3 @@ Here’s another example using theme_economist. When you create a plot, assign i
 For your ridge-line plot, choose a fill color that you like. You add the fill color within the `geom_density_ridges` function (e.g. `geom_density_ridges(rel_min_height = 0.01,fill="dodgerblue2")`. A list of colors can be found here: <http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf>
 
 ![](images/ridgeline.png)
-

@@ -160,4 +160,7 @@ previewing
 to-preview-the-document
 to-preview-the-presentation
 to-preview-the-interactive-document-with-shiny-components
+background-1
+data-description
+tasks-2
 setup-for-the-homework
