@@ -6,6 +6,11 @@ params:
 
 # Data Visualization Examples {.unnumbered}
 
+```{r setup}
+library(tidyverse)
+```
+
+
 ## Background
 
 Understanding how bird populations vary across different habitats and seasons is an important aspect of ecological research. In this homework, you will explore data collected from bird surveys conducted in three habitat types—**Forest**, **Grassland**, and **Wetland**—over four seasons. The dataset includes both the total bird count and the species richness (i.e., the number of different species observed) for each survey.
@@ -81,7 +86,8 @@ Dr. Shortridge is a Hydrologist in our department, and her work includes analyzi
 
 ![](images/wrong.png)
 
--   Axis labels missing labels, data does not make sense (e.g. not grouped by month)
+-   Axis labels are just abbreviations and are missing units
+- data does not make sense (e.g. not grouped by month)
 -   Ticks for y-axis are not between 0.1 - 100.
 
 ![](images/boxplot.png)
