@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>8 Linear Regression Examples | Data Analysis and Numerical Methods for Biological Systems Engineers</title>
+  <meta name="description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
+Systems Engineering course BSE3144: Engineering Analysis for Biological
+Systems using Numerical Methods.</p>" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="8 Linear Regression Examples | Data Analysis and Numerical Methods for Biological Systems Engineers" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
+Systems Engineering course BSE3144: Engineering Analysis for Biological
+Systems using Numerical Methods.</p>" />
+  <meta name="github-repo" content="VT-BSE3144/bookdown" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="8 Linear Regression Examples | Data Analysis and Numerical Methods for Biological Systems Engineers" />
+  
+  <meta name="twitter:description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
+Systems Engineering course BSE3144: Engineering Analysis for Biological
+Systems using Numerical Methods.</p>" />
+  
+
+<meta name="author" content="Durelle Scott" />
+<meta name="author" content="R. Clay Wright" />
+
+
+<meta name="date" content="2025-03-24" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introduction-to-linear-regression-in-r.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Data Analysis and Numerical Methods</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About this book</a></li>
+<li class="chapter" data-level="1" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html"><i class="fa fa-check"></i><b>1</b> Introduction to Posit, Rstudio, &amp; Markdown</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#pre-work"><i class="fa fa-check"></i><b>1.1</b> Pre-work</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#posit"><i class="fa fa-check"></i><b>1.2</b> Posit</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#rstudio"><i class="fa fa-check"></i><b>1.3</b> Rstudio</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-source-pane"><i class="fa fa-check"></i><b>1.3.1</b> The Source pane</a></li>
+<li class="chapter" data-level="1.3.2" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#markdown"><i class="fa fa-check"></i><b>1.3.2</b> Markdown</a></li>
+<li class="chapter" data-level="1.3.3" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#more-markdown-formatting"><i class="fa fa-check"></i><b>1.3.3</b> More Markdown formatting</a></li>
+<li class="chapter" data-level="1.3.4" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#running-code"><i class="fa fa-check"></i><b>1.3.4</b> Running code</a></li>
+<li class="chapter" data-level="1.3.5" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-console-pane"><i class="fa fa-check"></i><b>1.3.5</b> The Console pane</a></li>
+<li class="chapter" data-level="1.3.6" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-help-pane"><i class="fa fa-check"></i><b>1.3.6</b> The Help pane</a></li>
+<li class="chapter" data-level="1.3.7" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-filesplotspackageshelpviewer-pane"><i class="fa fa-check"></i><b>1.3.7</b> The Files/Plots/Packages/Help/Viewer pane</a></li>
+<li class="chapter" data-level="1.3.8" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#ok-back-to-the-source-pane"><i class="fa fa-check"></i><b>1.3.8</b> OK, back to the Source pane…</a></li>
+<li class="chapter" data-level="1.3.9" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-environment-pane"><i class="fa fa-check"></i><b>1.3.9</b> The Environment pane</a></li>
+<li class="chapter" data-level="1.3.10" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-historyconnectionsgitbuildtutorial-pane"><i class="fa fa-check"></i><b>1.3.10</b> The History/Connections/Git/Build/Tutorial pane</a></li>
+<li class="chapter" data-level="1.3.11" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#terminalrenderbackground-jobs"><i class="fa fa-check"></i><b>1.3.11</b> Terminal/Render/Background Jobs</a></li>
+<li class="chapter" data-level="1.3.12" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#yaml-headers"><i class="fa fa-check"></i><b>1.3.12</b> YAML headers</a></li>
+<li class="chapter" data-level="1.3.13" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#code-chunkblock-settings-and-global-settings"><i class="fa fa-check"></i><b>1.3.13</b> Code chunk/block settings and global settings</a></li>
+<li class="chapter" data-level="1.3.14" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#output-options"><i class="fa fa-check"></i><b>1.3.14</b> Output Options</a></li>
+<li class="chapter" data-level="1.3.15" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#troubleshooting-knitrender-problems"><i class="fa fa-check"></i><b>1.3.15</b> Troubleshooting Knit/Render problems</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html"><i class="fa fa-check"></i>Rstudio and Markdown examples</a>
+<ul>
+<li class="chapter" data-level="1.4" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#navigate-the-posit-and-rstudio-interface-with-proficiency."><i class="fa fa-check"></i><b>1.4</b> Navigate the Posit and RStudio interface with proficiency.</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#making-new-documents"><i class="fa fa-check"></i><b>1.4.1</b> Making new documents</a></li>
+<li class="chapter" data-level="1.4.2" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#navigating-the-file-pane-and-file-paths"><i class="fa fa-check"></i><b>1.4.2</b> Navigating the file pane and file paths</a></li>
+<li class="chapter" data-level="1.4.3" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#console-pane"><i class="fa fa-check"></i><b>1.4.3</b> Console pane</a></li>
+<li class="chapter" data-level="1.4.4" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#environment-pane"><i class="fa fa-check"></i><b>1.4.4</b> Environment pane</a></li>
+<li class="chapter" data-level="1.4.5" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#history-pane"><i class="fa fa-check"></i><b>1.4.5</b> History pane</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#articulate-the-process-of-using-rstudio-to-develop-markdown-documents."><i class="fa fa-check"></i><b>1.5</b> Articulate the process of using RStudio to develop markdown documents.</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#cheat-sheets-yay"><i class="fa fa-check"></i><b>1.5.1</b> Cheat Sheets! Yay!</a></li>
+<li class="chapter" data-level="1.5.2" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#inserting-code-chunks"><i class="fa fa-check"></i><b>1.5.2</b> Inserting code chunks</a></li>
+<li class="chapter" data-level="1.5.3" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#changing-code-chunk-settings"><i class="fa fa-check"></i><b>1.5.3</b> Changing code chunk settings</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#practice-using-markdown-to-format-reproducible-documents"><i class="fa fa-check"></i><b>1.6</b> Practice using markdown to format reproducible documents</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#tasks"><i class="fa fa-check"></i><b>1.6.1</b> Tasks</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html"><i class="fa fa-check"></i><b>2</b> The R Language and Tidy Data</a>
+<ul>
+<li class="chapter" data-level="2.0.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#data-organization-and-manipulation-in-spreadsheets"><i class="fa fa-check"></i><b>2.0.1</b> Data Organization and manipulation in Spreadsheets</a></li>
+<li class="chapter" data-level="2.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#reading-and-pre-class-materials"><i class="fa fa-check"></i><b>2.1</b> Reading and Pre-class Materials</a></li>
+<li class="chapter" data-level="2.2" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#tidy-data"><i class="fa fa-check"></i><b>2.2</b> Tidy data</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#top-12-tips-for-data-organization"><i class="fa fa-check"></i><b>2.2.1</b> Top 12 Tips for Data Organization</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#r-basics"><i class="fa fa-check"></i><b>2.3</b> R Basics</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#basic-math-to-linear-algebra"><i class="fa fa-check"></i><b>2.3.1</b> Basic Math to Linear Algebra</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#functions"><i class="fa fa-check"></i><b>2.4</b> Functions</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#what-is-a-function"><i class="fa fa-check"></i><b>2.4.1</b> What is a function?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#objects---variables-and-functions"><i class="fa fa-check"></i><b>2.5</b> Objects - Variables and Functions</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#obey-rs-naming-rules"><i class="fa fa-check"></i><b>2.5.1</b> Obey R’s naming rules</a></li>
+<li class="chapter" data-level="2.5.2" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#variables-and-data-types"><i class="fa fa-check"></i><b>2.5.2</b> Variables and data types</a></li>
+<li class="chapter" data-level="2.5.3" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#vectors"><i class="fa fa-check"></i><b>2.5.3</b> Vectors</a></li>
+<li class="chapter" data-level="2.5.4" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#matrices-arrays-and-lists"><i class="fa fa-check"></i><b>2.5.4</b> Matrices, Arrays and Lists</a></li>
+<li class="chapter" data-level="2.5.5" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#data-frames"><i class="fa fa-check"></i><b>2.5.5</b> Data frames</a></li>
+<li class="chapter" data-level="2.5.6" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#run-a-function"><i class="fa fa-check"></i><b>2.5.6</b> Run a function</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#tidyverse-tables"><i class="fa fa-check"></i><b>2.6</b> Tidyverse tables</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#create-a-table-manually"><i class="fa fa-check"></i><b>2.6.1</b> Create a Table Manually</a></li>
+<li class="chapter" data-level="2.6.2" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#tribble"><i class="fa fa-check"></i><b>2.6.2</b> <code>tribble()</code></a></li>
+<li class="chapter" data-level="2.6.3" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#read-a-csv-file-.csv"><i class="fa fa-check"></i><b>2.6.3</b> Read a CSV file (.csv)</a></li>
+<li class="chapter" data-level="2.6.4" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#read-a-character-delimited-file-.txt"><i class="fa fa-check"></i><b>2.6.4</b> Read a character-delimited file (.txt)</a></li>
+<li class="chapter" data-level="2.6.5" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#read-an-excel-file-.xls-.xlsx"><i class="fa fa-check"></i><b>2.6.5</b> Read an Excel file (.xls, .xlsx)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html"><i class="fa fa-check"></i>The R Language and Tidy Data Examples</a>
+<ul>
+<li class="chapter" data-level="2.7" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#tidy-data-1"><i class="fa fa-check"></i><b>2.7</b> Tidy Data</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#lets-make-a-data-dictionary-for-this-dataset"><i class="fa fa-check"></i><b>2.7.1</b> Let’s make a data dictionary for this dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#r-basics-1"><i class="fa fa-check"></i><b>2.8</b> R Basics</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#data-types"><i class="fa fa-check"></i><b>2.8.1</b> Data types</a></li>
+<li class="chapter" data-level="2.8.2" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#functions-1"><i class="fa fa-check"></i><b>2.8.2</b> Functions</a></li>
+<li class="chapter" data-level="2.8.3" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#objects"><i class="fa fa-check"></i><b>2.8.3</b> Objects</a></li>
+<li class="chapter" data-level="2.8.4" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#vectors-1"><i class="fa fa-check"></i><b>2.8.4</b> Vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#data-tibbles-dataframes"><i class="fa fa-check"></i><b>2.9</b> Data, tibbles, dataframes</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#reading-in-data"><i class="fa fa-check"></i><b>2.9.1</b> Reading in data</a></li>
+<li class="chapter" data-level="2.9.2" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#factors-1"><i class="fa fa-check"></i><b>2.9.2</b> Factors</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html"><i class="fa fa-check"></i><b>3</b> Functions, Best-coding Practices, and Debugging Intro</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#functions-2"><i class="fa fa-check"></i><b>3.1</b> Functions</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#functions-why-and-how"><i class="fa fa-check"></i><b>3.1.1</b> Functions… why and how</a></li>
+<li class="chapter" data-level="3.1.2" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#a-simple-function-cv"><i class="fa fa-check"></i><b>3.1.2</b> A simple function: CV()</a></li>
+<li class="chapter" data-level="3.1.3" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#now-we-need-to-apply-our-function."><i class="fa fa-check"></i><b>3.1.3</b> Now we need to apply our function.</a></li>
+<li class="chapter" data-level="3.1.4" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#what-objects-are-available"><i class="fa fa-check"></i><b>3.1.4</b> What objects are available?</a></li>
+<li class="chapter" data-level="3.1.5" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#optional-arguments"><i class="fa fa-check"></i><b>3.1.5</b> Optional arguments</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#packages"><i class="fa fa-check"></i><b>3.2</b> Packages</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#installing-and-using-packages"><i class="fa fa-check"></i><b>3.2.1</b> Installing and using packages</a></li>
+<li class="chapter" data-level="3.2.2" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#installing-and-using-packages-1"><i class="fa fa-check"></i><b>3.2.2</b> Installing and using packages</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#best-coding-practices"><i class="fa fa-check"></i><b>3.3</b> Best coding practices</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#reproducibility"><i class="fa fa-check"></i><b>3.3.1</b> Reproducibility</a></li>
+<li class="chapter" data-level="3.3.2" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#style-guides"><i class="fa fa-check"></i><b>3.3.2</b> Style guides</a></li>
+<li class="chapter" data-level="3.3.3" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#automated-code-stylingformatting"><i class="fa fa-check"></i><b>3.3.3</b> Automated code styling/formatting</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#debugging"><i class="fa fa-check"></i><b>3.4</b> Debugging</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#verifying-code"><i class="fa fa-check"></i><b>3.4.1</b> Verifying code</a></li>
+<li class="chapter" data-level="3.4.2" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#commenting-your-code"><i class="fa fa-check"></i><b>3.4.2</b> Commenting your code</a></li>
+<li class="chapter" data-level="3.4.3" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#commenting-out-code"><i class="fa fa-check"></i><b>3.4.3</b> “Commenting out” code</a></li>
+<li class="chapter" data-level="3.4.4" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#common-errors-and-how-to-fix-them"><i class="fa fa-check"></i><b>3.4.4</b> Common errors and How to Fix Them</a></li>
+<li class="chapter" data-level="3.4.5" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#warning-or-error"><i class="fa fa-check"></i><b>3.4.5</b> Warning or Error?</a></li>
+<li class="chapter" data-level="3.4.6" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#debugging-is-scientific"><i class="fa fa-check"></i><b>3.4.6</b> Debugging is scientific</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html"><i class="fa fa-check"></i>Functions, Best-coding Practices, and Debugging Examples</a>
+<ul>
+<li class="chapter" data-level="3.5" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#functions-3"><i class="fa fa-check"></i><b>3.5</b> Functions</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#example-1-1"><i class="fa fa-check"></i><b>3.5.1</b> Example 1</a></li>
+<li class="chapter" data-level="3.5.2" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#example-2-1"><i class="fa fa-check"></i><b>3.5.2</b> Example 2</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#best-coding-practices-1"><i class="fa fa-check"></i><b>3.6</b> Best coding practices</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#code-from-inside-out-running-the-smallest-bits-of-code-possible"><i class="fa fa-check"></i><b>3.6.1</b> Code from inside out, running the smallest bits of code possible</a></li>
+<li class="chapter" data-level="3.6.2" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#use-rstudio-to-your-advantage"><i class="fa fa-check"></i><b>3.6.2</b> Use RStudio to your advantage</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#debugging-1"><i class="fa fa-check"></i><b>3.7</b> Debugging</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#also-use-rstudio"><i class="fa fa-check"></i><b>3.7.1</b> Also use RStudio</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>4</b> Data Wrangling</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="data-wrangling.html"><a href="data-wrangling.html#connection-to-previous-work-on-data-organization"><i class="fa fa-check"></i><b>4.1</b> Connection to previous work on Data Organization</a></li>
+<li class="chapter" data-level="4.2" data-path="data-wrangling.html"><a href="data-wrangling.html#source"><i class="fa fa-check"></i><b>4.2</b> Source</a></li>
+<li class="chapter" data-level="4.3" data-path="data-wrangling.html"><a href="data-wrangling.html#introduction---example-dataset-nycflights13"><i class="fa fa-check"></i><b>4.3</b> 3.1 Introduction - Example dataset <code>nycflights13</code></a></li>
+<li class="chapter" data-level="4.4" data-path="data-wrangling.html"><a href="data-wrangling.html#section"><i class="fa fa-check"></i><b>4.4</b> 3.1.2</a></li>
+<li class="chapter" data-level="4.5" data-path="data-wrangling.html"><a href="data-wrangling.html#dplyr-basics"><i class="fa fa-check"></i><b>4.5</b> 3.1.3 dplyr basics</a></li>
+<li class="chapter" data-level="4.6" data-path="data-wrangling.html"><a href="data-wrangling.html#row-wise-functions"><i class="fa fa-check"></i><b>4.6</b> 3.2 Row-wise functions</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#filter"><i class="fa fa-check"></i><b>4.6.1</b> 3.2.1 filter()</a></li>
+<li class="chapter" data-level="4.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#arranging-rows"><i class="fa fa-check"></i><b>4.6.2</b> 3.2.3 Arranging rows</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="data-wrangling.html"><a href="data-wrangling.html#columns"><i class="fa fa-check"></i><b>4.7</b> 3.3 Columns</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#mutate---add-new-variables"><i class="fa fa-check"></i><b>4.7.1</b> 3.3.1 Mutate - Add new variables</a></li>
+<li class="chapter" data-level="4.7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#select"><i class="fa fa-check"></i><b>4.7.2</b> 3.3.2 Select</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="data-wrangling.html"><a href="data-wrangling.html#the-pipe"><i class="fa fa-check"></i><b>4.8</b> 3.4 The pipe</a></li>
+<li class="chapter" data-level="4.9" data-path="data-wrangling.html"><a href="data-wrangling.html#groups"><i class="fa fa-check"></i><b>4.9</b> 3.5 Groups</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html"><i class="fa fa-check"></i>Data Wrangling Examples</a>
+<ul>
+<li class="chapter" data-level="4.9.1" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#filter-1"><i class="fa fa-check"></i><b>4.9.1</b> Filter</a></li>
+<li class="chapter" data-level="4.9.2" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#arrange"><i class="fa fa-check"></i><b>4.9.2</b> Arrange</a></li>
+<li class="chapter" data-level="4.9.3" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#mutate---adds-a-new-column"><i class="fa fa-check"></i><b>4.9.3</b> Mutate - adds a new column</a></li>
+<li class="chapter" data-level="4.9.4" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#select-1"><i class="fa fa-check"></i><b>4.9.4</b> Select</a></li>
+<li class="chapter" data-level="4.9.5" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#grouped-summaries"><i class="fa fa-check"></i><b>4.9.5</b> Grouped summaries</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="summarizing-data.html"><a href="summarizing-data.html"><i class="fa fa-check"></i><b>5</b> Summarizing Data</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="summarizing-data.html"><a href="summarizing-data.html#learning-objectives"><i class="fa fa-check"></i><b>5.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="5.2" data-path="summarizing-data.html"><a href="summarizing-data.html#introduction"><i class="fa fa-check"></i><b>5.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="summarizing-data.html"><a href="summarizing-data.html#readings-complete-by-class-on-monday"><i class="fa fa-check"></i><b>5.2.1</b> Readings (complete by class on Monday)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="summarizing-data.html"><a href="summarizing-data.html#group_by-function-summarizing-info-based-on-typecharacteristic"><i class="fa fa-check"></i><b>5.3</b> <code>group_by</code> function: Summarizing info based on type/characteristic</a></li>
+<li class="chapter" data-level="5.4" data-path="summarizing-data.html"><a href="summarizing-data.html#grouping-with-multiple-variables"><i class="fa fa-check"></i><b>5.4</b> Grouping with multiple variables</a></li>
+<li class="chapter" data-level="5.5" data-path="summarizing-data.html"><a href="summarizing-data.html#tidying-and-untidying-data-with-pivot_-functions"><i class="fa fa-check"></i><b>5.5</b> Tidying and untidying data with <code>pivot_</code> functions</a></li>
+<li class="chapter" data-level="5.6" data-path="summarizing-data.html"><a href="summarizing-data.html#joins-and-binds-within-dplyr"><i class="fa fa-check"></i><b>5.6</b> Joins and Binds within <code>dplyr</code></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html"><i class="fa fa-check"></i>Summarizing Data Examples</a>
+<ul>
+<li class="chapter" data-level="5.7" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#bioreactor-data-analysis"><i class="fa fa-check"></i><b>5.7</b> Bioreactor Data Analysis</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#background"><i class="fa fa-check"></i><b>5.7.1</b> Background</a></li>
+<li class="chapter" data-level="5.7.2" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#tasks-1"><i class="fa fa-check"></i><b>5.7.2</b> Tasks</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#root-growth-inhibition-example"><i class="fa fa-check"></i><b>5.8</b> Root Growth Inhibition Example</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#introduction-1"><i class="fa fa-check"></i><b>5.8.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.8.2" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#read-in-data"><i class="fa fa-check"></i><b>5.8.2</b> Read in data</a></li>
+<li class="chapter" data-level="5.8.3" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#write-a-function-for-tidying-this-data"><i class="fa fa-check"></i><b>5.8.3</b> Write a function for tidying this data</a></li>
+<li class="chapter" data-level="5.8.4" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#tidy-the-individual-datasets"><i class="fa fa-check"></i><b>5.8.4</b> Tidy the individual datasets</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="data-visualization.html"><a href="data-visualization.html"><i class="fa fa-check"></i><b>6</b> Data Visualization</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="data-visualization.html"><a href="data-visualization.html#reading-complete-by-class-on-monday"><i class="fa fa-check"></i><b>6.1</b> Reading (complete by class on Monday)</a></li>
+<li class="chapter" data-level="6.2" data-path="data-visualization.html"><a href="data-visualization.html#tutorials-to-walk-through-on-your-own"><i class="fa fa-check"></i><b>6.2</b> Tutorials to walk through on your own</a></li>
+<li class="chapter" data-level="6.3" data-path="data-visualization.html"><a href="data-visualization.html#more-on-color-palettes"><i class="fa fa-check"></i><b>6.3</b> More on Color Palettes</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="data-visualization.html"><a href="data-visualization.html#previewing"><i class="fa fa-check"></i><b>6.3.1</b> Previewing</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-visualization-examples.html"><a href="data-visualization-examples.html"><i class="fa fa-check"></i>Data Visualization Examples</a>
+<ul>
+<li class="chapter" data-level="6.4" data-path="data-visualization-examples.html"><a href="data-visualization-examples.html#background-1"><i class="fa fa-check"></i><b>6.4</b> Background</a></li>
+<li class="chapter" data-level="6.5" data-path="data-visualization-examples.html"><a href="data-visualization-examples.html#data-description"><i class="fa fa-check"></i><b>6.5</b> Data Description</a></li>
+<li class="chapter" data-level="6.6" data-path="data-visualization-examples.html"><a href="data-visualization-examples.html#tasks-2"><i class="fa fa-check"></i><b>6.6</b> Tasks</a></li>
+<li class="chapter" data-level="6.7" data-path="data-visualization-examples.html"><a href="data-visualization-examples.html#setup-for-the-homework"><i class="fa fa-check"></i><b>6.7</b> Setup for the Homework</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html"><i class="fa fa-check"></i><b>7</b> Introduction to Linear Regression in R</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#objectives"><i class="fa fa-check"></i><b>7.1</b> Objectives</a></li>
+<li class="chapter" data-level="7.2" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#reading"><i class="fa fa-check"></i><b>7.2</b> Reading</a></li>
+<li class="chapter" data-level="7.3" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#active-package-libraries"><i class="fa fa-check"></i><b>7.3</b> Active Package Libraries</a></li>
+<li class="chapter" data-level="7.4" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#linear-regression"><i class="fa fa-check"></i><b>7.4</b> Linear Regression</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#assumptions"><i class="fa fa-check"></i><b>7.4.1</b> Assumptions</a></li>
+<li class="chapter" data-level="7.4.2" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#workflow"><i class="fa fa-check"></i><b>7.4.2</b> Workflow:</a></li>
+<li class="chapter" data-level="7.4.3" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#example-8"><i class="fa fa-check"></i><b>7.4.3</b> Example</a></li>
+<li class="chapter" data-level="7.4.4" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#predicting-values-applications-of-linear-models"><i class="fa fa-check"></i><b>7.4.4</b> Predicting values: Applications of linear models</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#now-lets-say-you-want-to-predict-a-y-value-for-a-given-age."><i class="fa fa-check"></i><b>7.5</b> Now, let’s say you want to predict a y-value for a given age.</a></li>
+<li class="chapter" data-level="7.6" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#example-2-from-reading"><i class="fa fa-check"></i><b>7.6</b> Example 2 from reading</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html"><i class="fa fa-check"></i><b>8</b> Linear Regression Examples</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#active-libraries"><i class="fa fa-check"></i><b>8.1</b> Active Libraries</a></li>
+<li class="chapter" data-level="8.2" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#linear-regression-1"><i class="fa fa-check"></i><b>8.2</b> Linear Regression</a></li>
+<li class="chapter" data-level="8.3" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#assumptions-1"><i class="fa fa-check"></i><b>8.3</b> Assumptions</a></li>
+<li class="chapter" data-level="8.4" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#example-10"><i class="fa fa-check"></i><b>8.4</b> Example</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-1.-read-in-data-1"><i class="fa fa-check"></i><b>8.4.1</b> Step 1. Read in data</a></li>
+<li class="chapter" data-level="8.4.2" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-2.-plot-data-visualize-linearity-1"><i class="fa fa-check"></i><b>8.4.2</b> Step 2. Plot data &amp; visualize linearity</a></li>
+<li class="chapter" data-level="8.4.3" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-3.-transform-data-1"><i class="fa fa-check"></i><b>8.4.3</b> Step 3. Transform data</a></li>
+<li class="chapter" data-level="8.4.4" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-4.-linear-model-1"><i class="fa fa-check"></i><b>8.4.4</b> Step 4. Linear model</a></li>
+<li class="chapter" data-level="8.4.5" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-5.-test-for-homoscedasaticity-1"><i class="fa fa-check"></i><b>8.4.5</b> Step 5. Test for homoscedasaticity</a></li>
+<li class="chapter" data-level="8.4.6" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-6.-test-for-bias-1"><i class="fa fa-check"></i><b>8.4.6</b> Step 6. Test for bias</a></li>
+<li class="chapter" data-level="8.4.7" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-7.-test-for-normality-1"><i class="fa fa-check"></i><b>8.4.7</b> Step 7. Test for Normality</a></li>
+<li class="chapter" data-level="8.4.8" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#application"><i class="fa fa-check"></i><b>8.4.8</b> Application</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#take-2-try-second-order"><i class="fa fa-check"></i><b>8.5</b> Take 2, try second order!</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-4.-linear-model-2"><i class="fa fa-check"></i><b>8.5.1</b> Step 4. Linear model</a></li>
+<li class="chapter" data-level="8.5.2" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-5.-test-for-homoscedasaticity-2"><i class="fa fa-check"></i><b>8.5.2</b> Step 5. Test for homoscedasaticity</a></li>
+<li class="chapter" data-level="8.5.3" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-6.-test-for-bias-2"><i class="fa fa-check"></i><b>8.5.3</b> Step 6. Test for bias</a></li>
+<li class="chapter" data-level="8.5.4" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-7.-test-for-normality-2"><i class="fa fa-check"></i><b>8.5.4</b> Step 7. Test for Normality</a></li>
+<li class="chapter" data-level="8.5.5" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#application-1"><i class="fa fa-check"></i><b>8.5.5</b> Application</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis and Numerical Methods for Biological Systems Engineers</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="linear-regression-examples" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">8</span> Linear Regression Examples<a href="linear-regression-examples.html#linear-regression-examples" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This tutorial is derived from <a href="https://www.datacamp.com/community/tutorials/linear-regression-R" class="uri">https://www.datacamp.com/community/tutorials/linear-regression-R</a></p>
+<div id="active-libraries" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Active Libraries<a href="linear-regression-examples.html#active-libraries" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="linear-regression-examples.html#cb406-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb406-2"><a href="linear-regression-examples.html#cb406-2" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span>
+<span id="cb406-3"><a href="linear-regression-examples.html#cb406-3" tabindex="-1"></a><span class="fu">library</span>(readxl)</span></code></pre></div>
+</div>
+<div id="linear-regression-1" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> Linear Regression<a href="linear-regression-examples.html#linear-regression-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>R-studio provides the ability to create linear regressions easily, sometimes too easily. While this is not meant to be a substitute for a statistics course, the objective in this short tutorial is to develop a workflow approach that allows you to test the validity of regressions.</p>
+</div>
+<div id="assumptions-1" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> Assumptions<a href="linear-regression-examples.html#assumptions-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Below is a figure from <a href="https://pubs.usgs.gov/tm/04/a03/tm4a3.pdf" class="uri">https://pubs.usgs.gov/tm/04/a03/tm4a3.pdf</a>.</p>
+<div class="float">
+<img src="images/image_assumptions.png" alt="alt text here" />
+<div class="figcaption">alt text here</div>
+</div>
+<div id="workflow-2" class="section level4 hasAnchor" number="8.3.0.1">
+<h4><span class="header-section-number">8.3.0.1</span> Workflow:<a href="linear-regression-examples.html#workflow-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ol style="list-style-type: decimal">
+<li>Read in data</li>
+<li>Plot data &amp; visualize linearity</li>
+<li>Transform data as appropriate</li>
+<li>Create linear model using lm function. * Assess assumption 1</li>
+</ol>
+<ul>
+<li>review t-values from linear model summary. If the slope and intercept values have resulting |t| &gt; 2, then they are significant.</li>
+<li>review leverage/influence of data points on regression. When data points have high leverage, one of 3 options come into play: (1) Someone made a recording error, (2) Someone made a fundamental mistake collecting the observation; or (3) The data point is perfectly valid, in which case the model cannot account for the behavior</li>
+</ul>
+<ol start="5" style="list-style-type: decimal">
+<li>Test for homoscedasaticity * Assess assumption 3, the variability in the residuals does not vary over the range of predicted values</li>
+</ol>
+<ul>
+<li>if fails, transform data or choose an alternate model/independent variable</li>
+</ul>
+<ol start="6" style="list-style-type: decimal">
+<li>Test for bias * Assess assumption 4, e values generally plot equally above and below zero</li>
+<li>Test for normality</li>
+</ol>
+</div>
+</div>
+<div id="example-10" class="section level2 hasAnchor" number="8.4">
+<h2><span class="header-section-number">8.4</span> Example<a href="linear-regression-examples.html#example-10" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="step-1.-read-in-data-1" class="section level3 hasAnchor" number="8.4.1">
+<h3><span class="header-section-number">8.4.1</span> Step 1. Read in data<a href="linear-regression-examples.html#step-1.-read-in-data-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="linear-regression-examples.html#cb407-1" tabindex="-1"></a>S <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.3</span>, <span class="fl">1.8</span>, <span class="dv">3</span>, <span class="fl">4.5</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">9</span>)</span>
+<span id="cb407-2"><a href="linear-regression-examples.html#cb407-2" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>(.<span class="dv">07</span>, .<span class="dv">13</span>, .<span class="dv">22</span>, .<span class="dv">275</span>, .<span class="dv">335</span>, .<span class="dv">35</span>, .<span class="dv">36</span>)</span>
+<span id="cb407-3"><a href="linear-regression-examples.html#cb407-3" tabindex="-1"></a>data.ex <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(S,v)</span></code></pre></div>
+</div>
+<div id="step-2.-plot-data-visualize-linearity-1" class="section level3 hasAnchor" number="8.4.2">
+<h3><span class="header-section-number">8.4.2</span> Step 2. Plot data &amp; visualize linearity<a href="linear-regression-examples.html#step-2.-plot-data-visualize-linearity-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="linear-regression-examples.html#cb408-1" tabindex="-1"></a><span class="do">## here you can either start a ggplot or just use the simple plot command. Since we&#39;re practicing ggplot, let&#39;s stick with this.</span></span>
+<span id="cb408-2"><a href="linear-regression-examples.html#cb408-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data.ex, <span class="fu">aes</span>(S,v)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb408-3"><a href="linear-regression-examples.html#cb408-3" tabindex="-1"></a>  cowplot<span class="sc">::</span><span class="fu">theme_cowplot</span>() <span class="sc">+</span> <span class="co"># adds theme</span></span>
+<span id="cb408-4"><a href="linear-regression-examples.html#cb408-4" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="fl">0.8</span>,.<span class="dv">2</span>)) <span class="sc">+</span> <span class="co"># changes scale to min and max with prescribed spacing</span></span>
+<span id="cb408-5"><a href="linear-regression-examples.html#cb408-5" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">9</span>,<span class="dv">1</span>)) <span class="sc">+</span> </span>
+<span id="cb408-6"><a href="linear-regression-examples.html#cb408-6" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;v&quot;</span>) <span class="sc">+</span> <span class="co"># adds y-label with units</span></span>
+<span id="cb408-7"><a href="linear-regression-examples.html#cb408-7" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;[S]&quot;</span>)</span>
+<span id="cb408-8"><a href="linear-regression-examples.html#cb408-8" tabindex="-1"></a>p</span></code></pre></div>
+<p><img src="08-1_Examples_files/figure-html/step%202-1.png" width="672" /></p>
+<p><strong>Check</strong>: The resulting plot does not look linear. We will compare 2 transformations:</p>
+</div>
+<div id="step-3.-transform-data-1" class="section level3 hasAnchor" number="8.4.3">
+<h3><span class="header-section-number">8.4.3</span> Step 3. Transform data<a href="linear-regression-examples.html#step-3.-transform-data-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="linear-regression-examples.html#cb409-1" tabindex="-1"></a>data.ex<span class="sc">$</span>vt <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>data.ex<span class="sc">$</span>v</span>
+<span id="cb409-2"><a href="linear-regression-examples.html#cb409-2" tabindex="-1"></a>data.ex<span class="sc">$</span>St <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>data.ex<span class="sc">$</span>S</span>
+<span id="cb409-3"><a href="linear-regression-examples.html#cb409-3" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co"> remove 2nd order here and add actual Michaelis-menten equation and actual linearization examples</span></span>
+<span id="cb409-4"><a href="linear-regression-examples.html#cb409-4" tabindex="-1"></a>data.ex<span class="sc">$</span>S2t <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>data.ex<span class="sc">$</span>S<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
+</div>
+<div id="step-4.-linear-model-1" class="section level3 hasAnchor" number="8.4.4">
+<h3><span class="header-section-number">8.4.4</span> Step 4. Linear model<a href="linear-regression-examples.html#step-4.-linear-model-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Create linear model using lm function. * Assess assumption 1
+- review t-values from linear model summary. If the slope and intercept values have resulting |t| &gt; 2, then they are significant.
+- review leverage/influence of data points on regression. When data points have high leverage, one of 3 options come into play: (1) Someone made a recording error, (2) Someone made a fundamental mistake collecting the observation; or (3) The data point is perfectly valid, in which case the model cannot account for the behavior</p>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="linear-regression-examples.html#cb410-1" tabindex="-1"></a><span class="co"># Create linear model, 1st order Michaelis Menton</span></span>
+<span id="cb410-2"><a href="linear-regression-examples.html#cb410-2" tabindex="-1"></a>model.lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(vt<span class="sc">~</span>St, <span class="at">data=</span>data.ex)</span>
+<span id="cb410-3"><a href="linear-regression-examples.html#cb410-3" tabindex="-1"></a><span class="fu">summary</span>(model.lm)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = vt ~ St, data = data.ex)
+## 
+## Residuals:
+##        1        2        3        4        5        6        7 
+##  1.47839 -1.61027 -1.11218 -0.19880  0.06114  0.61664  0.76508 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   0.1902     0.7762   0.245 0.816147    
+## St           16.4022     1.9435   8.440 0.000383 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.185 on 5 degrees of freedom
+## Multiple R-squared:  0.9344, Adjusted R-squared:  0.9213 
+## F-statistic: 71.23 on 1 and 5 DF,  p-value: 0.0003833</code></pre>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="linear-regression-examples.html#cb412-1" tabindex="-1"></a>vm <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>model.lm<span class="sc">$</span>coefficients[<span class="dv">1</span>]</span>
+<span id="cb412-2"><a href="linear-regression-examples.html#cb412-2" tabindex="-1"></a>ks <span class="ot">&lt;-</span> vm<span class="sc">*</span>model.lm<span class="sc">$</span>coefficients[<span class="dv">2</span>]</span>
+<span id="cb412-3"><a href="linear-regression-examples.html#cb412-3" tabindex="-1"></a>vm</span></code></pre></div>
+<pre><code>## (Intercept) 
+##    5.256963</code></pre>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="linear-regression-examples.html#cb414-1" tabindex="-1"></a>ks</span></code></pre></div>
+<pre><code>## (Intercept) 
+##    86.22596</code></pre>
+<p><strong>Check</strong>: |t-values| &lt; 2 for intercept, questionable.</p>
+<p>When vm is calculated, it’s a lot higher than reported velocities, and the half-saturation constant ks is higher than the maximum substrate concentration.</p>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="linear-regression-examples.html#cb416-1" tabindex="-1"></a><span class="co"># review leverage/influence of data points on regression. Use plot of Cook&#39;s D, evaluate subset of CooksD above threshold, and evaluate DFFITS (another influence diagnostic)</span></span>
+<span id="cb416-2"><a href="linear-regression-examples.html#cb416-2" tabindex="-1"></a></span>
+<span id="cb416-3"><a href="linear-regression-examples.html#cb416-3" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">cooks.distance</span>(model.lm), <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="co">#Plot the Cooks Distances.</span></span></code></pre></div>
+<p><img src="08-1_Examples_files/figure-html/step%204b-1.png" width="672" /></p>
+<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="linear-regression-examples.html#cb417-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(model.lm<span class="sc">$</span>residuals)</span>
+<span id="cb417-2"><a href="linear-regression-examples.html#cb417-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">length</span>(model.lm<span class="sc">$</span>coefficients)</span>
+<span id="cb417-3"><a href="linear-regression-examples.html#cb417-3" tabindex="-1"></a><span class="fu">subset</span>(<span class="fu">cooks.distance</span>(model.lm), <span class="fu">cooks.distance</span>(model.lm) <span class="sc">&gt;</span> <span class="fu">qf</span>(<span class="fl">0.1</span>, p, n <span class="sc">-</span> p, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)) <span class="co"># determines if there are any flagged observations from CooksD</span></span></code></pre></div>
+<pre><code>##        1 
+## 4.809895</code></pre>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="linear-regression-examples.html#cb419-1" tabindex="-1"></a><span class="fu">subset</span>(<span class="fu">dffits</span>(model.lm), <span class="fu">dffits</span>(model.lm) <span class="sc">&gt;</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">sqrt</span>(p <span class="sc">/</span> n)) <span class="co"># determines if there are any flagged observations from DFFITS</span></span></code></pre></div>
+<pre><code>##        1 
+## 11.80479</code></pre>
+<p>For SLR with more than about 30 observations, the critical value for Di would be about 2.4.
+In the example above, observation 1 was identified as having higher influence for both Cooks and DDFITS. Consider options 1-3 described in workflow, but also intercept was questionable.</p>
+</div>
+<div id="step-5.-test-for-homoscedasaticity-1" class="section level3 hasAnchor" number="8.4.5">
+<h3><span class="header-section-number">8.4.5</span> Step 5. Test for homoscedasaticity<a href="linear-regression-examples.html#step-5.-test-for-homoscedasaticity-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="linear-regression-examples.html#cb421-1" tabindex="-1"></a><span class="co"># Here, the which variable provides the ability to create 4 plots of interest: &quot;Residuals vs Fitted&quot;, &quot;Normal Q-Q&quot;, &quot;Scale-Location&quot;, &quot;Cook&#39;s distance&quot;, &quot;Residuals vs Leverage&quot;</span></span>
+<span id="cb421-2"><a href="linear-regression-examples.html#cb421-2" tabindex="-1"></a></span>
+<span id="cb421-3"><a href="linear-regression-examples.html#cb421-3" tabindex="-1"></a><span class="co"># To test for homoscedasaticity, review plot of standardized residuals</span></span>
+<span id="cb421-4"><a href="linear-regression-examples.html#cb421-4" tabindex="-1"></a><span class="fu">plot</span>(model.lm,  <span class="at">which =</span> <span class="dv">3</span>, <span class="at">ask =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="08-1_Examples_files/figure-html/step%205-1.png" width="672" />
+<strong>Check</strong>: Variability is a bit more variable.</p>
+</div>
+<div id="step-6.-test-for-bias-1" class="section level3 hasAnchor" number="8.4.6">
+<h3><span class="header-section-number">8.4.6</span> Step 6. Test for bias<a href="linear-regression-examples.html#step-6.-test-for-bias-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="linear-regression-examples.html#cb422-1" tabindex="-1"></a><span class="co"># To test for bias, review plot of  residuals</span></span>
+<span id="cb422-2"><a href="linear-regression-examples.html#cb422-2" tabindex="-1"></a><span class="fu">plot</span>(model.lm,  <span class="at">which =</span> <span class="dv">1</span>, <span class="at">ask =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="08-1_Examples_files/figure-html/step%206-1.png" width="672" />
+<strong>Check</strong>: Variability above and below 0 does not appear random.</p>
+</div>
+<div id="step-7.-test-for-normality-1" class="section level3 hasAnchor" number="8.4.7">
+<h3><span class="header-section-number">8.4.7</span> Step 7. Test for Normality<a href="linear-regression-examples.html#step-7.-test-for-normality-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="linear-regression-examples.html#cb423-1" tabindex="-1"></a><span class="co"># To test for normality, review plot</span></span>
+<span id="cb423-2"><a href="linear-regression-examples.html#cb423-2" tabindex="-1"></a><span class="fu">plot</span>(model.lm,  <span class="at">which =</span> <span class="dv">2</span>, <span class="at">ask =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="08-1_Examples_files/figure-html/step%207-1.png" width="672" />
+<strong>Check</strong>: Residuals are not normally distributed. Questionable!!</p>
+</div>
+<div id="application" class="section level3 hasAnchor" number="8.4.8">
+<h3><span class="header-section-number">8.4.8</span> Application<a href="linear-regression-examples.html#application" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The workflow provides confidence of a reasonable linear regression model. The final steps are to create a plot with uncertainity bounds and the ability to predict a value and associated uncertainity.</p>
+<p>###Workflow:</p>
+<p><strong>Confidence intervals</strong> are computed using the predict command:</p>
+<p>predict(lmheight, newdata = data.frame(age=22.5), interval = “confidence”, level = 0.95)</p>
+<p><strong>Prediction intervals</strong> are computed as follows:</p>
+<p>predict(lmheight, newdata = data.frame(age=22.5), interval = “prediction”, level = 0.95)</p>
+<p>Prediction intervals are always greater. While it includes the uncertainity in the regression uncertainties in the slope and intercept, it also includes the unexplained variability in y.</p>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="linear-regression-examples.html#cb424-1" tabindex="-1"></a><span class="co"># Use model to create prediction intervals</span></span>
+<span id="cb424-2"><a href="linear-regression-examples.html#cb424-2" tabindex="-1"></a></span>
+<span id="cb424-3"><a href="linear-regression-examples.html#cb424-3" tabindex="-1"></a>model.predict <span class="ot">&lt;-</span> <span class="fu">predict</span>(model.lm, <span class="at">interval =</span> <span class="st">&quot;predict&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning in predict.lm(model.lm, interval = &quot;predict&quot;): predictions on current data refer to _future_ responses</code></pre>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="linear-regression-examples.html#cb426-1" tabindex="-1"></a><span class="co"># Use model to create confidence intervals</span></span>
+<span id="cb426-2"><a href="linear-regression-examples.html#cb426-2" tabindex="-1"></a></span>
+<span id="cb426-3"><a href="linear-regression-examples.html#cb426-3" tabindex="-1"></a>model.confidence <span class="ot">&lt;-</span> <span class="fu">predict</span>(model.lm, <span class="at">interval =</span> <span class="st">&quot;confidence&quot;</span>)</span>
+<span id="cb426-4"><a href="linear-regression-examples.html#cb426-4" tabindex="-1"></a><span class="fu">colnames</span>(model.confidence) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;cfit&quot;</span>, <span class="st">&quot;clwr&quot;</span>, <span class="st">&quot;cupr&quot;</span>) <span class="co">#rename columns</span></span>
+<span id="cb426-5"><a href="linear-regression-examples.html#cb426-5" tabindex="-1"></a></span>
+<span id="cb426-6"><a href="linear-regression-examples.html#cb426-6" tabindex="-1"></a></span>
+<span id="cb426-7"><a href="linear-regression-examples.html#cb426-7" tabindex="-1"></a><span class="co"># Create dataset that merges dataset</span></span>
+<span id="cb426-8"><a href="linear-regression-examples.html#cb426-8" tabindex="-1"></a></span>
+<span id="cb426-9"><a href="linear-regression-examples.html#cb426-9" tabindex="-1"></a>data.all <span class="ot">&lt;-</span> <span class="fu">cbind</span>(data.ex,model.predict, model.confidence)</span>
+<span id="cb426-10"><a href="linear-regression-examples.html#cb426-10" tabindex="-1"></a></span>
+<span id="cb426-11"><a href="linear-regression-examples.html#cb426-11" tabindex="-1"></a><span class="co"># Create ggplot</span></span>
+<span id="cb426-12"><a href="linear-regression-examples.html#cb426-12" tabindex="-1"></a></span>
+<span id="cb426-13"><a href="linear-regression-examples.html#cb426-13" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data.all, <span class="fu">aes</span>(<span class="at">x =</span> St, <span class="at">y =</span> vt)) <span class="sc">+</span></span>
+<span id="cb426-14"><a href="linear-regression-examples.html#cb426-14" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="co"># adds points</span></span>
+<span id="cb426-15"><a href="linear-regression-examples.html#cb426-15" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>lwr), <span class="at">col =</span> <span class="st">&quot;coral2&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> <span class="co">#lower prediction interval</span></span>
+<span id="cb426-16"><a href="linear-regression-examples.html#cb426-16" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>upr), <span class="at">col =</span> <span class="st">&quot;coral2&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb426-17"><a href="linear-regression-examples.html#cb426-17" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>clwr,<span class="at">ymax=</span>cupr),<span class="at">alpha=</span><span class="fl">0.3</span>) <span class="sc">+</span>  <span class="co"># confidence band</span></span>
+<span id="cb426-18"><a href="linear-regression-examples.html#cb426-18" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>fit), <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span>  <span class="co"># confidence band</span></span>
+<span id="cb426-19"><a href="linear-regression-examples.html#cb426-19" tabindex="-1"></a>  <span class="fu">theme_cowplot</span>() <span class="sc">+</span></span>
+<span id="cb426-20"><a href="linear-regression-examples.html#cb426-20" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;1/v&quot;</span>) <span class="sc">+</span></span>
+<span id="cb426-21"><a href="linear-regression-examples.html#cb426-21" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;1/S&quot;</span>)</span>
+<span id="cb426-22"><a href="linear-regression-examples.html#cb426-22" tabindex="-1"></a></span>
+<span id="cb426-23"><a href="linear-regression-examples.html#cb426-23" tabindex="-1"></a>p1</span></code></pre></div>
+<p><img src="08-1_Examples_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="linear-regression-examples.html#cb427-1" tabindex="-1"></a>data.all<span class="sc">$</span>fit <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>data.all<span class="sc">$</span>fit</span>
+<span id="cb427-2"><a href="linear-regression-examples.html#cb427-2" tabindex="-1"></a>data.all<span class="sc">$</span>lwr <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>data.all<span class="sc">$</span>lwr</span>
+<span id="cb427-3"><a href="linear-regression-examples.html#cb427-3" tabindex="-1"></a>data.all<span class="sc">$</span>upr <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>data.all<span class="sc">$</span>upr</span>
+<span id="cb427-4"><a href="linear-regression-examples.html#cb427-4" tabindex="-1"></a>data.all<span class="sc">$</span>clwr <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>data.all<span class="sc">$</span>clwr</span>
+<span id="cb427-5"><a href="linear-regression-examples.html#cb427-5" tabindex="-1"></a>data.all<span class="sc">$</span>cupr <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>data.all<span class="sc">$</span>cupr</span>
+<span id="cb427-6"><a href="linear-regression-examples.html#cb427-6" tabindex="-1"></a></span>
+<span id="cb427-7"><a href="linear-regression-examples.html#cb427-7" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data.all, <span class="fu">aes</span>(<span class="at">x =</span> S, <span class="at">y =</span> v)) <span class="sc">+</span></span>
+<span id="cb427-8"><a href="linear-regression-examples.html#cb427-8" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="co"># adds points</span></span>
+<span id="cb427-9"><a href="linear-regression-examples.html#cb427-9" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>lwr), <span class="at">col =</span> <span class="st">&quot;coral2&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> <span class="co">#lower prediction interval</span></span>
+<span id="cb427-10"><a href="linear-regression-examples.html#cb427-10" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>upr), <span class="at">col =</span> <span class="st">&quot;coral2&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb427-11"><a href="linear-regression-examples.html#cb427-11" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>clwr,<span class="at">ymax=</span>cupr),<span class="at">alpha=</span><span class="fl">0.3</span>) <span class="sc">+</span>  <span class="co"># confidence band</span></span>
+<span id="cb427-12"><a href="linear-regression-examples.html#cb427-12" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>fit), <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span>  <span class="co"># confidence band</span></span>
+<span id="cb427-13"><a href="linear-regression-examples.html#cb427-13" tabindex="-1"></a>  <span class="fu">theme_cowplot</span>() <span class="sc">+</span></span>
+<span id="cb427-14"><a href="linear-regression-examples.html#cb427-14" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;v&quot;</span>) <span class="sc">+</span></span>
+<span id="cb427-15"><a href="linear-regression-examples.html#cb427-15" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;S&quot;</span>) <span class="sc">+</span></span>
+<span id="cb427-16"><a href="linear-regression-examples.html#cb427-16" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="fl">0.8</span>,.<span class="dv">2</span>)) <span class="sc">+</span> <span class="co"># changes scale to min and max with prescribed spacing</span></span>
+<span id="cb427-17"><a href="linear-regression-examples.html#cb427-17" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">9</span>,<span class="dv">1</span>)) <span class="sc">+</span> </span>
+<span id="cb427-18"><a href="linear-regression-examples.html#cb427-18" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="fl">0.8</span>)</span></code></pre></div>
+<pre><code>## Scale for y is already present.
+## Adding another scale for y, which will replace the existing scale.</code></pre>
+<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="linear-regression-examples.html#cb429-1" tabindex="-1"></a>p</span></code></pre></div>
+<pre><code>## Warning: Removed 4 rows containing missing values or values outside the scale range
+## (`geom_line()`).</code></pre>
+<p><img src="08-1_Examples_files/figure-html/unnamed-chunk-2-2.png" width="672" /></p>
+</div>
+</div>
+<div id="take-2-try-second-order" class="section level2 hasAnchor" number="8.5">
+<h2><span class="header-section-number">8.5</span> Take 2, try second order!<a href="linear-regression-examples.html#take-2-try-second-order" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="step-4.-linear-model-2" class="section level3 hasAnchor" number="8.5.1">
+<h3><span class="header-section-number">8.5.1</span> Step 4. Linear model<a href="linear-regression-examples.html#step-4.-linear-model-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Create linear model using lm function. * Assess assumption 1
+- review t-values from linear model summary. If the slope and intercept values have resulting |t| &gt; 2, then they are significant.
+- review leverage/influence of data points on regression. When data points have high leverage, one of 3 options come into play: (1) Someone made a recording error, (2) Someone made a fundamental mistake collecting the observation; or (3) The data point is perfectly valid, in which case the model cannot account for the behavior</p>
+<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="linear-regression-examples.html#cb431-1" tabindex="-1"></a><span class="co"># Create linear model, 1st order Michaelis Menton</span></span>
+<span id="cb431-2"><a href="linear-regression-examples.html#cb431-2" tabindex="-1"></a><span class="fu">plot</span>(data.ex<span class="sc">$</span>S2t,data.ex<span class="sc">$</span>vt)</span></code></pre></div>
+<p><img src="08-1_Examples_files/figure-html/step%204a2-1.png" width="672" /></p>
+<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="linear-regression-examples.html#cb432-1" tabindex="-1"></a>model.lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(vt<span class="sc">~</span>S2t, <span class="at">data=</span>data.ex)</span>
+<span id="cb432-2"><a href="linear-regression-examples.html#cb432-2" tabindex="-1"></a><span class="fu">summary</span>(model.lm)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = vt ~ S2t, data = data.ex)
+## 
+## Residuals:
+##         1         2         3         4         5         6         7 
+##  0.371400 -0.737166 -0.056662  0.230297 -0.002375  0.105165  0.089340 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   2.4492     0.1877   13.05 4.71e-05 ***
+## S2t          19.3760     0.7310   26.51 1.43e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.389 on 5 degrees of freedom
+## Multiple R-squared:  0.9929, Adjusted R-squared:  0.9915 
+## F-statistic: 702.7 on 1 and 5 DF,  p-value: 1.428e-06</code></pre>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="linear-regression-examples.html#cb434-1" tabindex="-1"></a>vm <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>model.lm<span class="sc">$</span>coefficients[<span class="dv">1</span>]</span>
+<span id="cb434-2"><a href="linear-regression-examples.html#cb434-2" tabindex="-1"></a>ks <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(vm<span class="sc">*</span>model.lm<span class="sc">$</span>coefficients[<span class="dv">2</span>])</span>
+<span id="cb434-3"><a href="linear-regression-examples.html#cb434-3" tabindex="-1"></a>vm</span></code></pre></div>
+<pre><code>## (Intercept) 
+##    0.408292</code></pre>
+<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="linear-regression-examples.html#cb436-1" tabindex="-1"></a>ks</span></code></pre></div>
+<pre><code>## (Intercept) 
+##    2.812661</code></pre>
+<p><strong>Check</strong>: |t-values| &gt;&gt; 2, looks better
+The half-saturation constant and vm are also consistent with the data.</p>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="linear-regression-examples.html#cb438-1" tabindex="-1"></a><span class="co"># review leverage/influence of data points on regression. Use plot of Cook&#39;s D, evaluate subset of CooksD above threshold, and evaluate DFFITS (another influence diagnostic)</span></span>
+<span id="cb438-2"><a href="linear-regression-examples.html#cb438-2" tabindex="-1"></a></span>
+<span id="cb438-3"><a href="linear-regression-examples.html#cb438-3" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">cooks.distance</span>(model.lm), <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="co">#Plot the Cooks Distances.</span></span></code></pre></div>
+<p><img src="08-1_Examples_files/figure-html/step%204b2-1.png" width="672" /></p>
+<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="linear-regression-examples.html#cb439-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(model.lm<span class="sc">$</span>residuals)</span>
+<span id="cb439-2"><a href="linear-regression-examples.html#cb439-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">length</span>(model.lm<span class="sc">$</span>coefficients)</span>
+<span id="cb439-3"><a href="linear-regression-examples.html#cb439-3" tabindex="-1"></a><span class="fu">subset</span>(<span class="fu">cooks.distance</span>(model.lm), <span class="fu">cooks.distance</span>(model.lm) <span class="sc">&gt;</span> <span class="fu">qf</span>(<span class="fl">0.1</span>, p, n <span class="sc">-</span> p, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)) <span class="co"># determines if there are any flagged observations from CooksD</span></span></code></pre></div>
+<pre><code>##        1 
+## 9.365224</code></pre>
+<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="linear-regression-examples.html#cb441-1" tabindex="-1"></a><span class="fu">subset</span>(<span class="fu">dffits</span>(model.lm), <span class="fu">dffits</span>(model.lm) <span class="sc">&gt;</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">sqrt</span>(p <span class="sc">/</span> n)) <span class="co"># determines if there are any flagged observations from DFFITS</span></span></code></pre></div>
+<pre><code>##        1 
+## 13.90953</code></pre>
+<p>For SLR with more than about 30 observations, the critical value for Di would be about 2.4.
+In the example above, observation 1 was identified as having higher influence for both Cooks and DDFITS. Consider options 1-3 described in workflow, but also intercept was questionable.</p>
+</div>
+<div id="step-5.-test-for-homoscedasaticity-2" class="section level3 hasAnchor" number="8.5.2">
+<h3><span class="header-section-number">8.5.2</span> Step 5. Test for homoscedasaticity<a href="linear-regression-examples.html#step-5.-test-for-homoscedasaticity-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="linear-regression-examples.html#cb443-1" tabindex="-1"></a><span class="co"># Here, the which variable provides the ability to create 4 plots of interest: &quot;Residuals vs Fitted&quot;, &quot;Normal Q-Q&quot;, &quot;Scale-Location&quot;, &quot;Cook&#39;s distance&quot;, &quot;Residuals vs Leverage&quot;</span></span>
+<span id="cb443-2"><a href="linear-regression-examples.html#cb443-2" tabindex="-1"></a></span>
+<span id="cb443-3"><a href="linear-regression-examples.html#cb443-3" tabindex="-1"></a><span class="co"># To test for homoscedasaticity, review plot of standardized residuals</span></span>
+<span id="cb443-4"><a href="linear-regression-examples.html#cb443-4" tabindex="-1"></a><span class="fu">plot</span>(model.lm,  <span class="at">which =</span> <span class="dv">3</span>, <span class="at">ask =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="08-1_Examples_files/figure-html/step%2052-1.png" width="672" />
+<strong>Check</strong>: Variability is variable.</p>
+</div>
+<div id="step-6.-test-for-bias-2" class="section level3 hasAnchor" number="8.5.3">
+<h3><span class="header-section-number">8.5.3</span> Step 6. Test for bias<a href="linear-regression-examples.html#step-6.-test-for-bias-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="linear-regression-examples.html#cb444-1" tabindex="-1"></a><span class="co"># To test for bias, review plot of  residuals</span></span>
+<span id="cb444-2"><a href="linear-regression-examples.html#cb444-2" tabindex="-1"></a><span class="fu">plot</span>(model.lm,  <span class="at">which =</span> <span class="dv">1</span>, <span class="at">ask =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="08-1_Examples_files/figure-html/step%2062-1.png" width="672" />
+<strong>Check</strong>: Variability above and below 0 somewhat random.</p>
+</div>
+<div id="step-7.-test-for-normality-2" class="section level3 hasAnchor" number="8.5.4">
+<h3><span class="header-section-number">8.5.4</span> Step 7. Test for Normality<a href="linear-regression-examples.html#step-7.-test-for-normality-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb445-1"><a href="linear-regression-examples.html#cb445-1" tabindex="-1"></a><span class="co"># To test for normality, review plot</span></span>
+<span id="cb445-2"><a href="linear-regression-examples.html#cb445-2" tabindex="-1"></a><span class="fu">plot</span>(model.lm,  <span class="at">which =</span> <span class="dv">2</span>, <span class="at">ask =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="08-1_Examples_files/figure-html/step%2072-1.png" width="672" />
+<strong>Check</strong>: Residuals are not normally distributed. Questionable.</p>
+</div>
+<div id="application-1" class="section level3 hasAnchor" number="8.5.5">
+<h3><span class="header-section-number">8.5.5</span> Application<a href="linear-regression-examples.html#application-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The workflow provides confidence of a reasonable linear regression model. The final steps are to create a plot with uncertainity bounds and the ability to predict a value and associated uncertainity.</p>
+<p>###Workflow:</p>
+<p><strong>Confidence intervals</strong> are computed using the predict command:</p>
+<p>predict(lmheight, newdata = data.frame(age=22.5), interval = “confidence”, level = 0.95)</p>
+<p><strong>Prediction intervals</strong> are computed as follows:</p>
+<p>predict(lmheight, newdata = data.frame(age=22.5), interval = “prediction”, level = 0.95)</p>
+<p>Prediction intervals are always greater. While it includes the uncertainity in the regression uncertainties in the slope and intercept, it also includes the unexplained variability in y.</p>
+<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="linear-regression-examples.html#cb446-1" tabindex="-1"></a><span class="co"># Use model to create prediction intervals</span></span>
+<span id="cb446-2"><a href="linear-regression-examples.html#cb446-2" tabindex="-1"></a></span>
+<span id="cb446-3"><a href="linear-regression-examples.html#cb446-3" tabindex="-1"></a>model.predict <span class="ot">&lt;-</span> <span class="fu">predict</span>(model.lm, <span class="at">interval =</span> <span class="st">&quot;predict&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning in predict.lm(model.lm, interval = &quot;predict&quot;): predictions on current data refer to _future_ responses</code></pre>
+<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="linear-regression-examples.html#cb448-1" tabindex="-1"></a><span class="co"># Use model to create confidence intervals</span></span>
+<span id="cb448-2"><a href="linear-regression-examples.html#cb448-2" tabindex="-1"></a></span>
+<span id="cb448-3"><a href="linear-regression-examples.html#cb448-3" tabindex="-1"></a>model.confidence <span class="ot">&lt;-</span> <span class="fu">predict</span>(model.lm, <span class="at">interval =</span> <span class="st">&quot;confidence&quot;</span>)</span>
+<span id="cb448-4"><a href="linear-regression-examples.html#cb448-4" tabindex="-1"></a><span class="fu">colnames</span>(model.confidence) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;cfit&quot;</span>, <span class="st">&quot;clwr&quot;</span>, <span class="st">&quot;cupr&quot;</span>) <span class="co">#rename columns</span></span>
+<span id="cb448-5"><a href="linear-regression-examples.html#cb448-5" tabindex="-1"></a></span>
+<span id="cb448-6"><a href="linear-regression-examples.html#cb448-6" tabindex="-1"></a></span>
+<span id="cb448-7"><a href="linear-regression-examples.html#cb448-7" tabindex="-1"></a><span class="co"># Create dataset that merges dataset</span></span>
+<span id="cb448-8"><a href="linear-regression-examples.html#cb448-8" tabindex="-1"></a></span>
+<span id="cb448-9"><a href="linear-regression-examples.html#cb448-9" tabindex="-1"></a>data.all <span class="ot">&lt;-</span> <span class="fu">cbind</span>(data.ex,model.predict, model.confidence)</span>
+<span id="cb448-10"><a href="linear-regression-examples.html#cb448-10" tabindex="-1"></a></span>
+<span id="cb448-11"><a href="linear-regression-examples.html#cb448-11" tabindex="-1"></a><span class="co"># Create ggplot</span></span>
+<span id="cb448-12"><a href="linear-regression-examples.html#cb448-12" tabindex="-1"></a></span>
+<span id="cb448-13"><a href="linear-regression-examples.html#cb448-13" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data.all, <span class="fu">aes</span>(<span class="at">x =</span> S2t, <span class="at">y =</span> vt)) <span class="sc">+</span></span>
+<span id="cb448-14"><a href="linear-regression-examples.html#cb448-14" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="co"># adds points</span></span>
+<span id="cb448-15"><a href="linear-regression-examples.html#cb448-15" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>lwr), <span class="at">col =</span> <span class="st">&quot;coral2&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> <span class="co">#lower prediction interval</span></span>
+<span id="cb448-16"><a href="linear-regression-examples.html#cb448-16" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>upr), <span class="at">col =</span> <span class="st">&quot;coral2&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb448-17"><a href="linear-regression-examples.html#cb448-17" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>clwr,<span class="at">ymax=</span>cupr),<span class="at">alpha=</span><span class="fl">0.3</span>) <span class="sc">+</span>  <span class="co"># confidence band</span></span>
+<span id="cb448-18"><a href="linear-regression-examples.html#cb448-18" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>fit), <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span>  <span class="co"># confidence band</span></span>
+<span id="cb448-19"><a href="linear-regression-examples.html#cb448-19" tabindex="-1"></a>  <span class="fu">theme_cowplot</span>() <span class="sc">+</span></span>
+<span id="cb448-20"><a href="linear-regression-examples.html#cb448-20" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;1/v&quot;</span>) <span class="sc">+</span></span>
+<span id="cb448-21"><a href="linear-regression-examples.html#cb448-21" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;1/S^2&quot;</span>)</span>
+<span id="cb448-22"><a href="linear-regression-examples.html#cb448-22" tabindex="-1"></a></span>
+<span id="cb448-23"><a href="linear-regression-examples.html#cb448-23" tabindex="-1"></a>p1</span></code></pre></div>
+<p><img src="08-1_Examples_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="linear-regression-examples.html#cb449-1" tabindex="-1"></a>data.all<span class="sc">$</span>fit <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">/</span>(data.all<span class="sc">$</span>fit))</span>
+<span id="cb449-2"><a href="linear-regression-examples.html#cb449-2" tabindex="-1"></a>data.all<span class="sc">$</span>lwr <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">/</span>(data.all<span class="sc">$</span>lwr))</span>
+<span id="cb449-3"><a href="linear-regression-examples.html#cb449-3" tabindex="-1"></a>data.all<span class="sc">$</span>upr <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">/</span>(data.all<span class="sc">$</span>upr))</span>
+<span id="cb449-4"><a href="linear-regression-examples.html#cb449-4" tabindex="-1"></a>data.all<span class="sc">$</span>clwr <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">/</span>(data.all<span class="sc">$</span>clwr))</span>
+<span id="cb449-5"><a href="linear-regression-examples.html#cb449-5" tabindex="-1"></a>data.all<span class="sc">$</span>cupr <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">/</span>(data.all<span class="sc">$</span>cupr))</span>
+<span id="cb449-6"><a href="linear-regression-examples.html#cb449-6" tabindex="-1"></a></span>
+<span id="cb449-7"><a href="linear-regression-examples.html#cb449-7" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data.all, <span class="fu">aes</span>(<span class="at">x =</span> S, <span class="at">y =</span> v)) <span class="sc">+</span></span>
+<span id="cb449-8"><a href="linear-regression-examples.html#cb449-8" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="co"># adds points</span></span>
+<span id="cb449-9"><a href="linear-regression-examples.html#cb449-9" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>lwr), <span class="at">col =</span> <span class="st">&quot;coral2&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> <span class="co">#lower prediction interval</span></span>
+<span id="cb449-10"><a href="linear-regression-examples.html#cb449-10" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>upr), <span class="at">col =</span> <span class="st">&quot;coral2&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb449-11"><a href="linear-regression-examples.html#cb449-11" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>clwr,<span class="at">ymax=</span>cupr),<span class="at">alpha=</span><span class="fl">0.3</span>) <span class="sc">+</span>  <span class="co"># confidence band</span></span>
+<span id="cb449-12"><a href="linear-regression-examples.html#cb449-12" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>fit), <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span>  <span class="co"># confidence band</span></span>
+<span id="cb449-13"><a href="linear-regression-examples.html#cb449-13" tabindex="-1"></a>  <span class="fu">theme_cowplot</span>() <span class="sc">+</span></span>
+<span id="cb449-14"><a href="linear-regression-examples.html#cb449-14" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;v&quot;</span>) <span class="sc">+</span></span>
+<span id="cb449-15"><a href="linear-regression-examples.html#cb449-15" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;S&quot;</span>) <span class="sc">+</span></span>
+<span id="cb449-16"><a href="linear-regression-examples.html#cb449-16" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="fl">0.4</span>,.<span class="dv">1</span>)) <span class="sc">+</span> <span class="co"># changes scale to min and max with prescribed spacing</span></span>
+<span id="cb449-17"><a href="linear-regression-examples.html#cb449-17" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">9</span>,<span class="dv">1</span>)) <span class="sc">+</span> </span>
+<span id="cb449-18"><a href="linear-regression-examples.html#cb449-18" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="fl">0.8</span>)</span></code></pre></div>
+<pre><code>## Scale for y is already present.
+## Adding another scale for y, which will replace the existing scale.</code></pre>
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="linear-regression-examples.html#cb451-1" tabindex="-1"></a>p</span></code></pre></div>
+<p><img src="08-1_Examples_files/figure-html/unnamed-chunk-3-2.png" width="672" />
+The resulting plot contains the confidence and prediction intervals over the range of x-values.
+Is transforming the data the best approach? The resulting transformation resulted in a linear model. Were the remainder of the tests valid? Not necessarily for the normality. The other approach would be to fit the data with a non-linear best-fit curve. Regardless, you can see how you’d apply linear regression to data.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction-to-linear-regression-in-r.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": false,
+    "twitter": false,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf", "_main.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection",
+    "scroll_highlight": true
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
