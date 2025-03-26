@@ -4,7 +4,7 @@ params:
   version: 1.2
 ---
 
-# Linear Regression Examples
+# Linear Regression Examples {.unnumbered}
 
 This tutorial is derived from https://www.datacamp.com/community/tutorials/linear-regression-R
 
