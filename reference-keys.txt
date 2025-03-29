@@ -223,7 +223,6 @@ normality-of-residuals
 homogeneity-of-variance
 independence
 non-linear-least-squares
-anova-and-non-linear-least-squares-regression-examples
 lineweaver-burk-plot
 questions
 questions-1

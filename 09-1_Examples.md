@@ -4,7 +4,7 @@ params:
   version: 1.0
 ---
 
-# ANOVA and non-linear least squares regression examples
+# ANOVA and non-linear least squares regression examples {.unnumbered}
 
 The substrate concentration dependence on the rate or "velocity" of an enzymatic reaction in most cases can be described by the following equation:
 

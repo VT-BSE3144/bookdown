@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>10 ANOVA and non-linear least squares regression examples | Data Analysis and Numerical Methods for Biological Systems Engineers</title>
+  <title>ANOVA and non-linear least squares regression examples | Data Analysis and Numerical Methods for Biological Systems Engineers</title>
   <meta name="description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
 Systems Engineering course BSE3144: Engineering Analysis for Biological
 Systems using Numerical Methods.</p>" />
   <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="10 ANOVA and non-linear least squares regression examples | Data Analysis and Numerical Methods for Biological Systems Engineers" />
+  <meta property="og:title" content="ANOVA and non-linear least squares regression examples | Data Analysis and Numerical Methods for Biological Systems Engineers" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
@@ -19,7 +19,7 @@ Systems using Numerical Methods.</p>" />
   <meta name="github-repo" content="VT-BSE3144/bookdown" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="10 ANOVA and non-linear least squares regression examples | Data Analysis and Numerical Methods for Biological Systems Engineers" />
+  <meta name="twitter:title" content="ANOVA and non-linear least squares regression examples | Data Analysis and Numerical Methods for Biological Systems Engineers" />
   
   <meta name="twitter:description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
 Systems Engineering course BSE3144: Engineering Analysis for Biological
@@ -434,10 +434,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="9.5" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#non-linear-least-squares"><i class="fa fa-check"></i><b>9.5</b> Non-linear least squares</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="anova-and-non-linear-least-squares-regression-examples.html"><a href="anova-and-non-linear-least-squares-regression-examples.html"><i class="fa fa-check"></i><b>10</b> ANOVA and non-linear least squares regression examples</a>
+<li class="chapter" data-level="" data-path="anova-and-non-linear-least-squares-regression-examples.html"><a href="anova-and-non-linear-least-squares-regression-examples.html"><i class="fa fa-check"></i>ANOVA and non-linear least squares regression examples</a>
 <ul>
-<li class="chapter" data-level="10.0.1" data-path="anova-and-non-linear-least-squares-regression-examples.html"><a href="anova-and-non-linear-least-squares-regression-examples.html#lineweaver-burk-plot"><i class="fa fa-check"></i><b>10.0.1</b> Lineweaver-Burk plot</a></li>
-<li class="chapter" data-level="10.1" data-path="anova-and-non-linear-least-squares-regression-examples.html"><a href="anova-and-non-linear-least-squares-regression-examples.html#nonlinear-least-squares-regression"><i class="fa fa-check"></i><b>10.1</b> Nonlinear least squares regression</a></li>
+<li class="chapter" data-level="9.5.1" data-path="anova-and-non-linear-least-squares-regression-examples.html"><a href="anova-and-non-linear-least-squares-regression-examples.html#lineweaver-burk-plot"><i class="fa fa-check"></i><b>9.5.1</b> Lineweaver-Burk plot</a></li>
+<li class="chapter" data-level="9.6" data-path="anova-and-non-linear-least-squares-regression-examples.html"><a href="anova-and-non-linear-least-squares-regression-examples.html#nonlinear-least-squares-regression"><i class="fa fa-check"></i><b>9.6</b> Nonlinear least squares regression</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -459,19 +459,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="anova-and-non-linear-least-squares-regression-examples" class="section level1 hasAnchor" number="10">
-<h1><span class="header-section-number">10</span> ANOVA and non-linear least squares regression examples<a href="anova-and-non-linear-least-squares-regression-examples.html#anova-and-non-linear-least-squares-regression-examples" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="anova-and-non-linear-least-squares-regression-examples" class="section level1 unnumbered hasAnchor">
+<h1>ANOVA and non-linear least squares regression examples<a href="anova-and-non-linear-least-squares-regression-examples.html#anova-and-non-linear-least-squares-regression-examples" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>The substrate concentration dependence on the rate or “velocity” of an enzymatic reaction in most cases can be described by the following equation:</p>
 <p><span class="math display">\[\nu = \frac{V_mS}{K_m + S}\]</span></p>
 <p>where the maximum reaction velocity is <span class="math inline">\(V_m = k_{cat}E_0 = k_2E_0\)</span>, with <span class="math inline">\(E_0\)</span> the initial enzyme concentration and <span class="math inline">\(k_{cat}\)</span> the catalytic rate constant. <span class="math inline">\(K_m\)</span> is the Michaelis constant which represents the binding equilibrium of substrate-enzyme. We often need to estimate the two parameters, <span class="math inline">\(V_m\)</span> and <span class="math inline">\(K_m\)</span> based on experimental data. Although with today’s computational power these parameters could be estimated in many possible ways with non-linear regression, historically and still often today linearizations of this enzyme kinetic model are used to fit these parameters to experimental data.</p>
 <p>Last week we used the Lineweaver-Burke linearization. This week we will use non-linear least squares regression.</p>
-<div id="lineweaver-burk-plot" class="section level3 hasAnchor" number="10.0.1">
-<h3><span class="header-section-number">10.0.1</span> Lineweaver-Burk plot<a href="anova-and-non-linear-least-squares-regression-examples.html#lineweaver-burk-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="lineweaver-burk-plot" class="section level3 hasAnchor" number="9.5.1">
+<h3><span class="header-section-number">9.5.1</span> Lineweaver-Burk plot<a href="anova-and-non-linear-least-squares-regression-examples.html#lineweaver-burk-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>One method of linearization would be to invert the entire model equation.
 <span class="math display">\[\frac{1}{\nu} = \frac{1}{V_m} + \frac{K_m}{V_m} \frac{1}{S}\]</span>
 The resulting plot is called a Lineweaver-Burk plot.</p>
-<div id="questions" class="section level4 hasAnchor" number="10.0.1.1">
-<h4><span class="header-section-number">10.0.1.1</span> ???Questions???<a href="anova-and-non-linear-least-squares-regression-examples.html#questions" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="questions" class="section level4 hasAnchor" number="9.5.1.1">
+<h4><span class="header-section-number">9.5.1.1</span> ???Questions???<a href="anova-and-non-linear-least-squares-regression-examples.html#questions" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>What would you plot as x and y, and what would be the slope and y-intercept of the plot be.</p>
 <blockquote>
 <p><em>A Lineweaver-Burke plot is <span class="math inline">\(1/\nu\)</span> (y) vs <span class="math inline">\(1/S\)</span> (x). The slope is <span class="math inline">\(K_m/V_m\)</span> and the y-intercept is <span class="math inline">\(1/V_m\)</span></em></p>
@@ -549,8 +549,8 @@ The resulting plot is called a Lineweaver-Burk plot.</p>
 <span id="cb505-5"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb505-5" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">0</span>)</span></code></pre></div>
 <p><img src="09-1_Examples_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 </div>
-<div id="questions-1" class="section level4 hasAnchor" number="10.0.1.2">
-<h4><span class="header-section-number">10.0.1.2</span> ???Questions???<a href="anova-and-non-linear-least-squares-regression-examples.html#questions-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="questions-1" class="section level4 hasAnchor" number="9.5.1.2">
+<h4><span class="header-section-number">9.5.1.2</span> ???Questions???<a href="anova-and-non-linear-least-squares-regression-examples.html#questions-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>What can you say about this graph?</p>
 <blockquote>
 <p><em>The higher concentration of enzyme has a higher velocity across all substrate concentrations. The shape of the two curves is similar. As substrate concentration increases the increase in reaction velocity decreases.</em></p>
@@ -588,8 +588,8 @@ The resulting plot is called a Lineweaver-Burk plot.</p>
 ## F-statistic:  9578 on 1 and 6 DF,  p-value: 7.67e-11</code></pre>
 </div>
 </div>
-<div id="nonlinear-least-squares-regression" class="section level2 hasAnchor" number="10.1">
-<h2><span class="header-section-number">10.1</span> Nonlinear least squares regression<a href="anova-and-non-linear-least-squares-regression-examples.html#nonlinear-least-squares-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="nonlinear-least-squares-regression" class="section level2 hasAnchor" number="9.6">
+<h2><span class="header-section-number">9.6</span> Nonlinear least squares regression<a href="anova-and-non-linear-least-squares-regression-examples.html#nonlinear-least-squares-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>With the computational power available today these linearizations are really historical relicts, as we can fit these parameters to our nonlinear model. Nonlinear regression methods essentially sweep through the parameter space, by iteratively changing each parameter and calculating the distance between the model with the current parameter set and the data points. The sum of the squared distance between our model and data is called the residual. The parameter values that minimize the residual are chosen our best fit.</p>
 <div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb509-1"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb509-1" tabindex="-1"></a><span class="co"># Perform nonlinear least squares regression</span></span>
 <span id="cb509-2"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb509-2" tabindex="-1"></a>nls1 <span class="ot">&lt;-</span> <span class="fu">nls</span>(<span class="at">formula =</span> v <span class="sc">~</span> S<span class="sc">/</span>(S <span class="sc">+</span> Km) <span class="sc">*</span> Vm,</span>
