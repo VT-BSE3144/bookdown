@@ -27,8 +27,6 @@ This book was developed as a companion text for the Virginia Tech Biological Sys
 
 This course focuses on the process of solving engineering problems related to biological systems using numerical analysis including root finding, numerical integration, differentiation, interpolation and numerical solution of ordinary differential equations, error analysis and programming with engineering software.
 
-The course will cover topics of numerical analysis including: root finding, numerical integration, differentiation, interpolation and numerical solution to ordinary differential equations to biological systems engineering related problems. 
-
 R is the programming language we will use in this course. We will spend the first portion of this course devoted to learning the basics of structured and modular programming. Although we focus on R, the described techniques are also applicable in any other computer languages. Furthermore, the techniques provide a logical approach to addressing complex problems, breaking them down into manageable (and solvable) pieces.
 
 The numerical computation techniques included in this course are utilized by many engineers. For biological systems engineers, the applications of the techniques include consideration of characteristics of biological systems, such as natural variability, growth/decay cycles, nonhomogeneity, anisotropy, and process uncertainty.
