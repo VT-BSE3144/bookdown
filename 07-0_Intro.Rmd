@@ -23,7 +23,7 @@ By the end of this assessment, you should be able to:
 
 This is an opportunity to demonstrate not only your technical skills, but your curiosity, creativity, and ability to engage with data in a real-world context.
 
-You can download the project template here: <https://github.com/VT-BSE3144/07_Assessment1/Assessment1.Rmd>
+You can download the project template here: <https://github.com/VT-BSE3144/07_Assessment1/blob/main/Assessment1.Rmd>
 
 ## Directions
 
