@@ -105,7 +105,7 @@ CV(values)
 ```
 
 ```
-## [1] 0.4043228
+## [1] 0.3955489
 ```
 
 ### What objects are available?
@@ -169,7 +169,7 @@ CVnew(values, na.rm = T)
 ```
 
 ```
-## [1] 0.404398
+## [1] 0.3939373
 ```
 
 ## Packages
