@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>9 Intro to ANOVA and non-linear least squares regression | Data Analysis and Numerical Methods for Biological Systems Engineers</title>
+  <meta name="description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
+Systems Engineering course BSE3144: Engineering Analysis for Biological
+Systems using Numerical Methods.</p>" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="9 Intro to ANOVA and non-linear least squares regression | Data Analysis and Numerical Methods for Biological Systems Engineers" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
+Systems Engineering course BSE3144: Engineering Analysis for Biological
+Systems using Numerical Methods.</p>" />
+  <meta name="github-repo" content="VT-BSE3144/bookdown" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="9 Intro to ANOVA and non-linear least squares regression | Data Analysis and Numerical Methods for Biological Systems Engineers" />
+  
+  <meta name="twitter:description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
+Systems Engineering course BSE3144: Engineering Analysis for Biological
+Systems using Numerical Methods.</p>" />
+  
+
+<meta name="author" content="Durelle Scott" />
+<meta name="author" content="R. Clay Wright" />
+
+
+<meta name="date" content="2025-03-29" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="linear-regression-examples.html"/>
+<link rel="next" href="anova-and-non-linear-least-squares-regression-examples.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Data Analysis and Numerical Methods</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About this book</a></li>
+<li class="chapter" data-level="1" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html"><i class="fa fa-check"></i><b>1</b> Introduction to Posit, Rstudio, &amp; Markdown</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#pre-work"><i class="fa fa-check"></i><b>1.1</b> Pre-work</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#posit"><i class="fa fa-check"></i><b>1.2</b> Posit</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#rstudio"><i class="fa fa-check"></i><b>1.3</b> Rstudio</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-source-pane"><i class="fa fa-check"></i><b>1.3.1</b> The Source pane</a></li>
+<li class="chapter" data-level="1.3.2" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#markdown"><i class="fa fa-check"></i><b>1.3.2</b> Markdown</a></li>
+<li class="chapter" data-level="1.3.3" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#more-markdown-formatting"><i class="fa fa-check"></i><b>1.3.3</b> More Markdown formatting</a></li>
+<li class="chapter" data-level="1.3.4" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#running-code"><i class="fa fa-check"></i><b>1.3.4</b> Running code</a></li>
+<li class="chapter" data-level="1.3.5" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-console-pane"><i class="fa fa-check"></i><b>1.3.5</b> The Console pane</a></li>
+<li class="chapter" data-level="1.3.6" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-help-pane"><i class="fa fa-check"></i><b>1.3.6</b> The Help pane</a></li>
+<li class="chapter" data-level="1.3.7" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-filesplotspackageshelpviewer-pane"><i class="fa fa-check"></i><b>1.3.7</b> The Files/Plots/Packages/Help/Viewer pane</a></li>
+<li class="chapter" data-level="1.3.8" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#ok-back-to-the-source-pane"><i class="fa fa-check"></i><b>1.3.8</b> OK, back to the Source pane…</a></li>
+<li class="chapter" data-level="1.3.9" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-environment-pane"><i class="fa fa-check"></i><b>1.3.9</b> The Environment pane</a></li>
+<li class="chapter" data-level="1.3.10" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-historyconnectionsgitbuildtutorial-pane"><i class="fa fa-check"></i><b>1.3.10</b> The History/Connections/Git/Build/Tutorial pane</a></li>
+<li class="chapter" data-level="1.3.11" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#terminalrenderbackground-jobs"><i class="fa fa-check"></i><b>1.3.11</b> Terminal/Render/Background Jobs</a></li>
+<li class="chapter" data-level="1.3.12" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#yaml-headers"><i class="fa fa-check"></i><b>1.3.12</b> YAML headers</a></li>
+<li class="chapter" data-level="1.3.13" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#code-chunkblock-settings-and-global-settings"><i class="fa fa-check"></i><b>1.3.13</b> Code chunk/block settings and global settings</a></li>
+<li class="chapter" data-level="1.3.14" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#output-options"><i class="fa fa-check"></i><b>1.3.14</b> Output Options</a></li>
+<li class="chapter" data-level="1.3.15" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#troubleshooting-knitrender-problems"><i class="fa fa-check"></i><b>1.3.15</b> Troubleshooting Knit/Render problems</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html"><i class="fa fa-check"></i>Rstudio and Markdown examples</a>
+<ul>
+<li class="chapter" data-level="1.4" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#navigate-the-posit-and-rstudio-interface-with-proficiency."><i class="fa fa-check"></i><b>1.4</b> Navigate the Posit and RStudio interface with proficiency.</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#making-new-documents"><i class="fa fa-check"></i><b>1.4.1</b> Making new documents</a></li>
+<li class="chapter" data-level="1.4.2" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#navigating-the-file-pane-and-file-paths"><i class="fa fa-check"></i><b>1.4.2</b> Navigating the file pane and file paths</a></li>
+<li class="chapter" data-level="1.4.3" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#console-pane"><i class="fa fa-check"></i><b>1.4.3</b> Console pane</a></li>
+<li class="chapter" data-level="1.4.4" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#environment-pane"><i class="fa fa-check"></i><b>1.4.4</b> Environment pane</a></li>
+<li class="chapter" data-level="1.4.5" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#history-pane"><i class="fa fa-check"></i><b>1.4.5</b> History pane</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#articulate-the-process-of-using-rstudio-to-develop-markdown-documents."><i class="fa fa-check"></i><b>1.5</b> Articulate the process of using RStudio to develop markdown documents.</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#cheat-sheets-yay"><i class="fa fa-check"></i><b>1.5.1</b> Cheat Sheets! Yay!</a></li>
+<li class="chapter" data-level="1.5.2" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#inserting-code-chunks"><i class="fa fa-check"></i><b>1.5.2</b> Inserting code chunks</a></li>
+<li class="chapter" data-level="1.5.3" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#changing-code-chunk-settings"><i class="fa fa-check"></i><b>1.5.3</b> Changing code chunk settings</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#practice-using-markdown-to-format-reproducible-documents"><i class="fa fa-check"></i><b>1.6</b> Practice using markdown to format reproducible documents</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#tasks"><i class="fa fa-check"></i><b>1.6.1</b> Tasks</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html"><i class="fa fa-check"></i><b>2</b> The R Language and Tidy Data</a>
+<ul>
+<li class="chapter" data-level="2.0.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#data-organization-and-manipulation-in-spreadsheets"><i class="fa fa-check"></i><b>2.0.1</b> Data Organization and manipulation in Spreadsheets</a></li>
+<li class="chapter" data-level="2.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#reading-and-pre-class-materials"><i class="fa fa-check"></i><b>2.1</b> Reading and Pre-class Materials</a></li>
+<li class="chapter" data-level="2.2" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#tidy-data"><i class="fa fa-check"></i><b>2.2</b> Tidy data</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#top-12-tips-for-data-organization"><i class="fa fa-check"></i><b>2.2.1</b> Top 12 Tips for Data Organization</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#r-basics"><i class="fa fa-check"></i><b>2.3</b> R Basics</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#basic-math-to-linear-algebra"><i class="fa fa-check"></i><b>2.3.1</b> Basic Math to Linear Algebra</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#functions"><i class="fa fa-check"></i><b>2.4</b> Functions</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#what-is-a-function"><i class="fa fa-check"></i><b>2.4.1</b> What is a function?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#objects---variables-and-functions"><i class="fa fa-check"></i><b>2.5</b> Objects - Variables and Functions</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#obey-rs-naming-rules"><i class="fa fa-check"></i><b>2.5.1</b> Obey R’s naming rules</a></li>
+<li class="chapter" data-level="2.5.2" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#variables-and-data-types"><i class="fa fa-check"></i><b>2.5.2</b> Variables and data types</a></li>
+<li class="chapter" data-level="2.5.3" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#vectors"><i class="fa fa-check"></i><b>2.5.3</b> Vectors</a></li>
+<li class="chapter" data-level="2.5.4" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#matrices-arrays-and-lists"><i class="fa fa-check"></i><b>2.5.4</b> Matrices, Arrays and Lists</a></li>
+<li class="chapter" data-level="2.5.5" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#data-frames"><i class="fa fa-check"></i><b>2.5.5</b> Data frames</a></li>
+<li class="chapter" data-level="2.5.6" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#run-a-function"><i class="fa fa-check"></i><b>2.5.6</b> Run a function</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#tidyverse-tables"><i class="fa fa-check"></i><b>2.6</b> Tidyverse tables</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#create-a-table-manually"><i class="fa fa-check"></i><b>2.6.1</b> Create a Table Manually</a></li>
+<li class="chapter" data-level="2.6.2" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#tribble"><i class="fa fa-check"></i><b>2.6.2</b> <code>tribble()</code></a></li>
+<li class="chapter" data-level="2.6.3" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#read-a-csv-file-.csv"><i class="fa fa-check"></i><b>2.6.3</b> Read a CSV file (.csv)</a></li>
+<li class="chapter" data-level="2.6.4" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#read-a-character-delimited-file-.txt"><i class="fa fa-check"></i><b>2.6.4</b> Read a character-delimited file (.txt)</a></li>
+<li class="chapter" data-level="2.6.5" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#read-an-excel-file-.xls-.xlsx"><i class="fa fa-check"></i><b>2.6.5</b> Read an Excel file (.xls, .xlsx)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html"><i class="fa fa-check"></i>The R Language and Tidy Data Examples</a>
+<ul>
+<li class="chapter" data-level="2.7" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#tidy-data-1"><i class="fa fa-check"></i><b>2.7</b> Tidy Data</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#lets-make-a-data-dictionary-for-this-dataset"><i class="fa fa-check"></i><b>2.7.1</b> Let’s make a data dictionary for this dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#r-basics-1"><i class="fa fa-check"></i><b>2.8</b> R Basics</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#data-types"><i class="fa fa-check"></i><b>2.8.1</b> Data types</a></li>
+<li class="chapter" data-level="2.8.2" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#functions-1"><i class="fa fa-check"></i><b>2.8.2</b> Functions</a></li>
+<li class="chapter" data-level="2.8.3" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#objects"><i class="fa fa-check"></i><b>2.8.3</b> Objects</a></li>
+<li class="chapter" data-level="2.8.4" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#vectors-1"><i class="fa fa-check"></i><b>2.8.4</b> Vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#data-tibbles-dataframes"><i class="fa fa-check"></i><b>2.9</b> Data, tibbles, dataframes</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#reading-in-data"><i class="fa fa-check"></i><b>2.9.1</b> Reading in data</a></li>
+<li class="chapter" data-level="2.9.2" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#factors-1"><i class="fa fa-check"></i><b>2.9.2</b> Factors</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html"><i class="fa fa-check"></i><b>3</b> Functions, Best-coding Practices, and Debugging Intro</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#functions-2"><i class="fa fa-check"></i><b>3.1</b> Functions</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#functions-why-and-how"><i class="fa fa-check"></i><b>3.1.1</b> Functions… why and how</a></li>
+<li class="chapter" data-level="3.1.2" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#a-simple-function-cv"><i class="fa fa-check"></i><b>3.1.2</b> A simple function: CV()</a></li>
+<li class="chapter" data-level="3.1.3" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#now-we-need-to-apply-our-function."><i class="fa fa-check"></i><b>3.1.3</b> Now we need to apply our function.</a></li>
+<li class="chapter" data-level="3.1.4" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#what-objects-are-available"><i class="fa fa-check"></i><b>3.1.4</b> What objects are available?</a></li>
+<li class="chapter" data-level="3.1.5" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#optional-arguments"><i class="fa fa-check"></i><b>3.1.5</b> Optional arguments</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#packages"><i class="fa fa-check"></i><b>3.2</b> Packages</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#installing-and-using-packages"><i class="fa fa-check"></i><b>3.2.1</b> Installing and using packages</a></li>
+<li class="chapter" data-level="3.2.2" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#installing-and-using-packages-1"><i class="fa fa-check"></i><b>3.2.2</b> Installing and using packages</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#best-coding-practices"><i class="fa fa-check"></i><b>3.3</b> Best coding practices</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#reproducibility"><i class="fa fa-check"></i><b>3.3.1</b> Reproducibility</a></li>
+<li class="chapter" data-level="3.3.2" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#style-guides"><i class="fa fa-check"></i><b>3.3.2</b> Style guides</a></li>
+<li class="chapter" data-level="3.3.3" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#automated-code-stylingformatting"><i class="fa fa-check"></i><b>3.3.3</b> Automated code styling/formatting</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#debugging"><i class="fa fa-check"></i><b>3.4</b> Debugging</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#verifying-code"><i class="fa fa-check"></i><b>3.4.1</b> Verifying code</a></li>
+<li class="chapter" data-level="3.4.2" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#commenting-your-code"><i class="fa fa-check"></i><b>3.4.2</b> Commenting your code</a></li>
+<li class="chapter" data-level="3.4.3" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#commenting-out-code"><i class="fa fa-check"></i><b>3.4.3</b> “Commenting out” code</a></li>
+<li class="chapter" data-level="3.4.4" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#common-errors-and-how-to-fix-them"><i class="fa fa-check"></i><b>3.4.4</b> Common errors and How to Fix Them</a></li>
+<li class="chapter" data-level="3.4.5" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#warning-or-error"><i class="fa fa-check"></i><b>3.4.5</b> Warning or Error?</a></li>
+<li class="chapter" data-level="3.4.6" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#debugging-is-scientific"><i class="fa fa-check"></i><b>3.4.6</b> Debugging is scientific</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html"><i class="fa fa-check"></i>Functions, Best-coding Practices, and Debugging Examples</a>
+<ul>
+<li class="chapter" data-level="3.5" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#functions-3"><i class="fa fa-check"></i><b>3.5</b> Functions</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#example-1-1"><i class="fa fa-check"></i><b>3.5.1</b> Example 1</a></li>
+<li class="chapter" data-level="3.5.2" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#example-2-1"><i class="fa fa-check"></i><b>3.5.2</b> Example 2</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#best-coding-practices-1"><i class="fa fa-check"></i><b>3.6</b> Best coding practices</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#code-from-inside-out-running-the-smallest-bits-of-code-possible"><i class="fa fa-check"></i><b>3.6.1</b> Code from inside out, running the smallest bits of code possible</a></li>
+<li class="chapter" data-level="3.6.2" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#use-rstudio-to-your-advantage"><i class="fa fa-check"></i><b>3.6.2</b> Use RStudio to your advantage</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#debugging-1"><i class="fa fa-check"></i><b>3.7</b> Debugging</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#also-use-rstudio"><i class="fa fa-check"></i><b>3.7.1</b> Also use RStudio</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>4</b> Data Wrangling</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="data-wrangling.html"><a href="data-wrangling.html#connection-to-previous-work-on-data-organization"><i class="fa fa-check"></i><b>4.1</b> Connection to previous work on Data Organization</a></li>
+<li class="chapter" data-level="4.2" data-path="data-wrangling.html"><a href="data-wrangling.html#source"><i class="fa fa-check"></i><b>4.2</b> Source</a></li>
+<li class="chapter" data-level="4.3" data-path="data-wrangling.html"><a href="data-wrangling.html#introduction---example-dataset-nycflights13"><i class="fa fa-check"></i><b>4.3</b> 3.1 Introduction - Example dataset <code>nycflights13</code></a></li>
+<li class="chapter" data-level="4.4" data-path="data-wrangling.html"><a href="data-wrangling.html#section"><i class="fa fa-check"></i><b>4.4</b> 3.1.2</a></li>
+<li class="chapter" data-level="4.5" data-path="data-wrangling.html"><a href="data-wrangling.html#dplyr-basics"><i class="fa fa-check"></i><b>4.5</b> 3.1.3 dplyr basics</a></li>
+<li class="chapter" data-level="4.6" data-path="data-wrangling.html"><a href="data-wrangling.html#row-wise-functions"><i class="fa fa-check"></i><b>4.6</b> 3.2 Row-wise functions</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#filter"><i class="fa fa-check"></i><b>4.6.1</b> 3.2.1 filter()</a></li>
+<li class="chapter" data-level="4.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#arranging-rows"><i class="fa fa-check"></i><b>4.6.2</b> 3.2.3 Arranging rows</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="data-wrangling.html"><a href="data-wrangling.html#columns"><i class="fa fa-check"></i><b>4.7</b> 3.3 Columns</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#mutate---add-new-variables"><i class="fa fa-check"></i><b>4.7.1</b> 3.3.1 Mutate - Add new variables</a></li>
+<li class="chapter" data-level="4.7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#select"><i class="fa fa-check"></i><b>4.7.2</b> 3.3.2 Select</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="data-wrangling.html"><a href="data-wrangling.html#the-pipe"><i class="fa fa-check"></i><b>4.8</b> 3.4 The pipe</a></li>
+<li class="chapter" data-level="4.9" data-path="data-wrangling.html"><a href="data-wrangling.html#groups"><i class="fa fa-check"></i><b>4.9</b> 3.5 Groups</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html"><i class="fa fa-check"></i>Data Wrangling Examples</a>
+<ul>
+<li class="chapter" data-level="4.9.1" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#filter-1"><i class="fa fa-check"></i><b>4.9.1</b> Filter</a></li>
+<li class="chapter" data-level="4.9.2" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#arrange"><i class="fa fa-check"></i><b>4.9.2</b> Arrange</a></li>
+<li class="chapter" data-level="4.9.3" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#mutate---adds-a-new-column"><i class="fa fa-check"></i><b>4.9.3</b> Mutate - adds a new column</a></li>
+<li class="chapter" data-level="4.9.4" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#select-1"><i class="fa fa-check"></i><b>4.9.4</b> Select</a></li>
+<li class="chapter" data-level="4.9.5" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#grouped-summaries"><i class="fa fa-check"></i><b>4.9.5</b> Grouped summaries</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="summarizing-data.html"><a href="summarizing-data.html"><i class="fa fa-check"></i><b>5</b> Summarizing Data</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="summarizing-data.html"><a href="summarizing-data.html#learning-objectives"><i class="fa fa-check"></i><b>5.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="5.2" data-path="summarizing-data.html"><a href="summarizing-data.html#introduction"><i class="fa fa-check"></i><b>5.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="summarizing-data.html"><a href="summarizing-data.html#readings-complete-by-class-on-monday"><i class="fa fa-check"></i><b>5.2.1</b> Readings (complete by class on Monday)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="summarizing-data.html"><a href="summarizing-data.html#group_by-function-summarizing-info-based-on-typecharacteristic"><i class="fa fa-check"></i><b>5.3</b> <code>group_by</code> function: Summarizing info based on type/characteristic</a></li>
+<li class="chapter" data-level="5.4" data-path="summarizing-data.html"><a href="summarizing-data.html#grouping-with-multiple-variables"><i class="fa fa-check"></i><b>5.4</b> Grouping with multiple variables</a></li>
+<li class="chapter" data-level="5.5" data-path="summarizing-data.html"><a href="summarizing-data.html#tidying-and-untidying-data-with-pivot_-functions"><i class="fa fa-check"></i><b>5.5</b> Tidying and untidying data with <code>pivot_</code> functions</a></li>
+<li class="chapter" data-level="5.6" data-path="summarizing-data.html"><a href="summarizing-data.html#joins-and-binds-within-dplyr"><i class="fa fa-check"></i><b>5.6</b> Joins and Binds within <code>dplyr</code></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html"><i class="fa fa-check"></i>Summarizing Data Examples</a>
+<ul>
+<li class="chapter" data-level="5.7" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#bioreactor-data-analysis"><i class="fa fa-check"></i><b>5.7</b> Bioreactor Data Analysis</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#background"><i class="fa fa-check"></i><b>5.7.1</b> Background</a></li>
+<li class="chapter" data-level="5.7.2" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#tasks-1"><i class="fa fa-check"></i><b>5.7.2</b> Tasks</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#root-growth-inhibition-example"><i class="fa fa-check"></i><b>5.8</b> Root Growth Inhibition Example</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#introduction-1"><i class="fa fa-check"></i><b>5.8.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.8.2" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#read-in-data"><i class="fa fa-check"></i><b>5.8.2</b> Read in data</a></li>
+<li class="chapter" data-level="5.8.3" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#write-a-function-for-tidying-this-data"><i class="fa fa-check"></i><b>5.8.3</b> Write a function for tidying this data</a></li>
+<li class="chapter" data-level="5.8.4" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#tidy-the-individual-datasets"><i class="fa fa-check"></i><b>5.8.4</b> Tidy the individual datasets</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="data-visualization.html"><a href="data-visualization.html"><i class="fa fa-check"></i><b>6</b> Data Visualization</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="data-visualization.html"><a href="data-visualization.html#reading-complete-by-class-on-monday"><i class="fa fa-check"></i><b>6.1</b> Reading (complete by class on Monday)</a></li>
+<li class="chapter" data-level="6.2" data-path="data-visualization.html"><a href="data-visualization.html#tutorials-to-walk-through-on-your-own"><i class="fa fa-check"></i><b>6.2</b> Tutorials to walk through on your own</a></li>
+<li class="chapter" data-level="6.3" data-path="data-visualization.html"><a href="data-visualization.html#more-on-color-palettes"><i class="fa fa-check"></i><b>6.3</b> More on Color Palettes</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="data-visualization.html"><a href="data-visualization.html#previewing"><i class="fa fa-check"></i><b>6.3.1</b> Previewing</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-visualization-examples.html"><a href="data-visualization-examples.html"><i class="fa fa-check"></i>Data Visualization Examples</a>
+<ul>
+<li class="chapter" data-level="6.4" data-path="data-visualization-examples.html"><a href="data-visualization-examples.html#background-1"><i class="fa fa-check"></i><b>6.4</b> Background</a></li>
+<li class="chapter" data-level="6.5" data-path="data-visualization-examples.html"><a href="data-visualization-examples.html#data-description"><i class="fa fa-check"></i><b>6.5</b> Data Description</a></li>
+<li class="chapter" data-level="6.6" data-path="data-visualization-examples.html"><a href="data-visualization-examples.html#tasks-2"><i class="fa fa-check"></i><b>6.6</b> Tasks</a></li>
+<li class="chapter" data-level="6.7" data-path="data-visualization-examples.html"><a href="data-visualization-examples.html#setup-for-the-homework"><i class="fa fa-check"></i><b>6.7</b> Setup for the Homework</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="assessment-1.html"><a href="assessment-1.html"><i class="fa fa-check"></i><b>7</b> Assessment 1</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="assessment-1.html"><a href="assessment-1.html#directions"><i class="fa fa-check"></i><b>7.1</b> Directions</a></li>
+<li class="chapter" data-level="7.2" data-path="assessment-1.html"><a href="assessment-1.html#finding-a-data-set"><i class="fa fa-check"></i><b>7.2</b> Finding a data set</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="assessment-1.html"><a href="assessment-1.html#general"><i class="fa fa-check"></i><b>7.2.1</b> General</a></li>
+<li class="chapter" data-level="7.2.2" data-path="assessment-1.html"><a href="assessment-1.html#health"><i class="fa fa-check"></i><b>7.2.2</b> Health</a></li>
+<li class="chapter" data-level="7.2.3" data-path="assessment-1.html"><a href="assessment-1.html#environment"><i class="fa fa-check"></i><b>7.2.3</b> Environment</a></li>
+<li class="chapter" data-level="7.2.4" data-path="assessment-1.html"><a href="assessment-1.html#agriculture"><i class="fa fa-check"></i><b>7.2.4</b> Agriculture</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="assessment-1.html"><a href="assessment-1.html#questionstasks"><i class="fa fa-check"></i><b>7.3</b> Questions/Tasks</a></li>
+<li class="chapter" data-level="7.4" data-path="assessment-1.html"><a href="assessment-1.html#guideline-on-the-use-of-ai-tools"><i class="fa fa-check"></i><b>7.4</b> Guideline on the Use of AI Tools</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html"><i class="fa fa-check"></i><b>8</b> Introduction to Linear Regression in R</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#objectives"><i class="fa fa-check"></i><b>8.1</b> Objectives</a></li>
+<li class="chapter" data-level="8.2" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#reading"><i class="fa fa-check"></i><b>8.2</b> Reading</a></li>
+<li class="chapter" data-level="8.3" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#active-package-libraries"><i class="fa fa-check"></i><b>8.3</b> Active Package Libraries</a></li>
+<li class="chapter" data-level="8.4" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#linear-regression"><i class="fa fa-check"></i><b>8.4</b> Linear Regression</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#assumptions"><i class="fa fa-check"></i><b>8.4.1</b> Assumptions</a></li>
+<li class="chapter" data-level="8.4.2" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#workflow"><i class="fa fa-check"></i><b>8.4.2</b> Workflow:</a></li>
+<li class="chapter" data-level="8.4.3" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#example-8"><i class="fa fa-check"></i><b>8.4.3</b> Example</a></li>
+<li class="chapter" data-level="8.4.4" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#predicting-values-applications-of-linear-models"><i class="fa fa-check"></i><b>8.4.4</b> Predicting values: Applications of linear models</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#now-lets-say-you-want-to-predict-a-y-value-for-a-given-age."><i class="fa fa-check"></i><b>8.5</b> Now, let’s say you want to predict a y-value for a given age.</a></li>
+<li class="chapter" data-level="8.6" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#example-2-from-reading"><i class="fa fa-check"></i><b>8.6</b> Example 2 from reading</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html"><i class="fa fa-check"></i>Linear Regression Examples</a>
+<ul>
+<li class="chapter" data-level="8.7" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#active-libraries"><i class="fa fa-check"></i><b>8.7</b> Active Libraries</a></li>
+<li class="chapter" data-level="8.8" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#linear-regression-1"><i class="fa fa-check"></i><b>8.8</b> Linear Regression</a></li>
+<li class="chapter" data-level="8.9" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#assumptions-1"><i class="fa fa-check"></i><b>8.9</b> Assumptions</a></li>
+<li class="chapter" data-level="8.10" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#example-10"><i class="fa fa-check"></i><b>8.10</b> Example</a>
+<ul>
+<li class="chapter" data-level="8.10.1" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-1.-read-in-data-1"><i class="fa fa-check"></i><b>8.10.1</b> Step 1. Read in data</a></li>
+<li class="chapter" data-level="8.10.2" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-2.-plot-data-visualize-linearity-1"><i class="fa fa-check"></i><b>8.10.2</b> Step 2. Plot data &amp; visualize linearity</a></li>
+<li class="chapter" data-level="8.10.3" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-3.-transform-data-1"><i class="fa fa-check"></i><b>8.10.3</b> Step 3. Transform data</a></li>
+<li class="chapter" data-level="8.10.4" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-4.-linear-model-1"><i class="fa fa-check"></i><b>8.10.4</b> Step 4. Linear model</a></li>
+<li class="chapter" data-level="8.10.5" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-5.-test-for-homoscedasaticity-1"><i class="fa fa-check"></i><b>8.10.5</b> Step 5. Test for homoscedasaticity</a></li>
+<li class="chapter" data-level="8.10.6" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-6.-test-for-bias-1"><i class="fa fa-check"></i><b>8.10.6</b> Step 6. Test for bias</a></li>
+<li class="chapter" data-level="8.10.7" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-7.-test-for-normality-1"><i class="fa fa-check"></i><b>8.10.7</b> Step 7. Test for Normality</a></li>
+<li class="chapter" data-level="8.10.8" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#application"><i class="fa fa-check"></i><b>8.10.8</b> Application</a></li>
+</ul></li>
+<li class="chapter" data-level="8.11" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#take-2-try-second-order"><i class="fa fa-check"></i><b>8.11</b> Take 2, try second order!</a>
+<ul>
+<li class="chapter" data-level="8.11.1" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-4.-linear-model-2"><i class="fa fa-check"></i><b>8.11.1</b> Step 4. Linear model</a></li>
+<li class="chapter" data-level="8.11.2" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-5.-test-for-homoscedasaticity-2"><i class="fa fa-check"></i><b>8.11.2</b> Step 5. Test for homoscedasaticity</a></li>
+<li class="chapter" data-level="8.11.3" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-6.-test-for-bias-2"><i class="fa fa-check"></i><b>8.11.3</b> Step 6. Test for bias</a></li>
+<li class="chapter" data-level="8.11.4" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-7.-test-for-normality-2"><i class="fa fa-check"></i><b>8.11.4</b> Step 7. Test for Normality</a></li>
+<li class="chapter" data-level="8.11.5" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#application-1"><i class="fa fa-check"></i><b>8.11.5</b> Application</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html"><i class="fa fa-check"></i><b>9</b> Intro to ANOVA and non-linear least squares regression</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#reading-1"><i class="fa fa-check"></i><b>9.1</b> Reading</a></li>
+<li class="chapter" data-level="9.2" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#anova-tests-interactions-between-variables"><i class="fa fa-check"></i><b>9.2</b> ANOVA tests interactions between variables</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#experiment-1"><i class="fa fa-check"></i><b>9.2.1</b> Experiment 1</a></li>
+<li class="chapter" data-level="9.2.2" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#ploting-the-full-dataset"><i class="fa fa-check"></i><b>9.2.2</b> Ploting the full dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#post-hoc-testing"><i class="fa fa-check"></i><b>9.3</b> Post hoc testing</a></li>
+<li class="chapter" data-level="9.4" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#assumptions-of-anova"><i class="fa fa-check"></i><b>9.4</b> Assumptions of ANOVA</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#normality-of-residuals"><i class="fa fa-check"></i><b>9.4.1</b> Normality of residuals</a></li>
+<li class="chapter" data-level="9.4.2" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#homogeneity-of-variance"><i class="fa fa-check"></i><b>9.4.2</b> Homogeneity of variance</a></li>
+<li class="chapter" data-level="9.4.3" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#independence"><i class="fa fa-check"></i><b>9.4.3</b> Independence</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#non-linear-least-squares"><i class="fa fa-check"></i><b>9.5</b> Non-linear least squares</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="anova-and-non-linear-least-squares-regression-examples.html"><a href="anova-and-non-linear-least-squares-regression-examples.html"><i class="fa fa-check"></i><b>10</b> ANOVA and non-linear least squares regression examples</a>
+<ul>
+<li class="chapter" data-level="10.0.1" data-path="anova-and-non-linear-least-squares-regression-examples.html"><a href="anova-and-non-linear-least-squares-regression-examples.html#lineweaver-burk-plot"><i class="fa fa-check"></i><b>10.0.1</b> Lineweaver-Burk plot</a></li>
+<li class="chapter" data-level="10.1" data-path="anova-and-non-linear-least-squares-regression-examples.html"><a href="anova-and-non-linear-least-squares-regression-examples.html#nonlinear-least-squares-regression"><i class="fa fa-check"></i><b>10.1</b> Nonlinear least squares regression</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis and Numerical Methods for Biological Systems Engineers</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="intro-to-anova-and-non-linear-least-squares-regression" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">9</span> Intro to ANOVA and non-linear least squares regression<a href="intro-to-anova-and-non-linear-least-squares-regression.html#intro-to-anova-and-non-linear-least-squares-regression" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This week our goals are to be able to:</p>
+<ul>
+<li>Conduct analysis of variance (ANOVA) for comparing means across multiple groups.</li>
+<li>Interpret the results of statistical tests and ANOVA, including understanding p-values, confidence intervals, and model summaries.</li>
+<li>Check assumptions such as normality of residuals in statistical models.</li>
+<li>Explore interaction effects in ANOVA models.</li>
+<li>Compare different models using the <code>anova</code> function.</li>
+</ul>
+<div id="reading-1" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> Reading<a href="intro-to-anova-and-non-linear-least-squares-regression.html#reading-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Read through section 3 of <a href="https://mq-software-carpentry.github.io/statistics-with-r/index.html">the Data Carpentries Statistics with R</a></li>
+<li>Read through <a href="https://tuos-bio-data-skills.github.io/intro-stats-book/non-linear-regression-in-R.html">Chapter 24 Non-linear regression in R here</a></li>
+</ul>
+</div>
+<div id="anova-tests-interactions-between-variables" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> ANOVA tests interactions between variables<a href="intro-to-anova-and-non-linear-least-squares-regression.html#anova-tests-interactions-between-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This lesson in basic analysis of variance focuses and extends upon an example originally published in <a href="https://www.ncbi.nlm.nih.gov/pubmed/26220933">Brady et al. 2015</a>. Read through the introduction of this paper and come back when you’re at the “ANOVA PROPERLY TESTS GENETIC INTERACTIONS” section.</p>
+<p><a href="https://en.wikipedia.org/wiki/Analysis_of_variance">ANOVA (Analysis of Variance)</a> facilitates comparisons of quantitative outcome variables between and among different categorical, grouping variables as well as interactions between these variables. It is an extension of linear regression that allows us to compare group means in a more rigorous way than using pairwise T-tests.</p>
+<p>Let’s simulate an experiment in which we want to determine if two genes interact to contribute to a particular phenotype. These genes could be redundant or interact in some epistatic (non-linear) manner. To figure this out we will need to measure the phenotype of interest for the two single mutants, the wild type, and the double mutant. For this example, let’s use root length as the phenotype. Suppose we have two mutants in two genes that we suspect have an effect on root length, as well as a double mutant containing mutations in both genes.</p>
+<p>First, we will simulate an experiment by drawing root length values from a random normal distribution for each genotype, and then compile these values we drew into a data frame. We will pick means and standard deviations for the normal distributions from thin-air for now. Feel free to come back later and change these values to see how differences in means and standard deviations will affect the outcomes.</p>
+<div id="experiment-1" class="section level3 hasAnchor" number="9.2.1">
+<h3><span class="header-section-number">9.2.1</span> Experiment 1<a href="intro-to-anova-and-non-linear-least-squares-regression.html#experiment-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb452-1" tabindex="-1"></a><span class="co"># Draw 3 measurements from a random normal distribution for each plant line</span></span>
+<span id="cb452-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb452-2" tabindex="-1"></a>WT <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">mean=</span><span class="dv">100</span>, <span class="at">sd=</span><span class="dv">10</span>) <span class="co"># WT genotype</span></span>
+<span id="cb452-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb452-3" tabindex="-1"></a>M1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">mean=</span><span class="dv">85</span>, <span class="at">sd=</span><span class="dv">10</span>)  <span class="co"># Single mutant in Gene 1</span></span>
+<span id="cb452-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb452-4" tabindex="-1"></a>M2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">mean=</span><span class="dv">85</span>, <span class="at">sd=</span><span class="dv">10</span>)  <span class="co"># Single mutant in Gene 2</span></span>
+<span id="cb452-5"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb452-5" tabindex="-1"></a>DM <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">mean=</span><span class="dv">70</span>, <span class="at">sd=</span><span class="dv">10</span>)  <span class="co"># Double mutant in Gene 1 and Gene 2</span></span>
+<span id="cb452-6"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb452-6" tabindex="-1"></a><span class="co"># Create a column of the simulated phenotype measurements that we randomly drew above</span></span>
+<span id="cb452-7"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb452-7" tabindex="-1"></a>Phen <span class="ot">&lt;-</span> <span class="fu">c</span>(WT, M1, M2, DM)</span></code></pre></div>
+<p>Now we will create a dataframe with columns for the status of each gene, that this is the first experiment, and the measurement of phenotype. Then we will combine these columns with our root length measurements in a data frame.</p>
+<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb453-1" tabindex="-1"></a><span class="co"># Create a column for the genotype at gene 1</span></span>
+<span id="cb453-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb453-2" tabindex="-1"></a><span class="co"># 3 wild-types, 3 single mutants in Gene 1, 3 single mutants in Gene 2, 3 double mutants</span></span>
+<span id="cb453-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb453-3" tabindex="-1"></a>M1G <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;WT&quot;</span>, <span class="st">&quot;WT&quot;</span>, <span class="st">&quot;WT&quot;</span>, <span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M1&quot;</span>, <span class="st">&quot;WT&quot;</span>, <span class="st">&quot;WT&quot;</span>, <span class="st">&quot;WT&quot;</span>, <span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M1&quot;</span>)</span>
+<span id="cb453-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb453-4" tabindex="-1"></a><span class="co"># Create a column for the genotype at gene 2</span></span>
+<span id="cb453-5"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb453-5" tabindex="-1"></a>M2G <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;WT&quot;</span>, <span class="st">&quot;WT&quot;</span>, <span class="st">&quot;WT&quot;</span>, <span class="st">&quot;WT&quot;</span>, <span class="st">&quot;WT&quot;</span>, <span class="st">&quot;WT&quot;</span>, <span class="st">&quot;M2&quot;</span>, <span class="st">&quot;M2&quot;</span>, <span class="st">&quot;M2&quot;</span>, <span class="st">&quot;M2&quot;</span>, <span class="st">&quot;M2&quot;</span>, <span class="st">&quot;M2&quot;</span>) </span>
+<span id="cb453-6"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb453-6" tabindex="-1"></a><span class="co"># Create a column for the repeat of the experiment, as we will be repeating this process several times</span></span>
+<span id="cb453-7"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb453-7" tabindex="-1"></a>Exp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>)</span>
+<span id="cb453-8"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb453-8" tabindex="-1"></a></span>
+<span id="cb453-9"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb453-9" tabindex="-1"></a>Rep1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Exp,M1G,M2G,Phen)</span>
+<span id="cb453-10"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb453-10" tabindex="-1"></a>Rep1</span></code></pre></div>
+<pre><code>##    Exp M1G M2G      Phen
+## 1    1  WT  WT 106.49791
+## 2    1  WT  WT 108.94873
+## 3    1  WT  WT  81.38467
+## 4    1  M1  WT  85.52398
+## 5    1  M1  WT  91.30829
+## 6    1  M1  WT  89.47659
+## 7    1  WT  M2  97.25346
+## 8    1  WT  M2  88.57212
+## 9    1  WT  M2  74.12750
+## 10   1  M1  M2  68.49697
+## 11   1  M1  M2  82.76363
+## 12   1  M1  M2  71.52796</code></pre>
+<p>Note that the values you drew will be different from those above and different from everyone else.
+Now we also need to convert each of these independent variables from strings to factors, as required by the ANOVA function.</p>
+<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb455-1" tabindex="-1"></a><span class="fu">class</span>(Rep1<span class="sc">$</span>M1G)</span></code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb457-1" tabindex="-1"></a>Rep1<span class="sc">$</span>M1G <span class="ot">&lt;-</span> <span class="fu">factor</span>(Rep1<span class="sc">$</span>M1G) </span>
+<span id="cb457-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb457-2" tabindex="-1"></a>Rep1<span class="sc">$</span>M2G <span class="ot">&lt;-</span> <span class="fu">factor</span>(Rep1<span class="sc">$</span>M2G) </span>
+<span id="cb457-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb457-3" tabindex="-1"></a>Rep1<span class="sc">$</span>Exp <span class="ot">&lt;-</span> <span class="fu">factor</span>(Rep1<span class="sc">$</span>Exp)</span></code></pre></div>
+<p>Now that we have our data frame set up we can visualize our data and test our hypothesis.</p>
+<p>First, let’s plot these data to get an idea of what they look like</p>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb458-1" tabindex="-1"></a><span class="co">#install a package from CRAN </span></span>
+<span id="cb458-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb458-2" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;ggplot2&#39;</span>)</span>
+<span id="cb458-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb458-3" tabindex="-1"></a></span>
+<span id="cb458-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb458-4" tabindex="-1"></a></span>
+<span id="cb458-5"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb458-5" tabindex="-1"></a><span class="co">#we will also need the &#39;magrittr&#39;, ‘dplyr’, &#39;forcats&#39;, &#39;car&#39;, &#39;agricolae&#39;, and &#39;plyr&#39; packages later on</span></span>
+<span id="cb458-6"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb458-6" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;magrittr&#39;</span>)</span>
+<span id="cb458-7"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb458-7" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;dplyr&#39;</span>)</span>
+<span id="cb458-8"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb458-8" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;forcats&quot;</span>)</span>
+<span id="cb458-9"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb458-9" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;car&quot;</span>)</span>
+<span id="cb458-10"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb458-10" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;agricolae&quot;</span>)</span>
+<span id="cb458-11"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb458-11" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;plyr&quot;</span>)</span></code></pre></div>
+<p>Let’s explore this data a bit using the <code>qplot</code> function.</p>
+<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb459-1" tabindex="-1"></a><span class="co">#before using any package we must load it into our workspace</span></span>
+<span id="cb459-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb459-2" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;ggplot2&#39;</span>)</span>
+<span id="cb459-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb459-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> Rep1, <span class="at">mapping  =</span> <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">interaction</span>(M1G, M2G), <span class="at">y =</span> Phen, <span class="at">color =</span> <span class="fu">interaction</span>(M1G, M2G))) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="09-0_intro_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<hr />
+<p>#####???Question???<br />
+What can we say about this data? Write a quick summary of this graph and formulate a hypothesis.
+<em>answer here</em></p>
+<p>Is one gene contributing more to the root length phenotype than another?
+<em>answer here</em></p>
+<p>Does the double mutant have a more or less severe phenotype than the individual mutants?
+<em>answer here</em></p>
+<p>Do you think the genes interact to contribute to the phenotype?<br />
+<em>answer here</em></p>
+<hr />
+<p>OK! Back to our analysis of variance. We want to ask whether or not the root length values for wildtype plants, the single mutants in each gene, and the double mutant all came from the same distribution. To ask this question analysis of variance, as the name implies, compares different variances in our experiment. <strong>ANOVA compares the variance between the groups we are comparing to the variance within each group. So in this case we want to compare the phenotypic variance between the means of the WT and each mutant to the phenotypic variance within each of these groups. Another way of thinking about this is that we are comparing the effect of the variable that separates the groups, to the precision of our measurment of this effect.</strong> The variance between groups is called the systematic variance and the variance within groups is called the error variance.</p>
+<p><span class="math display">\[\frac{variance\ between}{variance\ within} = \frac{systematic\ variance}{error\ variance}\]</span></p>
+<p>Let’s visually explore this ANOVA idea a bit.
+For each genotype we can calculate the mean phenotype and the variance around the mean. These is the “within” group variance. We’ll add means and standard error to this plot using the <code>stat_summary</code> function to represent “within” variance. We can use the <code>alpha</code> aesthetic to change the saturation of the colors to make the mean stand out a bit more and hide the raw data somewhat. We can also use the <code>geom</code> argument <code>jitter</code> in the qplot function to prevent the mean and standard error from being plotted overtop of the raw data.</p>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb460-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> Rep1, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">interaction</span>(M1G, M2G), <span class="at">y =</span> Phen, <span class="at">color =</span> <span class="fu">interaction</span>(M1G, M2G))) <span class="sc">+</span> </span>
+<span id="cb460-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb460-2" tabindex="-1"></a>  <span class="fu">geom_jitter</span>( <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb460-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb460-3" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">alpha =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="09-0_intro_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>The “between” group mean and variance is calculated using the mean for each group. Here, we’ll split up our data frame <code>Rep1</code> into groups by the experiment, genotype at gene1, and genotype at gene2. Then we will calculate the mean for each of these groups. To do this we will use the <code>dplyr</code> package. We will also use the pipe function <code>%&gt;%</code> from the <code>magrittr</code> package. The pipe function passes the result of the code on the left side to the first argument of the code on the right side.</p>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb461-1" tabindex="-1"></a><span class="co"># Load the necessary packages </span></span>
+<span id="cb461-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb461-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb465-1" tabindex="-1"></a><span class="co"># library(magrittr) no longer necessary </span></span>
+<span id="cb465-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb465-2" tabindex="-1"></a><span class="co"># Take the Rep1 dataset and split it into groups</span></span>
+<span id="cb465-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb465-3" tabindex="-1"></a>Rep1 <span class="sc">|&gt;</span> <span class="fu">group_by</span>(Exp, M1G, M2G) <span class="sc">|&gt;</span></span>
+<span id="cb465-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb465-4" tabindex="-1"></a><span class="co"># Note that we don&#39;t need to use quotes with functions from the dplyr package</span></span>
+<span id="cb465-5"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb465-5" tabindex="-1"></a><span class="co"># Technically each of Exp, M1G, and M2G are passed to the &quot;...&quot; argument of the group_by function</span></span>
+<span id="cb465-6"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb465-6" tabindex="-1"></a><span class="co"># We added a pipe function to the end of this line so we can pass these groups to the `summarise` function to calculation the mean of each group</span></span>
+<span id="cb465-7"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb465-7" tabindex="-1"></a><span class="co"># We can then use the right arrow to assign this new data frame of the means to an object</span></span>
+<span id="cb465-8"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb465-8" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Phen =</span> <span class="fu">mean</span>(Phen)) <span class="ot">-&gt;</span> means</span></code></pre></div>
+<pre><code>## `summarise()` has grouped output by &#39;Exp&#39;, &#39;M1G&#39;. You can override using the
+## `.groups` argument.</code></pre>
+<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb467-1" tabindex="-1"></a>means<span class="sc">$</span>M1G <span class="ot">&lt;-</span> <span class="st">&quot;mean&quot;</span></span>
+<span id="cb467-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb467-2" tabindex="-1"></a>means<span class="sc">$</span>M2G <span class="ot">&lt;-</span> <span class="st">&quot;mean&quot;</span></span>
+<span id="cb467-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb467-3" tabindex="-1"></a><span class="co"># Create a new data frame with the mean rows combined with our data</span></span>
+<span id="cb467-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb467-4" tabindex="-1"></a>Rep1means <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(Rep1, means)</span>
+<span id="cb467-5"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb467-5" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> Rep1means, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">interaction</span>(M1G, M2G), <span class="at">y =</span> Phen, <span class="at">color =</span> <span class="fu">interaction</span>(M1G, M2G))) <span class="sc">+</span> </span>
+<span id="cb467-6"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb467-6" tabindex="-1"></a>         <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb467-7"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb467-7" tabindex="-1"></a>         <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">alpha =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="09-0_intro_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>So now the mean.mean column contains four points representing the means of the four groups. The mean of these means, called the grand mean, is represented by the large point and the variance of the group means about the grand mean represents the between groups variance, but here we’ve used the <code>mean_se</code> function to calculate standard error. The true value of the variance is the difference between each data point and the mean. We can write our own function to calculate the true variance. Don’t get bogged down in the code here (unless you want to :), just pay attention to the graphs. We can also use the <code>forcats</code> package to move the mean.mean column to the end of the graph and relabel each of the columns. In general the forcats package has functions that allow us to arrange factors (forcats is a rearrangement of factor, haha!). Let’s also clean up the axis labels by adding <code>labs</code> to the plot.</p>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb468-1" tabindex="-1"></a><span class="fu">library</span>(forcats)</span>
+<span id="cb468-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb468-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> Rep1means, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_recode</span>(<span class="fu">fct_relevel</span>(<span class="fu">fct_rev</span>(<span class="fu">interaction</span>(M1G, M2G)), <span class="st">&quot;mean.mean&quot;</span>, <span class="at">after =</span> <span class="cn">Inf</span>),</span>
+<span id="cb468-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb468-3" tabindex="-1"></a>                                                      <span class="at">double =</span> <span class="st">&quot;M1.M2&quot;</span>, <span class="at">mut2 =</span> <span class="st">&quot;WT.M2&quot;</span>, <span class="at">mut1 =</span> <span class="st">&quot;M1.WT&quot;</span>, </span>
+<span id="cb468-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb468-4" tabindex="-1"></a>                                                      <span class="at">WT =</span> <span class="st">&quot;WT.WT&quot;</span>, <span class="at">grand_means =</span> <span class="st">&quot;mean.mean&quot;</span>), </span>
+<span id="cb468-5"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb468-5" tabindex="-1"></a>                                       <span class="at">y =</span> Phen,</span>
+<span id="cb468-6"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb468-6" tabindex="-1"></a>                                       <span class="at">color =</span> <span class="fu">interaction</span>(M1G, M2G))) <span class="sc">+</span> </span>
+<span id="cb468-7"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb468-7" tabindex="-1"></a>         <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb468-8"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb468-8" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="cf">function</span>(y){</span>
+<span id="cb468-9"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb468-9" tabindex="-1"></a>    <span class="fu">data.frame</span>(</span>
+<span id="cb468-10"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb468-10" tabindex="-1"></a>      <span class="at">ymin =</span> <span class="fu">mean</span>(y) <span class="sc">-</span> <span class="fu">sum</span>(<span class="fu">mean</span>(y) <span class="sc">-</span> y[<span class="fu">which</span>(y<span class="sc">&lt;</span><span class="fu">mean</span>(y))]),</span>
+<span id="cb468-11"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb468-11" tabindex="-1"></a>      <span class="at">y =</span> <span class="fu">mean</span>(y),</span>
+<span id="cb468-12"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb468-12" tabindex="-1"></a>      <span class="at">ymax =</span> <span class="fu">mean</span>(y) <span class="sc">+</span> <span class="fu">sum</span>(y[<span class="fu">which</span>(y<span class="sc">&gt;</span><span class="fu">mean</span>(y))] <span class="sc">-</span> <span class="fu">mean</span>(y)))</span>
+<span id="cb468-13"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb468-13" tabindex="-1"></a>    }, <span class="at">alpha =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb468-14"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb468-14" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;genotype&quot;</span>, <span class="at">y =</span> <span class="st">&quot;root length (mm)&quot;</span>)</span></code></pre></div>
+<p><img src="09-0_intro_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+Now we have a pretty graph showing the mean and variance for each genotype (the first four columns) as well as the grand mean and variance (the last column).</p>
+<hr />
+<p>#####???Question???<br />
+How does the variance in each group compare to the variance in the grand mean?
+<em>answer here</em></p>
+<hr />
+<p>Now, let’s formulate that hypothesis as a mathematical model so that we can perform the ANOVA analysis in R.</p>
+<p>Generally, we know that we have a response variable that we are measuring, that is a function of some set of predictors.
+<span class="math display">\[response \sim f(predictors)\]</span>
+The ~ here means that this is a hypothetical or approximate relationship between the response and predictors as there are certainly other factors that we cannot predict or error that we cannot account for in our model.</p>
+<hr />
+<p>#####???Question???<br />
+What is the dependent variable in our simulated experiment? This is also known as the response variable and is typically continuous.
+<em>answer here</em></p>
+<p>What are the independent or predictor variables of that response? These are typically discrete or categorical for ANOVA analysis.
+<em>answer here</em></p>
+<hr />
+<p><span class="math display">\[phenotype \sim f(Gene 1, Gene2)\]</span></p>
+<p>Expanding this function a bit, we can assess each individual genes functional contribution to the phenotype as well as the extent to which they interact (or interfere) with one another. Therefore, our final model that we would like to test is</p>
+<p><span class="math display">\[Phen \sim M1G + M2G + M1G:M2G\]</span></p>
+<p>This is called a general linear model. This should remind you of a linear regression analysis from way back in Algebra II. We have written out an equation that we think should fit our data. ANOVA assigns the deviation or error between our model and our data into groups based on the predictors. It does this by comparing the variance between groups of predictors to the variance within groups of predictors.</p>
+<p>Now that we have our model formulated, let’s set this up in the ANOVA framework in R to finally get an answer to our question: “Are these genes interacting to regulate to root length?”</p>
+<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb469-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb469-1" tabindex="-1"></a>?aov</span>
+<span id="cb469-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb469-2" tabindex="-1"></a>Exp1 <span class="ot">&lt;-</span> <span class="fu">aov</span>(Phen <span class="sc">~</span> M1G <span class="sc">+</span> M2G <span class="sc">+</span> M1G<span class="sc">:</span>M2G , <span class="at">data=</span>Rep1) </span>
+<span id="cb469-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb469-3" tabindex="-1"></a><span class="fu">summary</span>(Exp1)</span></code></pre></div>
+<pre><code>##             Df Sum Sq Mean Sq F value Pr(&gt;F)  
+## M1G          1  381.8   381.8   3.515 0.0977 .
+## M2G          1  538.7   538.7   4.960 0.0566 .
+## M1G:M2G      1    3.7     3.7   0.034 0.8586  
+## Residuals    8  868.9   108.6                 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>So what does this summary tell us? <code>Sum Sq</code> stands for sum of squares. This is the sum of the squared deviation between the groups of the variable. <code>Mean Sq</code> is <code>Sum Sq</code> divided by the degrees of freedom or <code>Df</code> in that variable and is essentially the variance of that variable. The degrees of freedom are the number of groups for that variable minus one. <code>Residuals</code> is the total within groups variance.</p>
+<p>Now for the comparison of the variances that we’ve been talking about all along. The <code>F value</code> is the ratio of the <code>Mean Sq</code> of the variable over the <code>Residuals</code>. So the larger the <code>F value</code> the more the variance between the predictor levels dominates the variance within predictor levels (i.e. the between treatment variance is greater than the sampling variance). So for our experiment a gene with an F value much greater than one indicates that the variance among genotypes is much greater than the variance within genotypes. The Pr(&gt;F), is the probability that the data are consistent with the null hypothesis, which in this case is that the variance between genotypes of gene is not different from the variance within the genotypes. This is referred to as the p-value. So if this p-value is less than the confidence threshold you have set for your experiment (frequently 0.05), you can reject the null hypothesis and conclude that the gene has a significant effect on the phenotype.</p>
+<p>However, <strong>we cannot accept the null hypothesis</strong> for those independent variables with p-values greater than our confidence threshold!!! We can only fail to reject the null, meaning we can only say that we don’t have enough data to detect an effect on the phenotype.</p>
+<p>Chances are with this first small experiment you don’t have enough data to say anything significant about the interaction between gene1 and gene2 (i.e. we don’t have enough evidence to reject the null hypothesis).</p>
+<p>Let’s repeat the experiment!</p>
+<p>##Experiment 2</p>
+<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb471-1" tabindex="-1"></a>WT <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">3</span>, <span class="at">mean=</span><span class="dv">100</span>, <span class="at">sd=</span><span class="dv">10</span>)</span>
+<span id="cb471-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb471-2" tabindex="-1"></a>M1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">3</span>, <span class="at">mean=</span><span class="dv">85</span>, <span class="at">sd=</span><span class="dv">10</span>)</span>
+<span id="cb471-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb471-3" tabindex="-1"></a>M2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">3</span>, <span class="at">mean=</span><span class="dv">85</span>, <span class="at">sd=</span><span class="dv">10</span>)</span>
+<span id="cb471-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb471-4" tabindex="-1"></a>DM <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">3</span>, <span class="at">mean=</span><span class="dv">70</span>, <span class="at">sd=</span><span class="dv">10</span>)</span>
+<span id="cb471-5"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb471-5" tabindex="-1"></a>Exp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;2&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;2&quot;</span>) </span>
+<span id="cb471-6"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb471-6" tabindex="-1"></a>Phen <span class="ot">&lt;-</span> <span class="fu">c</span>(WT, M1, M2, DM)</span>
+<span id="cb471-7"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb471-7" tabindex="-1"></a></span>
+<span id="cb471-8"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb471-8" tabindex="-1"></a>Rep2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Exp,M1G,M2G,Phen) </span>
+<span id="cb471-9"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb471-9" tabindex="-1"></a>Rep2<span class="sc">$</span>M1G <span class="ot">&lt;-</span> <span class="fu">factor</span>(Rep2<span class="sc">$</span>M1G) </span>
+<span id="cb471-10"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb471-10" tabindex="-1"></a>Rep2<span class="sc">$</span>M2G <span class="ot">&lt;-</span> <span class="fu">factor</span>(Rep2<span class="sc">$</span>M2G) </span>
+<span id="cb471-11"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb471-11" tabindex="-1"></a>Rep2<span class="sc">$</span>Exp <span class="ot">&lt;-</span> <span class="fu">factor</span>(Rep2<span class="sc">$</span>Exp)</span></code></pre></div>
+<p>ANOVA analysis for trial 2</p>
+<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb472-1" tabindex="-1"></a>Exp2 <span class="ot">&lt;-</span> <span class="fu">aov</span>(Phen <span class="sc">~</span> M1G <span class="sc">+</span> M2G <span class="sc">+</span> M1G<span class="sc">:</span>M2G , <span class="at">data=</span>Rep2) </span>
+<span id="cb472-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb472-2" tabindex="-1"></a><span class="fu">summary</span>(Exp2)</span></code></pre></div>
+<pre><code>##             Df Sum Sq Mean Sq F value  Pr(&gt;F)   
+## M1G          1 1640.9  1640.9  15.954 0.00398 **
+## M2G          1  484.7   484.7   4.713 0.06173 . 
+## M1G:M2G      1   11.3    11.3   0.110 0.74905   
+## Residuals    8  822.8   102.9                   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<hr />
+<p>#####???Question???<br />
+What can you conclude from this experiment?
+<em>answer here</em></p>
+<hr />
+<p>Because all good things come in threes, and the conclusions likely differ between experiments, let’s repeat the experiment a third time.</p>
+<p>##Experiment 3</p>
+<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb474-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb474-1" tabindex="-1"></a>WT <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">3</span>, <span class="at">mean=</span><span class="dv">100</span>, <span class="at">sd=</span><span class="dv">10</span>)</span>
+<span id="cb474-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb474-2" tabindex="-1"></a>M1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">3</span>, <span class="at">mean=</span><span class="dv">85</span>, <span class="at">sd=</span><span class="dv">10</span>)</span>
+<span id="cb474-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb474-3" tabindex="-1"></a>M2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">3</span>, <span class="at">mean=</span><span class="dv">85</span>, <span class="at">sd=</span><span class="dv">10</span>)</span>
+<span id="cb474-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb474-4" tabindex="-1"></a>DM <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">3</span>, <span class="at">mean=</span><span class="dv">70</span>, <span class="at">sd=</span><span class="dv">10</span>)</span>
+<span id="cb474-5"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb474-5" tabindex="-1"></a>Exp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;3&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;3&quot;</span>) </span>
+<span id="cb474-6"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb474-6" tabindex="-1"></a>Phen <span class="ot">&lt;-</span> <span class="fu">c</span>(WT, M1, M2, DM)</span>
+<span id="cb474-7"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb474-7" tabindex="-1"></a></span>
+<span id="cb474-8"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb474-8" tabindex="-1"></a>Rep3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Exp,M1G,M2G,Phen) </span>
+<span id="cb474-9"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb474-9" tabindex="-1"></a>Rep3<span class="sc">$</span>M1G <span class="ot">&lt;-</span> <span class="fu">factor</span>(Rep3<span class="sc">$</span>M1G) </span>
+<span id="cb474-10"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb474-10" tabindex="-1"></a>Rep3<span class="sc">$</span>M2G <span class="ot">&lt;-</span> <span class="fu">factor</span>(Rep3<span class="sc">$</span>M2G) </span>
+<span id="cb474-11"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb474-11" tabindex="-1"></a>Rep3<span class="sc">$</span>Exp <span class="ot">&lt;-</span> <span class="fu">factor</span>(Rep3<span class="sc">$</span>Exp)</span></code></pre></div>
+<p>ANOVA analysis for trial 3</p>
+<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb475-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb475-1" tabindex="-1"></a>Exp3 <span class="ot">&lt;-</span> <span class="fu">aov</span>(Phen <span class="sc">~</span> M1G <span class="sc">+</span> M2G <span class="sc">+</span> M1G<span class="sc">:</span>M2G , <span class="at">data=</span>Rep3) </span>
+<span id="cb475-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb475-2" tabindex="-1"></a><span class="fu">summary</span>(Exp3)</span></code></pre></div>
+<pre><code>##             Df Sum Sq Mean Sq F value  Pr(&gt;F)   
+## M1G          1 1002.0  1002.0  11.577 0.00933 **
+## M2G          1   30.4    30.4   0.351 0.56971   
+## M1G:M2G      1    5.4     5.4   0.063 0.80836   
+## Residuals    8  692.4    86.5                   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>##Combined ANOVA
+Now we can combine the experiments and control control for trial number effects.</p>
+<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb477-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb477-1" tabindex="-1"></a>AllExp <span class="ot">&lt;-</span> <span class="fu">rbind</span>(Rep1, Rep2, Rep3)</span>
+<span id="cb477-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb477-2" tabindex="-1"></a><span class="co"># Notice how we add an Exp variable to the model</span></span>
+<span id="cb477-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb477-3" tabindex="-1"></a>Full <span class="ot">&lt;-</span> <span class="fu">aov</span>(Phen <span class="sc">~</span> M1G <span class="sc">+</span> M2G <span class="sc">+</span> M1G<span class="sc">:</span>M2G <span class="sc">+</span> Exp , <span class="at">data=</span>AllExp) </span>
+<span id="cb477-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb477-4" tabindex="-1"></a><span class="fu">summary</span>(Full)</span></code></pre></div>
+<pre><code>##             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## M1G          1 2803.1  2803.1  29.805 6.37e-06 ***
+## M2G          1  858.2   858.2   9.125  0.00512 ** 
+## Exp          2  272.7   136.3   1.450  0.25065    
+## M1G:M2G      1    0.3     0.3   0.003  0.95802    
+## Residuals   30 2821.4    94.0                     
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="ploting-the-full-dataset" class="section level3 hasAnchor" number="9.2.2">
+<h3><span class="header-section-number">9.2.2</span> Ploting the full dataset<a href="intro-to-anova-and-non-linear-least-squares-regression.html#ploting-the-full-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let’s plot the full data set and see if the ANOVA results match our visual expectations.</p>
+<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb479-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> AllExp, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">interaction</span>(M1G, M2G), <span class="at">y =</span> Phen, <span class="at">color =</span> <span class="fu">interaction</span>(M1G, M2G))) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">position =</span> <span class="st">&quot;jitter&quot;</span>) <span class="sc">+</span> <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">alpha =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="09-0_intro_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p>Let’s try plotting this as a boxplot as well. All we have to do is specify a a different geom.</p>
+<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb480-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb480-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> AllExp, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">interaction</span>(M1G, M2G), <span class="at">y =</span> Phen, <span class="at">color =</span> <span class="fu">interaction</span>(M1G, M2G))) <span class="sc">+</span> <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<p><img src="09-0_intro_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p>In the end you will likely be able to conclude that both gene1 and gene2 have significant effects on the phenotype, but that there is not evidence to suggest that there is a significant interaction between the two genes. Also, the experimental trial most likely does not have an effect. This is all dependent on the mean and variance of the distributions we set in the beginning.</p>
+<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb481-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb481-1" tabindex="-1"></a><span class="co"># Draw 3 measurements from a random normal distribution for each plant line</span></span>
+<span id="cb481-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb481-2" tabindex="-1"></a>WT <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">mean=</span><span class="dv">100</span>, <span class="at">sd=</span><span class="dv">10</span>) <span class="co"># WT genotype</span></span>
+<span id="cb481-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb481-3" tabindex="-1"></a>M1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">mean=</span><span class="dv">85</span>, <span class="at">sd=</span><span class="dv">10</span>)  <span class="co"># Single mutant in Gene 1</span></span>
+<span id="cb481-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb481-4" tabindex="-1"></a>M2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">mean=</span><span class="dv">85</span>, <span class="at">sd=</span><span class="dv">10</span>)  <span class="co"># Single mutant in Gene 2</span></span>
+<span id="cb481-5"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb481-5" tabindex="-1"></a>DM <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">mean=</span><span class="dv">70</span>, <span class="at">sd=</span><span class="dv">10</span>)  <span class="co"># Double mutant in Gene 1 and Gene 2</span></span></code></pre></div>
+<hr />
+<p>#####???Question???
+What value of the mean of the double mutant distribution would be likely to result in a significant interaction between the two genes?
+<em>answer here</em></p>
+<hr />
+</div>
+</div>
+<div id="post-hoc-testing" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">9.3</span> Post hoc testing<a href="intro-to-anova-and-non-linear-least-squares-regression.html#post-hoc-testing" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>While the ANOVA summary tells us which independent variables explain a significant amount of variance in the experiment, it doesn’t allow us to compare the levels of the independent variables. How can we tell if the mutant in gene 1 has a different phenotype from the mutant in gene 2?
+What if the experimental trial did have an effect? How could we figure out which trial is different from the others?</p>
+<p>To compare group or level means and variances and answer these questions we will need to do what is called a <em>post hoc</em> test, following our ANOVA analysis. One of the most commonly used post hoc tests is Tukey’s Honest Significant Difference test. This compares all of the group means in a pairwise manner and corrects the confidence threshold since we are making multiple comparisons. We do this test on our ANOVA object <code>Full</code> from above.</p>
+<div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb482-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb482-1" tabindex="-1"></a>tuk <span class="ot">&lt;-</span> <span class="fu">TukeyHSD</span>(Full)</span>
+<span id="cb482-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb482-2" tabindex="-1"></a>tuk</span></code></pre></div>
+<pre><code>##   Tukey multiple comparisons of means
+##     95% family-wise confidence level
+## 
+## Fit: aov(formula = Phen ~ M1G + M2G + M1G:M2G + Exp, data = AllExp)
+## 
+## $M1G
+##           diff      lwr      upr   p adj
+## WT-M1 17.64803 11.04616 24.24991 6.4e-06
+## 
+## $M2G
+##           diff      lwr      upr     p adj
+## WT-M2 9.764967 3.163091 16.36684 0.0051153
+## 
+## $Exp
+##           diff       lwr      upr     p adj
+## 2-1 -5.6952931 -15.45561 4.065025 0.3345019
+## 3-1 -5.9708370 -15.73116 3.789481 0.3015022
+## 3-2 -0.2755439 -10.03586 9.484774 0.9973333
+## 
+## $`M1G:M2G`
+##                  diff        lwr       upr     p adj
+## WT:M2-M1:M2 17.819618   5.388926 30.250310 0.0026985
+## M1:WT-M1:M2  9.936551  -2.494142 22.367243 0.1538432
+## WT:WT-M1:M2 27.413001  14.982309 39.843693 0.0000081
+## M1:WT-WT:M2 -7.883067 -20.313760  4.547625 0.3292398
+## WT:WT-WT:M2  9.593383  -2.837309 22.024075 0.1767155
+## WT:WT-M1:WT 17.476450   5.045758 29.907142 0.0032933</code></pre>
+<p>So more than likely, you will see for your full experiment with 3 replications that WT is significantly different from M1 and M2. This is shown in the first two sections of the <code>TukeyHSD</code> summary which compare the levels (wildtype vs mutant) of the factors M1G and M2G. The <code>p adj</code> is the p-value (adjusted for the multiple comparisons) resulting from the equivalent of a <em>t</em>-test comparing the two groups. So if the <code>p adj</code> value is less than the accepted confidence level (typically 0.05), then the two compared groups are significantly different from one another. Hopefully, each replication of the experiment will not be significantly different from the others, i.e. the adjusted p-values will be greater than 0.05. We can visualize the differences in the means by plotting the <code>TukeyHSD</code> results. This uses base R plotting which is much less user-friendly than ggplot. Don’t get bogged down in the code here, just pay attention to the graphs.</p>
+<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb484-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="at">cex =</span> <span class="fl">0.65</span>)</span>
+<span id="cb484-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb484-2" tabindex="-1"></a><span class="fu">plot</span>(tuk, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">cex.axis =</span> <span class="fl">0.75</span>) </span></code></pre></div>
+<p><img src="09-0_intro_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p>This plots the confidence intervals around the difference between the means for each pair of groups. If these confidence intervals intersect zero we cannot conclude that the two groups being compared are significantly different.</p>
+<p>We could also use the <code>HSD.test</code> function from the <code>agricolae</code> package, which puts the groups into groups that are not significantly different from each other.</p>
+<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb485-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb485-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;agricolae&quot;</span>)</span>
+<span id="cb485-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb485-2" tabindex="-1"></a><span class="fu">HSD.test</span>(<span class="at">y =</span> Full, <span class="at">trt =</span> <span class="fu">c</span>(<span class="st">&quot;M1G&quot;</span>,<span class="st">&quot;M2G&quot;</span>), <span class="at">console =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## 
+## Study: Full ~ c(&quot;M1G&quot;, &quot;M2G&quot;)
+## 
+## HSD Test for Phen 
+## 
+## Mean Square Error:  94.04805 
+## 
+## M1G:M2G,  means
+## 
+##           Phen       std r       se      Min       Max      Q25      Q50
+## M1:M2 69.47582  6.840943 9 3.232612 57.38741  82.76363 68.49697 70.25027
+## M1:WT 79.41237  9.408099 9 3.232612 65.96677  91.30829 72.03055 81.41389
+## WT:M2 87.29543 10.607389 9 3.232612 74.12750 103.21403 79.26096 88.57212
+## WT:WT 96.88882 11.787036 9 3.232612 77.29349 109.57534 92.41092 98.72802
+##             Q75
+## M1:M2  71.52796
+## M1:WT  85.52398
+## WT:M2  94.55082
+## WT:WT 106.49791
+## 
+## Alpha: 0.05 ; DF Error: 30 
+## Critical Value of Studentized Range: 3.845401 
+## 
+## Minimun Significant Difference: 12.43069 
+## 
+## Treatments with the same letter are not significantly different.
+## 
+##           Phen groups
+## WT:WT 96.88882      a
+## WT:M2 87.29543     ab
+## M1:WT 79.41237     bc
+## M1:M2 69.47582      c</code></pre>
+<p>Finally we can add these groups to our graph and make the titles a bit more understandable. We’ll add a text geometry to add the post hoc comparisons. Another tricky point is that we have to make sure that the x-axis labels match between our data and our HSD test. To do this we use <code>gsub</code> to swap out the colons for periods.</p>
+<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb487-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb487-1" tabindex="-1"></a>HSD.groups <span class="ot">&lt;-</span> <span class="fu">HSD.test</span>(<span class="at">y =</span> Full, <span class="at">trt =</span> <span class="fu">c</span>(<span class="st">&quot;M1G&quot;</span>,<span class="st">&quot;M2G&quot;</span>))<span class="sc">$</span>groups</span>
+<span id="cb487-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb487-2" tabindex="-1"></a>HSD.groups<span class="sc">$</span>trt <span class="ot">&lt;-</span> <span class="fu">row.names</span>(HSD.groups)</span>
+<span id="cb487-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb487-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> AllExp, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">interaction</span>(M1G, M2G), <span class="at">y =</span> Phen, <span class="at">color =</span> <span class="fu">interaction</span>(M1G, M2G))) <span class="sc">+</span> <span class="fu">geom_boxplot</span>() <span class="sc">+</span> <span class="fu">geom_text</span>(<span class="at">data =</span> HSD.groups, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">gsub</span>(<span class="st">&quot;:&quot;</span>, <span class="st">&quot;.&quot;</span>, trt), <span class="at">y =</span> <span class="fu">max</span>(Phen) <span class="sc">+</span> <span class="dv">20</span>, <span class="at">label =</span> groups), <span class="at">color =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
+<p><img src="09-0_intro_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p>Now let’s clean this up a bit by changing the axis titles and labels. We’ll use <code>forcats</code> functions like before but this time with pipes to make the process a little more readable. We’ll also use a new theme to clean up the plot a bit and get rid of the legend.</p>
+<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb488-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-1" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb488-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-2" tabindex="-1"></a><span class="co"># First we will use mutate from `dplyr` to add a column for the full genotype</span></span>
+<span id="cb488-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-3" tabindex="-1"></a>AllExp <span class="sc">%&lt;&gt;%</span> <span class="fu">mutate</span>(<span class="at">genotype =</span> <span class="fu">interaction</span>(M1G, M2G))</span>
+<span id="cb488-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-4" tabindex="-1"></a><span class="co"># %&lt;&gt;% is a two way pipe that passes AllExp as the first argument to mutate and then assigns the result back to AllExp</span></span>
+<span id="cb488-5"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-5" tabindex="-1"></a></span>
+<span id="cb488-6"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-6" tabindex="-1"></a><span class="co"># Now to recode genotype we will unfurl the nested forcats function using pipes</span></span>
+<span id="cb488-7"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-7" tabindex="-1"></a>AllExp<span class="sc">$</span>genotype <span class="sc">%&lt;&gt;%</span></span>
+<span id="cb488-8"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-8" tabindex="-1"></a>  <span class="fu">fct_rev</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb488-9"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-9" tabindex="-1"></a>  <span class="fu">fct_recode</span>(<span class="at">double_mutant =</span> <span class="st">&quot;M1.M2&quot;</span>, <span class="at">mut2 =</span> <span class="st">&quot;WT.M2&quot;</span>, </span>
+<span id="cb488-10"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-10" tabindex="-1"></a>             <span class="at">mut1 =</span> <span class="st">&quot;M1.WT&quot;</span>, <span class="at">WT =</span> <span class="st">&quot;WT.WT&quot;</span>)</span>
+<span id="cb488-11"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-11" tabindex="-1"></a></span>
+<span id="cb488-12"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-12" tabindex="-1"></a>HSD.groups<span class="sc">$</span>trt <span class="sc">%&lt;&gt;%</span></span>
+<span id="cb488-13"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-13" tabindex="-1"></a>  <span class="fu">fct_rev</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb488-14"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-14" tabindex="-1"></a>  <span class="fu">fct_recode</span>(<span class="at">double_mutant =</span> <span class="st">&quot;M1:M2&quot;</span>, <span class="at">mut2 =</span> <span class="st">&quot;WT:M2&quot;</span>, </span>
+<span id="cb488-15"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-15" tabindex="-1"></a>             <span class="at">mut1 =</span> <span class="st">&quot;M1:WT&quot;</span>, <span class="at">WT =</span> <span class="st">&quot;WT:WT&quot;</span>)</span>
+<span id="cb488-16"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-16" tabindex="-1"></a></span>
+<span id="cb488-17"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-17" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> AllExp, <span class="fu">aes</span>(<span class="at">x =</span> genotype, <span class="at">y =</span> Phen, <span class="at">color =</span> genotype)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>() <span class="sc">+</span> <span class="fu">geom_text</span>(<span class="at">data =</span> HSD.groups, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> trt, <span class="at">y =</span> <span class="fu">max</span>(Phen) <span class="sc">+</span> <span class="dv">20</span>, <span class="at">label =</span> groups), <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">&quot;genotype&quot;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&quot;root length (mm)&quot;</span>) <span class="sc">+</span> <span class="fu">theme_classic</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<p><img src="09-0_intro_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+</div>
+<div id="assumptions-of-anova" class="section level2 hasAnchor" number="9.4">
+<h2><span class="header-section-number">9.4</span> Assumptions of ANOVA<a href="intro-to-anova-and-non-linear-least-squares-regression.html#assumptions-of-anova" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Before making any final conclusions we should check and make sure that our data satisfies the assumptions of the F-statistic, and really the assumptions of nearly any statistical test. These are normality (that the groups are normally distributed), <em>homogeneity of variance</em> (that the variances are similar for each group) and independence (that each observation is independent of the others, e.g. each measurement was of a different plant). It’s not a deal-breaker if our data defies one of these assumptions. There are variations of ANOVA procedures that are robust to certain violations, but these will have to wait for another class.</p>
+<p>How do you test these assumptions?</p>
+<p>We can use our diagnostic plots.</p>
+<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb489-1" tabindex="-1"></a><span class="fu">plot</span>(Full, <span class="at">ask =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="09-0_intro_files/figure-html/unnamed-chunk-23-1.png" width="672" /><img src="09-0_intro_files/figure-html/unnamed-chunk-23-2.png" width="672" /><img src="09-0_intro_files/figure-html/unnamed-chunk-23-3.png" width="672" /><img src="09-0_intro_files/figure-html/unnamed-chunk-23-4.png" width="672" /></p>
+<div id="normality-of-residuals" class="section level3 hasAnchor" number="9.4.1">
+<h3><span class="header-section-number">9.4.1</span> Normality of residuals<a href="intro-to-anova-and-non-linear-least-squares-regression.html#normality-of-residuals" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Based on the qq plot above which shows very little deviation from a straight line</p>
+</div>
+<div id="homogeneity-of-variance" class="section level3 hasAnchor" number="9.4.2">
+<h3><span class="header-section-number">9.4.2</span> Homogeneity of variance<a href="intro-to-anova-and-non-linear-least-squares-regression.html#homogeneity-of-variance" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The test for homo/heterogeneity of variance is called Levene’s Test. The null hypothesis of this test is that there is no difference in the variance of each group. So a significant Levene’s test with <span class="math inline">\(p &lt; 0.5\)</span> would mean that the assumption of homogeneity is violated. The function <code>leveneTest</code> is in the car package.</p>
+<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb490-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;car&#39;</span>)</span></code></pre></div>
+<pre><code>## Loading required package: carData</code></pre>
+<pre><code>## 
+## Attaching package: &#39;car&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     recode</code></pre>
+<div class="sourceCode" id="cb494"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb494-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb494-1" tabindex="-1"></a><span class="fu">leveneTest</span>(AllExp<span class="sc">$</span>Phen, <span class="fu">interaction</span>(AllExp<span class="sc">$</span>M1G, AllExp<span class="sc">$</span>M2G), <span class="at">center =</span> median)</span></code></pre></div>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##       Df F value Pr(&gt;F)
+## group  3  1.6269 0.2025
+##       32</code></pre>
+</div>
+<div id="independence" class="section level3 hasAnchor" number="9.4.3">
+<h3><span class="header-section-number">9.4.3</span> Independence<a href="intro-to-anova-and-non-linear-least-squares-regression.html#independence" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To test for independence we have to think “is there any reason that any measurements might be dependent on another measurement?” Typically this is due to a <em>repeated-measures design</em>. This might be that you have measured the same phenotype of different leaves from the same plant, or measured the same leaf at two different times.</p>
+<p>Hopefully with this introduction you can now you can proceed to analyze the data you have collected in lab. Follow the same steps of formulating your hypothesis as a mathematical model, graphing the data, and performing an ANOVA and post hoc test to test your hypothesis.</p>
+</div>
+</div>
+<div id="non-linear-least-squares" class="section level2 hasAnchor" number="9.5">
+<h2><span class="header-section-number">9.5</span> Non-linear least squares<a href="intro-to-anova-and-non-linear-least-squares-regression.html#non-linear-least-squares" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We will walk through an example of using non-linear least squares regression in class Monday. Be sure to look through the reading <a href="https://tuos-bio-data-skills.github.io/intro-stats-book/non-linear-regression-in-R.html">Chapter 24 Non-linear regression in R here</a></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="linear-regression-examples.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="anova-and-non-linear-least-squares-regression-examples.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": false,
+    "twitter": false,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf", "_main.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection",
+    "scroll_highlight": true
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

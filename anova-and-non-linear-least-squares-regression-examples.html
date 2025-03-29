@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4 Data Wrangling | Data Analysis and Numerical Methods for Biological Systems Engineers</title>
+  <title>10 ANOVA and non-linear least squares regression examples | Data Analysis and Numerical Methods for Biological Systems Engineers</title>
   <meta name="description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
 Systems Engineering course BSE3144: Engineering Analysis for Biological
 Systems using Numerical Methods.</p>" />
   <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4 Data Wrangling | Data Analysis and Numerical Methods for Biological Systems Engineers" />
+  <meta property="og:title" content="10 ANOVA and non-linear least squares regression examples | Data Analysis and Numerical Methods for Biological Systems Engineers" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
@@ -19,7 +19,7 @@ Systems using Numerical Methods.</p>" />
   <meta name="github-repo" content="VT-BSE3144/bookdown" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4 Data Wrangling | Data Analysis and Numerical Methods for Biological Systems Engineers" />
+  <meta name="twitter:title" content="10 ANOVA and non-linear least squares regression examples | Data Analysis and Numerical Methods for Biological Systems Engineers" />
   
   <meta name="twitter:description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
 Systems Engineering course BSE3144: Engineering Analysis for Biological
@@ -37,8 +37,8 @@ Systems using Numerical Methods.</p>" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="functions-best-coding-practices-and-debugging-examples.html"/>
-<link rel="next" href="data-wrangling-examples.html"/>
+<link rel="prev" href="intro-to-anova-and-non-linear-least-squares-regression.html"/>
+
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -459,351 +459,206 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="data-wrangling" class="section level1 hasAnchor" number="4">
-<h1><span class="header-section-number">4</span> Data Wrangling<a href="data-wrangling.html#data-wrangling" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>This week our goals are to be able to:</p>
-<ul>
-<li>Use the dplyr package to perform basic data transformation and analysis</li>
-<li>Filter and arrange rows of datasets</li>
-<li>Create new columns with <code>mutate</code></li>
-<li>Select columns</li>
-<li>Use pipes to make our code more readable</li>
-<li>Summarize data by groups using <code>summarize</code></li>
-</ul>
-<div id="connection-to-previous-work-on-data-organization" class="section level2 hasAnchor" number="4.1">
-<h2><span class="header-section-number">4.1</span> Connection to previous work on Data Organization<a href="data-wrangling.html#connection-to-previous-work-on-data-organization" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>This week, we will finally see why organized data is worth the effort. We’ll follow an exercise using a data source with over 300,000 rows! The work this week will show us (1) why R is awesome and fast for analysis, and (2) reinforce the purpose of organized data (following the 12 best practices we learned in Week 1).</p>
-<p><strong>Because we are dealing with large datasets now, make sure that your Problem Set does not include pages and pages of data by just showing the top of the final result using <code>head(dataset)</code></strong></p>
+<div id="anova-and-non-linear-least-squares-regression-examples" class="section level1 hasAnchor" number="10">
+<h1><span class="header-section-number">10</span> ANOVA and non-linear least squares regression examples<a href="anova-and-non-linear-least-squares-regression-examples.html#anova-and-non-linear-least-squares-regression-examples" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>The substrate concentration dependence on the rate or “velocity” of an enzymatic reaction in most cases can be described by the following equation:</p>
+<p><span class="math display">\[\nu = \frac{V_mS}{K_m + S}\]</span></p>
+<p>where the maximum reaction velocity is <span class="math inline">\(V_m = k_{cat}E_0 = k_2E_0\)</span>, with <span class="math inline">\(E_0\)</span> the initial enzyme concentration and <span class="math inline">\(k_{cat}\)</span> the catalytic rate constant. <span class="math inline">\(K_m\)</span> is the Michaelis constant which represents the binding equilibrium of substrate-enzyme. We often need to estimate the two parameters, <span class="math inline">\(V_m\)</span> and <span class="math inline">\(K_m\)</span> based on experimental data. Although with today’s computational power these parameters could be estimated in many possible ways with non-linear regression, historically and still often today linearizations of this enzyme kinetic model are used to fit these parameters to experimental data.</p>
+<p>Last week we used the Lineweaver-Burke linearization. This week we will use non-linear least squares regression.</p>
+<div id="lineweaver-burk-plot" class="section level3 hasAnchor" number="10.0.1">
+<h3><span class="header-section-number">10.0.1</span> Lineweaver-Burk plot<a href="anova-and-non-linear-least-squares-regression-examples.html#lineweaver-burk-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>One method of linearization would be to invert the entire model equation.
+<span class="math display">\[\frac{1}{\nu} = \frac{1}{V_m} + \frac{K_m}{V_m} \frac{1}{S}\]</span>
+The resulting plot is called a Lineweaver-Burk plot.</p>
+<div id="questions" class="section level4 hasAnchor" number="10.0.1.1">
+<h4><span class="header-section-number">10.0.1.1</span> ???Questions???<a href="anova-and-non-linear-least-squares-regression-examples.html#questions" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>What would you plot as x and y, and what would be the slope and y-intercept of the plot be.</p>
+<blockquote>
+<p><em>A Lineweaver-Burke plot is <span class="math inline">\(1/\nu\)</span> (y) vs <span class="math inline">\(1/S\)</span> (x). The slope is <span class="math inline">\(K_m/V_m\)</span> and the y-intercept is <span class="math inline">\(1/V_m\)</span></em></p>
+</blockquote>
+<hr />
+<p>This plot is also sometimes called a double-reciprocal plot, because we plot the reciprocal of our independent variable <span class="math inline">\(\nu\)</span> versus our dependent variable <span class="math inline">\(S\)</span>.</p>
+<p>To use this plot to find <span class="math inline">\(V_m\)</span> and <span class="math inline">\(K_m\)</span> we need to collect reaction velocity data (<span class="math inline">\(\nu = dP/dt = -dS/dt\)</span>) at different initial substrate concentrations. The reaction velocity will of course decrease throughout the experiment, but to match the initial substrate concentrations, we want to find the initial velocity, i.e. the initial slope of the curve of product or substrate versus time.</p>
+<p>You can perhaps see how determining the instantaneous initial velocity of this curve can be difficult and error prone. We need very rapid and accurate measurements of product or substrate in order to determine this initial slope. Due to the properties of the reciprocal, the error at low substrate concentrations is amplified and has a strong influence on the slope and intercept of the graph. For these reasons the Lineweaver-Burke plot provides better estimates of <span class="math inline">\(V_m\)</span> than <span class="math inline">\(K_m\)</span>.</p>
+<p>Let’s look at an some example data and calculate <span class="math inline">\(V_m\)</span> and <span class="math inline">\(K_m\)</span> in several ways. Here we have performed experiments with two different concentrations of the same purified enzyme across a range of substrate concentrations, and calculated the initial velocity of each reaction.</p>
+<div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb496-1"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb496-1" tabindex="-1"></a>S <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">10</span>, <span class="fl">6.7</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="fl">3.3</span>, <span class="fl">2.9</span>, <span class="fl">2.5</span>) <span class="co"># substrate concentration (g/L)</span></span>
+<span id="cb496-2"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb496-2" tabindex="-1"></a>v_0<span class="fl">.015</span> <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.14</span>, <span class="fl">0.87</span>, <span class="fl">0.7</span>, <span class="fl">0.59</span>, <span class="fl">0.50</span>, <span class="fl">0.44</span>, <span class="fl">0.39</span>, <span class="fl">0.35</span>) <span class="co"># reaction velocity (g/L-min) at E_0 = 0.015 g/L</span></span>
+<span id="cb496-3"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb496-3" tabindex="-1"></a></span>
+<span id="cb496-4"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb496-4" tabindex="-1"></a>data  <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(S, v_0<span class="fl">.015</span>)</span>
+<span id="cb496-5"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb496-5" tabindex="-1"></a><span class="fu">require</span>(knitr)</span></code></pre></div>
+<pre><code>## Loading required package: knitr</code></pre>
+<div class="sourceCode" id="cb498"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb498-1"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb498-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(data)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">S</th>
+<th align="right">v_0.015</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">20.0</td>
+<td align="right">1.14</td>
+</tr>
+<tr class="even">
+<td align="right">10.0</td>
+<td align="right">0.87</td>
+</tr>
+<tr class="odd">
+<td align="right">6.7</td>
+<td align="right">0.70</td>
+</tr>
+<tr class="even">
+<td align="right">5.0</td>
+<td align="right">0.59</td>
+</tr>
+<tr class="odd">
+<td align="right">4.0</td>
+<td align="right">0.50</td>
+</tr>
+<tr class="even">
+<td align="right">3.3</td>
+<td align="right">0.44</td>
+</tr>
+<tr class="odd">
+<td align="right">2.9</td>
+<td align="right">0.39</td>
+</tr>
+<tr class="even">
+<td align="right">2.5</td>
+<td align="right">0.35</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Sometimes we won’t know the concentration of our enzyme, if say we are working with just a cell lysate or if we are unable to completly purify our enzyme. In this case we will just use a <em>specific activity</em> of the mixture. Specific activity is just the activity of the enzyme per mass of total protein in the complex mixture. The enzyme activity is measure in units of product formed per time at particular conditions (e.g. temperature, pH, substrate concentration, etc.).</p>
+</blockquote>
+<p>Let’s initially look at this data by plotting <span class="math inline">\(\nu\)</span> vs <span class="math inline">\(S\)</span> as dictated by the Michaelis-Menten equation.</p>
+<div class="sourceCode" id="cb499"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb499-1"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb499-1" tabindex="-1"></a><span class="fu">require</span>(tidyr)</span></code></pre></div>
+<pre><code>## Loading required package: tidyr</code></pre>
+<div class="sourceCode" id="cb501"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb501-1"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb501-1" tabindex="-1"></a>data <span class="ot">&lt;-</span> tidyr<span class="sc">::</span><span class="fu">gather</span>(<span class="at">data =</span> data, <span class="at">key =</span> E_0, <span class="at">value =</span> v, v_0<span class="fl">.015</span>)</span>
+<span id="cb501-2"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb501-2" tabindex="-1"></a><span class="fu">require</span>(stringr)</span></code></pre></div>
+<pre><code>## Loading required package: stringr</code></pre>
+<div class="sourceCode" id="cb503"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb503-1"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb503-1" tabindex="-1"></a>data<span class="sc">$</span>E_0 <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(stringr<span class="sc">::</span><span class="fu">str_remove</span>(<span class="at">string =</span> data<span class="sc">$</span>E_0, <span class="at">pattern =</span> <span class="st">&quot;v_&quot;</span>))</span>
+<span id="cb503-2"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb503-2" tabindex="-1"></a><span class="fu">require</span>(ggplot2)</span></code></pre></div>
+<pre><code>## Loading required package: ggplot2</code></pre>
+<div class="sourceCode" id="cb505"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb505-1"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb505-1" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(<span class="at">data =</span> data, </span>
+<span id="cb505-2"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb505-2" tabindex="-1"></a>                <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> S, <span class="at">y =</span> v, </span>
+<span id="cb505-3"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb505-3" tabindex="-1"></a>                              <span class="at">color =</span> <span class="fu">as.factor</span>(E_0))) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;v (g/L-min)&quot;</span>, </span>
+<span id="cb505-4"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb505-4" tabindex="-1"></a>                    <span class="at">x =</span> <span class="st">&quot;S (g/L)&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb505-5"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb505-5" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">0</span>)</span></code></pre></div>
+<p><img src="09-1_Examples_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 </div>
-<div id="source" class="section level2 hasAnchor" number="4.2">
-<h2><span class="header-section-number">4.2</span> Source<a href="data-wrangling.html#source" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>This exercise follows along with the reading for this week R for Data Science Chapter 3 <a href="https://r4ds.hadley.nz/data-transform" class="uri">https://r4ds.hadley.nz/data-transform</a> (this was chapter 5 in the old version <a href="https://r4ds.had.co.nz/transform.html" class="uri">https://r4ds.had.co.nz/transform.html</a>, hopefully I’ve updated everything but incase I haven’t there’s the link). The template below is for you to be able to follow along in the reading and complete the exercises.</p>
-</div>
-<div id="introduction---example-dataset-nycflights13" class="section level2 hasAnchor" number="4.3">
-<h2><span class="header-section-number">4.3</span> 3.1 Introduction - Example dataset <code>nycflights13</code><a href="data-wrangling.html#introduction---example-dataset-nycflights13" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>I’ve gone ahead and installed the 2 packages, but you need to load them into the environment using:</p>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="data-wrangling.html#cb207-1" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span>
-<span id="cb207-2"><a href="data-wrangling.html#cb207-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
-<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-## ✔ dplyr     1.1.4     ✔ readr     2.1.5
-## ✔ forcats   1.0.0     ✔ stringr   1.5.1
-## ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-## ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-## ✔ purrr     1.0.4     
-## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()
-## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-<p>Why is it important to do this? When you are creating code, explicitly turning on packages that are required is considered good practice. This goes along with the importance of being intentional and making your code reproducible by anyone, anywhere. Tell the computer what to do…explicitly! Tell everyone explicitly what you have done to get to your results.</p>
-<p>This also keeps your R sessions memory low and prevents duplicate functions from being loaded from different packages. Notice above when we load tidyverse we get the message that <code>✖ dplyr::filter() masks stats::filter()</code> and <code>✖ dplyr::lag()    masks stats::lag()</code>, that is because the stats package also has <code>filter</code> and <code>lag</code> functions as well as the dplyr package which is part of the tidyverse package. The tidyverse is actually a package of packages including ggplot2, purrr, tibble, dplyr, tidyr, stringr, readr, and forcats (and maybe more since writing this). We will learn more about all of these in coming weeks. In our case, because we more recently loaded tidyverse if we call <code>filter(some_argument...)</code> this will run the tidyverse/dplyr version of the function. As it says in <a href="https://r4ds.hadley.nz/data-transform#prerequisites">the reading</a>, if you want to use the base, or stats, version of these functions after loading dplyr, you’ll need to specify the package that the function comes from using two colons <code>::</code> as in <code>stats::filter()</code> and <code>stats::lag().</code></p>
-</div>
-<div id="section" class="section level2 hasAnchor" number="4.4">
-<h2><span class="header-section-number">4.4</span> 3.1.2<a href="data-wrangling.html#section" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Run <code>flights</code> in the code chunk below. The output should match the reading. Note that you can find a nice README/data dictionary/documentation of this dataset by viewing its help documentation <code>?flights</code>.</p>
-<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="data-wrangling.html#cb209-1" tabindex="-1"></a>flights</span></code></pre></div>
-<pre><code>## # A tibble: 336,776 × 19
-##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
-##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
-##  1  2013     1     1      517            515         2      830            819
-##  2  2013     1     1      533            529         4      850            830
-##  3  2013     1     1      542            540         2      923            850
-##  4  2013     1     1      544            545        -1     1004           1022
-##  5  2013     1     1      554            600        -6      812            837
-##  6  2013     1     1      554            558        -4      740            728
-##  7  2013     1     1      555            600        -5      913            854
-##  8  2013     1     1      557            600        -3      709            723
-##  9  2013     1     1      557            600        -3      838            846
-## 10  2013     1     1      558            600        -2      753            745
-## # ℹ 336,766 more rows
-## # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,
-## #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,
-## #   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
-<p>As described, <code>flights</code> is a data frame called a tibble. What does <code>int</code> mean on the third line of the table? Or <code>dbl</code>?</p>
-<p>These are types of variables. Be sure to familiarize yourself with the various types as you move forward, so focus on this section in <a href="https://r4ds.had.co.nz/transform.html#prerequisites-2">the reading</a>. You can also check out <a href="https://datacarpentry.org/R-ecology-lesson/01-intro-to-r.html#Vectors_and_data_types">Vectors and data types in Data Carpentry</a>.</p>
-</div>
-<div id="dplyr-basics" class="section level2 hasAnchor" number="4.5">
-<h2><span class="header-section-number">4.5</span> 3.1.3 dplyr basics<a href="data-wrangling.html#dplyr-basics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><a href="https://r4ds.hadley.nz/data-transform#dplyr-basics" class="uri">https://r4ds.hadley.nz/data-transform#dplyr-basics</a></p>
-<p>Most of the tidyverse aims to make programming make “grammatical” sense in that it is easy to read, understand, and talk about using typical language. One of the really tricky parts of many programming languages including R that you have already experienced is how nested accessors (like <code>[]</code> and <code>$</code>) combined with functions and logical statements are used to do operations on parts of datasets (like finding the mean of certain columns from certain rows). This can make reading a line of code really difficult. You have to read the code from the inside out. For example, from last week, we can run from inside to out.</p>
-<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="data-wrangling.html#cb211-1" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">is.na</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>, <span class="dv">1</span>)))</span></code></pre></div>
-<pre><code>## [1] 0.3333333</code></pre>
-<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="data-wrangling.html#cb213-1" tabindex="-1"></a><span class="co"># Inner parentheses</span></span>
-<span id="cb213-2"><a href="data-wrangling.html#cb213-2" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>, <span class="dv">1</span>)</span></code></pre></div>
-<pre><code>## [1]  1 NA  1</code></pre>
-<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="data-wrangling.html#cb215-1" tabindex="-1"></a><span class="co"># next set</span></span>
-<span id="cb215-2"><a href="data-wrangling.html#cb215-2" tabindex="-1"></a><span class="fu">is.na</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>, <span class="dv">1</span>))</span></code></pre></div>
-<pre><code>## [1] FALSE  TRUE FALSE</code></pre>
-<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="data-wrangling.html#cb217-1" tabindex="-1"></a><span class="co">#full line</span></span>
-<span id="cb217-2"><a href="data-wrangling.html#cb217-2" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">is.na</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>, <span class="dv">1</span>)))</span></code></pre></div>
-<pre><code>## [1] 0.3333333</code></pre>
-<p>From the dplyr homepage: “dplyr is a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges” where verbs are functions that operate on nouns, which are your dataset and elements within it.</p>
-<p>For all dplyr “verbs”:</p>
-<ol style="list-style-type: decimal">
-<li><p>The first argument is always a data frame.</p></li>
-<li><p>The subsequent arguments typically describe which columns to operate on, using the variable names (<strong>without quotes</strong>).</p></li>
-<li><p>The output is always a new data frame.</p></li>
-</ol>
-<p><a href="https://r4ds.hadley.nz/data-transform#dplyr-basics:~:text=Because%20each%20verb,Let%E2%80%99s%20dive%20in!">Direct from R4DS</a>: “Because each verb does one thing well, solving complex problems will usually require combining multiple verbs, and we’ll do so with the pipe, <code>|&gt;</code>. We’ll discuss the pipe more in Section 3.4, but in brief, the pipe takes the thing on its left and passes it along to the function on its right so that <code>x |&gt; f(y)</code> is equivalent to <code>f(x, y)</code>, and <code>x |&gt; f(y) |&gt; g(z)</code> is equivalent to <code>g(f(x, y), z)</code>. The easiest way to pronounce the pipe is “then”. That makes it possible to get a sense of the following code even though you haven’t yet learned the details:</p>
-<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="data-wrangling.html#cb219-1" tabindex="-1"></a>flights <span class="sc">|&gt;</span></span>
-<span id="cb219-2"><a href="data-wrangling.html#cb219-2" tabindex="-1"></a>  <span class="fu">filter</span>(dest <span class="sc">==</span> <span class="st">&quot;IAH&quot;</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb219-3"><a href="data-wrangling.html#cb219-3" tabindex="-1"></a>  <span class="fu">group_by</span>(year, month, day) <span class="sc">|&gt;</span> </span>
-<span id="cb219-4"><a href="data-wrangling.html#cb219-4" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb219-5"><a href="data-wrangling.html#cb219-5" tabindex="-1"></a>    <span class="at">arr_delay =</span> <span class="fu">mean</span>(arr_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb219-6"><a href="data-wrangling.html#cb219-6" tabindex="-1"></a>  )</span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by &#39;year&#39;, &#39;month&#39;. You can override using the
-## `.groups` argument.</code></pre>
-<pre><code>## # A tibble: 365 × 4
-## # Groups:   year, month [12]
-##     year month   day arr_delay
-##    &lt;int&gt; &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;
-##  1  2013     1     1     17.8 
-##  2  2013     1     2      7   
-##  3  2013     1     3     18.3 
-##  4  2013     1     4     -3.2 
-##  5  2013     1     5     20.2 
-##  6  2013     1     6      9.28
-##  7  2013     1     7     -7.74
-##  8  2013     1     8      7.79
-##  9  2013     1     9     18.1 
-## 10  2013     1    10      6.68
-## # ℹ 355 more rows</code></pre>
-<p>dplyr’s verbs are organized into four groups based on what they operate on: rows, columns, groups, or tables. In the following sections you’ll learn the most important verbs for rows, columns, and groups, then we’ll come back to the join verbs that work on tables in Chapter 19. Let’s dive in!”</p>
-</div>
-<div id="row-wise-functions" class="section level2 hasAnchor" number="4.6">
-<h2><span class="header-section-number">4.6</span> 3.2 Row-wise functions<a href="data-wrangling.html#row-wise-functions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="filter" class="section level3 hasAnchor" number="4.6.1">
-<h3><span class="header-section-number">4.6.1</span> 3.2.1 filter()<a href="data-wrangling.html#filter" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The example filters the data based on month and day. <code>jan1 &lt;- filter(flights, month == 1, day == 1)</code></p>
-<p>The double-equals <code>==</code>sign implies “is equal to”; in the filter function above, all flights on the first day of January are saved as a new variable <code>jan1</code>.</p>
-<p>What is happening in the command below?</p>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="data-wrangling.html#cb222-1" tabindex="-1"></a><span class="fu">filter</span>(flights, month <span class="sc">==</span> <span class="dv">1</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 27,004 × 19
-##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
-##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
-##  1  2013     1     1      517            515         2      830            819
-##  2  2013     1     1      533            529         4      850            830
-##  3  2013     1     1      542            540         2      923            850
-##  4  2013     1     1      544            545        -1     1004           1022
-##  5  2013     1     1      554            600        -6      812            837
-##  6  2013     1     1      554            558        -4      740            728
-##  7  2013     1     1      555            600        -5      913            854
-##  8  2013     1     1      557            600        -3      709            723
-##  9  2013     1     1      557            600        -3      838            846
-## 10  2013     1     1      558            600        -2      753            745
-## # ℹ 26,994 more rows
-## # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,
-## #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,
-## #   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
-<p>The reading also points out the use of the near function. Why is this important? Illustrate the example below in the code chunk below to reinforce the concept.</p>
-<p>Paste <code>sqrt(1.9999999999999999999999)^2</code> in the code chunk and run it. If you keep removing the trailing 9s, when does the result not equal 2? What happens when you run <code>sqrt(2)^2==2</code>? Show me that you can have the computer make these equivalent using <code>near()</code>, and explain in one word—yes one word—the result of <code>sqrt(2)^2==2</code> versus using the near function. (Hint: the word starts with P).</p>
-<div id="logical-operators" class="section level4 hasAnchor" number="4.6.1.1">
-<h4><span class="header-section-number">4.6.1.1</span> Logical Operators<a href="data-wrangling.html#logical-operators" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>We learned about <code>==</code>, “is equal to,” above. Other logical or Boolean operators that can be used as filters are <code>&gt;, ==, &lt;, &lt;=, !=</code> (not equal). You can also combine these with other Logical or Boolean operators: <code>&amp;</code> (and), <code>|</code> (or), and <code>!</code> (not).</p>
-<div class="float">
-<img src="figures/transform-logical.png" alt="Complete set of boolean operations. x is the left-hand circle, y is the right-hand circle, and the shaded region show which parts each operator selects." />
-<div class="figcaption">Complete set of boolean operations. x is the left-hand circle, y is the right-hand circle, and the shaded region show which parts each operator selects.</div>
-</div>
-<p>x</p>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="data-wrangling.html#cb224-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>)</span>
-<span id="cb224-2"><a href="data-wrangling.html#cb224-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
-<span id="cb224-3"><a href="data-wrangling.html#cb224-3" tabindex="-1"></a>x <span class="sc">|</span> y</span></code></pre></div>
-<pre><code>## [1]  TRUE  TRUE  TRUE FALSE</code></pre>
-<p>How would you select all flights in May and June?</p>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="data-wrangling.html#cb226-1" tabindex="-1"></a>flights <span class="sc">|&gt;</span> <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">5</span> <span class="sc">|</span> month <span class="sc">==</span> <span class="dv">6</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 57,039 × 19
-##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
-##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
-##  1  2013     5     1        9           1655       434      308           2020
-##  2  2013     5     1      451            500        -9      641            640
-##  3  2013     5     1      537            540        -3      836            840
-##  4  2013     5     1      544            545        -1      818            827
-##  5  2013     5     1      548            600       -12      831            854
-##  6  2013     5     1      549            600       -11      804            810
-##  7  2013     5     1      553            600        -7      700            712
-##  8  2013     5     1      553            600        -7      655            701
-##  9  2013     5     1      554            600        -6      731            756
-## 10  2013     5     1      554            600        -6      707            725
-## # ℹ 57,029 more rows
-## # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,
-## #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,
-## #   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="data-wrangling.html#cb228-1" tabindex="-1"></a><span class="fu">sum</span>(flights<span class="sc">$</span>month <span class="sc">==</span> <span class="dv">5</span>)</span></code></pre></div>
-<pre><code>## [1] 28796</code></pre>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="data-wrangling.html#cb230-1" tabindex="-1"></a><span class="fu">sum</span>(flights<span class="sc">$</span>month <span class="sc">==</span> <span class="dv">6</span>)</span></code></pre></div>
-<pre><code>## [1] 28243</code></pre>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="data-wrangling.html#cb232-1" tabindex="-1"></a><span class="fu">sum</span>(flights<span class="sc">$</span>month <span class="sc">==</span> <span class="dv">5</span> <span class="sc">|</span> flights<span class="sc">$</span>month <span class="sc">==</span> <span class="dv">6</span>)</span></code></pre></div>
-<pre><code>## [1] 57039</code></pre>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="data-wrangling.html#cb234-1" tabindex="-1"></a><span class="fu">sum</span>(flights<span class="sc">$</span>month <span class="sc">==</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">6</span>))</span></code></pre></div>
-<pre><code>## [1] 28520</code></pre>
-<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="data-wrangling.html#cb236-1" tabindex="-1"></a><span class="fu">sum</span>(flights<span class="sc">$</span>month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">6</span>))</span></code></pre></div>
-<pre><code>## [1] 57039</code></pre>
-<p>R also has another nifty logical operator <code>%in%</code>, which searches for a matches of one vector in another and return true for any matching values. So for example:</p>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="data-wrangling.html#cb238-1" tabindex="-1"></a><span class="co"># letters is simply the lowercase alphabet</span></span>
-<span id="cb238-2"><a href="data-wrangling.html#cb238-2" tabindex="-1"></a>letters <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;z&quot;</span>)</span></code></pre></div>
-<pre><code>##  [1]  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-## [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-## [25] FALSE  TRUE</code></pre>
-<p>So we could select all flights in May and June using this now.</p>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="data-wrangling.html#cb240-1" tabindex="-1"></a><span class="fu">filter</span>(flights, month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">6</span>)) <span class="sc">|&gt;</span> <span class="fu">tail</span>(<span class="at">n =</span> <span class="dv">100</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 100 × 19
-##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
-##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
-##  1  2013     6    30     2334           1836       298       50           2015
-##  2  2013     6    30     2336           2029       187      231           2359
-##  3  2013     6    30     2343           2029       194      205           2303
-##  4  2013     6    30     2345           2146       119      229             30
-##  5  2013     6    30     2347           2125       142      105           2253
-##  6  2013     6    30     2348           2130       138      229             14
-##  7  2013     6    30     2354           2245        69       53           2359
-##  8  2013     6    30     2354           2245        69      117              1
-##  9  2013     6    30     2357           2112       165      223           2359
-## 10  2013     6    30     2358           2225        93       49           2330
-## # ℹ 90 more rows
-## # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,
-## #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,
-## #   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
-</div>
-<div id="missing-values" class="section level4 hasAnchor" number="4.6.1.2">
-<h4><span class="header-section-number">4.6.1.2</span> Missing values<a href="data-wrangling.html#missing-values" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>We covered <code>NA</code>s in some of our exercises in previous weeks. Hopefully reading through this section helped reinforce in your mind how <code>NA</code>s are handled in R and in the <code>dplyr::filter</code> function.</p>
+<div id="questions-1" class="section level4 hasAnchor" number="10.0.1.2">
+<h4><span class="header-section-number">10.0.1.2</span> ???Questions???<a href="anova-and-non-linear-least-squares-regression-examples.html#questions-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>What can you say about this graph?</p>
+<blockquote>
+<p><em>The higher concentration of enzyme has a higher velocity across all substrate concentrations. The shape of the two curves is similar. As substrate concentration increases the increase in reaction velocity decreases.</em></p>
+</blockquote>
+<hr />
+<p>Now let’s make a Lineweaver-Burk plot.
+<span class="math display">\[\frac{1}{\nu} = \frac{1}{V_m} + \frac{K_m}{V_m} \frac{1}{S}\]</span></p>
+<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb506-1"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb506-1" tabindex="-1"></a>data<span class="sc">$</span>LB.y <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>data<span class="sc">$</span>v</span>
+<span id="cb506-2"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb506-2" tabindex="-1"></a>data<span class="sc">$</span>LB.x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>data<span class="sc">$</span>S</span>
+<span id="cb506-3"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb506-3" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(<span class="at">data =</span> data, </span>
+<span id="cb506-4"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb506-4" tabindex="-1"></a>                <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> LB.x, <span class="at">y =</span> LB.y, <span class="at">color =</span> <span class="fu">as.factor</span>(E_0))) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;1/v (L-min/g)&quot;</span>, </span>
+<span id="cb506-5"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb506-5" tabindex="-1"></a>                    <span class="at">x =</span> <span class="st">&quot;1/S (L/g)&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb506-6"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb506-6" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">0</span>)</span></code></pre></div>
+<p><img src="09-1_Examples_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>Now we can use linear regression to find the slope and intercept of the line of best fit.</p>
+<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb507-1"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb507-1" tabindex="-1"></a>LB <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula =</span> LB.y<span class="sc">~</span>LB.x, <span class="at">data =</span> data)</span>
+<span id="cb507-2"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb507-2" tabindex="-1"></a><span class="fu">summary</span>(LB)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = LB.y ~ LB.x, data = data)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -0.027826 -0.004796  0.001278  0.007841  0.026257 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.58019    0.01462   39.69 1.71e-08 ***
+## LB.x         5.67720    0.05801   97.87 7.67e-11 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.01874 on 6 degrees of freedom
+## Multiple R-squared:  0.9994, Adjusted R-squared:  0.9993 
+## F-statistic:  9578 on 1 and 6 DF,  p-value: 7.67e-11</code></pre>
 </div>
 </div>
-<div id="arranging-rows" class="section level3 hasAnchor" number="4.6.2">
-<h3><span class="header-section-number">4.6.2</span> 3.2.3 Arranging rows<a href="data-wrangling.html#arranging-rows" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>We can arrange rows by a particular columns values using <code>arrange</code>. For example with the <code>flights</code> dataset we could arrange by departure time.</p>
-<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="data-wrangling.html#cb242-1" tabindex="-1"></a>flights <span class="sc">|&gt;</span> <span class="fu">arrange</span>(dep_time)</span></code></pre></div>
-<pre><code>## # A tibble: 336,776 × 19
-##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
-##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
-##  1  2013     1    13        1           2249        72      108           2357
-##  2  2013     1    31        1           2100       181      124           2225
-##  3  2013    11    13        1           2359         2      442            440
-##  4  2013    12    16        1           2359         2      447            437
-##  5  2013    12    20        1           2359         2      430            440
-##  6  2013    12    26        1           2359         2      437            440
-##  7  2013    12    30        1           2359         2      441            437
-##  8  2013     2    11        1           2100       181      111           2225
-##  9  2013     2    24        1           2245        76      121           2354
-## 10  2013     3     8        1           2355         6      431            440
-## # ℹ 336,766 more rows
-## # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,
-## #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,
-## #   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
-<p>By default <code>arrange</code> sorts the rows from low to high on the variable you pass. To sort high to low you put a <code>-</code> in front of the variable or use <code>desc(variable)</code>.</p>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="data-wrangling.html#cb244-1" tabindex="-1"></a>flights <span class="sc">|&gt;</span> <span class="fu">arrange</span>(<span class="sc">-</span>dep_time)</span></code></pre></div>
-<pre><code>## # A tibble: 336,776 × 19
-##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
-##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
-##  1  2013    10    30     2400           2359         1      327            337
-##  2  2013    11    27     2400           2359         1      515            445
-##  3  2013    12     5     2400           2359         1      427            440
-##  4  2013    12     9     2400           2359         1      432            440
-##  5  2013    12     9     2400           2250        70       59           2356
-##  6  2013    12    13     2400           2359         1      432            440
-##  7  2013    12    19     2400           2359         1      434            440
-##  8  2013    12    29     2400           1700       420      302           2025
-##  9  2013     2     7     2400           2359         1      432            436
-## 10  2013     2     7     2400           2359         1      443            444
-## # ℹ 336,766 more rows
-## # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,
-## #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,
-## #   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
-<p>This may seem a little awkward, but it allows you to easily provide multiple variable names for a complex sort.</p>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="data-wrangling.html#cb246-1" tabindex="-1"></a>flights <span class="sc">|&gt;</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(dep_time), sched_dep_time)</span></code></pre></div>
-<pre><code>## # A tibble: 336,776 × 19
-##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
-##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
-##  1  2013    12    29     2400           1700       420      302           2025
-##  2  2013     7     7     2400           1950       250      107           2130
-##  3  2013     9    12     2400           2000       240      203           2230
-##  4  2013     7    28     2400           2059       181      247           2322
-##  5  2013     2    11     2400           2135       145      251             35
-##  6  2013     7    17     2400           2142       138       54           2259
-##  7  2013     6    17     2400           2145       135      102           2315
-##  8  2013     7    13     2400           2155       125      225             43
-##  9  2013     7    13     2400           2245        75      101           2359
-## 10  2013     8    10     2400           2245        75      110              1
-## # ℹ 336,766 more rows
-## # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,
-## #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,
-## #   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
-</div>
-</div>
-<div id="columns" class="section level2 hasAnchor" number="4.7">
-<h2><span class="header-section-number">4.7</span> 3.3 Columns<a href="data-wrangling.html#columns" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="mutate---add-new-variables" class="section level3 hasAnchor" number="4.7.1">
-<h3><span class="header-section-number">4.7.1</span> 3.3.1 Mutate - Add new variables<a href="data-wrangling.html#mutate---add-new-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The function <code>mutate</code> is used to add new variables/columns to a data frame.</p>
-<p>Following <a href="https://r4ds.had.co.nz/transform.html#add-new-variables-with-mutate">the example at the beginning of section 5.5 in the book</a>, add a new speed variable using mutate to your data frame.</p>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="data-wrangling.html#cb248-1" tabindex="-1"></a>flights_sml <span class="ot">&lt;-</span> <span class="fu">select</span>(flights, </span>
-<span id="cb248-2"><a href="data-wrangling.html#cb248-2" tabindex="-1"></a>  year<span class="sc">:</span>day, </span>
-<span id="cb248-3"><a href="data-wrangling.html#cb248-3" tabindex="-1"></a>  <span class="fu">ends_with</span>(<span class="st">&quot;delay&quot;</span>), </span>
-<span id="cb248-4"><a href="data-wrangling.html#cb248-4" tabindex="-1"></a>  distance, </span>
-<span id="cb248-5"><a href="data-wrangling.html#cb248-5" tabindex="-1"></a>  air_time</span>
-<span id="cb248-6"><a href="data-wrangling.html#cb248-6" tabindex="-1"></a>)</span>
-<span id="cb248-7"><a href="data-wrangling.html#cb248-7" tabindex="-1"></a></span>
-<span id="cb248-8"><a href="data-wrangling.html#cb248-8" tabindex="-1"></a><span class="co">#add a speed variable</span></span></code></pre></div>
-<p>Next, pay attention to the <a href="https://r4ds.hadley.nz/transform">Useful transformation functions</a> and the <a href="https://r4ds.hadley.nz/numbers#modular-arithmetic">modular arithmetic section</a> to obtain hour and minutes from the departure data. Try for yourself below. This is pretty cool and can be useful.</p>
-</div>
-<div id="select" class="section level3 hasAnchor" number="4.7.2">
-<h3><span class="header-section-number">4.7.2</span> 3.3.2 Select<a href="data-wrangling.html#select" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>It’s not uncommon to get datasets with hundreds or even thousands of variables. In this case, the first challenge is often narrowing in on the variables you’re actually interested in. <code>select()</code> allows you to rapidly zoom in on a useful subset using operations based on the names of the variables.</p>
-<p><code>select()</code> is not terribly useful with the flights data because we only have 19 variables, but you can still get the general idea:</p>
-<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="data-wrangling.html#cb249-1" tabindex="-1"></a><span class="fu">select</span>(flights, year, month, day)</span></code></pre></div>
-<pre><code>## # A tibble: 336,776 × 3
-##     year month   day
-##    &lt;int&gt; &lt;int&gt; &lt;int&gt;
-##  1  2013     1     1
-##  2  2013     1     1
-##  3  2013     1     1
-##  4  2013     1     1
-##  5  2013     1     1
-##  6  2013     1     1
-##  7  2013     1     1
-##  8  2013     1     1
-##  9  2013     1     1
-## 10  2013     1     1
-## # ℹ 336,766 more rows</code></pre>
-</div>
-</div>
-<div id="the-pipe" class="section level2 hasAnchor" number="4.8">
-<h2><span class="header-section-number">4.8</span> 3.4 The pipe<a href="data-wrangling.html#the-pipe" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The pipe operator, which I’ve demonstrated just a few times above, is really fantastically justified by the <a href="https://r4ds.hadley.nz/data-transform#sec-the-pipe">The pipe section</a>. I would definitely recommend reading this short section.</p>
-<p>The idea of piping is that it can make it easier to write, follow, and understand what the commands are doing. Think of each pipe command as “then”. The pipe command uses the following syntax : <code>|&gt;</code>. What it essentially does is take the result of the code on the left-hand side or previous line(s) and pass it as the first argument to the function on the right-hand side.</p>
-<p>We can recreate the example above with pipes. Written in words the code chunk below would be: ASSIGN a new object name,<br />
-CHOOSE the dataset to operate on, THEN
-<code>arrange</code> the dataset by longest distance, THEN
-<code>filter</code> the December flights, THEN
-<code>select</code> the flight number, departure delay, and carrier columns.</p>
-<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="data-wrangling.html#cb251-1" tabindex="-1"></a>carrier_delay <span class="ot">&lt;-</span> <span class="co"># I like to use a new line here so that I can easily comment out this assignment line while building my pipe</span></span>
-<span id="cb251-2"><a href="data-wrangling.html#cb251-2" tabindex="-1"></a>  flights <span class="sc">|&gt;</span></span>
-<span id="cb251-3"><a href="data-wrangling.html#cb251-3" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>distance) <span class="sc">|&gt;</span></span>
-<span id="cb251-4"><a href="data-wrangling.html#cb251-4" tabindex="-1"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">12</span>) <span class="sc">|&gt;</span></span>
-<span id="cb251-5"><a href="data-wrangling.html#cb251-5" tabindex="-1"></a>  <span class="fu">select</span>(flight, dep_delay, carrier)</span></code></pre></div>
-</div>
-<div id="groups" class="section level2 hasAnchor" number="4.9">
-<h2><span class="header-section-number">4.9</span> 3.5 Groups<a href="data-wrangling.html#groups" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Grouped summaries are essentially what pivot tables are in Excel, if you have ever heard of those. By using the <code>summarise()</code> function with the <code>group_by</code> function we can, for example find the average flight delay by month. This becomes really awesome! This example starts with using <code>group_by</code> to group the data, then applies <code>summarise</code>.</p>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="data-wrangling.html#cb252-1" tabindex="-1"></a>flights <span class="sc">|&gt;</span> </span>
-<span id="cb252-2"><a href="data-wrangling.html#cb252-2" tabindex="-1"></a>  <span class="fu">group_by</span>(month) <span class="sc">|&gt;</span></span>
-<span id="cb252-3"><a href="data-wrangling.html#cb252-3" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb252-4"><a href="data-wrangling.html#cb252-4" tabindex="-1"></a>    <span class="at">delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
-<pre><code>## # A tibble: 12 × 2
-##    month delay
-##    &lt;int&gt; &lt;dbl&gt;
-##  1     1 10.0 
-##  2     2 10.8 
-##  3     3 13.2 
-##  4     4 13.9 
-##  5     5 13.0 
-##  6     6 20.8 
-##  7     7 21.7 
-##  8     8 12.6 
-##  9     9  6.72
-## 10    10  6.24
-## 11    11  5.44
-## 12    12 16.6</code></pre>
-<p>Next week we’ll practice summarizing data a lot more as well as “pivoting” our data, which is We’ll get to making those sweet, sweet plots soon.</p>
+<div id="nonlinear-least-squares-regression" class="section level2 hasAnchor" number="10.1">
+<h2><span class="header-section-number">10.1</span> Nonlinear least squares regression<a href="anova-and-non-linear-least-squares-regression-examples.html#nonlinear-least-squares-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>With the computational power available today these linearizations are really historical relicts, as we can fit these parameters to our nonlinear model. Nonlinear regression methods essentially sweep through the parameter space, by iteratively changing each parameter and calculating the distance between the model with the current parameter set and the data points. The sum of the squared distance between our model and data is called the residual. The parameter values that minimize the residual are chosen our best fit.</p>
+<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb509-1"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb509-1" tabindex="-1"></a><span class="co"># Perform nonlinear least squares regression</span></span>
+<span id="cb509-2"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb509-2" tabindex="-1"></a>nls1 <span class="ot">&lt;-</span> <span class="fu">nls</span>(<span class="at">formula =</span> v <span class="sc">~</span> S<span class="sc">/</span>(S <span class="sc">+</span> Km) <span class="sc">*</span> Vm,</span>
+<span id="cb509-3"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb509-3" tabindex="-1"></a>            <span class="at">data =</span> data,</span>
+<span id="cb509-4"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb509-4" tabindex="-1"></a>            <span class="at">start =</span> <span class="fu">list</span>(<span class="at">Km=</span><span class="dv">1</span>, <span class="at">Vm=</span><span class="dv">1</span>))</span>
+<span id="cb509-5"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb509-5" tabindex="-1"></a><span class="fu">summary</span>(nls1)</span></code></pre></div>
+<pre><code>## 
+## Formula: v ~ S/(S + Km) * Vm
+## 
+## Parameters:
+##    Estimate Std. Error t value Pr(&gt;|t|)    
+## Km  9.35733    0.13814   67.74 6.96e-10 ***
+## Vm  1.67708    0.01314  127.66 1.56e-11 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.004591 on 6 degrees of freedom
+## 
+## Number of iterations to convergence: 6 
+## Achieved convergence tolerance: 3.9e-07</code></pre>
+<p>Note that we don’t get an R<sup>2</sup> with non-linear least squares. To compare nonlinear vs linear models we must calculate the residuals given the parameters for each model, so plugging back in the <code>Vm</code> and <code>Km</code> parameters from our <code>lm</code> call and <code>nls</code> call into the Michaelis-Menten equation and calculating the predictions, then subtract the original <code>v</code> values from data from those that our models predict to calculate residuals for each model on the same scale of the original <code>v</code> without transformation.</p>
+<p>You can see how this is done in my Bioprocess course packet here: <a href="https://wrightrc.github.io/Bioprocess-Book/05-enzyme-rate-parameters.html#comparing-linearization-vs-nonlinear-methods" class="uri">https://wrightrc.github.io/Bioprocess-Book/05-enzyme-rate-parameters.html#comparing-linearization-vs-nonlinear-methods</a>.</p>
+<p>Another advantage is that our <span class="math inline">\(K_m\)</span> and <span class="math inline">\(k_{cat}\)</span> as well as standard errors do not need any scaling; we get direct estimates of parameters of this enzyme and <strong>uncertainty</strong> in these estimates. While we can calculate these parameters and uncertainties it is cumbersome and inevitably will result in poorer estimates just based on the worse model-fit per the residuals.</p>
+<p>Looking back at our linearized model,
+<span class="math display">\[\frac{E_0}{\nu} = \frac{K_m}{k_{cat}S} + \frac{1}{k_{cat}}\]</span>
+we can calculate our estimate of <span class="math inline">\(k_{cat}=\)</span> 1.7235773 <span class="math inline">\(\pm\)</span> , and our estimate of <span class="math inline">\(K_m =\)</span> 9.7850987. To calculate the uncertainty in these estimates we must propagate the standard error in our slope and intercept, according to the division formula
+<span class="math display">\[Q = \frac{a}{x}, \delta Q = Q \sqrt{(\frac{\delta a}{a})^2 + (\frac{\delta x}{x})^2}\]</span></p>
+<p>There is a nice wikipedia article on Propagation of Uncertainty describing these formulas for standard error/deviation calculation and how they were derived: <a href="https://en.wikipedia.org/wiki/Propagation_of_uncertainty" class="uri">https://en.wikipedia.org/wiki/Propagation_of_uncertainty</a></p>
+<div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb511-1"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb511-1" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(<span class="at">data =</span> data, </span>
+<span id="cb511-2"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb511-2" tabindex="-1"></a>                <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> S, <span class="at">y =</span> v)) <span class="sc">+</span> </span>
+<span id="cb511-3"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb511-3" tabindex="-1"></a>                  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;v (g/L-min)&quot;</span>, </span>
+<span id="cb511-4"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb511-4" tabindex="-1"></a>                    <span class="at">x =</span> <span class="st">&quot;S (g/L)&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb511-5"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb511-5" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;nls&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb511-6"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb511-6" tabindex="-1"></a>              <span class="at">formula =</span> y <span class="sc">~</span> x<span class="sc">/</span>(x <span class="sc">+</span> Km) <span class="sc">*</span> Vm,</span>
+<span id="cb511-7"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb511-7" tabindex="-1"></a>              <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">start =</span> <span class="fu">list</span>(<span class="at">Km=</span><span class="dv">111</span>, <span class="at">Vm=</span><span class="fl">9.5</span>)))</span></code></pre></div>
+<p><img src="09-1_Examples_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>Unfortunately geom smooth doesn’t work with nls to make confidence intervals, so we have to use <code>geom_ribbon</code> and <code>predictNLS</code> to make them separately. But I’m not sure in this case if the confidence intervals really make sense…</p>
+<div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb512-1"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb512-1" tabindex="-1"></a>conf.int <span class="ot">&lt;-</span> propagate<span class="sc">::</span><span class="fu">predictNLS</span>(nls1, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">S =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">20</span>, <span class="dv">1</span>)), <span class="at">interval =</span> <span class="st">&quot;confidence&quot;</span>, <span class="at">nsim =</span> <span class="dv">100000</span>)</span></code></pre></div>
+<pre><code>## predictNLS: Propagating predictor value #1...</code></pre>
+<pre><code>## predictNLS: Propagating predictor value #2...</code></pre>
+<pre><code>## predictNLS: Propagating predictor value #3...</code></pre>
+<pre><code>## predictNLS: Propagating predictor value #4...</code></pre>
+<pre><code>## predictNLS: Propagating predictor value #5...</code></pre>
+<pre><code>## predictNLS: Propagating predictor value #6...</code></pre>
+<pre><code>## predictNLS: Propagating predictor value #7...</code></pre>
+<pre><code>## predictNLS: Propagating predictor value #8...</code></pre>
+<pre><code>## predictNLS: Propagating predictor value #9...</code></pre>
+<pre><code>## predictNLS: Propagating predictor value #10...</code></pre>
+<pre><code>## predictNLS: Propagating predictor value #11...</code></pre>
+<pre><code>## predictNLS: Propagating predictor value #12...</code></pre>
+<pre><code>## predictNLS: Propagating predictor value #13...</code></pre>
+<pre><code>## predictNLS: Propagating predictor value #14...</code></pre>
+<pre><code>## predictNLS: Propagating predictor value #15...</code></pre>
+<pre><code>## predictNLS: Propagating predictor value #16...</code></pre>
+<pre><code>## predictNLS: Propagating predictor value #17...</code></pre>
+<pre><code>## predictNLS: Propagating predictor value #18...</code></pre>
+<pre><code>## predictNLS: Propagating predictor value #19...</code></pre>
+<pre><code>## predictNLS: Propagating predictor value #20...</code></pre>
+<pre><code>## predictNLS: Propagating predictor value #21...</code></pre>
+<div class="sourceCode" id="cb534"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb534-1"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb534-1" tabindex="-1"></a>conf.int <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">20</span>, <span class="dv">1</span>), <span class="at">ymin =</span> conf.int<span class="sc">$</span>summary[,<span class="dv">5</span>], <span class="at">ymax =</span> conf.int<span class="sc">$</span>summary[,<span class="dv">6</span>])</span>
+<span id="cb534-2"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb534-2" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(<span class="at">data =</span> data, </span>
+<span id="cb534-3"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb534-3" tabindex="-1"></a>                <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> S, <span class="at">y =</span> v)) <span class="sc">+</span> </span>
+<span id="cb534-4"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb534-4" tabindex="-1"></a>                  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;v (g/L-min)&quot;</span>, </span>
+<span id="cb534-5"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb534-5" tabindex="-1"></a>                    <span class="at">x =</span> <span class="st">&quot;S (g/L)&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb534-6"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb534-6" tabindex="-1"></a>  <span class="co"># geom_smooth(method = &quot;nls&quot;, se = FALSE,</span></span>
+<span id="cb534-7"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb534-7" tabindex="-1"></a>  <span class="co">#             formula = y ~ x/(x + Km) * Vm,</span></span>
+<span id="cb534-8"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb534-8" tabindex="-1"></a>  <span class="co">#             method.args = list(start = list(Km=111, Vm=9.5))) + </span></span>
+<span id="cb534-9"><a href="anova-and-non-linear-least-squares-regression-examples.html#cb534-9" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> conf.int, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">ymin =</span> ymin, <span class="at">ymax =</span> ymax), <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>)</span></code></pre></div>
+<p><img src="09-1_Examples_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 
 </div>
 </div>
@@ -812,8 +667,8 @@ CHOOSE the dataset to operate on, THEN
           </div>
         </div>
       </div>
-<a href="functions-best-coding-practices-and-debugging-examples.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="data-wrangling-examples.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="intro-to-anova-and-non-linear-least-squares-regression.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

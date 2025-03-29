@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>7 Introduction to Linear Regression in R | Data Analysis and Numerical Methods for Biological Systems Engineers</title>
+  <title>8 Introduction to Linear Regression in R | Data Analysis and Numerical Methods for Biological Systems Engineers</title>
   <meta name="description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
 Systems Engineering course BSE3144: Engineering Analysis for Biological
 Systems using Numerical Methods.</p>" />
   <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="7 Introduction to Linear Regression in R | Data Analysis and Numerical Methods for Biological Systems Engineers" />
+  <meta property="og:title" content="8 Introduction to Linear Regression in R | Data Analysis and Numerical Methods for Biological Systems Engineers" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
@@ -19,7 +19,7 @@ Systems using Numerical Methods.</p>" />
   <meta name="github-repo" content="VT-BSE3144/bookdown" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="7 Introduction to Linear Regression in R | Data Analysis and Numerical Methods for Biological Systems Engineers" />
+  <meta name="twitter:title" content="8 Introduction to Linear Regression in R | Data Analysis and Numerical Methods for Biological Systems Engineers" />
   
   <meta name="twitter:description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
 Systems Engineering course BSE3144: Engineering Analysis for Biological
@@ -30,14 +30,14 @@ Systems using Numerical Methods.</p>" />
 <meta name="author" content="R. Clay Wright" />
 
 
-<meta name="date" content="2025-03-26" />
+<meta name="date" content="2025-03-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="data-visualization-examples.html"/>
+<link rel="prev" href="assessment-1.html"/>
 <link rel="next" href="linear-regression-examples.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -364,45 +364,80 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.6" data-path="data-visualization-examples.html"><a href="data-visualization-examples.html#tasks-2"><i class="fa fa-check"></i><b>6.6</b> Tasks</a></li>
 <li class="chapter" data-level="6.7" data-path="data-visualization-examples.html"><a href="data-visualization-examples.html#setup-for-the-homework"><i class="fa fa-check"></i><b>6.7</b> Setup for the Homework</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html"><i class="fa fa-check"></i><b>7</b> Introduction to Linear Regression in R</a>
+<li class="chapter" data-level="7" data-path="assessment-1.html"><a href="assessment-1.html"><i class="fa fa-check"></i><b>7</b> Assessment 1</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#objectives"><i class="fa fa-check"></i><b>7.1</b> Objectives</a></li>
-<li class="chapter" data-level="7.2" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#reading"><i class="fa fa-check"></i><b>7.2</b> Reading</a></li>
-<li class="chapter" data-level="7.3" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#active-package-libraries"><i class="fa fa-check"></i><b>7.3</b> Active Package Libraries</a></li>
-<li class="chapter" data-level="7.4" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#linear-regression"><i class="fa fa-check"></i><b>7.4</b> Linear Regression</a>
+<li class="chapter" data-level="7.1" data-path="assessment-1.html"><a href="assessment-1.html#directions"><i class="fa fa-check"></i><b>7.1</b> Directions</a></li>
+<li class="chapter" data-level="7.2" data-path="assessment-1.html"><a href="assessment-1.html#finding-a-data-set"><i class="fa fa-check"></i><b>7.2</b> Finding a data set</a>
 <ul>
-<li class="chapter" data-level="7.4.1" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#assumptions"><i class="fa fa-check"></i><b>7.4.1</b> Assumptions</a></li>
-<li class="chapter" data-level="7.4.2" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#workflow"><i class="fa fa-check"></i><b>7.4.2</b> Workflow:</a></li>
-<li class="chapter" data-level="7.4.3" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#example-8"><i class="fa fa-check"></i><b>7.4.3</b> Example</a></li>
-<li class="chapter" data-level="7.4.4" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#predicting-values-applications-of-linear-models"><i class="fa fa-check"></i><b>7.4.4</b> Predicting values: Applications of linear models</a></li>
+<li class="chapter" data-level="7.2.1" data-path="assessment-1.html"><a href="assessment-1.html#general"><i class="fa fa-check"></i><b>7.2.1</b> General</a></li>
+<li class="chapter" data-level="7.2.2" data-path="assessment-1.html"><a href="assessment-1.html#health"><i class="fa fa-check"></i><b>7.2.2</b> Health</a></li>
+<li class="chapter" data-level="7.2.3" data-path="assessment-1.html"><a href="assessment-1.html#environment"><i class="fa fa-check"></i><b>7.2.3</b> Environment</a></li>
+<li class="chapter" data-level="7.2.4" data-path="assessment-1.html"><a href="assessment-1.html#agriculture"><i class="fa fa-check"></i><b>7.2.4</b> Agriculture</a></li>
 </ul></li>
-<li class="chapter" data-level="7.5" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#now-lets-say-you-want-to-predict-a-y-value-for-a-given-age."><i class="fa fa-check"></i><b>7.5</b> Now, let’s say you want to predict a y-value for a given age.</a></li>
-<li class="chapter" data-level="7.6" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#example-2-from-reading"><i class="fa fa-check"></i><b>7.6</b> Example 2 from reading</a></li>
+<li class="chapter" data-level="7.3" data-path="assessment-1.html"><a href="assessment-1.html#questionstasks"><i class="fa fa-check"></i><b>7.3</b> Questions/Tasks</a></li>
+<li class="chapter" data-level="7.4" data-path="assessment-1.html"><a href="assessment-1.html#guideline-on-the-use-of-ai-tools"><i class="fa fa-check"></i><b>7.4</b> Guideline on the Use of AI Tools</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html"><i class="fa fa-check"></i><b>8</b> Introduction to Linear Regression in R</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#objectives"><i class="fa fa-check"></i><b>8.1</b> Objectives</a></li>
+<li class="chapter" data-level="8.2" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#reading"><i class="fa fa-check"></i><b>8.2</b> Reading</a></li>
+<li class="chapter" data-level="8.3" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#active-package-libraries"><i class="fa fa-check"></i><b>8.3</b> Active Package Libraries</a></li>
+<li class="chapter" data-level="8.4" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#linear-regression"><i class="fa fa-check"></i><b>8.4</b> Linear Regression</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#assumptions"><i class="fa fa-check"></i><b>8.4.1</b> Assumptions</a></li>
+<li class="chapter" data-level="8.4.2" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#workflow"><i class="fa fa-check"></i><b>8.4.2</b> Workflow:</a></li>
+<li class="chapter" data-level="8.4.3" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#example-8"><i class="fa fa-check"></i><b>8.4.3</b> Example</a></li>
+<li class="chapter" data-level="8.4.4" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#predicting-values-applications-of-linear-models"><i class="fa fa-check"></i><b>8.4.4</b> Predicting values: Applications of linear models</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#now-lets-say-you-want-to-predict-a-y-value-for-a-given-age."><i class="fa fa-check"></i><b>8.5</b> Now, let’s say you want to predict a y-value for a given age.</a></li>
+<li class="chapter" data-level="8.6" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#example-2-from-reading"><i class="fa fa-check"></i><b>8.6</b> Example 2 from reading</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html"><i class="fa fa-check"></i>Linear Regression Examples</a>
 <ul>
-<li class="chapter" data-level="7.7" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#active-libraries"><i class="fa fa-check"></i><b>7.7</b> Active Libraries</a></li>
-<li class="chapter" data-level="7.8" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#linear-regression-1"><i class="fa fa-check"></i><b>7.8</b> Linear Regression</a></li>
-<li class="chapter" data-level="7.9" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#assumptions-1"><i class="fa fa-check"></i><b>7.9</b> Assumptions</a></li>
-<li class="chapter" data-level="7.10" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#example-10"><i class="fa fa-check"></i><b>7.10</b> Example</a>
+<li class="chapter" data-level="8.7" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#active-libraries"><i class="fa fa-check"></i><b>8.7</b> Active Libraries</a></li>
+<li class="chapter" data-level="8.8" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#linear-regression-1"><i class="fa fa-check"></i><b>8.8</b> Linear Regression</a></li>
+<li class="chapter" data-level="8.9" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#assumptions-1"><i class="fa fa-check"></i><b>8.9</b> Assumptions</a></li>
+<li class="chapter" data-level="8.10" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#example-10"><i class="fa fa-check"></i><b>8.10</b> Example</a>
 <ul>
-<li class="chapter" data-level="7.10.1" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-1.-read-in-data-1"><i class="fa fa-check"></i><b>7.10.1</b> Step 1. Read in data</a></li>
-<li class="chapter" data-level="7.10.2" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-2.-plot-data-visualize-linearity-1"><i class="fa fa-check"></i><b>7.10.2</b> Step 2. Plot data &amp; visualize linearity</a></li>
-<li class="chapter" data-level="7.10.3" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-3.-transform-data-1"><i class="fa fa-check"></i><b>7.10.3</b> Step 3. Transform data</a></li>
-<li class="chapter" data-level="7.10.4" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-4.-linear-model-1"><i class="fa fa-check"></i><b>7.10.4</b> Step 4. Linear model</a></li>
-<li class="chapter" data-level="7.10.5" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-5.-test-for-homoscedasaticity-1"><i class="fa fa-check"></i><b>7.10.5</b> Step 5. Test for homoscedasaticity</a></li>
-<li class="chapter" data-level="7.10.6" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-6.-test-for-bias-1"><i class="fa fa-check"></i><b>7.10.6</b> Step 6. Test for bias</a></li>
-<li class="chapter" data-level="7.10.7" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-7.-test-for-normality-1"><i class="fa fa-check"></i><b>7.10.7</b> Step 7. Test for Normality</a></li>
-<li class="chapter" data-level="7.10.8" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#application"><i class="fa fa-check"></i><b>7.10.8</b> Application</a></li>
+<li class="chapter" data-level="8.10.1" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-1.-read-in-data-1"><i class="fa fa-check"></i><b>8.10.1</b> Step 1. Read in data</a></li>
+<li class="chapter" data-level="8.10.2" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-2.-plot-data-visualize-linearity-1"><i class="fa fa-check"></i><b>8.10.2</b> Step 2. Plot data &amp; visualize linearity</a></li>
+<li class="chapter" data-level="8.10.3" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-3.-transform-data-1"><i class="fa fa-check"></i><b>8.10.3</b> Step 3. Transform data</a></li>
+<li class="chapter" data-level="8.10.4" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-4.-linear-model-1"><i class="fa fa-check"></i><b>8.10.4</b> Step 4. Linear model</a></li>
+<li class="chapter" data-level="8.10.5" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-5.-test-for-homoscedasaticity-1"><i class="fa fa-check"></i><b>8.10.5</b> Step 5. Test for homoscedasaticity</a></li>
+<li class="chapter" data-level="8.10.6" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-6.-test-for-bias-1"><i class="fa fa-check"></i><b>8.10.6</b> Step 6. Test for bias</a></li>
+<li class="chapter" data-level="8.10.7" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-7.-test-for-normality-1"><i class="fa fa-check"></i><b>8.10.7</b> Step 7. Test for Normality</a></li>
+<li class="chapter" data-level="8.10.8" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#application"><i class="fa fa-check"></i><b>8.10.8</b> Application</a></li>
 </ul></li>
-<li class="chapter" data-level="7.11" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#take-2-try-second-order"><i class="fa fa-check"></i><b>7.11</b> Take 2, try second order!</a>
+<li class="chapter" data-level="8.11" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#take-2-try-second-order"><i class="fa fa-check"></i><b>8.11</b> Take 2, try second order!</a>
 <ul>
-<li class="chapter" data-level="7.11.1" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-4.-linear-model-2"><i class="fa fa-check"></i><b>7.11.1</b> Step 4. Linear model</a></li>
-<li class="chapter" data-level="7.11.2" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-5.-test-for-homoscedasaticity-2"><i class="fa fa-check"></i><b>7.11.2</b> Step 5. Test for homoscedasaticity</a></li>
-<li class="chapter" data-level="7.11.3" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-6.-test-for-bias-2"><i class="fa fa-check"></i><b>7.11.3</b> Step 6. Test for bias</a></li>
-<li class="chapter" data-level="7.11.4" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-7.-test-for-normality-2"><i class="fa fa-check"></i><b>7.11.4</b> Step 7. Test for Normality</a></li>
-<li class="chapter" data-level="7.11.5" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#application-1"><i class="fa fa-check"></i><b>7.11.5</b> Application</a></li>
+<li class="chapter" data-level="8.11.1" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-4.-linear-model-2"><i class="fa fa-check"></i><b>8.11.1</b> Step 4. Linear model</a></li>
+<li class="chapter" data-level="8.11.2" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-5.-test-for-homoscedasaticity-2"><i class="fa fa-check"></i><b>8.11.2</b> Step 5. Test for homoscedasaticity</a></li>
+<li class="chapter" data-level="8.11.3" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-6.-test-for-bias-2"><i class="fa fa-check"></i><b>8.11.3</b> Step 6. Test for bias</a></li>
+<li class="chapter" data-level="8.11.4" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-7.-test-for-normality-2"><i class="fa fa-check"></i><b>8.11.4</b> Step 7. Test for Normality</a></li>
+<li class="chapter" data-level="8.11.5" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#application-1"><i class="fa fa-check"></i><b>8.11.5</b> Application</a></li>
 </ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html"><i class="fa fa-check"></i><b>9</b> Intro to ANOVA and non-linear least squares regression</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#reading-1"><i class="fa fa-check"></i><b>9.1</b> Reading</a></li>
+<li class="chapter" data-level="9.2" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#anova-tests-interactions-between-variables"><i class="fa fa-check"></i><b>9.2</b> ANOVA tests interactions between variables</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#experiment-1"><i class="fa fa-check"></i><b>9.2.1</b> Experiment 1</a></li>
+<li class="chapter" data-level="9.2.2" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#ploting-the-full-dataset"><i class="fa fa-check"></i><b>9.2.2</b> Ploting the full dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#post-hoc-testing"><i class="fa fa-check"></i><b>9.3</b> Post hoc testing</a></li>
+<li class="chapter" data-level="9.4" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#assumptions-of-anova"><i class="fa fa-check"></i><b>9.4</b> Assumptions of ANOVA</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#normality-of-residuals"><i class="fa fa-check"></i><b>9.4.1</b> Normality of residuals</a></li>
+<li class="chapter" data-level="9.4.2" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#homogeneity-of-variance"><i class="fa fa-check"></i><b>9.4.2</b> Homogeneity of variance</a></li>
+<li class="chapter" data-level="9.4.3" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#independence"><i class="fa fa-check"></i><b>9.4.3</b> Independence</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#non-linear-least-squares"><i class="fa fa-check"></i><b>9.5</b> Non-linear least squares</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="anova-and-non-linear-least-squares-regression-examples.html"><a href="anova-and-non-linear-least-squares-regression-examples.html"><i class="fa fa-check"></i><b>10</b> ANOVA and non-linear least squares regression examples</a>
+<ul>
+<li class="chapter" data-level="10.0.1" data-path="anova-and-non-linear-least-squares-regression-examples.html"><a href="anova-and-non-linear-least-squares-regression-examples.html#lineweaver-burk-plot"><i class="fa fa-check"></i><b>10.0.1</b> Lineweaver-Burk plot</a></li>
+<li class="chapter" data-level="10.1" data-path="anova-and-non-linear-least-squares-regression-examples.html"><a href="anova-and-non-linear-least-squares-regression-examples.html#nonlinear-least-squares-regression"><i class="fa fa-check"></i><b>10.1</b> Nonlinear least squares regression</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -424,10 +459,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="introduction-to-linear-regression-in-r" class="section level1 hasAnchor" number="7">
-<h1><span class="header-section-number">7</span> Introduction to Linear Regression in R<a href="introduction-to-linear-regression-in-r.html#introduction-to-linear-regression-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="objectives" class="section level2 hasAnchor" number="7.1">
-<h2><span class="header-section-number">7.1</span> Objectives<a href="introduction-to-linear-regression-in-r.html#objectives" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="introduction-to-linear-regression-in-r" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">8</span> Introduction to Linear Regression in R<a href="introduction-to-linear-regression-in-r.html#introduction-to-linear-regression-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="objectives" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Objectives<a href="introduction-to-linear-regression-in-r.html#objectives" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>This week our goals are to be able to:</p>
 <ol style="list-style-type: decimal">
 <li><strong>Linear Regression Fundamentals</strong>:
@@ -461,32 +496,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ol>
 </div>
-<div id="reading" class="section level2 hasAnchor" number="7.2">
-<h2><span class="header-section-number">7.2</span> Reading<a href="introduction-to-linear-regression-in-r.html#reading" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="reading" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> Reading<a href="introduction-to-linear-regression-in-r.html#reading" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li><a href="https://www.tmwr.org/base-r">Chapter 3 A Review of R Modeling Fundamentals</a> from <em>Tidy Modeling with R</em> by Max Kuhn and Julia Silge</li>
 </ul>
 </div>
-<div id="active-package-libraries" class="section level2 hasAnchor" number="7.3">
-<h2><span class="header-section-number">7.3</span> Active Package Libraries<a href="introduction-to-linear-regression-in-r.html#active-package-libraries" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="active-package-libraries" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> Active Package Libraries<a href="introduction-to-linear-regression-in-r.html#active-package-libraries" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>This tutorial is derive from <a href="https://www.datacamp.com/community/tutorials/linear-regression-R" class="uri">https://www.datacamp.com/community/tutorials/linear-regression-R</a></p>
 <div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="introduction-to-linear-regression-in-r.html#cb376-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb376-2"><a href="introduction-to-linear-regression-in-r.html#cb376-2" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span>
 <span id="cb376-3"><a href="introduction-to-linear-regression-in-r.html#cb376-3" tabindex="-1"></a><span class="fu">library</span>(readxl)</span></code></pre></div>
 </div>
-<div id="linear-regression" class="section level2 hasAnchor" number="7.4">
-<h2><span class="header-section-number">7.4</span> Linear Regression<a href="introduction-to-linear-regression-in-r.html#linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="linear-regression" class="section level2 hasAnchor" number="8.4">
+<h2><span class="header-section-number">8.4</span> Linear Regression<a href="introduction-to-linear-regression-in-r.html#linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>R-studio provides the ability to create linear regressions easily, sometimes too easily. While this is not meant to be a substitute for a statistics course, the objective in this short tutorial is to develop a workflow approach that allows you to test the validity of regressions.</p>
-<div id="assumptions" class="section level3 hasAnchor" number="7.4.1">
-<h3><span class="header-section-number">7.4.1</span> Assumptions<a href="introduction-to-linear-regression-in-r.html#assumptions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="assumptions" class="section level3 hasAnchor" number="8.4.1">
+<h3><span class="header-section-number">8.4.1</span> Assumptions<a href="introduction-to-linear-regression-in-r.html#assumptions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Below is a figure from <a href="https://pubs.usgs.gov/tm/04/a03/tm4a3.pdf" class="uri">https://pubs.usgs.gov/tm/04/a03/tm4a3.pdf</a>.</p>
 <div class="float">
 <img src="images/image_assumptions.png" alt="alt text here" />
 <div class="figcaption">alt text here</div>
 </div>
 </div>
-<div id="workflow" class="section level3 hasAnchor" number="7.4.2">
-<h3><span class="header-section-number">7.4.2</span> Workflow:<a href="introduction-to-linear-regression-in-r.html#workflow" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="workflow" class="section level3 hasAnchor" number="8.4.2">
+<h3><span class="header-section-number">8.4.2</span> Workflow:<a href="introduction-to-linear-regression-in-r.html#workflow" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ol style="list-style-type: decimal">
 <li>Read in data</li>
 <li>Plot data &amp; visualize linearity</li>
@@ -517,17 +552,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Test for normality</li>
 </ol>
 </div>
-<div id="example-8" class="section level3 hasAnchor" number="7.4.3">
-<h3><span class="header-section-number">7.4.3</span> Example<a href="introduction-to-linear-regression-in-r.html#example-8" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="step-1.-read-in-data" class="section level4 hasAnchor" number="7.4.3.1">
-<h4><span class="header-section-number">7.4.3.1</span> Step 1. Read in data<a href="introduction-to-linear-regression-in-r.html#step-1.-read-in-data" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="example-8" class="section level3 hasAnchor" number="8.4.3">
+<h3><span class="header-section-number">8.4.3</span> Example<a href="introduction-to-linear-regression-in-r.html#example-8" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="step-1.-read-in-data" class="section level4 hasAnchor" number="8.4.3.1">
+<h4><span class="header-section-number">8.4.3.1</span> Step 1. Read in data<a href="introduction-to-linear-regression-in-r.html#step-1.-read-in-data" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="introduction-to-linear-regression-in-r.html#cb378-1" tabindex="-1"></a>ageandheight <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;data/ageandheight.xls&quot;</span>,<span class="at">sheet=</span><span class="st">&quot;Hoja2&quot;</span>)</span>
 <span id="cb378-2"><a href="introduction-to-linear-regression-in-r.html#cb378-2" tabindex="-1"></a></span>
 <span id="cb378-3"><a href="introduction-to-linear-regression-in-r.html#cb378-3" tabindex="-1"></a><span class="do">## There is one data point that does not read in correctly, thus the statement below corrects for this.</span></span>
 <span id="cb378-4"><a href="introduction-to-linear-regression-in-r.html#cb378-4" tabindex="-1"></a>ageandheight<span class="sc">$</span>height[<span class="dv">7</span>] <span class="ot">&lt;-</span> <span class="fl">79.9</span></span></code></pre></div>
 </div>
-<div id="step-2.-plot-data-visualize-linearity" class="section level4 hasAnchor" number="7.4.3.2">
-<h4><span class="header-section-number">7.4.3.2</span> Step 2. Plot data &amp; visualize linearity<a href="introduction-to-linear-regression-in-r.html#step-2.-plot-data-visualize-linearity" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="step-2.-plot-data-visualize-linearity" class="section level4 hasAnchor" number="8.4.3.2">
+<h4><span class="header-section-number">8.4.3.2</span> Step 2. Plot data &amp; visualize linearity<a href="introduction-to-linear-regression-in-r.html#step-2.-plot-data-visualize-linearity" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="introduction-to-linear-regression-in-r.html#cb379-1" tabindex="-1"></a><span class="do">## here you can either start a ggplot or just use the simple plot command. Since we&#39;re practicing ggplot, let&#39;s stick with this.</span></span>
 <span id="cb379-2"><a href="introduction-to-linear-regression-in-r.html#cb379-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(ageandheight, <span class="fu">aes</span>(age,height)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
 <span id="cb379-3"><a href="introduction-to-linear-regression-in-r.html#cb379-3" tabindex="-1"></a>  cowplot<span class="sc">::</span><span class="fu">theme_cowplot</span>() <span class="sc">+</span> <span class="do">## adds theme</span></span>
@@ -539,12 +574,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="08-0_Intro_files/figure-html/step%202-1.png" width="672" /></p>
 <p><strong>Check</strong>: The resulting plot looks fairly linear; let’s proceed!</p>
 </div>
-<div id="step-3.-transform-data" class="section level4 hasAnchor" number="7.4.3.3">
-<h4><span class="header-section-number">7.4.3.3</span> Step 3. Transform data<a href="introduction-to-linear-regression-in-r.html#step-3.-transform-data" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="step-3.-transform-data" class="section level4 hasAnchor" number="8.4.3.3">
+<h4><span class="header-section-number">8.4.3.3</span> Step 3. Transform data<a href="introduction-to-linear-regression-in-r.html#step-3.-transform-data" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="introduction-to-linear-regression-in-r.html#cb380-1" tabindex="-1"></a><span class="do">## not required here; if required, repeat step 2.</span></span></code></pre></div>
 </div>
-<div id="step-4.-linear-model" class="section level4 hasAnchor" number="7.4.3.4">
-<h4><span class="header-section-number">7.4.3.4</span> Step 4. Linear model<a href="introduction-to-linear-regression-in-r.html#step-4.-linear-model" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="step-4.-linear-model" class="section level4 hasAnchor" number="8.4.3.4">
+<h4><span class="header-section-number">8.4.3.4</span> Step 4. Linear model<a href="introduction-to-linear-regression-in-r.html#step-4.-linear-model" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Create linear model using the <code>lm</code> function.
 - Assess assumption 1
 - review t-values from linear model summary. If the slope and intercept values have resulting |t| &gt; 2, then they are significant.
@@ -590,8 +625,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 1.127423</code></pre>
 <p>Now, observation 3 was identified as having higher influence on the fit than other points. Consider options 1-3 described in workflow. Is there something wrong with this point?</p>
 </div>
-<div id="step-5.-test-for-homoscedasaticity" class="section level4 hasAnchor" number="7.4.3.5">
-<h4><span class="header-section-number">7.4.3.5</span> Step 5. Test for homoscedasaticity<a href="introduction-to-linear-regression-in-r.html#step-5.-test-for-homoscedasaticity" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="step-5.-test-for-homoscedasaticity" class="section level4 hasAnchor" number="8.4.3.5">
+<h4><span class="header-section-number">8.4.3.5</span> Step 5. Test for homoscedasaticity<a href="introduction-to-linear-regression-in-r.html#step-5.-test-for-homoscedasaticity" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="introduction-to-linear-regression-in-r.html#cb388-1" tabindex="-1"></a><span class="co"># Here, the which variable provides the ability to create 4 plots of interest: &quot;Residuals vs Fitted&quot;, &quot;Normal Q-Q&quot;, &quot;Scale-Location&quot;, &quot;Cook&#39;s distance&quot;, &quot;Residuals vs Leverage&quot;</span></span>
 <span id="cb388-2"><a href="introduction-to-linear-regression-in-r.html#cb388-2" tabindex="-1"></a></span>
 <span id="cb388-3"><a href="introduction-to-linear-regression-in-r.html#cb388-3" tabindex="-1"></a><span class="co"># To test for homoscedasticity, review plot of standardized residuals</span></span>
@@ -599,34 +634,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="08-0_Intro_files/figure-html/step%205-1.png" width="672" /></p>
 <p><strong>Check</strong>: Variability is not significant over fitted values</p>
 </div>
-<div id="step-6.-test-for-bias" class="section level4 hasAnchor" number="7.4.3.6">
-<h4><span class="header-section-number">7.4.3.6</span> Step 6. Test for bias<a href="introduction-to-linear-regression-in-r.html#step-6.-test-for-bias" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="step-6.-test-for-bias" class="section level4 hasAnchor" number="8.4.3.6">
+<h4><span class="header-section-number">8.4.3.6</span> Step 6. Test for bias<a href="introduction-to-linear-regression-in-r.html#step-6.-test-for-bias" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="introduction-to-linear-regression-in-r.html#cb389-1" tabindex="-1"></a><span class="co"># To test for bias, review plot of  residuals</span></span>
 <span id="cb389-2"><a href="introduction-to-linear-regression-in-r.html#cb389-2" tabindex="-1"></a><span class="fu">plot</span>(model.lm,  <span class="at">which =</span> <span class="dv">1</span>, <span class="at">ask =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><img src="08-0_Intro_files/figure-html/step%206-1.png" width="672" /></p>
 <p><strong>Check</strong>: Variability above and below 0 is similar without a distinct pattern</p>
 </div>
-<div id="step-7.-test-for-normality" class="section level4 hasAnchor" number="7.4.3.7">
-<h4><span class="header-section-number">7.4.3.7</span> Step 7. Test for Normality<a href="introduction-to-linear-regression-in-r.html#step-7.-test-for-normality" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="step-7.-test-for-normality" class="section level4 hasAnchor" number="8.4.3.7">
+<h4><span class="header-section-number">8.4.3.7</span> Step 7. Test for Normality<a href="introduction-to-linear-regression-in-r.html#step-7.-test-for-normality" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="introduction-to-linear-regression-in-r.html#cb390-1" tabindex="-1"></a><span class="co"># To test for normality, review plot</span></span>
 <span id="cb390-2"><a href="introduction-to-linear-regression-in-r.html#cb390-2" tabindex="-1"></a><span class="fu">plot</span>(model.lm,  <span class="at">which =</span> <span class="dv">2</span>, <span class="at">ask =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><img src="08-0_Intro_files/figure-html/step%207-1.png" width="672" /></p>
 <p><strong>Check</strong>: Most points (with exception of observation 1) fall on the line, suggesting a normal distribution of residuals</p>
 </div>
 </div>
-<div id="predicting-values-applications-of-linear-models" class="section level3 hasAnchor" number="7.4.4">
-<h3><span class="header-section-number">7.4.4</span> Predicting values: Applications of linear models<a href="introduction-to-linear-regression-in-r.html#predicting-values-applications-of-linear-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="predicting-values-applications-of-linear-models" class="section level3 hasAnchor" number="8.4.4">
+<h3><span class="header-section-number">8.4.4</span> Predicting values: Applications of linear models<a href="introduction-to-linear-regression-in-r.html#predicting-values-applications-of-linear-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The following workflow provides predicted values and confidence intervals of these estimates for new values based on a linear regression model. The final steps are to create a plot with uncertainty bounds and the ability to predict a value and associated uncertainty in that predicted value.</p>
-<div id="workflow-1" class="section level4 hasAnchor" number="7.4.4.1">
-<h4><span class="header-section-number">7.4.4.1</span> Workflow:<a href="introduction-to-linear-regression-in-r.html#workflow-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="workflow-1" class="section level4 hasAnchor" number="8.4.4.1">
+<h4><span class="header-section-number">8.4.4.1</span> Workflow:<a href="introduction-to-linear-regression-in-r.html#workflow-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Confidence intervals</strong> are computed using the predict command:</p>
 <div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="introduction-to-linear-regression-in-r.html#cb391-1" tabindex="-1"></a><span class="fu">predict</span>(lmheight, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">age=</span><span class="fl">22.5</span>), <span class="at">interval =</span> <span class="st">&quot;confidence&quot;</span>, <span class="at">level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
 <p><strong>Prediction intervals</strong> are computed as follows:</p>
 <div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="introduction-to-linear-regression-in-r.html#cb392-1" tabindex="-1"></a><span class="fu">predict</span>(lmheight, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">age=</span><span class="fl">22.5</span>), <span class="at">interval =</span> <span class="st">&quot;prediction&quot;</span>, <span class="at">level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
 <p>Prediction intervals are always greater than confidence intervals. While they include the uncertainty in the regression coefficients, the slope and intercept, they also includes the unexplained variability in y within the original data.</p>
 </div>
-<div id="example-9" class="section level4 hasAnchor" number="7.4.4.2">
-<h4><span class="header-section-number">7.4.4.2</span> Example<a href="introduction-to-linear-regression-in-r.html#example-9" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="example-9" class="section level4 hasAnchor" number="8.4.4.2">
+<h4><span class="header-section-number">8.4.4.2</span> Example<a href="introduction-to-linear-regression-in-r.html#example-9" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="introduction-to-linear-regression-in-r.html#cb393-1" tabindex="-1"></a><span class="co"># Use model to create prediction intervals</span></span>
 <span id="cb393-2"><a href="introduction-to-linear-regression-in-r.html#cb393-2" tabindex="-1"></a></span>
 <span id="cb393-3"><a href="introduction-to-linear-regression-in-r.html#cb393-3" tabindex="-1"></a>model.predict <span class="ot">&lt;-</span> <span class="fu">predict</span>(model.lm, <span class="at">interval =</span> <span class="st">&quot;predict&quot;</span>)</span></code></pre></div>
@@ -661,8 +696,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </div>
-<div id="now-lets-say-you-want-to-predict-a-y-value-for-a-given-age." class="section level2 hasAnchor" number="7.5">
-<h2><span class="header-section-number">7.5</span> Now, let’s say you want to predict a y-value for a given age.<a href="introduction-to-linear-regression-in-r.html#now-lets-say-you-want-to-predict-a-y-value-for-a-given-age." class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="now-lets-say-you-want-to-predict-a-y-value-for-a-given-age." class="section level2 hasAnchor" number="8.5">
+<h2><span class="header-section-number">8.5</span> Now, let’s say you want to predict a y-value for a given age.<a href="introduction-to-linear-regression-in-r.html#now-lets-say-you-want-to-predict-a-y-value-for-a-given-age." class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>When making predictions, you’ll want to use predict and not confidence. The rationale is that this approach provides a better sense of incorporating not just the confidence in the intercept and slope, but also the unexplained variation in the y-values.</p>
 <div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="introduction-to-linear-regression-in-r.html#cb396-1" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="st">&quot;age&quot;</span> <span class="ot">=</span> <span class="fl">18.1</span>) <span class="co"># key here is to label column name the same as what is used in the model.lm!</span></span>
 <span id="cb396-2"><a href="introduction-to-linear-regression-in-r.html#cb396-2" tabindex="-1"></a>value.predict <span class="ot">&lt;-</span> <span class="fu">predict</span>(model.lm, <span class="at">newdata=</span>a, <span class="at">interval =</span> <span class="st">&quot;predict&quot;</span>, <span class="at">level =</span> <span class="fl">0.95</span>)</span>
@@ -671,8 +706,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 1 76.42119 75.77412 77.06826</code></pre>
 <p>Thus, for an age of 18.1 months, the predicted height is 76.4 (75.77 - 77.1, alpha = 95%).’</p>
 </div>
-<div id="example-2-from-reading" class="section level2 hasAnchor" number="7.6">
-<h2><span class="header-section-number">7.6</span> Example 2 from reading<a href="introduction-to-linear-regression-in-r.html#example-2-from-reading" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="example-2-from-reading" class="section level2 hasAnchor" number="8.6">
+<h2><span class="header-section-number">8.6</span> Example 2 from reading<a href="introduction-to-linear-regression-in-r.html#example-2-from-reading" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="introduction-to-linear-regression-in-r.html#cb398-1" tabindex="-1"></a><span class="co"># Read in data</span></span>
 <span id="cb398-2"><a href="introduction-to-linear-regression-in-r.html#cb398-2" tabindex="-1"></a>press <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;data/pressure.xlsx&quot;</span>)</span>
 <span id="cb398-3"><a href="introduction-to-linear-regression-in-r.html#cb398-3" tabindex="-1"></a></span>
@@ -729,7 +764,7 @@ What do you notice??? Are the residuals going to be random? Does negative pressu
           </div>
         </div>
       </div>
-<a href="data-visualization-examples.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="assessment-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="linear-regression-examples.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

@@ -1,0 +1,99 @@
+---
+output: html_document
+params:
+  version: 1.2
+---
+
+# Assessment 1 
+
+
+
+In today's data-driven world, the ability to work with real-world datasets and draw meaningful insights is an essential skill for engineers and scientists. This assessment is designed to give you hands-on experience in exploring, cleaning, transforming, and visualizing data in R. Unlike traditional problem sets, this project empowers you to choose a dataset that aligns with your interests—whether related to health, environment, agriculture, or another topic—and apply the data wrangling and visualization skills you’ve developed in class.
+
+The goal of this project is to help you move beyond following code examples to thinking critically and creatively about data: formulating your own questions, designing a strategy to answer them, and communicating your results effectively. Along the way, you'll also reflect on the role of emerging tools like AI in the data analysis process, learning to use them thoughtfully and responsibly.
+
+By the end of this assessment, you should be able to:
+
+- Identify and obtain a relevant and well-structured dataset
+- Tidy and transform data using tools from the tidyverse
+- Pose and answer meaningful questions through summary statistics and visualizations
+- Document and reflect on your data analysis process, including any use of AI tools
+
+This is an opportunity to demonstrate not only your technical skills, but your curiosity, creativity, and ability to engage with data in a real-world context.
+
+You can download the project template here: <https://github.com/VT-BSE3144/07_Assessment1/Assessment1.Rmd>
+
+## Directions
+
+In this project-based assessment you will identify a data set you are interested in and demonstrate your skills of data wrangling and visualization through asking questions about the dataset. 
+
+## Finding a data set 
+
+Data is everywhere these days. Below we have some recommendations about where to find datasets to use for this assessment, but there are many more options out there, from different governmental agencies, to research papers, to data repositories. Google a topic you are interested in plus "data" and see what you can find, or check out the resources below. 
+
+The critical things a dataset must have for this assessment are:
+
+- ability to be downloaded (as a csv/tsv/excel/sas/stata/spss file ideally)
+- at least 1 numerical variable
+- at least 1 categorical variable
+- something that you care about, so you are willing to put some time into this assessment
+
+### General 
+
+https://data.world/datasets - data.world has thousands of data sets on all kinds of different topics that are all open and freely available, but you have to make an account.  
+
+https://datadryad.org/stash - This site is a repository for all kinds of research data, use the search tool to find something you are interested in.
+
+https://udc.vt.edu/ - Virginia Tech's University data commons has all kinds of data about our campus community over time that can be visualized in different ways and downloaded as CSVs. 
+
+https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/00Index.html - The R datasets package has lots of different data sets on a wide variety of topics
+
+https://www.vdh.virginia.gov/data/ - Virginia Department of Health has lots of datasets, mostly health related but also some environmental datasets.
+
+### Health
+
+Safe Drinking Water Information System (SDWIS) - data on centralized water service design and violations throughout the United States. (https://www.epa.gov/ground-water-and-drinking-water/safe-drinking-water-information-system-sdwis-federal-reporting)
+
+https://www.who.int/data - The World Health organization has lots of very interesting datasets that are pretty accessible. We would recommend in particular, [Child mortality and causes of death](https://www.who.int/data/gho/data/themes/topics/topic-details/GHO/child-mortality-and-causes-of-death) and [Life expectancy data by country](https://www.who.int/data/gho/data/themes/mortality-and-global-health-estimates/ghe-life-expectancy-and-healthy-life-expectancy).
+
+https://healthdata.gov/ - This site is dedicated to making high value health data more accessible to entrepreneurs, researchers, and policy makers in the hopes of better health outcomes.
+
+https://www.nyam.org/library/collections-and-resources/data-sets/ - The New York Academy of Medicine has links to many publicly available, medical data sets. 
+
+https://www.cdc.gov/datastatistics/index.html - CDC has many datasets, some may be difficult to access or read into R, as they often have their own data visualization tools, but with some digging you can find the raw datasets.
+
+### Environment
+
+https://echo.epa.gov/ - USEPA Enforcement and Compliance System (ECHO) - all permitted releases to surface waters in the United States.
+
+https://vtstreamlab.weebly.com/live-data.html - StREAM Lab - real-time monitoring of water quantity and quality at Stroubles Creek. 
+
+https://www.deq.virginia.gov/topics-of-interest/per-and-polyfluoroalkyl-substances-pfas - VADEQ PFAS monitoring data - Forever chemicals PFAS, perfluoroalkyl substances, measured in water sources throughout Virginia. 
+
+https://waterdata.usgs.gov/nwis - These pages provide access to water-resources data collected at approximately 1.9 million sites across the US and its territories.
+
+https://data.noaa.gov/datasetsearch/ - NOAA has many datasets related to the environment from weather and water, to ecology and environmental health. These are generally pretty accessible too.
+
+### Agriculture
+
+https://datl-chandel.github.io/Agroclimate/ - Agroclimate Viewer & Planner App - This tools enables monitoring crop health (from satellite imagery), weather history and 16 day forecast, and soil properties. 
+
+https://data.nal.usda.gov/ - The USDA has a large collection of agriculturally relevant data sets.
+
+
+## Questions/Tasks
+
+Any text that is flanked by two asterisk's `**` (which causes text to appear in bold face in the "Visual" version of the document) is a prompt for you to answer or fill in details below. Outside of code chunks, this text will appear as bold. We have still added the `**` inside of comments in code chunks so you will know where you need to fill in. 
+
+
+## Guideline on the Use of AI Tools
+
+In this assignment, you are welcome to use AI tools (such as ChatGPT, Claude, Copilot, automated data cleaning packages, etc) to support your brainstorming, code generation, data wrangling, or visualization tasks. However, it is essential that you use these tools critically and responsibly. Specifically consider:
+
+**Verification and Validation:** Always verify and validate any output generated by AI tools. Ensure that the code and analysis you submit is accurate, reproducible, and truly reflects your own understanding.
+
+**Documentation:** Clearly document any instance where AI tools were used. Describe the process, the suggestions provided by the AI, and any modifications you made to tailor the output to your project’s needs.
+
+**Ethical Considerations:** Reflect on and acknowledge the benefits and limitations of using AI. Consider issues such as potential biases in AI-generated outputs, the transparency of the process, and the ethical implications of relying on automated tools in data analysis.
+
+By adhering to these guidelines, you will demonstrate both technical proficiency and a critical, ethical approach to the integration of AI in your data analysis process.
