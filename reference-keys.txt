@@ -300,3 +300,12 @@ simple-matrix-and-solving-for-x
 example-2-3
 example-3-problem-11.3-in-chapra
 to-find-effect-of-reactor-3-on-reactor-1.
+assessment-2
+directions-1
+finding-a-data-set-1
+general-1
+health-1
+environment-1
+agriculture-1
+questionstasks-1
+guideline-on-the-use-of-ai-tools-1
