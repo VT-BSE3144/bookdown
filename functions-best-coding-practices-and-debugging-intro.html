@@ -59,6 +59,14 @@ Systems using Numerical Methods.</p>" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -439,6 +447,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.5.1" data-path="anova-and-non-linear-least-squares-regression-examples.html"><a href="anova-and-non-linear-least-squares-regression-examples.html#lineweaver-burk-plot"><i class="fa fa-check"></i><b>9.5.1</b> Lineweaver-Burk plot</a></li>
 <li class="chapter" data-level="9.6" data-path="anova-and-non-linear-least-squares-regression-examples.html"><a href="anova-and-non-linear-least-squares-regression-examples.html#nonlinear-least-squares-regression"><i class="fa fa-check"></i><b>9.6</b> Nonlinear least squares regression</a></li>
 </ul></li>
+<li class="chapter" data-level="10" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html"><i class="fa fa-check"></i><b>10</b> Roots and Optima Introduction</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#roots"><i class="fa fa-check"></i><b>10.1</b> Roots</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#example-1-2"><i class="fa fa-check"></i><b>10.1.1</b> Example 1</a></li>
+<li class="chapter" data-level="10.1.2" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#example-2-2"><i class="fa fa-check"></i><b>10.1.2</b> Example 2</a></li>
+<li class="chapter" data-level="10.1.3" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#example-3-more-than-1-root"><i class="fa fa-check"></i><b>10.1.3</b> Example 3 more than 1 root</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#optimaoptimization"><i class="fa fa-check"></i><b>10.2</b> Optima/Optimization</a></li>
+<li class="chapter" data-level="10.3" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#optimization-1-dimensional"><i class="fa fa-check"></i><b>10.3</b> Optimization, 1-Dimensional</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#approach-1"><i class="fa fa-check"></i><b>10.3.1</b> Approach:</a></li>
+<li class="chapter" data-level="10.3.2" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#example-optimizing-user-defined-function-using-optimize-in-r"><i class="fa fa-check"></i><b>10.3.2</b> Example: Optimizing User-Defined Function Using optimize() in R</a></li>
+<li class="chapter" data-level="10.3.3" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#example-finding-a-maximum"><i class="fa fa-check"></i><b>10.3.3</b> Example: Finding a maximum</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#optimization-2-dimensional"><i class="fa fa-check"></i><b>10.4</b> Optimization, 2-Dimensional</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#example-2-d"><i class="fa fa-check"></i><b>10.4.1</b> Example: 2-D</a></li>
+<li class="chapter" data-level="10.4.2" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#example-another-simple-example"><i class="fa fa-check"></i><b>10.4.2</b> Example: Another simple example</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="roots-and-optima-examples.html"><a href="roots-and-optima-examples.html"><i class="fa fa-check"></i>Roots and Optima Examples</a>
+<ul>
+<li class="chapter" data-level="10.5" data-path="roots-and-optima-examples.html"><a href="roots-and-optima-examples.html#specific-heat"><i class="fa fa-check"></i><b>10.5</b> Specific heat</a></li>
+<li class="chapter" data-level="10.6" data-path="roots-and-optima-examples.html"><a href="roots-and-optima-examples.html#channel-perimeter"><i class="fa fa-check"></i><b>10.6</b> Channel perimeter</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -540,7 +574,7 @@ there is no <code>return</code> function the result of the last line is returned
 <span id="cb151-3"><a href="functions-best-coding-practices-and-debugging-intro.html#cb151-3" tabindex="-1"></a></span>
 <span id="cb151-4"><a href="functions-best-coding-practices-and-debugging-intro.html#cb151-4" tabindex="-1"></a><span class="co"># now lets test our function</span></span>
 <span id="cb151-5"><a href="functions-best-coding-practices-and-debugging-intro.html#cb151-5" tabindex="-1"></a><span class="fu">CV</span>(values)</span></code></pre></div>
-<pre><code>## [1] 0.3958676</code></pre>
+<pre><code>## [1] 0.4005081</code></pre>
 </div>
 <div id="what-objects-are-available" class="section level3 hasAnchor" number="3.1.4">
 <h3><span class="header-section-number">3.1.4</span> What objects are available?<a href="functions-best-coding-practices-and-debugging-intro.html#what-objects-are-available" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -581,7 +615,7 @@ calculation.</p>
 <span id="cb155-10"><a href="functions-best-coding-practices-and-debugging-intro.html#cb155-10" tabindex="-1"></a><span class="fu">CVnew</span>(values)</span></code></pre></div>
 <pre><code>## [1] NA</code></pre>
 <div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="functions-best-coding-practices-and-debugging-intro.html#cb157-1" tabindex="-1"></a><span class="fu">CVnew</span>(values, <span class="at">na.rm =</span> T)</span></code></pre></div>
-<pre><code>## [1] 0.3959579</code></pre>
+<pre><code>## [1] 0.4004088</code></pre>
 </div>
 </div>
 <div id="packages" class="section level2 hasAnchor" number="3.2">
