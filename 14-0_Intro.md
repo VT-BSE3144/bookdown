@@ -16,12 +16,12 @@ By the end of this assessment, you should be able to:
 
 - Identify and obtain a relevant and well-structured dataset
 - Tidy and transform data using tools from the tidyverse
-- Pose and answer meaningful questions through summary statistics and visualizations
+- Pose and answer meaningful questions through statistical and numerical methods
 - Document and reflect on your data analysis process, including any use of AI tools
 
 This is an opportunity to demonstrate not only your technical skills, but your curiosity, creativity, and ability to engage with data in a real-world context.
 
-You can download the project template here: <https://github.com/VT-BSE3144/07_Assessment1/blob/main/Assessment1.Rmd>
+You can download the project template here: <https://github.com/VT-BSE3144/14_Assessment2/blob/main/Assessment2.Rmd>
 
 ## Directions
 
