@@ -57,6 +57,11 @@ pp  +
 Well over 550 ppm CO~2~ by 2100. But this doesn't really fit the data very well. Perhaps we could improve a bit by using our `lin_interp` function on the last 2 datapoints. 
 
 ```{r}
+lin_interp <- function(fx1,fx2,x1,x2,x3) fx1+((fx2-fx1)/(x2-x1))*(x3-x1)
+```
+
+
+```{r}
 lin_extrap_data <- tail(dfc, n = 2)
 lin_interp(fx1 = lin_extrap_data[[1,"co2"]],
            fx2 = lin_extrap_data[[2,"co2"]], 
