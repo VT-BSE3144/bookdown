@@ -1,0 +1,150 @@
+---
+output: html_document
+params:
+  version: 1.0
+---
+
+# Interpolation and Extrapolation Examples
+
+```{r setup}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(tidyverse)
+library(PolynomF)
+library(pracma)
+```
+
+## Example - CO~2~ at Mana Loa Observatory
+
+The Mana Loa observatory contains the longest *in situ* record of CO~2~ in the atmosphere. We've downloaded this data from  ftp://aftp.cmdl.noaa.gov/products/trends/co2/co2_annmean_mlo.txt. 
+
+Let's read in this data and do some extrapolation. Instead of using the `lin_interp` function we wrote, we can just make linear regression model of the data. 
+
+```{r}
+coln <- c("year","co2","y")
+dfc <- read_delim("data/co2_annmean_mlo.txt",delim = "   ", comment = "#",col_names = coln)
+
+dfc$year <- as.numeric(dfc$year)
+dfc$co2 <- as.numeric((dfc$co2))
+plot(dfc$year,dfc$co2)
+
+
+```
+
+Using this data let's extrapolate the CO~2~ level at 2100. We'll start with linear interpolation and in the assignment you will try polynomial and splines.
+
+```{r}
+m <- lm(co2 ~ year, data = dfc)
+
+xx <- seq(1970, 2100, 1)
+xxd <- data.frame(xx)
+colnames(xxd) <- "year"
+yy <- predict(m, xxd)
+
+lm_co2 <- data.frame(cbind(xx, yy))
+
+pp <- ggplot() +
+  geom_point(
+    data = dfc,
+    aes(x = year, y = co2),
+    size = 1,
+    col = 'blue'
+  )
+pp  +
+  geom_line(data = lm_co2, aes(x = xx, y = yy))
+```
+
+Well over 550 ppm CO~2~ by 2100. But this doesn't really fit the data very well. Perhaps we could improve a bit by using our `lin_interp` function on the last 2 datapoints. 
+
+```{r}
+lin_extrap_data <- tail(dfc, n = 2)
+lin_interp(fx1 = lin_extrap_data[[1,"co2"]],
+           fx2 = lin_extrap_data[[2,"co2"]], 
+           x1 = lin_extrap_data[[1,"year"]],
+           x2 = lin_extrap_data[[2,"year"]], 
+           x3 = 2100)
+m2 <- lm(co2 ~ year, data = lin_extrap_data)
+
+```
+
+620 ppm! That's more than 10% higher, but does it visually fit better? We can use the `geom_abline` function from `ggplot2` to plot a line with the right slope and intercept, although it would probably be easier to go back and make a linear model with the `lin_extrap_data` and use `predict` to make a line as we did above. 
+
+```{r}
+pp +
+  geom_abline(slope = (lin_extrap_data[[2,"co2"]] - 
+                         lin_extrap_data[[1,"co2"]]) / 
+                      (lin_extrap_data[[2,"year"]] - 
+                        lin_extrap_data[[1,"year"]]), 
+              intercept = lin_extrap_data[[1,"co2"]] -
+                          (lin_extrap_data[[2,"co2"]] - 
+                         lin_extrap_data[[1,"co2"]]) / 
+                      (lin_extrap_data[[2,"year"]] - 
+                        lin_extrap_data[[1,"year"]])*
+  lin_extrap_data[[1,"year"]], 
+  color = "grey") + 
+  ylim(300, 800) + 
+  xlim(1970, 2100)
+```
+
+What do you think the predictions from polynomial and splines will be? 
+
+```{r}
+co2_poly <- poly_calc(dfc$year, dfc$co2)
+dfc_pred <- data.frame(year = xx, co2_poly = co2_poly(xx))
+pp + geom_line(data = dfc_pred, mapping = aes(x = year, y = co2_poly))
+
+
+```
+
+```{r}
+m3 <- lm(co2 ~ poly(x = year, degree = 6, raw = TRUE), data = dfc)
+summary(m3)
+dfc_pred$co2_m3 <- 
+  m3 %>% predict(dfc_pred) 
+pp + geom_line(data = dfc_pred, mapping = aes(x = year, y = co2_m3))
+
+```
+To see the predicted CO~2~ concentration in the year 2100 we can use `tail` to look at the last line of `dfc_pred`
+```{r}
+dfc_pred %>% tail(n = 1)
+```
+
+We could also use `stat_smooth` to plot the model object and include confidence intervals around our prediction. Within `stat_smooth` our formula needs to be in terms of x and y, which correspond to the variables mapped back in the `ggplot` call when we defined `pp`; so looking back `aes(x = year, y = co2)`. To expand the range of the model predictions in `stat_smooth` we need to add `fullrange = TRUE` and then use `xlim` to expand the x-axis. 
+
+```{r}
+## Note that previously (and still above for pp) the data and mapping arguments
+## were in the `geom_point`, 
+## which was why stat_smooth was not working in class.  
+# TODO fix pp above, and also rename...
+ggplot(data = dfc,
+    aes(x = year, y = co2)) +
+  geom_point(size = 1) + 
+  stat_smooth(method = lm, formula = y ~ poly(x = x, degree = 3, raw = TRUE), 
+              fullrange = TRUE) + 
+  xlim(1959, 2100)
+```
+
+Finally, we can use the method of splines by similarly defining a splines model using the `bs` (stands for [b-splines, which are a type of spline](https://en.wikipedia.org/wiki/B-spline)) from the `splines` package.  
+
+```{r}
+library(splines)
+m_splines <- lm(co2 ~ splines::bs(year, knots = dfc$co2), data = dfc)
+dfc_pred$co2_m_splines <- 
+  m_splines %>% predict(dfc_pred) 
+pp + geom_line(data = dfc_pred, mapping = aes(x = year, y = co2_m_splines))
+```
+
+```{r}
+dfc_pred %>% tail(n=1)
+```
+
+```{r}
+ggplot(data = dfc,
+    aes(x = year, y = co2)) +
+  geom_point(size = 1) + 
+  stat_smooth(method = lm, formula = y ~ bs(x = x, knots = dfc$co2), 
+              fullrange = TRUE) + 
+  xlim(1959, 2100)
+```
+
+
