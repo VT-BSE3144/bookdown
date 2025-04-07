@@ -4,7 +4,7 @@ params:
   version: 1.0
 ---
 
-# Week 12 - Differentiation & Integration
+# Differentiation & Integration Examples {.unnumbered}
 
 ## Differentiation
 

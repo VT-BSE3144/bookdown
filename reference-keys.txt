@@ -275,7 +275,6 @@ example---co2-at-mana-loa-observatory
 differentiation-integration
 biggest-takeaway---workflow
 reading-3
-week-12---differentiation-integration
 differentiation
 calculating-derivative-values-from-data
 difference-methods
