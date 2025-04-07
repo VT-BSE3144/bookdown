@@ -1,3 +1,4 @@
+fig:unnamed-chunk-1
 introduction-to-posit-rstudio-markdown
 pre-work
 posit
@@ -257,3 +258,17 @@ specific-heat
 channel-perimeter
 write-function-3
 find-optimum-3
+interpolation-and-extrapolation
+reading-2
+overview-of-interpolation
+linear-interpololation
+curvature-and-interpolation.
+polynomial-interpolation
+splines-interpolation
+spline-interpolation-introduces-some-simple-curvature
+additional-methods-in-the-interp1-function
+linear-interpolation
+constant-interpolation-assume-same-value-as-previous-no-knowledge-of-future-value
+nearest-interpolation-assume-same-value-as-closest-observation
+oscillations
+example---co2-at-mana-loa-observatory
