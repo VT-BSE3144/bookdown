@@ -1,0 +1,158 @@
+---
+output: html_document
+params:
+  version: 1.0
+---
+
+# Systems of Equations Examples {.unnumbered}
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(pracma)
+```
+
+## Example 1
+
+Imagine you have a simple set of equations, and you plot them out. The solution is at the intersection if you plot them. Let's solve using matrix algebra:
+
+![Example 1 plot](figures/fig_ex1.png)
+$$
+3x_1 + 2x_2 = 18 \\
+-x_1 + 2x_2 = 2
+$$
+
+```{r}
+# Define our matrix of coefficients
+coef_matrix <- matrix(data = c(3, 2, -1, 2),
+                      nrow = 2, 
+                      ncol = 2, 
+                      byrow = TRUE)
+
+# Define right hand side matrix
+rhs_matrix <-
+  matrix(
+    data = c(18, 2),
+    nrow = 2,
+    ncol = 1,
+    byrow = TRUE
+  )
+
+# Solving the system of equations
+
+# using inverse
+# calculate the inverse of coef_matrix
+inv_coef_matrix <- solve(coef_matrix)
+
+# multiply inverse coefficient matrix by rhs to get the solution
+soln <- inv_coef_matrix %*% rhs_matrix
+soln
+
+# Solve using the 'solve' function
+solve(coef_matrix, rhs_matrix)
+```
+
+
+
+We'll employ the solve function. When you enter just the A matrix, you get the inverse as the output. When you enter the A and B matrix/vectors, you'll get the x vector.
+
+`matrix(vector, ncol = col, byrow = TRUE)` = define a matrix from `vector` filling in values across `col` columns starting with the first row and proceeding left to right top to bottom.
+
+`%*%` = matrix multiplication operator.
+
+`solve` = function for solving systems, can input A or A & B.
+
+### Simple Matrix and solving for X
+
+```{r}
+A <- matrix(c(3, 2, -1, 2), ncol = 2, byrow=TRUE)
+Ainv <- solve(A)
+B <- matrix(c(18,2), ncol = 1, byrow=TRUE)
+X <- Ainv %*% B
+#or 
+X <- solve(A,B)
+X
+```
+
+## Example 2
+
+$$
+\begin{aligned}
+10 x_1 + 2x_2 - x_3 &  = 27 \\
+-3 x_1 - 6x_2 + 2x_3 & = -61.5 \\
+x_1 + x_2 + 5x_3 & = -21.5
+\end{aligned}
+$$
+
+```{r}
+A <- matrix(c(10, 2, -1, 
+              -3, -6, 2, 
+              1, 1, 5), 
+            nrow = 3,
+            byrow = TRUE)
+B <- matrix(data = c(27, 
+                     -61.5, 
+                     -21.5), ncol = 1, byrow = TRUE)
+x <- inv(A) %*% B
+x
+```
+
+
+
+## Example 3 (Problem 11.3 in Chapra)
+
+![](figures/fig_ex3.png)
+
+$$
+\begin{aligned}
+In &= Out \\
+\text{Tank 1: } 3800 + 3c_2 + 1c_3 &= (8 + 3 + 4)c_1 \\
+\text{Tank 2: } 1200 + 3c_1 + 6c_3 &= (3 + 1 + 14)c_2 \\
+\text{Tank 3: } 2350 + 4c_1 + 1c_2 &= (5 + 6 + 1)c_3 
+\end{aligned}
+$$
+and rearranging and simplifying this 
+
+$$
+\begin{aligned}
+\text{Tank 1: } 3800 &=  15c_1  &- 3c_2 &- 1c_3\\
+\text{Tank 2: } 1200 &=  -3c_1 &+ 18c_2 &- 6c_3  \\
+\text{Tank 3: } 2350 &=  - 4c_1 &- 1c_2 &+ 12c_3 
+\end{aligned}
+$$
+
+
+Here we'll use the PRACMA package that uses `mldivide` to solve for x in A*x=b. We can also first solve for the inverse  of A using `solve(A)`.
+
+
+
+```{r}
+library(pracma)
+
+
+A <- matrix(c(15, -3, -1, 
+              -3, 18, -6, 
+              -4, -1, 12), 
+            ncol = 3, 
+            byrow=TRUE)
+A
+invA <- solve(A)
+invA[1,1]
+b <- matrix(c(3800,1200,2350))
+b
+x <- invA %*% b
+x <- mldivide(A, b) # matrix multiplication vs element by element
+x
+
+```
+### To find effect of reactor 3 on reactor 1....
+
+This is where the matrix inverse is really cool, and provides an opportunity to quantify change in one part of a system on another component. Here, imagine we make a change in reactor 3, and want to know how this in turn changes the concentration in reactor 1. We'll walk through this in class in some more detail, but the basic premise is the following: when we multiple the inverse of A by b, the first equation for reactor 1 is the following:
+
+![Equation](figures/fig_ex2.png)
+
+Thus we can use the circled part to determine the effect of reactor 3 on 1!
+
+```{r}
+x1effect <- invA[1,3] * b[3]
+x1effect
+``` 
