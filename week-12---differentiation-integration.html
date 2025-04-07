@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>13 Week 12 - Differentiation &amp; Integration | Data Analysis and Numerical Methods for Biological Systems Engineers</title>
+  <meta name="description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
+Systems Engineering course BSE3144: Engineering Analysis for Biological
+Systems using Numerical Methods.</p>" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="13 Week 12 - Differentiation &amp; Integration | Data Analysis and Numerical Methods for Biological Systems Engineers" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
+Systems Engineering course BSE3144: Engineering Analysis for Biological
+Systems using Numerical Methods.</p>" />
+  <meta name="github-repo" content="VT-BSE3144/bookdown" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="13 Week 12 - Differentiation &amp; Integration | Data Analysis and Numerical Methods for Biological Systems Engineers" />
+  
+  <meta name="twitter:description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
+Systems Engineering course BSE3144: Engineering Analysis for Biological
+Systems using Numerical Methods.</p>" />
+  
+
+<meta name="author" content="Durelle Scott" />
+<meta name="author" content="R. Clay Wright" />
+
+
+<meta name="date" content="2025-04-07" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="differentiation-integration.html"/>
+<link rel="next" href="systems-of-equations.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Data Analysis and Numerical Methods</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About this book</a></li>
+<li class="chapter" data-level="1" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html"><i class="fa fa-check"></i><b>1</b> Introduction to Posit, Rstudio, &amp; Markdown</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#pre-work"><i class="fa fa-check"></i><b>1.1</b> Pre-work</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#posit"><i class="fa fa-check"></i><b>1.2</b> Posit</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#rstudio"><i class="fa fa-check"></i><b>1.3</b> Rstudio</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-source-pane"><i class="fa fa-check"></i><b>1.3.1</b> The Source pane</a></li>
+<li class="chapter" data-level="1.3.2" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#markdown"><i class="fa fa-check"></i><b>1.3.2</b> Markdown</a></li>
+<li class="chapter" data-level="1.3.3" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#more-markdown-formatting"><i class="fa fa-check"></i><b>1.3.3</b> More Markdown formatting</a></li>
+<li class="chapter" data-level="1.3.4" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#running-code"><i class="fa fa-check"></i><b>1.3.4</b> Running code</a></li>
+<li class="chapter" data-level="1.3.5" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-console-pane"><i class="fa fa-check"></i><b>1.3.5</b> The Console pane</a></li>
+<li class="chapter" data-level="1.3.6" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-help-pane"><i class="fa fa-check"></i><b>1.3.6</b> The Help pane</a></li>
+<li class="chapter" data-level="1.3.7" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-filesplotspackageshelpviewer-pane"><i class="fa fa-check"></i><b>1.3.7</b> The Files/Plots/Packages/Help/Viewer pane</a></li>
+<li class="chapter" data-level="1.3.8" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#ok-back-to-the-source-pane"><i class="fa fa-check"></i><b>1.3.8</b> OK, back to the Source pane…</a></li>
+<li class="chapter" data-level="1.3.9" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-environment-pane"><i class="fa fa-check"></i><b>1.3.9</b> The Environment pane</a></li>
+<li class="chapter" data-level="1.3.10" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-historyconnectionsgitbuildtutorial-pane"><i class="fa fa-check"></i><b>1.3.10</b> The History/Connections/Git/Build/Tutorial pane</a></li>
+<li class="chapter" data-level="1.3.11" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#terminalrenderbackground-jobs"><i class="fa fa-check"></i><b>1.3.11</b> Terminal/Render/Background Jobs</a></li>
+<li class="chapter" data-level="1.3.12" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#yaml-headers"><i class="fa fa-check"></i><b>1.3.12</b> YAML headers</a></li>
+<li class="chapter" data-level="1.3.13" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#code-chunkblock-settings-and-global-settings"><i class="fa fa-check"></i><b>1.3.13</b> Code chunk/block settings and global settings</a></li>
+<li class="chapter" data-level="1.3.14" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#output-options"><i class="fa fa-check"></i><b>1.3.14</b> Output Options</a></li>
+<li class="chapter" data-level="1.3.15" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#troubleshooting-knitrender-problems"><i class="fa fa-check"></i><b>1.3.15</b> Troubleshooting Knit/Render problems</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html"><i class="fa fa-check"></i>Rstudio and Markdown examples</a>
+<ul>
+<li class="chapter" data-level="1.4" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#navigate-the-posit-and-rstudio-interface-with-proficiency."><i class="fa fa-check"></i><b>1.4</b> Navigate the Posit and RStudio interface with proficiency.</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#making-new-documents"><i class="fa fa-check"></i><b>1.4.1</b> Making new documents</a></li>
+<li class="chapter" data-level="1.4.2" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#navigating-the-file-pane-and-file-paths"><i class="fa fa-check"></i><b>1.4.2</b> Navigating the file pane and file paths</a></li>
+<li class="chapter" data-level="1.4.3" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#console-pane"><i class="fa fa-check"></i><b>1.4.3</b> Console pane</a></li>
+<li class="chapter" data-level="1.4.4" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#environment-pane"><i class="fa fa-check"></i><b>1.4.4</b> Environment pane</a></li>
+<li class="chapter" data-level="1.4.5" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#history-pane"><i class="fa fa-check"></i><b>1.4.5</b> History pane</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#articulate-the-process-of-using-rstudio-to-develop-markdown-documents."><i class="fa fa-check"></i><b>1.5</b> Articulate the process of using RStudio to develop markdown documents.</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#cheat-sheets-yay"><i class="fa fa-check"></i><b>1.5.1</b> Cheat Sheets! Yay!</a></li>
+<li class="chapter" data-level="1.5.2" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#inserting-code-chunks"><i class="fa fa-check"></i><b>1.5.2</b> Inserting code chunks</a></li>
+<li class="chapter" data-level="1.5.3" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#changing-code-chunk-settings"><i class="fa fa-check"></i><b>1.5.3</b> Changing code chunk settings</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#practice-using-markdown-to-format-reproducible-documents"><i class="fa fa-check"></i><b>1.6</b> Practice using markdown to format reproducible documents</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#tasks"><i class="fa fa-check"></i><b>1.6.1</b> Tasks</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html"><i class="fa fa-check"></i><b>2</b> The R Language and Tidy Data</a>
+<ul>
+<li class="chapter" data-level="2.0.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#data-organization-and-manipulation-in-spreadsheets"><i class="fa fa-check"></i><b>2.0.1</b> Data Organization and manipulation in Spreadsheets</a></li>
+<li class="chapter" data-level="2.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#reading-and-pre-class-materials"><i class="fa fa-check"></i><b>2.1</b> Reading and Pre-class Materials</a></li>
+<li class="chapter" data-level="2.2" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#tidy-data"><i class="fa fa-check"></i><b>2.2</b> Tidy data</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#top-12-tips-for-data-organization"><i class="fa fa-check"></i><b>2.2.1</b> Top 12 Tips for Data Organization</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#r-basics"><i class="fa fa-check"></i><b>2.3</b> R Basics</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#basic-math-to-linear-algebra"><i class="fa fa-check"></i><b>2.3.1</b> Basic Math to Linear Algebra</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#functions"><i class="fa fa-check"></i><b>2.4</b> Functions</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#what-is-a-function"><i class="fa fa-check"></i><b>2.4.1</b> What is a function?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#objects---variables-and-functions"><i class="fa fa-check"></i><b>2.5</b> Objects - Variables and Functions</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#obey-rs-naming-rules"><i class="fa fa-check"></i><b>2.5.1</b> Obey R’s naming rules</a></li>
+<li class="chapter" data-level="2.5.2" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#variables-and-data-types"><i class="fa fa-check"></i><b>2.5.2</b> Variables and data types</a></li>
+<li class="chapter" data-level="2.5.3" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#vectors"><i class="fa fa-check"></i><b>2.5.3</b> Vectors</a></li>
+<li class="chapter" data-level="2.5.4" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#matrices-arrays-and-lists"><i class="fa fa-check"></i><b>2.5.4</b> Matrices, Arrays and Lists</a></li>
+<li class="chapter" data-level="2.5.5" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#data-frames"><i class="fa fa-check"></i><b>2.5.5</b> Data frames</a></li>
+<li class="chapter" data-level="2.5.6" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#run-a-function"><i class="fa fa-check"></i><b>2.5.6</b> Run a function</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#tidyverse-tables"><i class="fa fa-check"></i><b>2.6</b> Tidyverse tables</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#create-a-table-manually"><i class="fa fa-check"></i><b>2.6.1</b> Create a Table Manually</a></li>
+<li class="chapter" data-level="2.6.2" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#tribble"><i class="fa fa-check"></i><b>2.6.2</b> <code>tribble()</code></a></li>
+<li class="chapter" data-level="2.6.3" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#read-a-csv-file-.csv"><i class="fa fa-check"></i><b>2.6.3</b> Read a CSV file (.csv)</a></li>
+<li class="chapter" data-level="2.6.4" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#read-a-character-delimited-file-.txt"><i class="fa fa-check"></i><b>2.6.4</b> Read a character-delimited file (.txt)</a></li>
+<li class="chapter" data-level="2.6.5" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#read-an-excel-file-.xls-.xlsx"><i class="fa fa-check"></i><b>2.6.5</b> Read an Excel file (.xls, .xlsx)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html"><i class="fa fa-check"></i>The R Language and Tidy Data Examples</a>
+<ul>
+<li class="chapter" data-level="2.7" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#tidy-data-1"><i class="fa fa-check"></i><b>2.7</b> Tidy Data</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#lets-make-a-data-dictionary-for-this-dataset"><i class="fa fa-check"></i><b>2.7.1</b> Let’s make a data dictionary for this dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#r-basics-1"><i class="fa fa-check"></i><b>2.8</b> R Basics</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#data-types"><i class="fa fa-check"></i><b>2.8.1</b> Data types</a></li>
+<li class="chapter" data-level="2.8.2" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#functions-1"><i class="fa fa-check"></i><b>2.8.2</b> Functions</a></li>
+<li class="chapter" data-level="2.8.3" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#objects"><i class="fa fa-check"></i><b>2.8.3</b> Objects</a></li>
+<li class="chapter" data-level="2.8.4" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#vectors-1"><i class="fa fa-check"></i><b>2.8.4</b> Vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#data-tibbles-dataframes"><i class="fa fa-check"></i><b>2.9</b> Data, tibbles, dataframes</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#reading-in-data"><i class="fa fa-check"></i><b>2.9.1</b> Reading in data</a></li>
+<li class="chapter" data-level="2.9.2" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#factors-1"><i class="fa fa-check"></i><b>2.9.2</b> Factors</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html"><i class="fa fa-check"></i><b>3</b> Functions, Best-coding Practices, and Debugging Intro</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#functions-2"><i class="fa fa-check"></i><b>3.1</b> Functions</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#functions-why-and-how"><i class="fa fa-check"></i><b>3.1.1</b> Functions… why and how</a></li>
+<li class="chapter" data-level="3.1.2" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#a-simple-function-cv"><i class="fa fa-check"></i><b>3.1.2</b> A simple function: CV()</a></li>
+<li class="chapter" data-level="3.1.3" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#now-we-need-to-apply-our-function."><i class="fa fa-check"></i><b>3.1.3</b> Now we need to apply our function.</a></li>
+<li class="chapter" data-level="3.1.4" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#what-objects-are-available"><i class="fa fa-check"></i><b>3.1.4</b> What objects are available?</a></li>
+<li class="chapter" data-level="3.1.5" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#optional-arguments"><i class="fa fa-check"></i><b>3.1.5</b> Optional arguments</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#packages"><i class="fa fa-check"></i><b>3.2</b> Packages</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#installing-and-using-packages"><i class="fa fa-check"></i><b>3.2.1</b> Installing and using packages</a></li>
+<li class="chapter" data-level="3.2.2" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#installing-and-using-packages-1"><i class="fa fa-check"></i><b>3.2.2</b> Installing and using packages</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#best-coding-practices"><i class="fa fa-check"></i><b>3.3</b> Best coding practices</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#reproducibility"><i class="fa fa-check"></i><b>3.3.1</b> Reproducibility</a></li>
+<li class="chapter" data-level="3.3.2" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#style-guides"><i class="fa fa-check"></i><b>3.3.2</b> Style guides</a></li>
+<li class="chapter" data-level="3.3.3" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#automated-code-stylingformatting"><i class="fa fa-check"></i><b>3.3.3</b> Automated code styling/formatting</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#debugging"><i class="fa fa-check"></i><b>3.4</b> Debugging</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#verifying-code"><i class="fa fa-check"></i><b>3.4.1</b> Verifying code</a></li>
+<li class="chapter" data-level="3.4.2" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#commenting-your-code"><i class="fa fa-check"></i><b>3.4.2</b> Commenting your code</a></li>
+<li class="chapter" data-level="3.4.3" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#commenting-out-code"><i class="fa fa-check"></i><b>3.4.3</b> “Commenting out” code</a></li>
+<li class="chapter" data-level="3.4.4" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#common-errors-and-how-to-fix-them"><i class="fa fa-check"></i><b>3.4.4</b> Common errors and How to Fix Them</a></li>
+<li class="chapter" data-level="3.4.5" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#warning-or-error"><i class="fa fa-check"></i><b>3.4.5</b> Warning or Error?</a></li>
+<li class="chapter" data-level="3.4.6" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#debugging-is-scientific"><i class="fa fa-check"></i><b>3.4.6</b> Debugging is scientific</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html"><i class="fa fa-check"></i>Functions, Best-coding Practices, and Debugging Examples</a>
+<ul>
+<li class="chapter" data-level="3.5" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#functions-3"><i class="fa fa-check"></i><b>3.5</b> Functions</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#example-1-1"><i class="fa fa-check"></i><b>3.5.1</b> Example 1</a></li>
+<li class="chapter" data-level="3.5.2" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#example-2-1"><i class="fa fa-check"></i><b>3.5.2</b> Example 2</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#best-coding-practices-1"><i class="fa fa-check"></i><b>3.6</b> Best coding practices</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#code-from-inside-out-running-the-smallest-bits-of-code-possible"><i class="fa fa-check"></i><b>3.6.1</b> Code from inside out, running the smallest bits of code possible</a></li>
+<li class="chapter" data-level="3.6.2" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#use-rstudio-to-your-advantage"><i class="fa fa-check"></i><b>3.6.2</b> Use RStudio to your advantage</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#debugging-1"><i class="fa fa-check"></i><b>3.7</b> Debugging</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#also-use-rstudio"><i class="fa fa-check"></i><b>3.7.1</b> Also use RStudio</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>4</b> Data Wrangling</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="data-wrangling.html"><a href="data-wrangling.html#connection-to-previous-work-on-data-organization"><i class="fa fa-check"></i><b>4.1</b> Connection to previous work on Data Organization</a></li>
+<li class="chapter" data-level="4.2" data-path="data-wrangling.html"><a href="data-wrangling.html#source"><i class="fa fa-check"></i><b>4.2</b> Source</a></li>
+<li class="chapter" data-level="4.3" data-path="data-wrangling.html"><a href="data-wrangling.html#introduction---example-dataset-nycflights13"><i class="fa fa-check"></i><b>4.3</b> 3.1 Introduction - Example dataset <code>nycflights13</code></a></li>
+<li class="chapter" data-level="4.4" data-path="data-wrangling.html"><a href="data-wrangling.html#section"><i class="fa fa-check"></i><b>4.4</b> 3.1.2</a></li>
+<li class="chapter" data-level="4.5" data-path="data-wrangling.html"><a href="data-wrangling.html#dplyr-basics"><i class="fa fa-check"></i><b>4.5</b> 3.1.3 dplyr basics</a></li>
+<li class="chapter" data-level="4.6" data-path="data-wrangling.html"><a href="data-wrangling.html#row-wise-functions"><i class="fa fa-check"></i><b>4.6</b> 3.2 Row-wise functions</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#filter"><i class="fa fa-check"></i><b>4.6.1</b> 3.2.1 filter()</a></li>
+<li class="chapter" data-level="4.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#arranging-rows"><i class="fa fa-check"></i><b>4.6.2</b> 3.2.3 Arranging rows</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="data-wrangling.html"><a href="data-wrangling.html#columns"><i class="fa fa-check"></i><b>4.7</b> 3.3 Columns</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#mutate---add-new-variables"><i class="fa fa-check"></i><b>4.7.1</b> 3.3.1 Mutate - Add new variables</a></li>
+<li class="chapter" data-level="4.7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#select"><i class="fa fa-check"></i><b>4.7.2</b> 3.3.2 Select</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="data-wrangling.html"><a href="data-wrangling.html#the-pipe"><i class="fa fa-check"></i><b>4.8</b> 3.4 The pipe</a></li>
+<li class="chapter" data-level="4.9" data-path="data-wrangling.html"><a href="data-wrangling.html#groups"><i class="fa fa-check"></i><b>4.9</b> 3.5 Groups</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html"><i class="fa fa-check"></i>Data Wrangling Examples</a>
+<ul>
+<li class="chapter" data-level="4.9.1" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#filter-1"><i class="fa fa-check"></i><b>4.9.1</b> Filter</a></li>
+<li class="chapter" data-level="4.9.2" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#arrange"><i class="fa fa-check"></i><b>4.9.2</b> Arrange</a></li>
+<li class="chapter" data-level="4.9.3" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#mutate---adds-a-new-column"><i class="fa fa-check"></i><b>4.9.3</b> Mutate - adds a new column</a></li>
+<li class="chapter" data-level="4.9.4" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#select-1"><i class="fa fa-check"></i><b>4.9.4</b> Select</a></li>
+<li class="chapter" data-level="4.9.5" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#grouped-summaries"><i class="fa fa-check"></i><b>4.9.5</b> Grouped summaries</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="summarizing-data.html"><a href="summarizing-data.html"><i class="fa fa-check"></i><b>5</b> Summarizing Data</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="summarizing-data.html"><a href="summarizing-data.html#learning-objectives"><i class="fa fa-check"></i><b>5.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="5.2" data-path="summarizing-data.html"><a href="summarizing-data.html#introduction"><i class="fa fa-check"></i><b>5.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="summarizing-data.html"><a href="summarizing-data.html#readings-complete-by-class-on-monday"><i class="fa fa-check"></i><b>5.2.1</b> Readings (complete by class on Monday)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="summarizing-data.html"><a href="summarizing-data.html#group_by-function-summarizing-info-based-on-typecharacteristic"><i class="fa fa-check"></i><b>5.3</b> <code>group_by</code> function: Summarizing info based on type/characteristic</a></li>
+<li class="chapter" data-level="5.4" data-path="summarizing-data.html"><a href="summarizing-data.html#grouping-with-multiple-variables"><i class="fa fa-check"></i><b>5.4</b> Grouping with multiple variables</a></li>
+<li class="chapter" data-level="5.5" data-path="summarizing-data.html"><a href="summarizing-data.html#tidying-and-untidying-data-with-pivot_-functions"><i class="fa fa-check"></i><b>5.5</b> Tidying and untidying data with <code>pivot_</code> functions</a></li>
+<li class="chapter" data-level="5.6" data-path="summarizing-data.html"><a href="summarizing-data.html#joins-and-binds-within-dplyr"><i class="fa fa-check"></i><b>5.6</b> Joins and Binds within <code>dplyr</code></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html"><i class="fa fa-check"></i>Summarizing Data Examples</a>
+<ul>
+<li class="chapter" data-level="5.7" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#bioreactor-data-analysis"><i class="fa fa-check"></i><b>5.7</b> Bioreactor Data Analysis</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#background"><i class="fa fa-check"></i><b>5.7.1</b> Background</a></li>
+<li class="chapter" data-level="5.7.2" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#tasks-1"><i class="fa fa-check"></i><b>5.7.2</b> Tasks</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#root-growth-inhibition-example"><i class="fa fa-check"></i><b>5.8</b> Root Growth Inhibition Example</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#introduction-1"><i class="fa fa-check"></i><b>5.8.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.8.2" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#read-in-data"><i class="fa fa-check"></i><b>5.8.2</b> Read in data</a></li>
+<li class="chapter" data-level="5.8.3" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#write-a-function-for-tidying-this-data"><i class="fa fa-check"></i><b>5.8.3</b> Write a function for tidying this data</a></li>
+<li class="chapter" data-level="5.8.4" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#tidy-the-individual-datasets"><i class="fa fa-check"></i><b>5.8.4</b> Tidy the individual datasets</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="data-visualization.html"><a href="data-visualization.html"><i class="fa fa-check"></i><b>6</b> Data Visualization</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="data-visualization.html"><a href="data-visualization.html#reading-complete-by-class-on-monday"><i class="fa fa-check"></i><b>6.1</b> Reading (complete by class on Monday)</a></li>
+<li class="chapter" data-level="6.2" data-path="data-visualization.html"><a href="data-visualization.html#tutorials-to-walk-through-on-your-own"><i class="fa fa-check"></i><b>6.2</b> Tutorials to walk through on your own</a></li>
+<li class="chapter" data-level="6.3" data-path="data-visualization.html"><a href="data-visualization.html#more-on-color-palettes"><i class="fa fa-check"></i><b>6.3</b> More on Color Palettes</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="data-visualization.html"><a href="data-visualization.html#previewing"><i class="fa fa-check"></i><b>6.3.1</b> Previewing</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-visualization-examples.html"><a href="data-visualization-examples.html"><i class="fa fa-check"></i>Data Visualization Examples</a>
+<ul>
+<li class="chapter" data-level="6.4" data-path="data-visualization-examples.html"><a href="data-visualization-examples.html#background-1"><i class="fa fa-check"></i><b>6.4</b> Background</a></li>
+<li class="chapter" data-level="6.5" data-path="data-visualization-examples.html"><a href="data-visualization-examples.html#data-description"><i class="fa fa-check"></i><b>6.5</b> Data Description</a></li>
+<li class="chapter" data-level="6.6" data-path="data-visualization-examples.html"><a href="data-visualization-examples.html#tasks-2"><i class="fa fa-check"></i><b>6.6</b> Tasks</a></li>
+<li class="chapter" data-level="6.7" data-path="data-visualization-examples.html"><a href="data-visualization-examples.html#setup-for-the-homework"><i class="fa fa-check"></i><b>6.7</b> Setup for the Homework</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="assessment-1.html"><a href="assessment-1.html"><i class="fa fa-check"></i><b>7</b> Assessment 1</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="assessment-1.html"><a href="assessment-1.html#directions"><i class="fa fa-check"></i><b>7.1</b> Directions</a></li>
+<li class="chapter" data-level="7.2" data-path="assessment-1.html"><a href="assessment-1.html#finding-a-data-set"><i class="fa fa-check"></i><b>7.2</b> Finding a data set</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="assessment-1.html"><a href="assessment-1.html#general"><i class="fa fa-check"></i><b>7.2.1</b> General</a></li>
+<li class="chapter" data-level="7.2.2" data-path="assessment-1.html"><a href="assessment-1.html#health"><i class="fa fa-check"></i><b>7.2.2</b> Health</a></li>
+<li class="chapter" data-level="7.2.3" data-path="assessment-1.html"><a href="assessment-1.html#environment"><i class="fa fa-check"></i><b>7.2.3</b> Environment</a></li>
+<li class="chapter" data-level="7.2.4" data-path="assessment-1.html"><a href="assessment-1.html#agriculture"><i class="fa fa-check"></i><b>7.2.4</b> Agriculture</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="assessment-1.html"><a href="assessment-1.html#questionstasks"><i class="fa fa-check"></i><b>7.3</b> Questions/Tasks</a></li>
+<li class="chapter" data-level="7.4" data-path="assessment-1.html"><a href="assessment-1.html#guideline-on-the-use-of-ai-tools"><i class="fa fa-check"></i><b>7.4</b> Guideline on the Use of AI Tools</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html"><i class="fa fa-check"></i><b>8</b> Introduction to Linear Regression in R</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#objectives"><i class="fa fa-check"></i><b>8.1</b> Objectives</a></li>
+<li class="chapter" data-level="8.2" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#reading"><i class="fa fa-check"></i><b>8.2</b> Reading</a></li>
+<li class="chapter" data-level="8.3" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#active-package-libraries"><i class="fa fa-check"></i><b>8.3</b> Active Package Libraries</a></li>
+<li class="chapter" data-level="8.4" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#linear-regression"><i class="fa fa-check"></i><b>8.4</b> Linear Regression</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#assumptions"><i class="fa fa-check"></i><b>8.4.1</b> Assumptions</a></li>
+<li class="chapter" data-level="8.4.2" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#workflow"><i class="fa fa-check"></i><b>8.4.2</b> Workflow:</a></li>
+<li class="chapter" data-level="8.4.3" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#example-8"><i class="fa fa-check"></i><b>8.4.3</b> Example</a></li>
+<li class="chapter" data-level="8.4.4" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#predicting-values-applications-of-linear-models"><i class="fa fa-check"></i><b>8.4.4</b> Predicting values: Applications of linear models</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#now-lets-say-you-want-to-predict-a-y-value-for-a-given-age."><i class="fa fa-check"></i><b>8.5</b> Now, let’s say you want to predict a y-value for a given age.</a></li>
+<li class="chapter" data-level="8.6" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#example-2-from-reading"><i class="fa fa-check"></i><b>8.6</b> Example 2 from reading</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html"><i class="fa fa-check"></i>Linear Regression Examples</a>
+<ul>
+<li class="chapter" data-level="8.7" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#active-libraries"><i class="fa fa-check"></i><b>8.7</b> Active Libraries</a></li>
+<li class="chapter" data-level="8.8" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#linear-regression-1"><i class="fa fa-check"></i><b>8.8</b> Linear Regression</a></li>
+<li class="chapter" data-level="8.9" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#assumptions-1"><i class="fa fa-check"></i><b>8.9</b> Assumptions</a></li>
+<li class="chapter" data-level="8.10" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#example-10"><i class="fa fa-check"></i><b>8.10</b> Example</a>
+<ul>
+<li class="chapter" data-level="8.10.1" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-1.-read-in-data-1"><i class="fa fa-check"></i><b>8.10.1</b> Step 1. Read in data</a></li>
+<li class="chapter" data-level="8.10.2" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-2.-plot-data-visualize-linearity-1"><i class="fa fa-check"></i><b>8.10.2</b> Step 2. Plot data &amp; visualize linearity</a></li>
+<li class="chapter" data-level="8.10.3" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-3.-transform-data-1"><i class="fa fa-check"></i><b>8.10.3</b> Step 3. Transform data</a></li>
+<li class="chapter" data-level="8.10.4" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-4.-linear-model-1"><i class="fa fa-check"></i><b>8.10.4</b> Step 4. Linear model</a></li>
+<li class="chapter" data-level="8.10.5" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-5.-test-for-homoscedasaticity-1"><i class="fa fa-check"></i><b>8.10.5</b> Step 5. Test for homoscedasaticity</a></li>
+<li class="chapter" data-level="8.10.6" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-6.-test-for-bias-1"><i class="fa fa-check"></i><b>8.10.6</b> Step 6. Test for bias</a></li>
+<li class="chapter" data-level="8.10.7" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-7.-test-for-normality-1"><i class="fa fa-check"></i><b>8.10.7</b> Step 7. Test for Normality</a></li>
+<li class="chapter" data-level="8.10.8" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#application"><i class="fa fa-check"></i><b>8.10.8</b> Application</a></li>
+</ul></li>
+<li class="chapter" data-level="8.11" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#take-2-try-second-order"><i class="fa fa-check"></i><b>8.11</b> Take 2, try second order!</a>
+<ul>
+<li class="chapter" data-level="8.11.1" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-4.-linear-model-2"><i class="fa fa-check"></i><b>8.11.1</b> Step 4. Linear model</a></li>
+<li class="chapter" data-level="8.11.2" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-5.-test-for-homoscedasaticity-2"><i class="fa fa-check"></i><b>8.11.2</b> Step 5. Test for homoscedasaticity</a></li>
+<li class="chapter" data-level="8.11.3" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-6.-test-for-bias-2"><i class="fa fa-check"></i><b>8.11.3</b> Step 6. Test for bias</a></li>
+<li class="chapter" data-level="8.11.4" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-7.-test-for-normality-2"><i class="fa fa-check"></i><b>8.11.4</b> Step 7. Test for Normality</a></li>
+<li class="chapter" data-level="8.11.5" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#application-1"><i class="fa fa-check"></i><b>8.11.5</b> Application</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html"><i class="fa fa-check"></i><b>9</b> Intro to ANOVA and non-linear least squares regression</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#reading-1"><i class="fa fa-check"></i><b>9.1</b> Reading</a></li>
+<li class="chapter" data-level="9.2" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#anova-tests-interactions-between-variables"><i class="fa fa-check"></i><b>9.2</b> ANOVA tests interactions between variables</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#experiment-1"><i class="fa fa-check"></i><b>9.2.1</b> Experiment 1</a></li>
+<li class="chapter" data-level="9.2.2" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#ploting-the-full-dataset"><i class="fa fa-check"></i><b>9.2.2</b> Ploting the full dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#post-hoc-testing"><i class="fa fa-check"></i><b>9.3</b> Post hoc testing</a></li>
+<li class="chapter" data-level="9.4" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#assumptions-of-anova"><i class="fa fa-check"></i><b>9.4</b> Assumptions of ANOVA</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#normality-of-residuals"><i class="fa fa-check"></i><b>9.4.1</b> Normality of residuals</a></li>
+<li class="chapter" data-level="9.4.2" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#homogeneity-of-variance"><i class="fa fa-check"></i><b>9.4.2</b> Homogeneity of variance</a></li>
+<li class="chapter" data-level="9.4.3" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#independence"><i class="fa fa-check"></i><b>9.4.3</b> Independence</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#non-linear-least-squares"><i class="fa fa-check"></i><b>9.5</b> Non-linear least squares</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="anova-and-non-linear-least-squares-regression-examples.html"><a href="anova-and-non-linear-least-squares-regression-examples.html"><i class="fa fa-check"></i>ANOVA and non-linear least squares regression examples</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="anova-and-non-linear-least-squares-regression-examples.html"><a href="anova-and-non-linear-least-squares-regression-examples.html#lineweaver-burk-plot"><i class="fa fa-check"></i><b>9.5.1</b> Lineweaver-Burk plot</a></li>
+<li class="chapter" data-level="9.6" data-path="anova-and-non-linear-least-squares-regression-examples.html"><a href="anova-and-non-linear-least-squares-regression-examples.html#nonlinear-least-squares-regression"><i class="fa fa-check"></i><b>9.6</b> Nonlinear least squares regression</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html"><i class="fa fa-check"></i><b>10</b> Roots and Optima Introduction</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#roots"><i class="fa fa-check"></i><b>10.1</b> Roots</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#example-1-2"><i class="fa fa-check"></i><b>10.1.1</b> Example 1</a></li>
+<li class="chapter" data-level="10.1.2" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#example-2-2"><i class="fa fa-check"></i><b>10.1.2</b> Example 2</a></li>
+<li class="chapter" data-level="10.1.3" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#example-3-more-than-1-root"><i class="fa fa-check"></i><b>10.1.3</b> Example 3 more than 1 root</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#optimaoptimization"><i class="fa fa-check"></i><b>10.2</b> Optima/Optimization</a></li>
+<li class="chapter" data-level="10.3" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#optimization-1-dimensional"><i class="fa fa-check"></i><b>10.3</b> Optimization, 1-Dimensional</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#approach-1"><i class="fa fa-check"></i><b>10.3.1</b> Approach:</a></li>
+<li class="chapter" data-level="10.3.2" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#example-optimizing-user-defined-function-using-optimize-in-r"><i class="fa fa-check"></i><b>10.3.2</b> Example: Optimizing User-Defined Function Using optimize() in R</a></li>
+<li class="chapter" data-level="10.3.3" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#example-finding-a-maximum"><i class="fa fa-check"></i><b>10.3.3</b> Example: Finding a maximum</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#optimization-2-dimensional"><i class="fa fa-check"></i><b>10.4</b> Optimization, 2-Dimensional</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#example-2-d"><i class="fa fa-check"></i><b>10.4.1</b> Example: 2-D</a></li>
+<li class="chapter" data-level="10.4.2" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#example-another-simple-example"><i class="fa fa-check"></i><b>10.4.2</b> Example: Another simple example</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="roots-and-optima-examples.html"><a href="roots-and-optima-examples.html"><i class="fa fa-check"></i>Roots and Optima Examples</a>
+<ul>
+<li class="chapter" data-level="10.5" data-path="roots-and-optima-examples.html"><a href="roots-and-optima-examples.html#specific-heat"><i class="fa fa-check"></i><b>10.5</b> Specific heat</a></li>
+<li class="chapter" data-level="10.6" data-path="roots-and-optima-examples.html"><a href="roots-and-optima-examples.html#channel-perimeter"><i class="fa fa-check"></i><b>10.6</b> Channel perimeter</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="interpolation-and-extrapolation.html"><a href="interpolation-and-extrapolation.html"><i class="fa fa-check"></i><b>11</b> Interpolation and Extrapolation</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="interpolation-and-extrapolation.html"><a href="interpolation-and-extrapolation.html#reading-2"><i class="fa fa-check"></i><b>11.1</b> Reading</a></li>
+<li class="chapter" data-level="11.2" data-path="interpolation-and-extrapolation.html"><a href="interpolation-and-extrapolation.html#overview-of-interpolation"><i class="fa fa-check"></i><b>11.2</b> Overview of interpolation</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="interpolation-and-extrapolation.html"><a href="interpolation-and-extrapolation.html#linear-interpololation"><i class="fa fa-check"></i><b>11.2.1</b> Linear interpololation</a></li>
+<li class="chapter" data-level="11.2.2" data-path="interpolation-and-extrapolation.html"><a href="interpolation-and-extrapolation.html#curvature-and-interpolation."><i class="fa fa-check"></i><b>11.2.2</b> Curvature and Interpolation.</a></li>
+<li class="chapter" data-level="11.2.3" data-path="interpolation-and-extrapolation.html"><a href="interpolation-and-extrapolation.html#oscillations"><i class="fa fa-check"></i><b>11.2.3</b> Oscillations</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="interpolation-and-extrapolation-examples.html"><a href="interpolation-and-extrapolation-examples.html"><i class="fa fa-check"></i>Interpolation and Extrapolation Examples</a>
+<ul>
+<li class="chapter" data-level="11.3" data-path="interpolation-and-extrapolation-examples.html"><a href="interpolation-and-extrapolation-examples.html#example---co2-at-mana-loa-observatory"><i class="fa fa-check"></i><b>11.3</b> Example - CO<sub>2</sub> at Mana Loa Observatory</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="differentiation-integration.html"><a href="differentiation-integration.html"><i class="fa fa-check"></i><b>12</b> Differentiation &amp; Integration</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="differentiation-integration.html"><a href="differentiation-integration.html#biggest-takeaway---workflow"><i class="fa fa-check"></i><b>12.1</b> Biggest takeaway - workflow</a></li>
+<li class="chapter" data-level="12.2" data-path="differentiation-integration.html"><a href="differentiation-integration.html#reading-3"><i class="fa fa-check"></i><b>12.2</b> Reading</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="week-12---differentiation-integration.html"><a href="week-12---differentiation-integration.html"><i class="fa fa-check"></i><b>13</b> Week 12 - Differentiation &amp; Integration</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="week-12---differentiation-integration.html"><a href="week-12---differentiation-integration.html#differentiation"><i class="fa fa-check"></i><b>13.1</b> Differentiation</a></li>
+<li class="chapter" data-level="13.2" data-path="week-12---differentiation-integration.html"><a href="week-12---differentiation-integration.html#calculating-derivative-values-from-data"><i class="fa fa-check"></i><b>13.2</b> Calculating derivative values from data</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="week-12---differentiation-integration.html"><a href="week-12---differentiation-integration.html#difference-methods"><i class="fa fa-check"></i><b>13.2.1</b> Difference methods</a></li>
+<li class="chapter" data-level="13.2.2" data-path="week-12---differentiation-integration.html"><a href="week-12---differentiation-integration.html#interpolation-methods"><i class="fa fa-check"></i><b>13.2.2</b> Interpolation methods</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="week-12---differentiation-integration.html"><a href="week-12---differentiation-integration.html#integration"><i class="fa fa-check"></i><b>13.3</b> Integration</a></li>
+<li class="chapter" data-level="13.4" data-path="week-12---differentiation-integration.html"><a href="week-12---differentiation-integration.html#objective-calculate-total-annual-sediment-massyear-and-water-volumeyear-for-a-given-year-for-a-specific-station"><i class="fa fa-check"></i><b>13.4</b> Objective: calculate total annual sediment [mass/year] and water [volume/year] for a given year for a specific station</a></li>
+<li class="chapter" data-level="13.5" data-path="week-12---differentiation-integration.html"><a href="week-12---differentiation-integration.html#approach-2"><i class="fa fa-check"></i><b>13.5</b> Approach:</a></li>
+<li class="chapter" data-level="13.6" data-path="week-12---differentiation-integration.html"><a href="week-12---differentiation-integration.html#workflow-3"><i class="fa fa-check"></i><b>13.6</b> Workflow</a></li>
+<li class="chapter" data-level="13.7" data-path="week-12---differentiation-integration.html"><a href="week-12---differentiation-integration.html#apply-case-scenario"><i class="fa fa-check"></i><b>13.7</b> Apply case scenario:</a>
+<ul>
+<li class="chapter" data-level="13.7.1" data-path="week-12---differentiation-integration.html"><a href="week-12---differentiation-integration.html#read-in-sediment-rating-curve-table"><i class="fa fa-check"></i><b>13.7.1</b> Read in sediment rating curve table</a></li>
+<li class="chapter" data-level="13.7.2" data-path="week-12---differentiation-integration.html"><a href="week-12---differentiation-integration.html#station-identification-and-data-retreival"><i class="fa fa-check"></i><b>13.7.2</b> Station Identification and Data Retreival</a></li>
+<li class="chapter" data-level="13.7.3" data-path="week-12---differentiation-integration.html"><a href="week-12---differentiation-integration.html#filter-sediment-table-for-station-of-interest"><i class="fa fa-check"></i><b>13.7.3</b> Filter sediment table for station of interest</a></li>
+<li class="chapter" data-level="13.7.4" data-path="week-12---differentiation-integration.html"><a href="week-12---differentiation-integration.html#calculate-daily-sediment-mass-flux"><i class="fa fa-check"></i><b>13.7.4</b> Calculate Daily sediment mass flux</a></li>
+</ul></li>
+<li class="chapter" data-level="13.8" data-path="week-12---differentiation-integration.html"><a href="week-12---differentiation-integration.html#compare-2011-and-2012-in-case-study"><i class="fa fa-check"></i><b>13.8</b> Compare 2011 and 2012 in case study</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="systems-of-equations.html"><a href="systems-of-equations.html"><i class="fa fa-check"></i><b>14</b> Systems of Equations</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="systems-of-equations.html"><a href="systems-of-equations.html#this-weeks-prep"><i class="fa fa-check"></i><b>14.1</b> This week’s prep:</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="systems-of-equations.html"><a href="systems-of-equations.html#required-reading"><i class="fa fa-check"></i><b>14.1.1</b> Required reading:</a></li>
+<li class="chapter" data-level="14.1.2" data-path="systems-of-equations.html"><a href="systems-of-equations.html#optional-resources"><i class="fa fa-check"></i><b>14.1.2</b> Optional resources:</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="systems-of-equations-examples.html"><a href="systems-of-equations-examples.html"><i class="fa fa-check"></i>Systems of Equations Examples</a>
+<ul>
+<li class="chapter" data-level="14.2" data-path="systems-of-equations-examples.html"><a href="systems-of-equations-examples.html#example-1-3"><i class="fa fa-check"></i><b>14.2</b> Example 1</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="systems-of-equations-examples.html"><a href="systems-of-equations-examples.html#simple-matrix-and-solving-for-x"><i class="fa fa-check"></i><b>14.2.1</b> Simple Matrix and solving for X</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="systems-of-equations-examples.html"><a href="systems-of-equations-examples.html#example-2-3"><i class="fa fa-check"></i><b>14.3</b> Example 2</a></li>
+<li class="chapter" data-level="14.4" data-path="systems-of-equations-examples.html"><a href="systems-of-equations-examples.html#example-3-problem-11.3-in-chapra"><i class="fa fa-check"></i><b>14.4</b> Example 3 (Problem 11.3 in Chapra)</a>
+<ul>
+<li class="chapter" data-level="14.4.1" data-path="systems-of-equations-examples.html"><a href="systems-of-equations-examples.html#to-find-effect-of-reactor-3-on-reactor-1."><i class="fa fa-check"></i><b>14.4.1</b> To find effect of reactor 3 on reactor 1….</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis and Numerical Methods for Biological Systems Engineers</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="week-12---differentiation-integration" class="section level1 hasAnchor" number="13">
+<h1><span class="header-section-number">13</span> Week 12 - Differentiation &amp; Integration<a href="week-12---differentiation-integration.html#week-12---differentiation-integration" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="differentiation" class="section level2 hasAnchor" number="13.1">
+<h2><span class="header-section-number">13.1</span> Differentiation<a href="week-12---differentiation-integration.html#differentiation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb653"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb653-1"><a href="week-12---differentiation-integration.html#cb653-1" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb653-2"><a href="week-12---differentiation-integration.html#cb653-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<div class="sourceCode" id="cb657"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb657-1"><a href="week-12---differentiation-integration.html#cb657-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb657-2"><a href="week-12---differentiation-integration.html#cb657-2" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>One place were we often use numerical differentiation to solve problems is in predicting and comparing cell growth rates. Cell growth can be defined by the differential equation:
+<span class="math display">\[\frac{dX}{dt} = \mu X\]</span>
+where X is the concentration of cells and <span class="math inline">\(\mu\)</span> is the specific growth rate, which in the simplest case is just a rate constant. So the rate of change of the concentration of cells is proportional to the current concentration of cells. In the simplest case, where we can just solve this by integration by parts (IBP) to yield:
+<span class="math display">\[\ln\frac{X}{X_0} = \mu t\]</span>
+or
+<span class="math display">\[X = X_0 e^{\mu t}\]</span></p>
+<p>However, this simple case often deviates from reality, especially as whatever food (substrate) the cells are growing on becomes limited as the cells grow and consume it. To describe this, we expand the specific growth rate to include a dependence on the substrate concentration, <span class="math inline">\(S\)</span>. This is called the Monod equation:
+<span class="math display">\[\mu = \frac{\mu_{max}S}{K_S+S}\]</span>
+Consider the following variables from the above formula,
+<span class="math inline">\(\mu_{max}\)</span> and <span class="math inline">\(K_S\)</span>. Here <span class="math inline">\(\mu_{max}\)</span> and <span class="math inline">\(K_S\)</span> are constants known as the maximum specific growth rate at saturating concentrations of substrate and the equilibrium concentration of substrate, respectively.</p>
+<p>Now, we rearrange the equations to obtain a form that is able to be differentiated.</p>
+<p>Adding this into the equation above:
+<span class="math display">\[\frac{dX}{dt} = \frac{\mu_{max}S}{K_S+S} X\]</span>
+This model fits real data much better; as substrate gets consumed within the culture, the growth rate slows. Unfortunately, we now have 2 parameters to fit and a differential equation to deal with at the same time!</p>
+</div>
+<div id="calculating-derivative-values-from-data" class="section level2 hasAnchor" number="13.2">
+<h2><span class="header-section-number">13.2</span> Calculating derivative values from data<a href="week-12---differentiation-integration.html#calculating-derivative-values-from-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To fit these parameters, we often use numerical differentiation to find <span class="math inline">\(dX/dt\)</span> values from <span class="math inline">\(X\)</span> vs time data. We will also typically measure S vs time as well. This data might look like the below:</p>
+<div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb658-1"><a href="week-12---differentiation-integration.html#cb658-1" tabindex="-1"></a>cell_growth <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;Data/Cell_Growth_Example_Data.csv&quot;</span>)</span></code></pre></div>
+<pre><code>## Rows: 8 Columns: 3
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## dbl (3): Time (h), Cell Concentration (g/L), Glucose Concentration (g/L)
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<div class="sourceCode" id="cb660"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb660-1"><a href="week-12---differentiation-integration.html#cb660-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(cell_growth)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Time (h)</th>
+<th align="right">Cell Concentration (g/L)</th>
+<th align="right">Glucose Concentration (g/L)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0</td>
+<td align="right">1.25</td>
+<td align="right">100.00</td>
+</tr>
+<tr class="even">
+<td align="right">9</td>
+<td align="right">2.45</td>
+<td align="right">97.00</td>
+</tr>
+<tr class="odd">
+<td align="right">16</td>
+<td align="right">5.10</td>
+<td align="right">90.40</td>
+</tr>
+<tr class="even">
+<td align="right">23</td>
+<td align="right">10.50</td>
+<td align="right">76.90</td>
+</tr>
+<tr class="odd">
+<td align="right">30</td>
+<td align="right">22.00</td>
+<td align="right">48.10</td>
+</tr>
+<tr class="even">
+<td align="right">34</td>
+<td align="right">33.00</td>
+<td align="right">20.60</td>
+</tr>
+<tr class="odd">
+<td align="right">36</td>
+<td align="right">37.50</td>
+<td align="right">9.38</td>
+</tr>
+<tr class="even">
+<td align="right">40</td>
+<td align="right">41.00</td>
+<td align="right">0.63</td>
+</tr>
+</tbody>
+</table>
+<p>In this table, Cell Concentration is <span class="math inline">\(X\)</span> and Glucose Concentration is the substrate concentration <span class="math inline">\(S\)</span>.</p>
+<p>Now we can use this data to calculate <span class="math inline">\(dX/dt\)</span> and regress this calculated derivative against <span class="math inline">\(X\)</span> to find <span class="math inline">\(\mu\)</span> and then use a linearization of the Monod equation and an additional regression model to find the parameters <span class="math inline">\(\mu_{max}\)</span> and <span class="math inline">\(K_S\)</span>.</p>
+<div id="difference-methods" class="section level3 hasAnchor" number="13.2.1">
+<h3><span class="header-section-number">13.2.1</span> Difference methods<a href="week-12---differentiation-integration.html#difference-methods" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>An error-prone way to do this, which basically propagates any error in the data throughout the calculation, would be to just find <span class="math inline">\(\Delta X / \Delta t\)</span> for each pair of points in the dataset. To do this, we can use the <code>diff</code> function from base R. <code>diff</code> calculates the difference between each value in a vector and the next value.</p>
+<p>Here are a couple of examples of <code>diff</code></p>
+<div class="sourceCode" id="cb661"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb661-1"><a href="week-12---differentiation-integration.html#cb661-1" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb661-2"><a href="week-12---differentiation-integration.html#cb661-2" tabindex="-1"></a><span class="fu">diff</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## [1] 1 1 1 1</code></pre>
+<div class="sourceCode" id="cb663"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb663-1"><a href="week-12---differentiation-integration.html#cb663-1" tabindex="-1"></a><span class="fu">diff</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">8</span>,<span class="dv">16</span>))</span></code></pre></div>
+<pre><code>## [1] 1 2 4 8</code></pre>
+<p>And now to calculate the derivative at each point with <code>diff</code></p>
+<div class="sourceCode" id="cb665"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb665-1"><a href="week-12---differentiation-integration.html#cb665-1" tabindex="-1"></a>dX_dt <span class="ot">&lt;-</span> <span class="fu">diff</span>(cell_growth<span class="sc">$</span><span class="st">`</span><span class="at">Cell Concentration (g/L)</span><span class="st">`</span>) <span class="sc">/</span> </span>
+<span id="cb665-2"><a href="week-12---differentiation-integration.html#cb665-2" tabindex="-1"></a>  <span class="fu">diff</span>(cell_growth<span class="sc">$</span><span class="st">`</span><span class="at">Time (h)</span><span class="st">`</span>) </span></code></pre></div>
+<p>Note that the length of this is vector is 1 shorter than the full dataset</p>
+<div class="sourceCode" id="cb666"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb666-1"><a href="week-12---differentiation-integration.html#cb666-1" tabindex="-1"></a><span class="fu">length</span>(dX_dt)</span></code></pre></div>
+<pre><code>## [1] 7</code></pre>
+<div class="sourceCode" id="cb668"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb668-1"><a href="week-12---differentiation-integration.html#cb668-1" tabindex="-1"></a><span class="fu">length</span>(cell_growth<span class="sc">$</span><span class="st">`</span><span class="at">Time (h)</span><span class="st">`</span>)</span></code></pre></div>
+<pre><code>## [1] 8</code></pre>
+<p>So we need to add in an NA for the first row where there can be no diff</p>
+<div class="sourceCode" id="cb670"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb670-1"><a href="week-12---differentiation-integration.html#cb670-1" tabindex="-1"></a>dX_dt <span class="ot">&lt;-</span>  <span class="fu">c</span>(<span class="cn">NA</span>, dX_dt)</span>
+<span id="cb670-2"><a href="week-12---differentiation-integration.html#cb670-2" tabindex="-1"></a>cell_growth</span></code></pre></div>
+<pre><code>## # A tibble: 8 × 3
+##   `Time (h)` `Cell Concentration (g/L)` `Glucose Concentration (g/L)`
+##        &lt;dbl&gt;                      &lt;dbl&gt;                         &lt;dbl&gt;
+## 1          0                       1.25                        100   
+## 2          9                       2.45                         97   
+## 3         16                       5.1                          90.4 
+## 4         23                      10.5                          76.9 
+## 5         30                      22                            48.1 
+## 6         34                      33                            20.6 
+## 7         36                      37.5                           9.38
+## 8         40                      41                             0.63</code></pre>
+<p>A tidyverse way to do this in one line without having to deal with the length difference is to use the <code>lag</code> function in a mutate call, instead of <code>diff</code>. <code>lag</code> and <code>lead</code> just shift the values in a vector left or right respectively and add an <code>NA</code> to the respective side.</p>
+<div class="sourceCode" id="cb672"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb672-1"><a href="week-12---differentiation-integration.html#cb672-1" tabindex="-1"></a><span class="fu">lag</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## [1] NA  1  2  3  4</code></pre>
+<div class="sourceCode" id="cb674"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb674-1"><a href="week-12---differentiation-integration.html#cb674-1" tabindex="-1"></a><span class="fu">lead</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## [1]  2  3  4  5 NA</code></pre>
+<div class="sourceCode" id="cb676"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb676-1"><a href="week-12---differentiation-integration.html#cb676-1" tabindex="-1"></a>cell_growth <span class="sc">%&gt;%</span> </span>
+<span id="cb676-2"><a href="week-12---differentiation-integration.html#cb676-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dX_dt  =</span> (<span class="st">`</span><span class="at">Cell Concentration (g/L)</span><span class="st">`</span> <span class="sc">-</span> </span>
+<span id="cb676-3"><a href="week-12---differentiation-integration.html#cb676-3" tabindex="-1"></a>                     <span class="fu">lag</span>(<span class="st">`</span><span class="at">Cell Concentration (g/L)</span><span class="st">`</span>)) <span class="sc">/</span> </span>
+<span id="cb676-4"><a href="week-12---differentiation-integration.html#cb676-4" tabindex="-1"></a>         (<span class="st">`</span><span class="at">Time (h)</span><span class="st">`</span> <span class="sc">-</span> <span class="fu">lag</span>(<span class="st">`</span><span class="at">Time (h)</span><span class="st">`</span>)))  </span></code></pre></div>
+<pre><code>## # A tibble: 8 × 4
+##   `Time (h)` `Cell Concentration (g/L)` `Glucose Concentration (g/L)`  dX_dt
+##        &lt;dbl&gt;                      &lt;dbl&gt;                         &lt;dbl&gt;  &lt;dbl&gt;
+## 1          0                       1.25                        100    NA    
+## 2          9                       2.45                         97     0.133
+## 3         16                       5.1                          90.4   0.379
+## 4         23                      10.5                          76.9   0.771
+## 5         30                      22                            48.1   1.64 
+## 6         34                      33                            20.6   2.75 
+## 7         36                      37.5                           9.38  2.25 
+## 8         40                      41                             0.63  0.875</code></pre>
+<p>The above gives us values, but depending on how noisy the data is the derivative values could be really noisy. This is because in calculating the derivative the noise in two data points is combined, amplifying it.</p>
+</div>
+<div id="interpolation-methods" class="section level3 hasAnchor" number="13.2.2">
+<h3><span class="header-section-number">13.2.2</span> Interpolation methods<a href="week-12---differentiation-integration.html#interpolation-methods" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The best way to find the derivative of a dataset is to first fit a function to the dataset to smooth the noise of the data. Then find the derivative of that curve. We can use splines for this, and this will work in many general cases, when we don’t know the function. Since our data is pretty smooth and sparse (we don’t have any overlapping data points) we can adjust the degrees of freedom or <code>df</code> parameter of the model to best fit our data. This might require some knowledge of how the data should look to do effectively. For example if we just use the defaults in <code>splines::bs</code>:</p>
+<div class="sourceCode" id="cb678"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb678-1"><a href="week-12---differentiation-integration.html#cb678-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> cell_growth, </span>
+<span id="cb678-2"><a href="week-12---differentiation-integration.html#cb678-2" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Time (h)</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Cell Concentration (g/L)</span><span class="st">`</span>)) <span class="sc">+</span> </span>
+<span id="cb678-3"><a href="week-12---differentiation-integration.html#cb678-3" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb678-4"><a href="week-12---differentiation-integration.html#cb678-4" tabindex="-1"></a>  <span class="fu">stat_smooth</span>(<span class="at">method =</span> lm, </span>
+<span id="cb678-5"><a href="week-12---differentiation-integration.html#cb678-5" tabindex="-1"></a>              <span class="at">formula =</span> y <span class="sc">~</span> splines<span class="sc">::</span><span class="fu">bs</span>(<span class="at">x =</span> x))</span></code></pre></div>
+<p><img src="12-1_Examples_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>It looks like we miss the slow down in cell growth at to the top of the curve which is what we expect because the substrate is nearly completely consumed. We can use the <code>df</code> argument in <code>bs</code> to include more splines and better fit the data. The default for <code>df</code> is 3, 8 data points minus the two outer point, minus 3 for the cubic degree of the splines. Let’s increase <code>df</code> to 4.</p>
+<div class="sourceCode" id="cb679"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb679-1"><a href="week-12---differentiation-integration.html#cb679-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> cell_growth, </span>
+<span id="cb679-2"><a href="week-12---differentiation-integration.html#cb679-2" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Time (h)</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Cell Concentration (g/L)</span><span class="st">`</span>)) <span class="sc">+</span> </span>
+<span id="cb679-3"><a href="week-12---differentiation-integration.html#cb679-3" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb679-4"><a href="week-12---differentiation-integration.html#cb679-4" tabindex="-1"></a>  <span class="fu">stat_smooth</span>(<span class="at">method =</span> lm, </span>
+<span id="cb679-5"><a href="week-12---differentiation-integration.html#cb679-5" tabindex="-1"></a>              <span class="at">formula =</span> y <span class="sc">~</span> splines<span class="sc">::</span><span class="fu">bs</span>(<span class="at">x =</span> x, <span class="at">df =</span> <span class="dv">4</span>)) <span class="co">#add df</span></span></code></pre></div>
+<p><img src="12-1_Examples_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>That looks better. Now we can recreate this model in <code>lm</code> defining an object that we can use to predict values and define derivatives. Since we have a smooth function now we can use a very small interval to calculate the derivatives, for example 0.5 hours. We also don’t have to worry about not having derivative values at the first or last datapoints.</p>
+<div class="sourceCode" id="cb680"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb680-1"><a href="week-12---differentiation-integration.html#cb680-1" tabindex="-1"></a>X_t <span class="ot">&lt;-</span> <span class="fu">lm</span>(X <span class="sc">~</span> splines<span class="sc">::</span><span class="fu">bs</span>(<span class="at">x =</span> t, <span class="at">df =</span> <span class="dv">4</span>), </span>
+<span id="cb680-2"><a href="week-12---differentiation-integration.html#cb680-2" tabindex="-1"></a>          <span class="at">data =</span> cell_growth <span class="sc">%&gt;%</span> </span>
+<span id="cb680-3"><a href="week-12---differentiation-integration.html#cb680-3" tabindex="-1"></a>            <span class="fu">rename</span>(<span class="at">X =</span> <span class="st">`</span><span class="at">Cell Concentration (g/L)</span><span class="st">`</span> , <span class="at">t =</span> <span class="st">`</span><span class="at">Time (h)</span><span class="st">`</span>))</span>
+<span id="cb680-4"><a href="week-12---differentiation-integration.html#cb680-4" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">: I had to change the names of the columns here because the spaces and parentheses were F-ing things up with predict</span></span>
+<span id="cb680-5"><a href="week-12---differentiation-integration.html#cb680-5" tabindex="-1"></a>delta_t <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
+<span id="cb680-6"><a href="week-12---differentiation-integration.html#cb680-6" tabindex="-1"></a><span class="co"># remember predict uses data frames to define variable names</span></span>
+<span id="cb680-7"><a href="week-12---differentiation-integration.html#cb680-7" tabindex="-1"></a>t_new <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">t =</span> cell_growth<span class="sc">$</span><span class="st">`</span><span class="at">Time (h)</span><span class="st">`</span> <span class="sc">-</span> delta_t)</span>
+<span id="cb680-8"><a href="week-12---differentiation-integration.html#cb680-8" tabindex="-1"></a><span class="co">#without the renaming step the following was returning all TRUE because predict defaults to using the data passed to lm, so when it didn&#39;t recognize the variable names it was using the default data</span></span>
+<span id="cb680-9"><a href="week-12---differentiation-integration.html#cb680-9" tabindex="-1"></a><span class="fu">predict</span>(<span class="at">object =</span> X_t) <span class="sc">==</span> <span class="fu">predict</span>(<span class="at">object =</span> X_t, <span class="at">newdata =</span> t_new)</span></code></pre></div>
+<pre><code>## Warning in splines::bs(x = t, degree = 3L, knots = 26.5, Boundary.knots = c(0,
+## : some &#39;x&#39; values beyond boundary knots may cause ill-conditioned bases</code></pre>
+<pre><code>##     1     2     3     4     5     6     7     8 
+## FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
+<div class="sourceCode" id="cb683"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb683-1"><a href="week-12---differentiation-integration.html#cb683-1" tabindex="-1"></a>cell_growth <span class="sc">%&gt;%</span> </span>
+<span id="cb683-2"><a href="week-12---differentiation-integration.html#cb683-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dX_dt  =</span> (<span class="fu">predict</span>(X_t)  <span class="sc">-</span> </span>
+<span id="cb683-3"><a href="week-12---differentiation-integration.html#cb683-3" tabindex="-1"></a>                     <span class="fu">predict</span>(X_t, t_new))<span class="sc">/</span>delta_t) <span class="ot">-&gt;</span></span>
+<span id="cb683-4"><a href="week-12---differentiation-integration.html#cb683-4" tabindex="-1"></a>  cell_growth</span></code></pre></div>
+<pre><code>## Warning: There was 1 warning in `mutate()`.
+## ℹ In argument: `dX_dt = (predict(X_t) - predict(X_t, t_new))/delta_t`.
+## Caused by warning in `splines::bs()`:
+## ! some &#39;x&#39; values beyond boundary knots may cause ill-conditioned bases</code></pre>
+<p>OK! So now we have <span class="math inline">\(dX/dt\)</span> values. Now we can calculate <span class="math inline">\(\mu\)</span> values, by dividing <span class="math inline">\(dX/dt\)</span> by <span class="math inline">\(X\)</span>. I’m also going to fix the column names so we don’t run into any more issues.</p>
+<div class="sourceCode" id="cb685"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb685-1"><a href="week-12---differentiation-integration.html#cb685-1" tabindex="-1"></a>cell_growth <span class="ot">&lt;-</span></span>
+<span id="cb685-2"><a href="week-12---differentiation-integration.html#cb685-2" tabindex="-1"></a>cell_growth <span class="sc">%&gt;%</span> </span>
+<span id="cb685-3"><a href="week-12---differentiation-integration.html#cb685-3" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">t =</span> <span class="st">`</span><span class="at">Time (h)</span><span class="st">`</span>, </span>
+<span id="cb685-4"><a href="week-12---differentiation-integration.html#cb685-4" tabindex="-1"></a>         <span class="at">X =</span> <span class="st">`</span><span class="at">Cell Concentration (g/L)</span><span class="st">`</span>, </span>
+<span id="cb685-5"><a href="week-12---differentiation-integration.html#cb685-5" tabindex="-1"></a>         <span class="at">S =</span> <span class="st">`</span><span class="at">Glucose Concentration (g/L)</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb685-6"><a href="week-12---differentiation-integration.html#cb685-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mu =</span> dX_dt <span class="sc">/</span> X)</span></code></pre></div>
+<p>Now that we have our <span class="math inline">\(\mu\)</span> values we can figure out how to model the Monod equation so that we can find values for the <span class="math inline">\(\mu_{max}\)</span> and <span class="math inline">\(K_S\)</span> for these cells and media with glucose as a limiting substrate. Because the Monod equation is very nonlinear one of the easiest ways to find parameters for this equation is to linearize it by algebraic manipulation.
+<span class="math display">\[\mu = \frac{\mu_{max}S}{K_S + S}\]</span>
+To linearize here we will multiply by <span class="math inline">\(K_S + S\)</span>
+<span class="math display">\[(\mu*K_S) + (\mu*S) = \mu_{max}S\]</span>
+and then to get this into a convenient form of <span class="math inline">\(y = mx + b\)</span> (so we can calculate y and x values using our data table) we can subtract <span class="math inline">\(\muK_S\)</span> and divide by <span class="math inline">\(S\)</span> to yield:
+<span class="math display">\[\mu = - K_S\frac{\mu}{S} + \mu_{max}\]</span>
+This is called the Eadie-Hofstee linearization. So if we plot <span class="math inline">\(\mu\)</span> vs <span class="math inline">\(\mu/S\)</span> and find the slope and intercept of a regression model the slope will be <span class="math inline">\(-K_S\)</span> and the intercept will be <span class="math inline">\(\mu_{max}\)</span>.</p>
+<div class="sourceCode" id="cb686"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb686-1"><a href="week-12---differentiation-integration.html#cb686-1" tabindex="-1"></a>cell_growth <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">EH_X =</span> mu <span class="sc">/</span> S) <span class="ot">-&gt;</span></span>
+<span id="cb686-2"><a href="week-12---differentiation-integration.html#cb686-2" tabindex="-1"></a>  cell_growth</span>
+<span id="cb686-3"><a href="week-12---differentiation-integration.html#cb686-3" tabindex="-1"></a>EH <span class="ot">&lt;-</span> <span class="fu">lm</span>(mu <span class="sc">~</span> EH_X, <span class="at">data =</span> cell_growth)</span>
+<span id="cb686-4"><a href="week-12---differentiation-integration.html#cb686-4" tabindex="-1"></a><span class="fu">summary</span>(EH)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mu ~ EH_X, data = cell_growth)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -0.092115 -0.051180 -0.041225 -0.008532  0.293031 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept)  0.12952    0.06073   2.133   0.0769 .
+## EH_X        -4.70939    8.97458  -0.525   0.6186  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.1315 on 6 degrees of freedom
+## Multiple R-squared:  0.04388,    Adjusted R-squared:  -0.1155 
+## F-statistic: 0.2754 on 1 and 6 DF,  p-value: 0.6186</code></pre>
+<p>So the <span class="math inline">\(\mu_{max}\)</span> is 0.1295245 1/h and <span class="math inline">\(K_S\)</span> is -4.709391 g/L. Now we can define a function to predict the <span class="math inline">\(\DeltaX\)</span> for each timestep, calculate the predicted <span class="math inline">\(X\)</span> values and add this to our plot.</p>
+<div class="sourceCode" id="cb688"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb688-1"><a href="week-12---differentiation-integration.html#cb688-1" tabindex="-1"></a>cell_growth_monod_dX <span class="ot">&lt;-</span> <span class="cf">function</span>(S, dt, mu_max, K_S) {</span>
+<span id="cb688-2"><a href="week-12---differentiation-integration.html#cb688-2" tabindex="-1"></a>  dX <span class="ot">&lt;-</span> mu_max <span class="sc">*</span> S <span class="sc">/</span> (K_S <span class="sc">+</span> S ) <span class="sc">*</span> dt</span>
+<span id="cb688-3"><a href="week-12---differentiation-integration.html#cb688-3" tabindex="-1"></a>  <span class="fu">return</span>(dX)</span>
+<span id="cb688-4"><a href="week-12---differentiation-integration.html#cb688-4" tabindex="-1"></a>}</span>
+<span id="cb688-5"><a href="week-12---differentiation-integration.html#cb688-5" tabindex="-1"></a></span>
+<span id="cb688-6"><a href="week-12---differentiation-integration.html#cb688-6" tabindex="-1"></a>cell_growth <span class="ot">&lt;-</span> </span>
+<span id="cb688-7"><a href="week-12---differentiation-integration.html#cb688-7" tabindex="-1"></a>  cell_growth <span class="sc">%&gt;%</span> </span>
+<span id="cb688-8"><a href="week-12---differentiation-integration.html#cb688-8" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">monodX =</span> X <span class="sc">+</span> <span class="fu">cell_growth_monod_dX</span>(<span class="at">S =</span> .<span class="sc">$</span>S, </span>
+<span id="cb688-9"><a href="week-12---differentiation-integration.html#cb688-9" tabindex="-1"></a>                                   <span class="at">dt =</span> .<span class="sc">$</span>t <span class="sc">-</span> <span class="fu">lag</span>(.<span class="sc">$</span>t),</span>
+<span id="cb688-10"><a href="week-12---differentiation-integration.html#cb688-10" tabindex="-1"></a>                                   <span class="at">mu_max =</span> EH<span class="sc">$</span>coefficients[<span class="dv">1</span>],</span>
+<span id="cb688-11"><a href="week-12---differentiation-integration.html#cb688-11" tabindex="-1"></a>                                   <span class="at">K_S =</span> <span class="sc">-</span>EH<span class="sc">$</span>coefficients[<span class="dv">2</span>]))</span>
+<span id="cb688-12"><a href="week-12---differentiation-integration.html#cb688-12" tabindex="-1"></a></span>
+<span id="cb688-13"><a href="week-12---differentiation-integration.html#cb688-13" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> cell_growth, </span>
+<span id="cb688-14"><a href="week-12---differentiation-integration.html#cb688-14" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> X)) <span class="sc">+</span> </span>
+<span id="cb688-15"><a href="week-12---differentiation-integration.html#cb688-15" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb688-16"><a href="week-12---differentiation-integration.html#cb688-16" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> monodX), <span class="at">color =</span> <span class="st">&quot;green&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning: Removed 1 row containing missing values or values outside the scale range
+## (`geom_point()`).</code></pre>
+<p><img src="12-1_Examples_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+</div>
+</div>
+<div id="integration" class="section level2 hasAnchor" number="13.3">
+<h2><span class="header-section-number">13.3</span> Integration<a href="week-12---differentiation-integration.html#integration" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb690"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb690-1"><a href="week-12---differentiation-integration.html#cb690-1" tabindex="-1"></a><span class="fu">library</span>(dataRetrieval)</span>
+<span id="cb690-2"><a href="week-12---differentiation-integration.html#cb690-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb690-3"><a href="week-12---differentiation-integration.html#cb690-3" tabindex="-1"></a><span class="fu">library</span>(pracma)</span>
+<span id="cb690-4"><a href="week-12---differentiation-integration.html#cb690-4" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb690-5"><a href="week-12---differentiation-integration.html#cb690-5" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb690-6"><a href="week-12---differentiation-integration.html#cb690-6" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span>
+<span id="cb690-7"><a href="week-12---differentiation-integration.html#cb690-7" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;lubridate&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:cowplot&#39;:
+## 
+##     stamp</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     date, intersect, setdiff, union</code></pre>
+<p>Paper source:
+Rosburg et al. (2016). The effect of flow data resolution on sediment yield estimation and channel design. <a href="https://doi.org/10.1016/j.jhydrol.2016.04.040" class="uri">https://doi.org/10.1016/j.jhydrol.2016.04.040</a></p>
+</div>
+<div id="objective-calculate-total-annual-sediment-massyear-and-water-volumeyear-for-a-given-year-for-a-specific-station" class="section level2 hasAnchor" number="13.4">
+<h2><span class="header-section-number">13.4</span> Objective: calculate total annual sediment [mass/year] and water [volume/year] for a given year for a specific station<a href="week-12---differentiation-integration.html#objective-calculate-total-annual-sediment-massyear-and-water-volumeyear-for-a-given-year-for-a-specific-station" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="approach-2" class="section level2 hasAnchor" number="13.5">
+<h2><span class="header-section-number">13.5</span> Approach:<a href="week-12---differentiation-integration.html#approach-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Here, you’ll apply numerical integration using the <code>trapz</code> function in <code>pracma</code>. You’ll want to set up a data frame of x and y, with x = day of year ranging between 1-365; y is the sediment load based on the equation and given streamflow).</p>
+</div>
+<div id="workflow-3" class="section level2 hasAnchor" number="13.6">
+<h2><span class="header-section-number">13.6</span> Workflow<a href="week-12---differentiation-integration.html#workflow-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li>Read in sediment-rating curve (data here in the file 1-s2.0-S0022169416302311-mmc2.xlsx)</li>
+<li>Read in streamflow data using <code>readNWISdv</code> from <code>dataRetrieval</code> package</li>
+<li>Calculate average daily sediment yield [kg/s]</li>
+<li>For a given year, integrate under the daily sediment yield and daily streamflow using <code>trapz</code> function within the <code>pracma</code> package.</li>
+</ol>
+</div>
+<div id="apply-case-scenario" class="section level2 hasAnchor" number="13.7">
+<h2><span class="header-section-number">13.7</span> Apply case scenario:<a href="week-12---differentiation-integration.html#apply-case-scenario" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Compare the 2011 and 2012 year for water and sediment in the Lower Mississippi River (station id 07374000). Create 1 plot (with day of year on x-axis) of streamflow (2 lines, one for 2011 and one for 2012); Create 1 plot (with day of year on x-axis) of sediment flux (2 lines, one for 2011 and one for 2012). Calculate total annual sediment mass and water volume and compare the values between 2011 and 2012. Is the ratio of sediment mass for each year the same as the ratio of water volume (e.g. mass sed 2012/mass sed 2011)? In other words, was the streamflow carrying the same amount of sediment in 2011 and 2012? Create clear graphics and write up your comparison in a paragraph.</p>
+<div id="background-on-sediment-rating-curve-table-and-the-coefficients-a-and-b" class="section level4 hasAnchor" number="13.7.0.1">
+<h4><span class="header-section-number">13.7.0.1</span> Background on sediment rating curve table and the coefficients <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>:<a href="week-12---differentiation-integration.html#background-on-sediment-rating-curve-table-and-the-coefficients-a-and-b" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>From Rosburg et al.: Relationships between water discharge and sediment load often can be expressed as a simple power function:
+<span class="math display">\[Q_s = aQ^b\]</span>
+where <span class="math inline">\(Q_s\)</span> is the sediment discharge rate (kg/s), <span class="math inline">\(Q\)</span> is the concurrently-measured water discharge rate (m<sup>3</sup>/s), and <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> are best fit regression parameters (Asselman, 2000, Syvitski et al., 2000). This function is referred to as a sediment rating curve. In this relationship, it has been suggested that the exponent <span class="math inline">\(b\)</span> is related to the transport capacity in excess of sediment supply within a river channel, while the coefficient <span class="math inline">\(a\)</span> is related to absolute sediment supply (Barry et al., 2004). The exponent, <span class="math inline">\(b\)</span>, tends to increase with the size of bed material in coarse bed rivers (Emmett and Wolman, 2001).</p>
+</div>
+<div id="read-in-sediment-rating-curve-table" class="section level3 hasAnchor" number="13.7.1">
+<h3><span class="header-section-number">13.7.1</span> Read in sediment rating curve table<a href="week-12---differentiation-integration.html#read-in-sediment-rating-curve-table" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb694"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb694-1"><a href="week-12---differentiation-integration.html#cb694-1" tabindex="-1"></a>ds <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;Data/dataset-1-s2.0-S0022169416302311-mmc2.xlsx&quot;</span>, </span>
+<span id="cb694-2"><a href="week-12---differentiation-integration.html#cb694-2" tabindex="-1"></a>     <span class="at">col_types =</span> <span class="fu">c</span>(<span class="st">&quot;text&quot;</span>, <span class="st">&quot;text&quot;</span>, <span class="st">&quot;numeric&quot;</span>, </span>
+<span id="cb694-3"><a href="week-12---differentiation-integration.html#cb694-3" tabindex="-1"></a>         <span class="st">&quot;numeric&quot;</span>, <span class="st">&quot;numeric&quot;</span>, <span class="st">&quot;numeric&quot;</span>, </span>
+<span id="cb694-4"><a href="week-12---differentiation-integration.html#cb694-4" tabindex="-1"></a>         <span class="st">&quot;numeric&quot;</span>, <span class="st">&quot;numeric&quot;</span>, <span class="st">&quot;text&quot;</span>, </span>
+<span id="cb694-5"><a href="week-12---differentiation-integration.html#cb694-5" tabindex="-1"></a>         <span class="st">&quot;text&quot;</span>, <span class="st">&quot;numeric&quot;</span>, <span class="st">&quot;numeric&quot;</span>, </span>
+<span id="cb694-6"><a href="week-12---differentiation-integration.html#cb694-6" tabindex="-1"></a>         <span class="st">&quot;text&quot;</span>), <span class="at">skip =</span> <span class="dv">1</span>)</span></code></pre></div>
+</div>
+<div id="station-identification-and-data-retreival" class="section level3 hasAnchor" number="13.7.2">
+<h3><span class="header-section-number">13.7.2</span> Station Identification and Data Retreival<a href="week-12---differentiation-integration.html#station-identification-and-data-retreival" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb695"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb695-1"><a href="week-12---differentiation-integration.html#cb695-1" tabindex="-1"></a>site_id <span class="ot">&lt;-</span> <span class="st">&#39;07374000&#39;</span></span>
+<span id="cb695-2"><a href="week-12---differentiation-integration.html#cb695-2" tabindex="-1"></a>startDate <span class="ot">&lt;-</span> <span class="st">&#39;2000-01-01&#39;</span></span>
+<span id="cb695-3"><a href="week-12---differentiation-integration.html#cb695-3" tabindex="-1"></a>endDate <span class="ot">&lt;-</span> <span class="st">&#39;2020-12-30&#39;</span></span>
+<span id="cb695-4"><a href="week-12---differentiation-integration.html#cb695-4" tabindex="-1"></a>pCode <span class="ot">&lt;-</span> <span class="st">&#39;00060&#39;</span></span>
+<span id="cb695-5"><a href="week-12---differentiation-integration.html#cb695-5" tabindex="-1"></a>rawDailyQ <span class="ot">&lt;-</span> <span class="fu">readNWISdv</span>(<span class="at">siteNumbers =</span> site_id, </span>
+<span id="cb695-6"><a href="week-12---differentiation-integration.html#cb695-6" tabindex="-1"></a>                        <span class="at">parameterCd =</span> pCode, </span>
+<span id="cb695-7"><a href="week-12---differentiation-integration.html#cb695-7" tabindex="-1"></a>                        <span class="at">startDate =</span> startDate, </span>
+<span id="cb695-8"><a href="week-12---differentiation-integration.html#cb695-8" tabindex="-1"></a>                        <span class="at">endDate =</span> endDate)</span></code></pre></div>
+<pre><code>## GET:https://waterservices.usgs.gov/nwis/dv/?site=07374000&amp;format=waterml%2C1.1&amp;ParameterCd=00060&amp;StatCd=00003&amp;startDT=2000-01-01&amp;endDT=2020-12-30</code></pre>
+</div>
+<div id="filter-sediment-table-for-station-of-interest" class="section level3 hasAnchor" number="13.7.3">
+<h3><span class="header-section-number">13.7.3</span> Filter sediment table for station of interest<a href="week-12---differentiation-integration.html#filter-sediment-table-for-station-of-interest" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb697"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb697-1"><a href="week-12---differentiation-integration.html#cb697-1" tabindex="-1"></a>dsm <span class="ot">&lt;-</span> ds[<span class="fu">which</span>(ds<span class="sc">$</span><span class="st">`</span><span class="at">Site Number</span><span class="st">`</span><span class="sc">==</span>site_id),]</span></code></pre></div>
+</div>
+<div id="calculate-daily-sediment-mass-flux" class="section level3 hasAnchor" number="13.7.4">
+<h3><span class="header-section-number">13.7.4</span> Calculate Daily sediment mass flux<a href="week-12---differentiation-integration.html#calculate-daily-sediment-mass-flux" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb698"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb698-1"><a href="week-12---differentiation-integration.html#cb698-1" tabindex="-1"></a><span class="co">#cfs</span></span>
+<span id="cb698-2"><a href="week-12---differentiation-integration.html#cb698-2" tabindex="-1"></a>Q_cms <span class="ot">&lt;-</span> rawDailyQ<span class="sc">$</span>X_00060_00003<span class="sc">/</span><span class="fl">3.28084</span><span class="sc">^</span><span class="dv">3</span> <span class="co"># conversion to cms</span></span>
+<span id="cb698-3"><a href="week-12---differentiation-integration.html#cb698-3" tabindex="-1"></a>a <span class="ot">&lt;-</span> dsm<span class="sc">$</span>a <span class="co"># set a coefficient from filtered rating curve table</span></span>
+<span id="cb698-4"><a href="week-12---differentiation-integration.html#cb698-4" tabindex="-1"></a>b <span class="ot">&lt;-</span> dsm<span class="sc">$</span>b <span class="co"># set b coefficient from filtered rating curve table</span></span>
+<span id="cb698-5"><a href="week-12---differentiation-integration.html#cb698-5" tabindex="-1"></a>Qs_kgs <span class="ot">&lt;-</span> a<span class="sc">*</span>Q_cms<span class="sc">^</span>b</span>
+<span id="cb698-6"><a href="week-12---differentiation-integration.html#cb698-6" tabindex="-1"></a>Qs_kgd <span class="ot">&lt;-</span> Qs_kgs<span class="sc">*</span><span class="dv">60</span><span class="sc">*</span><span class="dv">60</span><span class="sc">*</span><span class="dv">24</span> <span class="co"># sediment load per day in kg/day</span></span>
+<span id="cb698-7"><a href="week-12---differentiation-integration.html#cb698-7" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Q_cms,Qs_kgd,rawDailyQ<span class="sc">$</span>Date)</span>
+<span id="cb698-8"><a href="week-12---differentiation-integration.html#cb698-8" tabindex="-1"></a><span class="fu">colnames</span>(d)[<span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="st">&quot;Date&quot;</span></span>
+<span id="cb698-9"><a href="week-12---differentiation-integration.html#cb698-9" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(d, <span class="fu">aes</span>(Q_cms, Qs_kgd)) <span class="sc">+</span> </span>
+<span id="cb698-10"><a href="week-12---differentiation-integration.html#cb698-10" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb698-11"><a href="week-12---differentiation-integration.html#cb698-11" tabindex="-1"></a>  <span class="fu">theme_cowplot</span>() <span class="sc">+</span></span>
+<span id="cb698-12"><a href="week-12---differentiation-integration.html#cb698-12" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&#39;Streamflow [cms]&#39;</span>) <span class="sc">+</span></span>
+<span id="cb698-13"><a href="week-12---differentiation-integration.html#cb698-13" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&#39;Sediment load [kg per day]&#39;</span>)</span>
+<span id="cb698-14"><a href="week-12---differentiation-integration.html#cb698-14" tabindex="-1"></a>p</span></code></pre></div>
+<p><img src="12-1_Examples_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<div class="sourceCode" id="cb699"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb699-1"><a href="week-12---differentiation-integration.html#cb699-1" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(rawDailyQ, <span class="fu">aes</span>(Date,X_00060_00003)) <span class="sc">+</span> </span>
+<span id="cb699-2"><a href="week-12---differentiation-integration.html#cb699-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb699-3"><a href="week-12---differentiation-integration.html#cb699-3" tabindex="-1"></a>  <span class="fu">theme_cowplot</span>() <span class="sc">+</span></span>
+<span id="cb699-4"><a href="week-12---differentiation-integration.html#cb699-4" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&#39;Date&#39;</span>) <span class="sc">+</span></span>
+<span id="cb699-5"><a href="week-12---differentiation-integration.html#cb699-5" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&#39;Streamflow [cfs]&#39;</span>)</span>
+<span id="cb699-6"><a href="week-12---differentiation-integration.html#cb699-6" tabindex="-1"></a>p2</span></code></pre></div>
+<p><img src="12-1_Examples_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<div class="sourceCode" id="cb700"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb700-1"><a href="week-12---differentiation-integration.html#cb700-1" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(d, <span class="fu">aes</span>(Date,Qs_kgd)) <span class="sc">+</span> </span>
+<span id="cb700-2"><a href="week-12---differentiation-integration.html#cb700-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb700-3"><a href="week-12---differentiation-integration.html#cb700-3" tabindex="-1"></a>  <span class="fu">theme_cowplot</span>() <span class="sc">+</span></span>
+<span id="cb700-4"><a href="week-12---differentiation-integration.html#cb700-4" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&#39;Date&#39;</span>) <span class="sc">+</span></span>
+<span id="cb700-5"><a href="week-12---differentiation-integration.html#cb700-5" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&#39;Sediment Flux [kg/d]&#39;</span>)</span>
+<span id="cb700-6"><a href="week-12---differentiation-integration.html#cb700-6" tabindex="-1"></a>p3</span></code></pre></div>
+<p><img src="12-1_Examples_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+</div>
+</div>
+<div id="compare-2011-and-2012-in-case-study" class="section level2 hasAnchor" number="13.8">
+<h2><span class="header-section-number">13.8</span> Compare 2011 and 2012 in case study<a href="week-12---differentiation-integration.html#compare-2011-and-2012-in-case-study" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb701"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb701-1"><a href="week-12---differentiation-integration.html#cb701-1" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="fu">filter</span>(d, Date <span class="sc">&gt;</span> <span class="st">&quot;2010-12-31&quot;</span> <span class="sc">&amp;</span> Date <span class="sc">&lt;</span> <span class="st">&quot;2012-01-01&quot;</span>)</span>
+<span id="cb701-2"><a href="week-12---differentiation-integration.html#cb701-2" tabindex="-1"></a>d2011 <span class="ot">&lt;-</span> <span class="fu">trapz</span>(d1<span class="sc">$</span>Qs_kgd)<span class="sc">*</span>.<span class="dv">001</span> <span class="co"># include conversion seconds to days, kg to metric tons</span></span>
+<span id="cb701-3"><a href="week-12---differentiation-integration.html#cb701-3" tabindex="-1"></a>q2011 <span class="ot">&lt;-</span> <span class="fu">trapz</span>(d1<span class="sc">$</span>Q_cms<span class="sc">*</span><span class="dv">86400</span>)<span class="sc">/</span><span class="fl">1e9</span> <span class="co"># include conversion seconds to days, scale by 1e9, so units are billion cubic meters </span></span>
+<span id="cb701-4"><a href="week-12---differentiation-integration.html#cb701-4" tabindex="-1"></a>q2011</span></code></pre></div>
+<pre><code>## [1] 543.9495</code></pre>
+<div class="sourceCode" id="cb703"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb703-1"><a href="week-12---differentiation-integration.html#cb703-1" tabindex="-1"></a>d2011</span></code></pre></div>
+<pre><code>## [1] 1054709</code></pre>
+<div class="sourceCode" id="cb705"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb705-1"><a href="week-12---differentiation-integration.html#cb705-1" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">filter</span>(d, Date <span class="sc">&gt;</span> <span class="st">&quot;2011-12-31&quot;</span> <span class="sc">&amp;</span> Date <span class="sc">&lt;</span> <span class="st">&quot;2013-01-01&quot;</span>)</span>
+<span id="cb705-2"><a href="week-12---differentiation-integration.html#cb705-2" tabindex="-1"></a>d2012 <span class="ot">&lt;-</span> <span class="fu">trapz</span>(d2<span class="sc">$</span>Qs_kgd)<span class="sc">*</span>.<span class="dv">001</span> <span class="co"># include conversion seconds to days, kg to metric tons</span></span>
+<span id="cb705-3"><a href="week-12---differentiation-integration.html#cb705-3" tabindex="-1"></a>q2012 <span class="ot">&lt;-</span> <span class="fu">trapz</span>(d2<span class="sc">$</span>Q_cms<span class="sc">*</span><span class="dv">86400</span>)<span class="sc">/</span><span class="fl">1e9</span> <span class="co"># include conversion seconds to days, scale by 1e9, so units are billion cubic meters </span></span>
+<span id="cb705-4"><a href="week-12---differentiation-integration.html#cb705-4" tabindex="-1"></a>q2012</span></code></pre></div>
+<pre><code>## [1] 319.2169</code></pre>
+<div class="sourceCode" id="cb707"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb707-1"><a href="week-12---differentiation-integration.html#cb707-1" tabindex="-1"></a>d2012</span></code></pre></div>
+<pre><code>## [1] 194539.8</code></pre>
+<div class="sourceCode" id="cb709"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb709-1"><a href="week-12---differentiation-integration.html#cb709-1" tabindex="-1"></a>q2012<span class="sc">/</span>q2011 <span class="co"># ratio of total water volume per year</span></span></code></pre></div>
+<pre><code>## [1] 0.5868502</code></pre>
+<div class="sourceCode" id="cb711"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb711-1"><a href="week-12---differentiation-integration.html#cb711-1" tabindex="-1"></a>d2012<span class="sc">/</span>d2011 <span class="co"># ratio of total sediment mass per year</span></span></code></pre></div>
+<pre><code>## [1] 0.1844487</code></pre>
+<div class="sourceCode" id="cb713"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb713-1"><a href="week-12---differentiation-integration.html#cb713-1" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb713-2"><a href="week-12---differentiation-integration.html#cb713-2" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>d1, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">yday</span>(Date),<span class="at">y=</span>Q_cms), <span class="at">color=</span><span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb713-3"><a href="week-12---differentiation-integration.html#cb713-3" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>d2, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">yday</span>(Date),<span class="at">y=</span>Q_cms), <span class="at">color=</span><span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb713-4"><a href="week-12---differentiation-integration.html#cb713-4" tabindex="-1"></a>    <span class="fu">theme_cowplot</span>() <span class="sc">+</span></span>
+<span id="cb713-5"><a href="week-12---differentiation-integration.html#cb713-5" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&#39;Day of year&#39;</span>) <span class="sc">+</span></span>
+<span id="cb713-6"><a href="week-12---differentiation-integration.html#cb713-6" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&#39;Streamflow [cfs]&#39;</span>)</span>
+<span id="cb713-7"><a href="week-12---differentiation-integration.html#cb713-7" tabindex="-1"></a>p2</span></code></pre></div>
+<p><img src="12-1_Examples_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<div class="sourceCode" id="cb714"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb714-1"><a href="week-12---differentiation-integration.html#cb714-1" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb714-2"><a href="week-12---differentiation-integration.html#cb714-2" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>d1, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">yday</span>(Date),<span class="at">y=</span>Qs_kgd), <span class="at">color=</span><span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb714-3"><a href="week-12---differentiation-integration.html#cb714-3" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>d2, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">yday</span>(Date),<span class="at">y=</span>Qs_kgd), <span class="at">color=</span><span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb714-4"><a href="week-12---differentiation-integration.html#cb714-4" tabindex="-1"></a>    <span class="co">#theme_cowplot() +</span></span>
+<span id="cb714-5"><a href="week-12---differentiation-integration.html#cb714-5" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&#39;Day of year&#39;</span>) <span class="sc">+</span></span>
+<span id="cb714-6"><a href="week-12---differentiation-integration.html#cb714-6" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&#39;Sediment load [kgd]&#39;</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;right&quot;</span>)</span>
+<span id="cb714-7"><a href="week-12---differentiation-integration.html#cb714-7" tabindex="-1"></a>p3</span></code></pre></div>
+<p><img src="12-1_Examples_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<div class="sourceCode" id="cb715"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb715-1"><a href="week-12---differentiation-integration.html#cb715-1" tabindex="-1"></a>d_f <span class="ot">&lt;-</span> d <span class="sc">%&gt;%</span> </span>
+<span id="cb715-2"><a href="week-12---differentiation-integration.html#cb715-2" tabindex="-1"></a>  <span class="co">#create a year column</span></span>
+<span id="cb715-3"><a href="week-12---differentiation-integration.html#cb715-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">yr=</span><span class="fu">year</span>(Date)) <span class="sc">%&gt;%</span> </span>
+<span id="cb715-4"><a href="week-12---differentiation-integration.html#cb715-4" tabindex="-1"></a>  <span class="co"># group by year and then integrate to find total volume or mass for each year</span></span>
+<span id="cb715-5"><a href="week-12---differentiation-integration.html#cb715-5" tabindex="-1"></a>  <span class="fu">group_by</span>(yr) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">Q_int =</span> <span class="fu">trapz</span>(Q_cms)<span class="sc">*</span><span class="dv">8640</span><span class="sc">/</span><span class="fl">1e9</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb715-6"><a href="week-12---differentiation-integration.html#cb715-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Qs_int =</span> <span class="fu">trapz</span>(Qs_kgd)<span class="sc">*</span>.<span class="dv">001</span>)  <span class="sc">%&gt;%</span> </span>
+<span id="cb715-7"><a href="week-12---differentiation-integration.html#cb715-7" tabindex="-1"></a>  <span class="fu">summarize_all</span>(max)</span>
+<span id="cb715-8"><a href="week-12---differentiation-integration.html#cb715-8" tabindex="-1"></a>d_f</span></code></pre></div>
+<pre><code>## # A tibble: 17 × 6
+##       yr  Q_cms    Qs_kgd Date       Q_int   Qs_int
+##    &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt; &lt;date&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+##  1  2004 26221.  4553560. 2004-12-31  38.2  322037.
+##  2  2005 32848.  9862029. 2005-12-31  38.2  367596.
+##  3  2006 21266.  2219833. 2006-12-31  31.6  110515.
+##  4  2007 25315.  4036111. 2007-12-31  39.1  235636.
+##  5  2008 37378. 15361866. 2008-12-31  55.4  950416.
+##  6  2009 33414. 10457567. 2009-12-31  56.3  699609.
+##  7  2010 29450.  6781094. 2010-12-31  51.0  546120.
+##  8  2011 40493. 20215198. 2011-12-31  54.4 1054709.
+##  9  2012 23390.  3076925. 2012-12-31  31.9  194540.
+## 10  2013 28317.  5927552. 2013-12-31  47.7  468387.
+## 11  2014 24239.  3477446. 2014-12-31  43.6  263207.
+## 12  2015 30016.  7238932. 2015-12-31  55.2  753439.
+## 13  2016 37661. 15764729. 2016-12-31  55.5  851360.
+## 14  2017 34547. 11724372. 2017-12-31  48.4  579603.
+## 15  2018 38228. 16592820. 2018-12-31  59.7  974006.
+## 16  2019 38794. 17451266. 2019-12-31  81.3 2325045.
+## 17  2020 38511. 17018208. 2020-12-30  65.3 1584083.</code></pre>
+<div class="sourceCode" id="cb717"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb717-1"><a href="week-12---differentiation-integration.html#cb717-1" tabindex="-1"></a>d_f<span class="sc">$</span>rq <span class="ot">&lt;-</span> d_f<span class="sc">$</span>Qs_int<span class="sc">/</span>d_f<span class="sc">$</span>Q_int<span class="sc">/</span><span class="dv">1000</span></span>
+<span id="cb717-2"><a href="week-12---differentiation-integration.html#cb717-2" tabindex="-1"></a>d_f<span class="sc">$</span>m <span class="ot">&lt;-</span> d_f<span class="sc">$</span>Qs_int<span class="sc">/</span>d_f<span class="sc">$</span>Q_cms</span>
+<span id="cb717-3"><a href="week-12---differentiation-integration.html#cb717-3" tabindex="-1"></a>d_f</span></code></pre></div>
+<pre><code>## # A tibble: 17 × 8
+##       yr  Q_cms    Qs_kgd Date       Q_int   Qs_int    rq     m
+##    &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt; &lt;date&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1  2004 26221.  4553560. 2004-12-31  38.2  322037.  8.42 12.3 
+##  2  2005 32848.  9862029. 2005-12-31  38.2  367596.  9.63 11.2 
+##  3  2006 21266.  2219833. 2006-12-31  31.6  110515.  3.50  5.20
+##  4  2007 25315.  4036111. 2007-12-31  39.1  235636.  6.02  9.31
+##  5  2008 37378. 15361866. 2008-12-31  55.4  950416. 17.2  25.4 
+##  6  2009 33414. 10457567. 2009-12-31  56.3  699609. 12.4  20.9 
+##  7  2010 29450.  6781094. 2010-12-31  51.0  546120. 10.7  18.5 
+##  8  2011 40493. 20215198. 2011-12-31  54.4 1054709. 19.4  26.0 
+##  9  2012 23390.  3076925. 2012-12-31  31.9  194540.  6.09  8.32
+## 10  2013 28317.  5927552. 2013-12-31  47.7  468387.  9.81 16.5 
+## 11  2014 24239.  3477446. 2014-12-31  43.6  263207.  6.04 10.9 
+## 12  2015 30016.  7238932. 2015-12-31  55.2  753439. 13.6  25.1 
+## 13  2016 37661. 15764729. 2016-12-31  55.5  851360. 15.3  22.6 
+## 14  2017 34547. 11724372. 2017-12-31  48.4  579603. 12.0  16.8 
+## 15  2018 38228. 16592820. 2018-12-31  59.7  974006. 16.3  25.5 
+## 16  2019 38794. 17451266. 2019-12-31  81.3 2325045. 28.6  59.9 
+## 17  2020 38511. 17018208. 2020-12-30  65.3 1584083. 24.2  41.1</code></pre>
+<p>Let’s build one single dataset from the 2011 and 2012 data above so that we can make a nice legend on our plot.</p>
+<div class="sourceCode" id="cb719"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb719-1"><a href="week-12---differentiation-integration.html#cb719-1" tabindex="-1"></a>data_2011_2012 <span class="ot">&lt;-</span> </span>
+<span id="cb719-2"><a href="week-12---differentiation-integration.html#cb719-2" tabindex="-1"></a>  <span class="fu">bind_rows</span>(d1, d2) <span class="sc">%&gt;%</span></span>
+<span id="cb719-3"><a href="week-12---differentiation-integration.html#cb719-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">year</span>(Date) <span class="sc">%&gt;%</span> <span class="fu">as.factor</span>(),</span>
+<span id="cb719-4"><a href="week-12---differentiation-integration.html#cb719-4" tabindex="-1"></a>         <span class="at">DOTY =</span> <span class="fu">yday</span>(Date))</span>
+<span id="cb719-5"><a href="week-12---differentiation-integration.html#cb719-5" tabindex="-1"></a></span>
+<span id="cb719-6"><a href="week-12---differentiation-integration.html#cb719-6" tabindex="-1"></a></span>
+<span id="cb719-7"><a href="week-12---differentiation-integration.html#cb719-7" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data_2011_2012, </span>
+<span id="cb719-8"><a href="week-12---differentiation-integration.html#cb719-8" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> DOTY, <span class="at">y =</span> Qs_kgd, <span class="at">color =</span> Year)) <span class="sc">+</span></span>
+<span id="cb719-9"><a href="week-12---differentiation-integration.html#cb719-9" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb719-10"><a href="week-12---differentiation-integration.html#cb719-10" tabindex="-1"></a>  <span class="fu">theme_cowplot</span>() <span class="sc">+</span></span>
+<span id="cb719-11"><a href="week-12---differentiation-integration.html#cb719-11" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&#39;Day of year&#39;</span>) <span class="sc">+</span></span>
+<span id="cb719-12"><a href="week-12---differentiation-integration.html#cb719-12" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&#39;Sediment load [kgd]&#39;</span>) </span></code></pre></div>
+<p><img src="12-1_Examples_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="differentiation-integration.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="systems-of-equations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": false,
+    "twitter": false,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf", "_main.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection",
+    "scroll_highlight": true
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

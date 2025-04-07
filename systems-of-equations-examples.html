@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Systems of Equations Examples | Data Analysis and Numerical Methods for Biological Systems Engineers</title>
+  <meta name="description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
+Systems Engineering course BSE3144: Engineering Analysis for Biological
+Systems using Numerical Methods.</p>" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Systems of Equations Examples | Data Analysis and Numerical Methods for Biological Systems Engineers" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
+Systems Engineering course BSE3144: Engineering Analysis for Biological
+Systems using Numerical Methods.</p>" />
+  <meta name="github-repo" content="VT-BSE3144/bookdown" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Systems of Equations Examples | Data Analysis and Numerical Methods for Biological Systems Engineers" />
+  
+  <meta name="twitter:description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
+Systems Engineering course BSE3144: Engineering Analysis for Biological
+Systems using Numerical Methods.</p>" />
+  
+
+<meta name="author" content="Durelle Scott" />
+<meta name="author" content="R. Clay Wright" />
+
+
+<meta name="date" content="2025-04-07" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="systems-of-equations.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Data Analysis and Numerical Methods</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About this book</a></li>
+<li class="chapter" data-level="1" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html"><i class="fa fa-check"></i><b>1</b> Introduction to Posit, Rstudio, &amp; Markdown</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#pre-work"><i class="fa fa-check"></i><b>1.1</b> Pre-work</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#posit"><i class="fa fa-check"></i><b>1.2</b> Posit</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#rstudio"><i class="fa fa-check"></i><b>1.3</b> Rstudio</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-source-pane"><i class="fa fa-check"></i><b>1.3.1</b> The Source pane</a></li>
+<li class="chapter" data-level="1.3.2" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#markdown"><i class="fa fa-check"></i><b>1.3.2</b> Markdown</a></li>
+<li class="chapter" data-level="1.3.3" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#more-markdown-formatting"><i class="fa fa-check"></i><b>1.3.3</b> More Markdown formatting</a></li>
+<li class="chapter" data-level="1.3.4" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#running-code"><i class="fa fa-check"></i><b>1.3.4</b> Running code</a></li>
+<li class="chapter" data-level="1.3.5" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-console-pane"><i class="fa fa-check"></i><b>1.3.5</b> The Console pane</a></li>
+<li class="chapter" data-level="1.3.6" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-help-pane"><i class="fa fa-check"></i><b>1.3.6</b> The Help pane</a></li>
+<li class="chapter" data-level="1.3.7" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-filesplotspackageshelpviewer-pane"><i class="fa fa-check"></i><b>1.3.7</b> The Files/Plots/Packages/Help/Viewer pane</a></li>
+<li class="chapter" data-level="1.3.8" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#ok-back-to-the-source-pane"><i class="fa fa-check"></i><b>1.3.8</b> OK, back to the Source pane…</a></li>
+<li class="chapter" data-level="1.3.9" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-environment-pane"><i class="fa fa-check"></i><b>1.3.9</b> The Environment pane</a></li>
+<li class="chapter" data-level="1.3.10" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#the-historyconnectionsgitbuildtutorial-pane"><i class="fa fa-check"></i><b>1.3.10</b> The History/Connections/Git/Build/Tutorial pane</a></li>
+<li class="chapter" data-level="1.3.11" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#terminalrenderbackground-jobs"><i class="fa fa-check"></i><b>1.3.11</b> Terminal/Render/Background Jobs</a></li>
+<li class="chapter" data-level="1.3.12" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#yaml-headers"><i class="fa fa-check"></i><b>1.3.12</b> YAML headers</a></li>
+<li class="chapter" data-level="1.3.13" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#code-chunkblock-settings-and-global-settings"><i class="fa fa-check"></i><b>1.3.13</b> Code chunk/block settings and global settings</a></li>
+<li class="chapter" data-level="1.3.14" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#output-options"><i class="fa fa-check"></i><b>1.3.14</b> Output Options</a></li>
+<li class="chapter" data-level="1.3.15" data-path="introduction-to-posit-rstudio-markdown.html"><a href="introduction-to-posit-rstudio-markdown.html#troubleshooting-knitrender-problems"><i class="fa fa-check"></i><b>1.3.15</b> Troubleshooting Knit/Render problems</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html"><i class="fa fa-check"></i>Rstudio and Markdown examples</a>
+<ul>
+<li class="chapter" data-level="1.4" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#navigate-the-posit-and-rstudio-interface-with-proficiency."><i class="fa fa-check"></i><b>1.4</b> Navigate the Posit and RStudio interface with proficiency.</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#making-new-documents"><i class="fa fa-check"></i><b>1.4.1</b> Making new documents</a></li>
+<li class="chapter" data-level="1.4.2" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#navigating-the-file-pane-and-file-paths"><i class="fa fa-check"></i><b>1.4.2</b> Navigating the file pane and file paths</a></li>
+<li class="chapter" data-level="1.4.3" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#console-pane"><i class="fa fa-check"></i><b>1.4.3</b> Console pane</a></li>
+<li class="chapter" data-level="1.4.4" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#environment-pane"><i class="fa fa-check"></i><b>1.4.4</b> Environment pane</a></li>
+<li class="chapter" data-level="1.4.5" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#history-pane"><i class="fa fa-check"></i><b>1.4.5</b> History pane</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#articulate-the-process-of-using-rstudio-to-develop-markdown-documents."><i class="fa fa-check"></i><b>1.5</b> Articulate the process of using RStudio to develop markdown documents.</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#cheat-sheets-yay"><i class="fa fa-check"></i><b>1.5.1</b> Cheat Sheets! Yay!</a></li>
+<li class="chapter" data-level="1.5.2" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#inserting-code-chunks"><i class="fa fa-check"></i><b>1.5.2</b> Inserting code chunks</a></li>
+<li class="chapter" data-level="1.5.3" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#changing-code-chunk-settings"><i class="fa fa-check"></i><b>1.5.3</b> Changing code chunk settings</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#practice-using-markdown-to-format-reproducible-documents"><i class="fa fa-check"></i><b>1.6</b> Practice using markdown to format reproducible documents</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="rstudio-and-markdown-examples.html"><a href="rstudio-and-markdown-examples.html#tasks"><i class="fa fa-check"></i><b>1.6.1</b> Tasks</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html"><i class="fa fa-check"></i><b>2</b> The R Language and Tidy Data</a>
+<ul>
+<li class="chapter" data-level="2.0.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#data-organization-and-manipulation-in-spreadsheets"><i class="fa fa-check"></i><b>2.0.1</b> Data Organization and manipulation in Spreadsheets</a></li>
+<li class="chapter" data-level="2.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#reading-and-pre-class-materials"><i class="fa fa-check"></i><b>2.1</b> Reading and Pre-class Materials</a></li>
+<li class="chapter" data-level="2.2" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#tidy-data"><i class="fa fa-check"></i><b>2.2</b> Tidy data</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#top-12-tips-for-data-organization"><i class="fa fa-check"></i><b>2.2.1</b> Top 12 Tips for Data Organization</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#r-basics"><i class="fa fa-check"></i><b>2.3</b> R Basics</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#basic-math-to-linear-algebra"><i class="fa fa-check"></i><b>2.3.1</b> Basic Math to Linear Algebra</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#functions"><i class="fa fa-check"></i><b>2.4</b> Functions</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#what-is-a-function"><i class="fa fa-check"></i><b>2.4.1</b> What is a function?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#objects---variables-and-functions"><i class="fa fa-check"></i><b>2.5</b> Objects - Variables and Functions</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#obey-rs-naming-rules"><i class="fa fa-check"></i><b>2.5.1</b> Obey R’s naming rules</a></li>
+<li class="chapter" data-level="2.5.2" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#variables-and-data-types"><i class="fa fa-check"></i><b>2.5.2</b> Variables and data types</a></li>
+<li class="chapter" data-level="2.5.3" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#vectors"><i class="fa fa-check"></i><b>2.5.3</b> Vectors</a></li>
+<li class="chapter" data-level="2.5.4" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#matrices-arrays-and-lists"><i class="fa fa-check"></i><b>2.5.4</b> Matrices, Arrays and Lists</a></li>
+<li class="chapter" data-level="2.5.5" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#data-frames"><i class="fa fa-check"></i><b>2.5.5</b> Data frames</a></li>
+<li class="chapter" data-level="2.5.6" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#run-a-function"><i class="fa fa-check"></i><b>2.5.6</b> Run a function</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#tidyverse-tables"><i class="fa fa-check"></i><b>2.6</b> Tidyverse tables</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#create-a-table-manually"><i class="fa fa-check"></i><b>2.6.1</b> Create a Table Manually</a></li>
+<li class="chapter" data-level="2.6.2" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#tribble"><i class="fa fa-check"></i><b>2.6.2</b> <code>tribble()</code></a></li>
+<li class="chapter" data-level="2.6.3" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#read-a-csv-file-.csv"><i class="fa fa-check"></i><b>2.6.3</b> Read a CSV file (.csv)</a></li>
+<li class="chapter" data-level="2.6.4" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#read-a-character-delimited-file-.txt"><i class="fa fa-check"></i><b>2.6.4</b> Read a character-delimited file (.txt)</a></li>
+<li class="chapter" data-level="2.6.5" data-path="the-r-language-and-tidy-data.html"><a href="the-r-language-and-tidy-data.html#read-an-excel-file-.xls-.xlsx"><i class="fa fa-check"></i><b>2.6.5</b> Read an Excel file (.xls, .xlsx)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html"><i class="fa fa-check"></i>The R Language and Tidy Data Examples</a>
+<ul>
+<li class="chapter" data-level="2.7" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#tidy-data-1"><i class="fa fa-check"></i><b>2.7</b> Tidy Data</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#lets-make-a-data-dictionary-for-this-dataset"><i class="fa fa-check"></i><b>2.7.1</b> Let’s make a data dictionary for this dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#r-basics-1"><i class="fa fa-check"></i><b>2.8</b> R Basics</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#data-types"><i class="fa fa-check"></i><b>2.8.1</b> Data types</a></li>
+<li class="chapter" data-level="2.8.2" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#functions-1"><i class="fa fa-check"></i><b>2.8.2</b> Functions</a></li>
+<li class="chapter" data-level="2.8.3" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#objects"><i class="fa fa-check"></i><b>2.8.3</b> Objects</a></li>
+<li class="chapter" data-level="2.8.4" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#vectors-1"><i class="fa fa-check"></i><b>2.8.4</b> Vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#data-tibbles-dataframes"><i class="fa fa-check"></i><b>2.9</b> Data, tibbles, dataframes</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#reading-in-data"><i class="fa fa-check"></i><b>2.9.1</b> Reading in data</a></li>
+<li class="chapter" data-level="2.9.2" data-path="the-r-language-and-tidy-data-examples.html"><a href="the-r-language-and-tidy-data-examples.html#factors-1"><i class="fa fa-check"></i><b>2.9.2</b> Factors</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html"><i class="fa fa-check"></i><b>3</b> Functions, Best-coding Practices, and Debugging Intro</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#functions-2"><i class="fa fa-check"></i><b>3.1</b> Functions</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#functions-why-and-how"><i class="fa fa-check"></i><b>3.1.1</b> Functions… why and how</a></li>
+<li class="chapter" data-level="3.1.2" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#a-simple-function-cv"><i class="fa fa-check"></i><b>3.1.2</b> A simple function: CV()</a></li>
+<li class="chapter" data-level="3.1.3" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#now-we-need-to-apply-our-function."><i class="fa fa-check"></i><b>3.1.3</b> Now we need to apply our function.</a></li>
+<li class="chapter" data-level="3.1.4" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#what-objects-are-available"><i class="fa fa-check"></i><b>3.1.4</b> What objects are available?</a></li>
+<li class="chapter" data-level="3.1.5" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#optional-arguments"><i class="fa fa-check"></i><b>3.1.5</b> Optional arguments</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#packages"><i class="fa fa-check"></i><b>3.2</b> Packages</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#installing-and-using-packages"><i class="fa fa-check"></i><b>3.2.1</b> Installing and using packages</a></li>
+<li class="chapter" data-level="3.2.2" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#installing-and-using-packages-1"><i class="fa fa-check"></i><b>3.2.2</b> Installing and using packages</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#best-coding-practices"><i class="fa fa-check"></i><b>3.3</b> Best coding practices</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#reproducibility"><i class="fa fa-check"></i><b>3.3.1</b> Reproducibility</a></li>
+<li class="chapter" data-level="3.3.2" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#style-guides"><i class="fa fa-check"></i><b>3.3.2</b> Style guides</a></li>
+<li class="chapter" data-level="3.3.3" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#automated-code-stylingformatting"><i class="fa fa-check"></i><b>3.3.3</b> Automated code styling/formatting</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#debugging"><i class="fa fa-check"></i><b>3.4</b> Debugging</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#verifying-code"><i class="fa fa-check"></i><b>3.4.1</b> Verifying code</a></li>
+<li class="chapter" data-level="3.4.2" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#commenting-your-code"><i class="fa fa-check"></i><b>3.4.2</b> Commenting your code</a></li>
+<li class="chapter" data-level="3.4.3" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#commenting-out-code"><i class="fa fa-check"></i><b>3.4.3</b> “Commenting out” code</a></li>
+<li class="chapter" data-level="3.4.4" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#common-errors-and-how-to-fix-them"><i class="fa fa-check"></i><b>3.4.4</b> Common errors and How to Fix Them</a></li>
+<li class="chapter" data-level="3.4.5" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#warning-or-error"><i class="fa fa-check"></i><b>3.4.5</b> Warning or Error?</a></li>
+<li class="chapter" data-level="3.4.6" data-path="functions-best-coding-practices-and-debugging-intro.html"><a href="functions-best-coding-practices-and-debugging-intro.html#debugging-is-scientific"><i class="fa fa-check"></i><b>3.4.6</b> Debugging is scientific</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html"><i class="fa fa-check"></i>Functions, Best-coding Practices, and Debugging Examples</a>
+<ul>
+<li class="chapter" data-level="3.5" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#functions-3"><i class="fa fa-check"></i><b>3.5</b> Functions</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#example-1-1"><i class="fa fa-check"></i><b>3.5.1</b> Example 1</a></li>
+<li class="chapter" data-level="3.5.2" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#example-2-1"><i class="fa fa-check"></i><b>3.5.2</b> Example 2</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#best-coding-practices-1"><i class="fa fa-check"></i><b>3.6</b> Best coding practices</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#code-from-inside-out-running-the-smallest-bits-of-code-possible"><i class="fa fa-check"></i><b>3.6.1</b> Code from inside out, running the smallest bits of code possible</a></li>
+<li class="chapter" data-level="3.6.2" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#use-rstudio-to-your-advantage"><i class="fa fa-check"></i><b>3.6.2</b> Use RStudio to your advantage</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#debugging-1"><i class="fa fa-check"></i><b>3.7</b> Debugging</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="functions-best-coding-practices-and-debugging-examples.html"><a href="functions-best-coding-practices-and-debugging-examples.html#also-use-rstudio"><i class="fa fa-check"></i><b>3.7.1</b> Also use RStudio</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>4</b> Data Wrangling</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="data-wrangling.html"><a href="data-wrangling.html#connection-to-previous-work-on-data-organization"><i class="fa fa-check"></i><b>4.1</b> Connection to previous work on Data Organization</a></li>
+<li class="chapter" data-level="4.2" data-path="data-wrangling.html"><a href="data-wrangling.html#source"><i class="fa fa-check"></i><b>4.2</b> Source</a></li>
+<li class="chapter" data-level="4.3" data-path="data-wrangling.html"><a href="data-wrangling.html#introduction---example-dataset-nycflights13"><i class="fa fa-check"></i><b>4.3</b> 3.1 Introduction - Example dataset <code>nycflights13</code></a></li>
+<li class="chapter" data-level="4.4" data-path="data-wrangling.html"><a href="data-wrangling.html#section"><i class="fa fa-check"></i><b>4.4</b> 3.1.2</a></li>
+<li class="chapter" data-level="4.5" data-path="data-wrangling.html"><a href="data-wrangling.html#dplyr-basics"><i class="fa fa-check"></i><b>4.5</b> 3.1.3 dplyr basics</a></li>
+<li class="chapter" data-level="4.6" data-path="data-wrangling.html"><a href="data-wrangling.html#row-wise-functions"><i class="fa fa-check"></i><b>4.6</b> 3.2 Row-wise functions</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#filter"><i class="fa fa-check"></i><b>4.6.1</b> 3.2.1 filter()</a></li>
+<li class="chapter" data-level="4.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#arranging-rows"><i class="fa fa-check"></i><b>4.6.2</b> 3.2.3 Arranging rows</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="data-wrangling.html"><a href="data-wrangling.html#columns"><i class="fa fa-check"></i><b>4.7</b> 3.3 Columns</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#mutate---add-new-variables"><i class="fa fa-check"></i><b>4.7.1</b> 3.3.1 Mutate - Add new variables</a></li>
+<li class="chapter" data-level="4.7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#select"><i class="fa fa-check"></i><b>4.7.2</b> 3.3.2 Select</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="data-wrangling.html"><a href="data-wrangling.html#the-pipe"><i class="fa fa-check"></i><b>4.8</b> 3.4 The pipe</a></li>
+<li class="chapter" data-level="4.9" data-path="data-wrangling.html"><a href="data-wrangling.html#groups"><i class="fa fa-check"></i><b>4.9</b> 3.5 Groups</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html"><i class="fa fa-check"></i>Data Wrangling Examples</a>
+<ul>
+<li class="chapter" data-level="4.9.1" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#filter-1"><i class="fa fa-check"></i><b>4.9.1</b> Filter</a></li>
+<li class="chapter" data-level="4.9.2" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#arrange"><i class="fa fa-check"></i><b>4.9.2</b> Arrange</a></li>
+<li class="chapter" data-level="4.9.3" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#mutate---adds-a-new-column"><i class="fa fa-check"></i><b>4.9.3</b> Mutate - adds a new column</a></li>
+<li class="chapter" data-level="4.9.4" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#select-1"><i class="fa fa-check"></i><b>4.9.4</b> Select</a></li>
+<li class="chapter" data-level="4.9.5" data-path="data-wrangling-examples.html"><a href="data-wrangling-examples.html#grouped-summaries"><i class="fa fa-check"></i><b>4.9.5</b> Grouped summaries</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="summarizing-data.html"><a href="summarizing-data.html"><i class="fa fa-check"></i><b>5</b> Summarizing Data</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="summarizing-data.html"><a href="summarizing-data.html#learning-objectives"><i class="fa fa-check"></i><b>5.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="5.2" data-path="summarizing-data.html"><a href="summarizing-data.html#introduction"><i class="fa fa-check"></i><b>5.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="summarizing-data.html"><a href="summarizing-data.html#readings-complete-by-class-on-monday"><i class="fa fa-check"></i><b>5.2.1</b> Readings (complete by class on Monday)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="summarizing-data.html"><a href="summarizing-data.html#group_by-function-summarizing-info-based-on-typecharacteristic"><i class="fa fa-check"></i><b>5.3</b> <code>group_by</code> function: Summarizing info based on type/characteristic</a></li>
+<li class="chapter" data-level="5.4" data-path="summarizing-data.html"><a href="summarizing-data.html#grouping-with-multiple-variables"><i class="fa fa-check"></i><b>5.4</b> Grouping with multiple variables</a></li>
+<li class="chapter" data-level="5.5" data-path="summarizing-data.html"><a href="summarizing-data.html#tidying-and-untidying-data-with-pivot_-functions"><i class="fa fa-check"></i><b>5.5</b> Tidying and untidying data with <code>pivot_</code> functions</a></li>
+<li class="chapter" data-level="5.6" data-path="summarizing-data.html"><a href="summarizing-data.html#joins-and-binds-within-dplyr"><i class="fa fa-check"></i><b>5.6</b> Joins and Binds within <code>dplyr</code></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html"><i class="fa fa-check"></i>Summarizing Data Examples</a>
+<ul>
+<li class="chapter" data-level="5.7" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#bioreactor-data-analysis"><i class="fa fa-check"></i><b>5.7</b> Bioreactor Data Analysis</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#background"><i class="fa fa-check"></i><b>5.7.1</b> Background</a></li>
+<li class="chapter" data-level="5.7.2" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#tasks-1"><i class="fa fa-check"></i><b>5.7.2</b> Tasks</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#root-growth-inhibition-example"><i class="fa fa-check"></i><b>5.8</b> Root Growth Inhibition Example</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#introduction-1"><i class="fa fa-check"></i><b>5.8.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.8.2" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#read-in-data"><i class="fa fa-check"></i><b>5.8.2</b> Read in data</a></li>
+<li class="chapter" data-level="5.8.3" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#write-a-function-for-tidying-this-data"><i class="fa fa-check"></i><b>5.8.3</b> Write a function for tidying this data</a></li>
+<li class="chapter" data-level="5.8.4" data-path="summarizing-data-examples.html"><a href="summarizing-data-examples.html#tidy-the-individual-datasets"><i class="fa fa-check"></i><b>5.8.4</b> Tidy the individual datasets</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="data-visualization.html"><a href="data-visualization.html"><i class="fa fa-check"></i><b>6</b> Data Visualization</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="data-visualization.html"><a href="data-visualization.html#reading-complete-by-class-on-monday"><i class="fa fa-check"></i><b>6.1</b> Reading (complete by class on Monday)</a></li>
+<li class="chapter" data-level="6.2" data-path="data-visualization.html"><a href="data-visualization.html#tutorials-to-walk-through-on-your-own"><i class="fa fa-check"></i><b>6.2</b> Tutorials to walk through on your own</a></li>
+<li class="chapter" data-level="6.3" data-path="data-visualization.html"><a href="data-visualization.html#more-on-color-palettes"><i class="fa fa-check"></i><b>6.3</b> More on Color Palettes</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="data-visualization.html"><a href="data-visualization.html#previewing"><i class="fa fa-check"></i><b>6.3.1</b> Previewing</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-visualization-examples.html"><a href="data-visualization-examples.html"><i class="fa fa-check"></i>Data Visualization Examples</a>
+<ul>
+<li class="chapter" data-level="6.4" data-path="data-visualization-examples.html"><a href="data-visualization-examples.html#background-1"><i class="fa fa-check"></i><b>6.4</b> Background</a></li>
+<li class="chapter" data-level="6.5" data-path="data-visualization-examples.html"><a href="data-visualization-examples.html#data-description"><i class="fa fa-check"></i><b>6.5</b> Data Description</a></li>
+<li class="chapter" data-level="6.6" data-path="data-visualization-examples.html"><a href="data-visualization-examples.html#tasks-2"><i class="fa fa-check"></i><b>6.6</b> Tasks</a></li>
+<li class="chapter" data-level="6.7" data-path="data-visualization-examples.html"><a href="data-visualization-examples.html#setup-for-the-homework"><i class="fa fa-check"></i><b>6.7</b> Setup for the Homework</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="assessment-1.html"><a href="assessment-1.html"><i class="fa fa-check"></i><b>7</b> Assessment 1</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="assessment-1.html"><a href="assessment-1.html#directions"><i class="fa fa-check"></i><b>7.1</b> Directions</a></li>
+<li class="chapter" data-level="7.2" data-path="assessment-1.html"><a href="assessment-1.html#finding-a-data-set"><i class="fa fa-check"></i><b>7.2</b> Finding a data set</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="assessment-1.html"><a href="assessment-1.html#general"><i class="fa fa-check"></i><b>7.2.1</b> General</a></li>
+<li class="chapter" data-level="7.2.2" data-path="assessment-1.html"><a href="assessment-1.html#health"><i class="fa fa-check"></i><b>7.2.2</b> Health</a></li>
+<li class="chapter" data-level="7.2.3" data-path="assessment-1.html"><a href="assessment-1.html#environment"><i class="fa fa-check"></i><b>7.2.3</b> Environment</a></li>
+<li class="chapter" data-level="7.2.4" data-path="assessment-1.html"><a href="assessment-1.html#agriculture"><i class="fa fa-check"></i><b>7.2.4</b> Agriculture</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="assessment-1.html"><a href="assessment-1.html#questionstasks"><i class="fa fa-check"></i><b>7.3</b> Questions/Tasks</a></li>
+<li class="chapter" data-level="7.4" data-path="assessment-1.html"><a href="assessment-1.html#guideline-on-the-use-of-ai-tools"><i class="fa fa-check"></i><b>7.4</b> Guideline on the Use of AI Tools</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html"><i class="fa fa-check"></i><b>8</b> Introduction to Linear Regression in R</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#objectives"><i class="fa fa-check"></i><b>8.1</b> Objectives</a></li>
+<li class="chapter" data-level="8.2" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#reading"><i class="fa fa-check"></i><b>8.2</b> Reading</a></li>
+<li class="chapter" data-level="8.3" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#active-package-libraries"><i class="fa fa-check"></i><b>8.3</b> Active Package Libraries</a></li>
+<li class="chapter" data-level="8.4" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#linear-regression"><i class="fa fa-check"></i><b>8.4</b> Linear Regression</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#assumptions"><i class="fa fa-check"></i><b>8.4.1</b> Assumptions</a></li>
+<li class="chapter" data-level="8.4.2" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#workflow"><i class="fa fa-check"></i><b>8.4.2</b> Workflow:</a></li>
+<li class="chapter" data-level="8.4.3" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#example-8"><i class="fa fa-check"></i><b>8.4.3</b> Example</a></li>
+<li class="chapter" data-level="8.4.4" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#predicting-values-applications-of-linear-models"><i class="fa fa-check"></i><b>8.4.4</b> Predicting values: Applications of linear models</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#now-lets-say-you-want-to-predict-a-y-value-for-a-given-age."><i class="fa fa-check"></i><b>8.5</b> Now, let’s say you want to predict a y-value for a given age.</a></li>
+<li class="chapter" data-level="8.6" data-path="introduction-to-linear-regression-in-r.html"><a href="introduction-to-linear-regression-in-r.html#example-2-from-reading"><i class="fa fa-check"></i><b>8.6</b> Example 2 from reading</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html"><i class="fa fa-check"></i>Linear Regression Examples</a>
+<ul>
+<li class="chapter" data-level="8.7" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#active-libraries"><i class="fa fa-check"></i><b>8.7</b> Active Libraries</a></li>
+<li class="chapter" data-level="8.8" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#linear-regression-1"><i class="fa fa-check"></i><b>8.8</b> Linear Regression</a></li>
+<li class="chapter" data-level="8.9" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#assumptions-1"><i class="fa fa-check"></i><b>8.9</b> Assumptions</a></li>
+<li class="chapter" data-level="8.10" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#example-10"><i class="fa fa-check"></i><b>8.10</b> Example</a>
+<ul>
+<li class="chapter" data-level="8.10.1" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-1.-read-in-data-1"><i class="fa fa-check"></i><b>8.10.1</b> Step 1. Read in data</a></li>
+<li class="chapter" data-level="8.10.2" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-2.-plot-data-visualize-linearity-1"><i class="fa fa-check"></i><b>8.10.2</b> Step 2. Plot data &amp; visualize linearity</a></li>
+<li class="chapter" data-level="8.10.3" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-3.-transform-data-1"><i class="fa fa-check"></i><b>8.10.3</b> Step 3. Transform data</a></li>
+<li class="chapter" data-level="8.10.4" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-4.-linear-model-1"><i class="fa fa-check"></i><b>8.10.4</b> Step 4. Linear model</a></li>
+<li class="chapter" data-level="8.10.5" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-5.-test-for-homoscedasaticity-1"><i class="fa fa-check"></i><b>8.10.5</b> Step 5. Test for homoscedasaticity</a></li>
+<li class="chapter" data-level="8.10.6" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-6.-test-for-bias-1"><i class="fa fa-check"></i><b>8.10.6</b> Step 6. Test for bias</a></li>
+<li class="chapter" data-level="8.10.7" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-7.-test-for-normality-1"><i class="fa fa-check"></i><b>8.10.7</b> Step 7. Test for Normality</a></li>
+<li class="chapter" data-level="8.10.8" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#application"><i class="fa fa-check"></i><b>8.10.8</b> Application</a></li>
+</ul></li>
+<li class="chapter" data-level="8.11" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#take-2-try-second-order"><i class="fa fa-check"></i><b>8.11</b> Take 2, try second order!</a>
+<ul>
+<li class="chapter" data-level="8.11.1" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-4.-linear-model-2"><i class="fa fa-check"></i><b>8.11.1</b> Step 4. Linear model</a></li>
+<li class="chapter" data-level="8.11.2" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-5.-test-for-homoscedasaticity-2"><i class="fa fa-check"></i><b>8.11.2</b> Step 5. Test for homoscedasaticity</a></li>
+<li class="chapter" data-level="8.11.3" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-6.-test-for-bias-2"><i class="fa fa-check"></i><b>8.11.3</b> Step 6. Test for bias</a></li>
+<li class="chapter" data-level="8.11.4" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#step-7.-test-for-normality-2"><i class="fa fa-check"></i><b>8.11.4</b> Step 7. Test for Normality</a></li>
+<li class="chapter" data-level="8.11.5" data-path="linear-regression-examples.html"><a href="linear-regression-examples.html#application-1"><i class="fa fa-check"></i><b>8.11.5</b> Application</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html"><i class="fa fa-check"></i><b>9</b> Intro to ANOVA and non-linear least squares regression</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#reading-1"><i class="fa fa-check"></i><b>9.1</b> Reading</a></li>
+<li class="chapter" data-level="9.2" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#anova-tests-interactions-between-variables"><i class="fa fa-check"></i><b>9.2</b> ANOVA tests interactions between variables</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#experiment-1"><i class="fa fa-check"></i><b>9.2.1</b> Experiment 1</a></li>
+<li class="chapter" data-level="9.2.2" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#ploting-the-full-dataset"><i class="fa fa-check"></i><b>9.2.2</b> Ploting the full dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#post-hoc-testing"><i class="fa fa-check"></i><b>9.3</b> Post hoc testing</a></li>
+<li class="chapter" data-level="9.4" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#assumptions-of-anova"><i class="fa fa-check"></i><b>9.4</b> Assumptions of ANOVA</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#normality-of-residuals"><i class="fa fa-check"></i><b>9.4.1</b> Normality of residuals</a></li>
+<li class="chapter" data-level="9.4.2" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#homogeneity-of-variance"><i class="fa fa-check"></i><b>9.4.2</b> Homogeneity of variance</a></li>
+<li class="chapter" data-level="9.4.3" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#independence"><i class="fa fa-check"></i><b>9.4.3</b> Independence</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="intro-to-anova-and-non-linear-least-squares-regression.html"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#non-linear-least-squares"><i class="fa fa-check"></i><b>9.5</b> Non-linear least squares</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="anova-and-non-linear-least-squares-regression-examples.html"><a href="anova-and-non-linear-least-squares-regression-examples.html"><i class="fa fa-check"></i>ANOVA and non-linear least squares regression examples</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="anova-and-non-linear-least-squares-regression-examples.html"><a href="anova-and-non-linear-least-squares-regression-examples.html#lineweaver-burk-plot"><i class="fa fa-check"></i><b>9.5.1</b> Lineweaver-Burk plot</a></li>
+<li class="chapter" data-level="9.6" data-path="anova-and-non-linear-least-squares-regression-examples.html"><a href="anova-and-non-linear-least-squares-regression-examples.html#nonlinear-least-squares-regression"><i class="fa fa-check"></i><b>9.6</b> Nonlinear least squares regression</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html"><i class="fa fa-check"></i><b>10</b> Roots and Optima Introduction</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#roots"><i class="fa fa-check"></i><b>10.1</b> Roots</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#example-1-2"><i class="fa fa-check"></i><b>10.1.1</b> Example 1</a></li>
+<li class="chapter" data-level="10.1.2" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#example-2-2"><i class="fa fa-check"></i><b>10.1.2</b> Example 2</a></li>
+<li class="chapter" data-level="10.1.3" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#example-3-more-than-1-root"><i class="fa fa-check"></i><b>10.1.3</b> Example 3 more than 1 root</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#optimaoptimization"><i class="fa fa-check"></i><b>10.2</b> Optima/Optimization</a></li>
+<li class="chapter" data-level="10.3" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#optimization-1-dimensional"><i class="fa fa-check"></i><b>10.3</b> Optimization, 1-Dimensional</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#approach-1"><i class="fa fa-check"></i><b>10.3.1</b> Approach:</a></li>
+<li class="chapter" data-level="10.3.2" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#example-optimizing-user-defined-function-using-optimize-in-r"><i class="fa fa-check"></i><b>10.3.2</b> Example: Optimizing User-Defined Function Using optimize() in R</a></li>
+<li class="chapter" data-level="10.3.3" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#example-finding-a-maximum"><i class="fa fa-check"></i><b>10.3.3</b> Example: Finding a maximum</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#optimization-2-dimensional"><i class="fa fa-check"></i><b>10.4</b> Optimization, 2-Dimensional</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#example-2-d"><i class="fa fa-check"></i><b>10.4.1</b> Example: 2-D</a></li>
+<li class="chapter" data-level="10.4.2" data-path="roots-and-optima-introduction.html"><a href="roots-and-optima-introduction.html#example-another-simple-example"><i class="fa fa-check"></i><b>10.4.2</b> Example: Another simple example</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="roots-and-optima-examples.html"><a href="roots-and-optima-examples.html"><i class="fa fa-check"></i>Roots and Optima Examples</a>
+<ul>
+<li class="chapter" data-level="10.5" data-path="roots-and-optima-examples.html"><a href="roots-and-optima-examples.html#specific-heat"><i class="fa fa-check"></i><b>10.5</b> Specific heat</a></li>
+<li class="chapter" data-level="10.6" data-path="roots-and-optima-examples.html"><a href="roots-and-optima-examples.html#channel-perimeter"><i class="fa fa-check"></i><b>10.6</b> Channel perimeter</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="interpolation-and-extrapolation.html"><a href="interpolation-and-extrapolation.html"><i class="fa fa-check"></i><b>11</b> Interpolation and Extrapolation</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="interpolation-and-extrapolation.html"><a href="interpolation-and-extrapolation.html#reading-2"><i class="fa fa-check"></i><b>11.1</b> Reading</a></li>
+<li class="chapter" data-level="11.2" data-path="interpolation-and-extrapolation.html"><a href="interpolation-and-extrapolation.html#overview-of-interpolation"><i class="fa fa-check"></i><b>11.2</b> Overview of interpolation</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="interpolation-and-extrapolation.html"><a href="interpolation-and-extrapolation.html#linear-interpololation"><i class="fa fa-check"></i><b>11.2.1</b> Linear interpololation</a></li>
+<li class="chapter" data-level="11.2.2" data-path="interpolation-and-extrapolation.html"><a href="interpolation-and-extrapolation.html#curvature-and-interpolation."><i class="fa fa-check"></i><b>11.2.2</b> Curvature and Interpolation.</a></li>
+<li class="chapter" data-level="11.2.3" data-path="interpolation-and-extrapolation.html"><a href="interpolation-and-extrapolation.html#oscillations"><i class="fa fa-check"></i><b>11.2.3</b> Oscillations</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="interpolation-and-extrapolation-examples.html"><a href="interpolation-and-extrapolation-examples.html"><i class="fa fa-check"></i>Interpolation and Extrapolation Examples</a>
+<ul>
+<li class="chapter" data-level="11.3" data-path="interpolation-and-extrapolation-examples.html"><a href="interpolation-and-extrapolation-examples.html#example---co2-at-mana-loa-observatory"><i class="fa fa-check"></i><b>11.3</b> Example - CO<sub>2</sub> at Mana Loa Observatory</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="differentiation-integration.html"><a href="differentiation-integration.html"><i class="fa fa-check"></i><b>12</b> Differentiation &amp; Integration</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="differentiation-integration.html"><a href="differentiation-integration.html#biggest-takeaway---workflow"><i class="fa fa-check"></i><b>12.1</b> Biggest takeaway - workflow</a></li>
+<li class="chapter" data-level="12.2" data-path="differentiation-integration.html"><a href="differentiation-integration.html#reading-3"><i class="fa fa-check"></i><b>12.2</b> Reading</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="week-12---differentiation-integration.html"><a href="week-12---differentiation-integration.html"><i class="fa fa-check"></i><b>13</b> Week 12 - Differentiation &amp; Integration</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="week-12---differentiation-integration.html"><a href="week-12---differentiation-integration.html#differentiation"><i class="fa fa-check"></i><b>13.1</b> Differentiation</a></li>
+<li class="chapter" data-level="13.2" data-path="week-12---differentiation-integration.html"><a href="week-12---differentiation-integration.html#calculating-derivative-values-from-data"><i class="fa fa-check"></i><b>13.2</b> Calculating derivative values from data</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="week-12---differentiation-integration.html"><a href="week-12---differentiation-integration.html#difference-methods"><i class="fa fa-check"></i><b>13.2.1</b> Difference methods</a></li>
+<li class="chapter" data-level="13.2.2" data-path="week-12---differentiation-integration.html"><a href="week-12---differentiation-integration.html#interpolation-methods"><i class="fa fa-check"></i><b>13.2.2</b> Interpolation methods</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="week-12---differentiation-integration.html"><a href="week-12---differentiation-integration.html#integration"><i class="fa fa-check"></i><b>13.3</b> Integration</a></li>
+<li class="chapter" data-level="13.4" data-path="week-12---differentiation-integration.html"><a href="week-12---differentiation-integration.html#objective-calculate-total-annual-sediment-massyear-and-water-volumeyear-for-a-given-year-for-a-specific-station"><i class="fa fa-check"></i><b>13.4</b> Objective: calculate total annual sediment [mass/year] and water [volume/year] for a given year for a specific station</a></li>
+<li class="chapter" data-level="13.5" data-path="week-12---differentiation-integration.html"><a href="week-12---differentiation-integration.html#approach-2"><i class="fa fa-check"></i><b>13.5</b> Approach:</a></li>
+<li class="chapter" data-level="13.6" data-path="week-12---differentiation-integration.html"><a href="week-12---differentiation-integration.html#workflow-3"><i class="fa fa-check"></i><b>13.6</b> Workflow</a></li>
+<li class="chapter" data-level="13.7" data-path="week-12---differentiation-integration.html"><a href="week-12---differentiation-integration.html#apply-case-scenario"><i class="fa fa-check"></i><b>13.7</b> Apply case scenario:</a>
+<ul>
+<li class="chapter" data-level="13.7.1" data-path="week-12---differentiation-integration.html"><a href="week-12---differentiation-integration.html#read-in-sediment-rating-curve-table"><i class="fa fa-check"></i><b>13.7.1</b> Read in sediment rating curve table</a></li>
+<li class="chapter" data-level="13.7.2" data-path="week-12---differentiation-integration.html"><a href="week-12---differentiation-integration.html#station-identification-and-data-retreival"><i class="fa fa-check"></i><b>13.7.2</b> Station Identification and Data Retreival</a></li>
+<li class="chapter" data-level="13.7.3" data-path="week-12---differentiation-integration.html"><a href="week-12---differentiation-integration.html#filter-sediment-table-for-station-of-interest"><i class="fa fa-check"></i><b>13.7.3</b> Filter sediment table for station of interest</a></li>
+<li class="chapter" data-level="13.7.4" data-path="week-12---differentiation-integration.html"><a href="week-12---differentiation-integration.html#calculate-daily-sediment-mass-flux"><i class="fa fa-check"></i><b>13.7.4</b> Calculate Daily sediment mass flux</a></li>
+</ul></li>
+<li class="chapter" data-level="13.8" data-path="week-12---differentiation-integration.html"><a href="week-12---differentiation-integration.html#compare-2011-and-2012-in-case-study"><i class="fa fa-check"></i><b>13.8</b> Compare 2011 and 2012 in case study</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="systems-of-equations.html"><a href="systems-of-equations.html"><i class="fa fa-check"></i><b>14</b> Systems of Equations</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="systems-of-equations.html"><a href="systems-of-equations.html#this-weeks-prep"><i class="fa fa-check"></i><b>14.1</b> This week’s prep:</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="systems-of-equations.html"><a href="systems-of-equations.html#required-reading"><i class="fa fa-check"></i><b>14.1.1</b> Required reading:</a></li>
+<li class="chapter" data-level="14.1.2" data-path="systems-of-equations.html"><a href="systems-of-equations.html#optional-resources"><i class="fa fa-check"></i><b>14.1.2</b> Optional resources:</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="systems-of-equations-examples.html"><a href="systems-of-equations-examples.html"><i class="fa fa-check"></i>Systems of Equations Examples</a>
+<ul>
+<li class="chapter" data-level="14.2" data-path="systems-of-equations-examples.html"><a href="systems-of-equations-examples.html#example-1-3"><i class="fa fa-check"></i><b>14.2</b> Example 1</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="systems-of-equations-examples.html"><a href="systems-of-equations-examples.html#simple-matrix-and-solving-for-x"><i class="fa fa-check"></i><b>14.2.1</b> Simple Matrix and solving for X</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="systems-of-equations-examples.html"><a href="systems-of-equations-examples.html#example-2-3"><i class="fa fa-check"></i><b>14.3</b> Example 2</a></li>
+<li class="chapter" data-level="14.4" data-path="systems-of-equations-examples.html"><a href="systems-of-equations-examples.html#example-3-problem-11.3-in-chapra"><i class="fa fa-check"></i><b>14.4</b> Example 3 (Problem 11.3 in Chapra)</a>
+<ul>
+<li class="chapter" data-level="14.4.1" data-path="systems-of-equations-examples.html"><a href="systems-of-equations-examples.html#to-find-effect-of-reactor-3-on-reactor-1."><i class="fa fa-check"></i><b>14.4.1</b> To find effect of reactor 3 on reactor 1….</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis and Numerical Methods for Biological Systems Engineers</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="systems-of-equations-examples" class="section level1 unnumbered hasAnchor">
+<h1>Systems of Equations Examples<a href="systems-of-equations-examples.html#systems-of-equations-examples" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="example-1-3" class="section level2 hasAnchor" number="14.2">
+<h2><span class="header-section-number">14.2</span> Example 1<a href="systems-of-equations-examples.html#example-1-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Imagine you have a simple set of equations, and you plot them out. The solution is at the intersection if you plot them. Let’s solve using matrix algebra:</p>
+<p><img src="figures/fig_ex1.png" alt="Example 1 plot" />
+<span class="math display">\[
+3x_1 + 2x_2 = 18 \\
+-x_1 + 2x_2 = 2
+\]</span></p>
+<div class="sourceCode" id="cb720"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb720-1"><a href="systems-of-equations-examples.html#cb720-1" tabindex="-1"></a><span class="co"># Define our matrix of coefficients</span></span>
+<span id="cb720-2"><a href="systems-of-equations-examples.html#cb720-2" tabindex="-1"></a>coef_matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb720-3"><a href="systems-of-equations-examples.html#cb720-3" tabindex="-1"></a>                      <span class="at">nrow =</span> <span class="dv">2</span>, </span>
+<span id="cb720-4"><a href="systems-of-equations-examples.html#cb720-4" tabindex="-1"></a>                      <span class="at">ncol =</span> <span class="dv">2</span>, </span>
+<span id="cb720-5"><a href="systems-of-equations-examples.html#cb720-5" tabindex="-1"></a>                      <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb720-6"><a href="systems-of-equations-examples.html#cb720-6" tabindex="-1"></a></span>
+<span id="cb720-7"><a href="systems-of-equations-examples.html#cb720-7" tabindex="-1"></a><span class="co"># Define right hand side matrix</span></span>
+<span id="cb720-8"><a href="systems-of-equations-examples.html#cb720-8" tabindex="-1"></a>rhs_matrix <span class="ot">&lt;-</span></span>
+<span id="cb720-9"><a href="systems-of-equations-examples.html#cb720-9" tabindex="-1"></a>  <span class="fu">matrix</span>(</span>
+<span id="cb720-10"><a href="systems-of-equations-examples.html#cb720-10" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">18</span>, <span class="dv">2</span>),</span>
+<span id="cb720-11"><a href="systems-of-equations-examples.html#cb720-11" tabindex="-1"></a>    <span class="at">nrow =</span> <span class="dv">2</span>,</span>
+<span id="cb720-12"><a href="systems-of-equations-examples.html#cb720-12" tabindex="-1"></a>    <span class="at">ncol =</span> <span class="dv">1</span>,</span>
+<span id="cb720-13"><a href="systems-of-equations-examples.html#cb720-13" tabindex="-1"></a>    <span class="at">byrow =</span> <span class="cn">TRUE</span></span>
+<span id="cb720-14"><a href="systems-of-equations-examples.html#cb720-14" tabindex="-1"></a>  )</span>
+<span id="cb720-15"><a href="systems-of-equations-examples.html#cb720-15" tabindex="-1"></a></span>
+<span id="cb720-16"><a href="systems-of-equations-examples.html#cb720-16" tabindex="-1"></a><span class="co"># Solving the system of equations</span></span>
+<span id="cb720-17"><a href="systems-of-equations-examples.html#cb720-17" tabindex="-1"></a></span>
+<span id="cb720-18"><a href="systems-of-equations-examples.html#cb720-18" tabindex="-1"></a><span class="co"># using inverse</span></span>
+<span id="cb720-19"><a href="systems-of-equations-examples.html#cb720-19" tabindex="-1"></a><span class="co"># calculate the inverse of coef_matrix</span></span>
+<span id="cb720-20"><a href="systems-of-equations-examples.html#cb720-20" tabindex="-1"></a>inv_coef_matrix <span class="ot">&lt;-</span> <span class="fu">solve</span>(coef_matrix)</span>
+<span id="cb720-21"><a href="systems-of-equations-examples.html#cb720-21" tabindex="-1"></a></span>
+<span id="cb720-22"><a href="systems-of-equations-examples.html#cb720-22" tabindex="-1"></a><span class="co"># multiply inverse coefficient matrix by rhs to get the solution</span></span>
+<span id="cb720-23"><a href="systems-of-equations-examples.html#cb720-23" tabindex="-1"></a>soln <span class="ot">&lt;-</span> inv_coef_matrix <span class="sc">%*%</span> rhs_matrix</span>
+<span id="cb720-24"><a href="systems-of-equations-examples.html#cb720-24" tabindex="-1"></a>soln</span></code></pre></div>
+<pre><code>##      [,1]
+## [1,]    4
+## [2,]    3</code></pre>
+<div class="sourceCode" id="cb722"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb722-1"><a href="systems-of-equations-examples.html#cb722-1" tabindex="-1"></a><span class="co"># Solve using the &#39;solve&#39; function</span></span>
+<span id="cb722-2"><a href="systems-of-equations-examples.html#cb722-2" tabindex="-1"></a><span class="fu">solve</span>(coef_matrix, rhs_matrix)</span></code></pre></div>
+<pre><code>##      [,1]
+## [1,]    4
+## [2,]    3</code></pre>
+<p>We’ll employ the solve function. When you enter just the A matrix, you get the inverse as the output. When you enter the A and B matrix/vectors, you’ll get the x vector.</p>
+<p><code>matrix(vector, ncol = col, byrow = TRUE)</code> = define a matrix from <code>vector</code> filling in values across <code>col</code> columns starting with the first row and proceeding left to right top to bottom.</p>
+<p><code>%*%</code> = matrix multiplication operator.</p>
+<p><code>solve</code> = function for solving systems, can input A or A &amp; B.</p>
+<div id="simple-matrix-and-solving-for-x" class="section level3 hasAnchor" number="14.2.1">
+<h3><span class="header-section-number">14.2.1</span> Simple Matrix and solving for X<a href="systems-of-equations-examples.html#simple-matrix-and-solving-for-x" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb724"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb724-1"><a href="systems-of-equations-examples.html#cb724-1" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>), <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb724-2"><a href="systems-of-equations-examples.html#cb724-2" tabindex="-1"></a>Ainv <span class="ot">&lt;-</span> <span class="fu">solve</span>(A)</span>
+<span id="cb724-3"><a href="systems-of-equations-examples.html#cb724-3" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">18</span>,<span class="dv">2</span>), <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb724-4"><a href="systems-of-equations-examples.html#cb724-4" tabindex="-1"></a>X <span class="ot">&lt;-</span> Ainv <span class="sc">%*%</span> B</span>
+<span id="cb724-5"><a href="systems-of-equations-examples.html#cb724-5" tabindex="-1"></a><span class="co">#or </span></span>
+<span id="cb724-6"><a href="systems-of-equations-examples.html#cb724-6" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">solve</span>(A,B)</span>
+<span id="cb724-7"><a href="systems-of-equations-examples.html#cb724-7" tabindex="-1"></a>X</span></code></pre></div>
+<pre><code>##      [,1]
+## [1,]    4
+## [2,]    3</code></pre>
+</div>
+</div>
+<div id="example-2-3" class="section level2 hasAnchor" number="14.3">
+<h2><span class="header-section-number">14.3</span> Example 2<a href="systems-of-equations-examples.html#example-2-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><span class="math display">\[
+\begin{aligned}
+10 x_1 + 2x_2 - x_3 &amp;  = 27 \\
+-3 x_1 - 6x_2 + 2x_3 &amp; = -61.5 \\
+x_1 + x_2 + 5x_3 &amp; = -21.5
+\end{aligned}
+\]</span></p>
+<div class="sourceCode" id="cb726"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb726-1"><a href="systems-of-equations-examples.html#cb726-1" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">2</span>, <span class="sc">-</span><span class="dv">1</span>, </span>
+<span id="cb726-2"><a href="systems-of-equations-examples.html#cb726-2" tabindex="-1"></a>              <span class="sc">-</span><span class="dv">3</span>, <span class="sc">-</span><span class="dv">6</span>, <span class="dv">2</span>, </span>
+<span id="cb726-3"><a href="systems-of-equations-examples.html#cb726-3" tabindex="-1"></a>              <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>), </span>
+<span id="cb726-4"><a href="systems-of-equations-examples.html#cb726-4" tabindex="-1"></a>            <span class="at">nrow =</span> <span class="dv">3</span>,</span>
+<span id="cb726-5"><a href="systems-of-equations-examples.html#cb726-5" tabindex="-1"></a>            <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb726-6"><a href="systems-of-equations-examples.html#cb726-6" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="dv">27</span>, </span>
+<span id="cb726-7"><a href="systems-of-equations-examples.html#cb726-7" tabindex="-1"></a>                     <span class="sc">-</span><span class="fl">61.5</span>, </span>
+<span id="cb726-8"><a href="systems-of-equations-examples.html#cb726-8" tabindex="-1"></a>                     <span class="sc">-</span><span class="fl">21.5</span>), <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb726-9"><a href="systems-of-equations-examples.html#cb726-9" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">inv</span>(A) <span class="sc">%*%</span> B</span>
+<span id="cb726-10"><a href="systems-of-equations-examples.html#cb726-10" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>##      [,1]
+## [1,]  0.5
+## [2,]  8.0
+## [3,] -6.0</code></pre>
+</div>
+<div id="example-3-problem-11.3-in-chapra" class="section level2 hasAnchor" number="14.4">
+<h2><span class="header-section-number">14.4</span> Example 3 (Problem 11.3 in Chapra)<a href="systems-of-equations-examples.html#example-3-problem-11.3-in-chapra" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><img src="figures/fig_ex3.png" /></p>
+<p><span class="math display">\[
+\begin{aligned}
+In &amp;= Out \\
+\text{Tank 1: } 3800 + 3c_2 + 1c_3 &amp;= (8 + 3 + 4)c_1 \\
+\text{Tank 2: } 1200 + 3c_1 + 6c_3 &amp;= (3 + 1 + 14)c_2 \\
+\text{Tank 3: } 2350 + 4c_1 + 1c_2 &amp;= (5 + 6 + 1)c_3
+\end{aligned}
+\]</span>
+and rearranging and simplifying this</p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{Tank 1: } 3800 &amp;=  15c_1  &amp;- 3c_2 &amp;- 1c_3\\
+\text{Tank 2: } 1200 &amp;=  -3c_1 &amp;+ 18c_2 &amp;- 6c_3  \\
+\text{Tank 3: } 2350 &amp;=  - 4c_1 &amp;- 1c_2 &amp;+ 12c_3
+\end{aligned}
+\]</span></p>
+<p>Here we’ll use the PRACMA package that uses <code>mldivide</code> to solve for x in A*x=b. We can also first solve for the inverse of A using <code>solve(A)</code>.</p>
+<div class="sourceCode" id="cb728"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb728-1"><a href="systems-of-equations-examples.html#cb728-1" tabindex="-1"></a><span class="fu">library</span>(pracma)</span>
+<span id="cb728-2"><a href="systems-of-equations-examples.html#cb728-2" tabindex="-1"></a></span>
+<span id="cb728-3"><a href="systems-of-equations-examples.html#cb728-3" tabindex="-1"></a></span>
+<span id="cb728-4"><a href="systems-of-equations-examples.html#cb728-4" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">15</span>, <span class="sc">-</span><span class="dv">3</span>, <span class="sc">-</span><span class="dv">1</span>, </span>
+<span id="cb728-5"><a href="systems-of-equations-examples.html#cb728-5" tabindex="-1"></a>              <span class="sc">-</span><span class="dv">3</span>, <span class="dv">18</span>, <span class="sc">-</span><span class="dv">6</span>, </span>
+<span id="cb728-6"><a href="systems-of-equations-examples.html#cb728-6" tabindex="-1"></a>              <span class="sc">-</span><span class="dv">4</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">12</span>), </span>
+<span id="cb728-7"><a href="systems-of-equations-examples.html#cb728-7" tabindex="-1"></a>            <span class="at">ncol =</span> <span class="dv">3</span>, </span>
+<span id="cb728-8"><a href="systems-of-equations-examples.html#cb728-8" tabindex="-1"></a>            <span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb728-9"><a href="systems-of-equations-examples.html#cb728-9" tabindex="-1"></a>A</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]   15   -3   -1
+## [2,]   -3   18   -6
+## [3,]   -4   -1   12</code></pre>
+<div class="sourceCode" id="cb730"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb730-1"><a href="systems-of-equations-examples.html#cb730-1" tabindex="-1"></a>invA <span class="ot">&lt;-</span> <span class="fu">solve</span>(A)</span>
+<span id="cb730-2"><a href="systems-of-equations-examples.html#cb730-2" tabindex="-1"></a>invA[<span class="dv">1</span>,<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>## [1] 0.07253886</code></pre>
+<div class="sourceCode" id="cb732"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb732-1"><a href="systems-of-equations-examples.html#cb732-1" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">3800</span>,<span class="dv">1200</span>,<span class="dv">2350</span>))</span>
+<span id="cb732-2"><a href="systems-of-equations-examples.html#cb732-2" tabindex="-1"></a>b</span></code></pre></div>
+<pre><code>##      [,1]
+## [1,] 3800
+## [2,] 1200
+## [3,] 2350</code></pre>
+<div class="sourceCode" id="cb734"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb734-1"><a href="systems-of-equations-examples.html#cb734-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> invA <span class="sc">%*%</span> b</span>
+<span id="cb734-2"><a href="systems-of-equations-examples.html#cb734-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">mldivide</span>(A, b) <span class="co"># matrix multiplication vs element by element</span></span>
+<span id="cb734-3"><a href="systems-of-equations-examples.html#cb734-3" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>##          [,1]
+## [1,] 320.2073
+## [2,] 227.2021
+## [3,] 321.5026</code></pre>
+<div id="to-find-effect-of-reactor-3-on-reactor-1." class="section level3 hasAnchor" number="14.4.1">
+<h3><span class="header-section-number">14.4.1</span> To find effect of reactor 3 on reactor 1….<a href="systems-of-equations-examples.html#to-find-effect-of-reactor-3-on-reactor-1." class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This is where the matrix inverse is really cool, and provides an opportunity to quantify change in one part of a system on another component. Here, imagine we make a change in reactor 3, and want to know how this in turn changes the concentration in reactor 1. We’ll walk through this in class in some more detail, but the basic premise is the following: when we multiple the inverse of A by b, the first equation for reactor 1 is the following:</p>
+<div class="float">
+<img src="figures/fig_ex2.png" alt="Equation" />
+<div class="figcaption">Equation</div>
+</div>
+<p>Thus we can use the circled part to determine the effect of reactor 3 on 1!</p>
+<div class="sourceCode" id="cb736"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb736-1"><a href="systems-of-equations-examples.html#cb736-1" tabindex="-1"></a>x1effect <span class="ot">&lt;-</span> invA[<span class="dv">1</span>,<span class="dv">3</span>] <span class="sc">*</span> b[<span class="dv">3</span>]</span>
+<span id="cb736-2"><a href="systems-of-equations-examples.html#cb736-2" tabindex="-1"></a>x1effect</span></code></pre></div>
+<pre><code>## [1] 29.2228</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="systems-of-equations.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": false,
+    "twitter": false,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf", "_main.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection",
+    "scroll_highlight": true
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
