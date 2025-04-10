@@ -75,6 +75,7 @@ f <- function(mp = 1,cd = 1,g = 9.8,v = 36,t = 4){ # all variables in the equati
   # by default our output is the result of the above line
 }
 
+f()
 f(mp = 147, cd = cd, g = g, v = v, t = t) 
 
 plot(mp,f(mp,cd,g,v,t)) # plot our function f 
@@ -101,7 +102,7 @@ You can set `extendInt = "yes"` to extend the interval if you didn't see a root 
 Now we can use `uniroot` to solve.
 
 ```{r}
-(mass <- uniroot(f = f, interval = c(50,200), cd = cd, g = g, v = v, t = t))
+(mass <- uniroot(f = f, interval = c(50,140), cd = cd, g = g, v = v, t = t, extendInt = "yes"))
 # cd, g, v, t are `... =` additional named or unnamed arguments to be passed 
 # to f. I've named cd and g, v and t are not named, so they need to be in the 
 # same order as our function definition in lines 45-47.
@@ -112,7 +113,7 @@ So the root of this equation, the mass at which this maximum velocity without sp
 
 ### Example 2
 
-You buy a \$25,000 piece of equipment for nothing down at \$5,500 per year for 6 years. What intereest rate are you paying? The formula relating present worth $P$, annual payments $A$, number of years $n$, and interest rate $i$ is
+You buy a \$25,000 piece of equipment for nothing down at \$5,500 per year for 6 years. What interest rate are you paying? The formula relating present worth $P$, annual payments $A$, number of years $n$, and interest rate $i$ is
 
 $$ A = P \frac{i(1 + i)^n}{(1 + i)^n - 1}$$
 
@@ -158,7 +159,7 @@ uniroot(f, c(3,6))
 # uniroot.all is in the rootSolve package
 library(rootSolve)
 rootSolve::uniroot.all(f, c(3,6)) -> roots
-
+roots
 ```
 
 ## Optima/Optimization

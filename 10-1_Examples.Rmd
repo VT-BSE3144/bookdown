@@ -64,6 +64,8 @@ a <- seq(1,50,0.1) # define range in a values
 b <- seq(1,50,0.1) # define range in y values
 ab <- pracma::meshgrid(a,b) # create grid of x,y pairs to evaluate
 # NOTE: meshgrid takes two vectors and makes a matrix of all pairs of these values and renames these values X and Y
+
+## a = ab$X     b = ab$Y
 P <-  ab$X + 2 * sqrt(((ab$Y-ab$X)/2)^2 +(100/(ab$X + ab$Y))^2)
 # use grid to create Z values (3rd dimension)
 ```
@@ -99,9 +101,15 @@ P_func(ab = c(5,10))
 #### Find optimum
 
 ```{r}
+library(pracma)
 range_X <- c(5, 10)
 range_Y <- c(10, 15)
-fminsearch(fn = P_func, x0 = c(7, 13))
+fminsearch(fn = P_func, x0 = c(7,13))
+
+```
+## How would we find a maximum?
+
+```{r}
 
 ```
 
