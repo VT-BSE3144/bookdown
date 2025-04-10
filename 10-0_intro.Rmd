@@ -7,6 +7,7 @@ params:
 # Roots and Optima Introduction
 
 This week our goals are to be able to:
+
  - Identify problem statements that are asking to identify roots or optima of equations.
  - Outline the algorithm for solving root and optima problems.
  - Correctly set up equations and solve for roots and optima.
