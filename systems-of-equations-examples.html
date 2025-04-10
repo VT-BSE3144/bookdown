@@ -30,7 +30,7 @@ Systems using Numerical Methods.</p>" />
 <meta name="author" content="R. Clay Wright" />
 
 
-<meta name="date" content="2025-04-07" />
+<meta name="date" content="2025-04-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -472,6 +472,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="10.5" data-path="roots-and-optima-examples.html"><a href="roots-and-optima-examples.html#specific-heat"><i class="fa fa-check"></i><b>10.5</b> Specific heat</a></li>
 <li class="chapter" data-level="10.6" data-path="roots-and-optima-examples.html"><a href="roots-and-optima-examples.html#channel-perimeter"><i class="fa fa-check"></i><b>10.6</b> Channel perimeter</a></li>
+<li class="chapter" data-level="10.7" data-path="roots-and-optima-examples.html"><a href="roots-and-optima-examples.html#how-would-we-find-a-maximum"><i class="fa fa-check"></i><b>10.7</b> How would we find a maximum?</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="interpolation-and-extrapolation.html"><a href="interpolation-and-extrapolation.html"><i class="fa fa-check"></i><b>11</b> Interpolation and Extrapolation</a>
 <ul>
@@ -576,35 +577,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 3x_1 + 2x_2 = 18 \\
 -x_1 + 2x_2 = 2
 \]</span></p>
-<div class="sourceCode" id="cb720"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb720-1"><a href="systems-of-equations-examples.html#cb720-1" tabindex="-1"></a><span class="co"># Define our matrix of coefficients</span></span>
-<span id="cb720-2"><a href="systems-of-equations-examples.html#cb720-2" tabindex="-1"></a>coef_matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>),</span>
-<span id="cb720-3"><a href="systems-of-equations-examples.html#cb720-3" tabindex="-1"></a>                      <span class="at">nrow =</span> <span class="dv">2</span>, </span>
-<span id="cb720-4"><a href="systems-of-equations-examples.html#cb720-4" tabindex="-1"></a>                      <span class="at">ncol =</span> <span class="dv">2</span>, </span>
-<span id="cb720-5"><a href="systems-of-equations-examples.html#cb720-5" tabindex="-1"></a>                      <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb720-6"><a href="systems-of-equations-examples.html#cb720-6" tabindex="-1"></a></span>
-<span id="cb720-7"><a href="systems-of-equations-examples.html#cb720-7" tabindex="-1"></a><span class="co"># Define right hand side matrix</span></span>
-<span id="cb720-8"><a href="systems-of-equations-examples.html#cb720-8" tabindex="-1"></a>rhs_matrix <span class="ot">&lt;-</span></span>
-<span id="cb720-9"><a href="systems-of-equations-examples.html#cb720-9" tabindex="-1"></a>  <span class="fu">matrix</span>(</span>
-<span id="cb720-10"><a href="systems-of-equations-examples.html#cb720-10" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">18</span>, <span class="dv">2</span>),</span>
-<span id="cb720-11"><a href="systems-of-equations-examples.html#cb720-11" tabindex="-1"></a>    <span class="at">nrow =</span> <span class="dv">2</span>,</span>
-<span id="cb720-12"><a href="systems-of-equations-examples.html#cb720-12" tabindex="-1"></a>    <span class="at">ncol =</span> <span class="dv">1</span>,</span>
-<span id="cb720-13"><a href="systems-of-equations-examples.html#cb720-13" tabindex="-1"></a>    <span class="at">byrow =</span> <span class="cn">TRUE</span></span>
-<span id="cb720-14"><a href="systems-of-equations-examples.html#cb720-14" tabindex="-1"></a>  )</span>
-<span id="cb720-15"><a href="systems-of-equations-examples.html#cb720-15" tabindex="-1"></a></span>
-<span id="cb720-16"><a href="systems-of-equations-examples.html#cb720-16" tabindex="-1"></a><span class="co"># Solving the system of equations</span></span>
-<span id="cb720-17"><a href="systems-of-equations-examples.html#cb720-17" tabindex="-1"></a></span>
-<span id="cb720-18"><a href="systems-of-equations-examples.html#cb720-18" tabindex="-1"></a><span class="co"># using inverse</span></span>
-<span id="cb720-19"><a href="systems-of-equations-examples.html#cb720-19" tabindex="-1"></a><span class="co"># calculate the inverse of coef_matrix</span></span>
-<span id="cb720-20"><a href="systems-of-equations-examples.html#cb720-20" tabindex="-1"></a>inv_coef_matrix <span class="ot">&lt;-</span> <span class="fu">solve</span>(coef_matrix)</span>
-<span id="cb720-21"><a href="systems-of-equations-examples.html#cb720-21" tabindex="-1"></a></span>
-<span id="cb720-22"><a href="systems-of-equations-examples.html#cb720-22" tabindex="-1"></a><span class="co"># multiply inverse coefficient matrix by rhs to get the solution</span></span>
-<span id="cb720-23"><a href="systems-of-equations-examples.html#cb720-23" tabindex="-1"></a>soln <span class="ot">&lt;-</span> inv_coef_matrix <span class="sc">%*%</span> rhs_matrix</span>
-<span id="cb720-24"><a href="systems-of-equations-examples.html#cb720-24" tabindex="-1"></a>soln</span></code></pre></div>
+<div class="sourceCode" id="cb723"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb723-1"><a href="systems-of-equations-examples.html#cb723-1" tabindex="-1"></a><span class="co"># Define our matrix of coefficients</span></span>
+<span id="cb723-2"><a href="systems-of-equations-examples.html#cb723-2" tabindex="-1"></a>coef_matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb723-3"><a href="systems-of-equations-examples.html#cb723-3" tabindex="-1"></a>                      <span class="at">nrow =</span> <span class="dv">2</span>, </span>
+<span id="cb723-4"><a href="systems-of-equations-examples.html#cb723-4" tabindex="-1"></a>                      <span class="at">ncol =</span> <span class="dv">2</span>, </span>
+<span id="cb723-5"><a href="systems-of-equations-examples.html#cb723-5" tabindex="-1"></a>                      <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb723-6"><a href="systems-of-equations-examples.html#cb723-6" tabindex="-1"></a></span>
+<span id="cb723-7"><a href="systems-of-equations-examples.html#cb723-7" tabindex="-1"></a><span class="co"># Define right hand side matrix</span></span>
+<span id="cb723-8"><a href="systems-of-equations-examples.html#cb723-8" tabindex="-1"></a>rhs_matrix <span class="ot">&lt;-</span></span>
+<span id="cb723-9"><a href="systems-of-equations-examples.html#cb723-9" tabindex="-1"></a>  <span class="fu">matrix</span>(</span>
+<span id="cb723-10"><a href="systems-of-equations-examples.html#cb723-10" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">18</span>, <span class="dv">2</span>),</span>
+<span id="cb723-11"><a href="systems-of-equations-examples.html#cb723-11" tabindex="-1"></a>    <span class="at">nrow =</span> <span class="dv">2</span>,</span>
+<span id="cb723-12"><a href="systems-of-equations-examples.html#cb723-12" tabindex="-1"></a>    <span class="at">ncol =</span> <span class="dv">1</span>,</span>
+<span id="cb723-13"><a href="systems-of-equations-examples.html#cb723-13" tabindex="-1"></a>    <span class="at">byrow =</span> <span class="cn">TRUE</span></span>
+<span id="cb723-14"><a href="systems-of-equations-examples.html#cb723-14" tabindex="-1"></a>  )</span>
+<span id="cb723-15"><a href="systems-of-equations-examples.html#cb723-15" tabindex="-1"></a></span>
+<span id="cb723-16"><a href="systems-of-equations-examples.html#cb723-16" tabindex="-1"></a><span class="co"># Solving the system of equations</span></span>
+<span id="cb723-17"><a href="systems-of-equations-examples.html#cb723-17" tabindex="-1"></a></span>
+<span id="cb723-18"><a href="systems-of-equations-examples.html#cb723-18" tabindex="-1"></a><span class="co"># using inverse</span></span>
+<span id="cb723-19"><a href="systems-of-equations-examples.html#cb723-19" tabindex="-1"></a><span class="co"># calculate the inverse of coef_matrix</span></span>
+<span id="cb723-20"><a href="systems-of-equations-examples.html#cb723-20" tabindex="-1"></a>inv_coef_matrix <span class="ot">&lt;-</span> <span class="fu">solve</span>(coef_matrix)</span>
+<span id="cb723-21"><a href="systems-of-equations-examples.html#cb723-21" tabindex="-1"></a></span>
+<span id="cb723-22"><a href="systems-of-equations-examples.html#cb723-22" tabindex="-1"></a><span class="co"># multiply inverse coefficient matrix by rhs to get the solution</span></span>
+<span id="cb723-23"><a href="systems-of-equations-examples.html#cb723-23" tabindex="-1"></a>soln <span class="ot">&lt;-</span> inv_coef_matrix <span class="sc">%*%</span> rhs_matrix</span>
+<span id="cb723-24"><a href="systems-of-equations-examples.html#cb723-24" tabindex="-1"></a>soln</span></code></pre></div>
 <pre><code>##      [,1]
 ## [1,]    4
 ## [2,]    3</code></pre>
-<div class="sourceCode" id="cb722"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb722-1"><a href="systems-of-equations-examples.html#cb722-1" tabindex="-1"></a><span class="co"># Solve using the &#39;solve&#39; function</span></span>
-<span id="cb722-2"><a href="systems-of-equations-examples.html#cb722-2" tabindex="-1"></a><span class="fu">solve</span>(coef_matrix, rhs_matrix)</span></code></pre></div>
+<div class="sourceCode" id="cb725"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb725-1"><a href="systems-of-equations-examples.html#cb725-1" tabindex="-1"></a><span class="co"># Solve using the &#39;solve&#39; function</span></span>
+<span id="cb725-2"><a href="systems-of-equations-examples.html#cb725-2" tabindex="-1"></a><span class="fu">solve</span>(coef_matrix, rhs_matrix)</span></code></pre></div>
 <pre><code>##      [,1]
 ## [1,]    4
 ## [2,]    3</code></pre>
@@ -614,13 +615,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><code>solve</code> = function for solving systems, can input A or A &amp; B.</p>
 <div id="simple-matrix-and-solving-for-x" class="section level3 hasAnchor" number="13.2.1">
 <h3><span class="header-section-number">13.2.1</span> Simple Matrix and solving for X<a href="systems-of-equations-examples.html#simple-matrix-and-solving-for-x" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb724"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb724-1"><a href="systems-of-equations-examples.html#cb724-1" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>), <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
-<span id="cb724-2"><a href="systems-of-equations-examples.html#cb724-2" tabindex="-1"></a>Ainv <span class="ot">&lt;-</span> <span class="fu">solve</span>(A)</span>
-<span id="cb724-3"><a href="systems-of-equations-examples.html#cb724-3" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">18</span>,<span class="dv">2</span>), <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
-<span id="cb724-4"><a href="systems-of-equations-examples.html#cb724-4" tabindex="-1"></a>X <span class="ot">&lt;-</span> Ainv <span class="sc">%*%</span> B</span>
-<span id="cb724-5"><a href="systems-of-equations-examples.html#cb724-5" tabindex="-1"></a><span class="co">#or </span></span>
-<span id="cb724-6"><a href="systems-of-equations-examples.html#cb724-6" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">solve</span>(A,B)</span>
-<span id="cb724-7"><a href="systems-of-equations-examples.html#cb724-7" tabindex="-1"></a>X</span></code></pre></div>
+<div class="sourceCode" id="cb727"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb727-1"><a href="systems-of-equations-examples.html#cb727-1" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>), <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb727-2"><a href="systems-of-equations-examples.html#cb727-2" tabindex="-1"></a>Ainv <span class="ot">&lt;-</span> <span class="fu">solve</span>(A)</span>
+<span id="cb727-3"><a href="systems-of-equations-examples.html#cb727-3" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">18</span>,<span class="dv">2</span>), <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb727-4"><a href="systems-of-equations-examples.html#cb727-4" tabindex="-1"></a>X <span class="ot">&lt;-</span> Ainv <span class="sc">%*%</span> B</span>
+<span id="cb727-5"><a href="systems-of-equations-examples.html#cb727-5" tabindex="-1"></a><span class="co">#or </span></span>
+<span id="cb727-6"><a href="systems-of-equations-examples.html#cb727-6" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">solve</span>(A,B)</span>
+<span id="cb727-7"><a href="systems-of-equations-examples.html#cb727-7" tabindex="-1"></a>X</span></code></pre></div>
 <pre><code>##      [,1]
 ## [1,]    4
 ## [2,]    3</code></pre>
@@ -635,16 +636,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 x_1 + x_2 + 5x_3 &amp; = -21.5
 \end{aligned}
 \]</span></p>
-<div class="sourceCode" id="cb726"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb726-1"><a href="systems-of-equations-examples.html#cb726-1" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">2</span>, <span class="sc">-</span><span class="dv">1</span>, </span>
-<span id="cb726-2"><a href="systems-of-equations-examples.html#cb726-2" tabindex="-1"></a>              <span class="sc">-</span><span class="dv">3</span>, <span class="sc">-</span><span class="dv">6</span>, <span class="dv">2</span>, </span>
-<span id="cb726-3"><a href="systems-of-equations-examples.html#cb726-3" tabindex="-1"></a>              <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>), </span>
-<span id="cb726-4"><a href="systems-of-equations-examples.html#cb726-4" tabindex="-1"></a>            <span class="at">nrow =</span> <span class="dv">3</span>,</span>
-<span id="cb726-5"><a href="systems-of-equations-examples.html#cb726-5" tabindex="-1"></a>            <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb726-6"><a href="systems-of-equations-examples.html#cb726-6" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="dv">27</span>, </span>
-<span id="cb726-7"><a href="systems-of-equations-examples.html#cb726-7" tabindex="-1"></a>                     <span class="sc">-</span><span class="fl">61.5</span>, </span>
-<span id="cb726-8"><a href="systems-of-equations-examples.html#cb726-8" tabindex="-1"></a>                     <span class="sc">-</span><span class="fl">21.5</span>), <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb726-9"><a href="systems-of-equations-examples.html#cb726-9" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">inv</span>(A) <span class="sc">%*%</span> B</span>
-<span id="cb726-10"><a href="systems-of-equations-examples.html#cb726-10" tabindex="-1"></a>x</span></code></pre></div>
+<div class="sourceCode" id="cb729"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb729-1"><a href="systems-of-equations-examples.html#cb729-1" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">2</span>, <span class="sc">-</span><span class="dv">1</span>, </span>
+<span id="cb729-2"><a href="systems-of-equations-examples.html#cb729-2" tabindex="-1"></a>              <span class="sc">-</span><span class="dv">3</span>, <span class="sc">-</span><span class="dv">6</span>, <span class="dv">2</span>, </span>
+<span id="cb729-3"><a href="systems-of-equations-examples.html#cb729-3" tabindex="-1"></a>              <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>), </span>
+<span id="cb729-4"><a href="systems-of-equations-examples.html#cb729-4" tabindex="-1"></a>            <span class="at">nrow =</span> <span class="dv">3</span>,</span>
+<span id="cb729-5"><a href="systems-of-equations-examples.html#cb729-5" tabindex="-1"></a>            <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb729-6"><a href="systems-of-equations-examples.html#cb729-6" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="dv">27</span>, </span>
+<span id="cb729-7"><a href="systems-of-equations-examples.html#cb729-7" tabindex="-1"></a>                     <span class="sc">-</span><span class="fl">61.5</span>, </span>
+<span id="cb729-8"><a href="systems-of-equations-examples.html#cb729-8" tabindex="-1"></a>                     <span class="sc">-</span><span class="fl">21.5</span>), <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb729-9"><a href="systems-of-equations-examples.html#cb729-9" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">inv</span>(A) <span class="sc">%*%</span> B</span>
+<span id="cb729-10"><a href="systems-of-equations-examples.html#cb729-10" tabindex="-1"></a>x</span></code></pre></div>
 <pre><code>##      [,1]
 ## [1,]  0.5
 ## [2,]  8.0
@@ -670,31 +671,31 @@ and rearranging and simplifying this</p>
 \end{aligned}
 \]</span></p>
 <p>Here we’ll use the PRACMA package that uses <code>mldivide</code> to solve for x in A*x=b. We can also first solve for the inverse of A using <code>solve(A)</code>.</p>
-<div class="sourceCode" id="cb728"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb728-1"><a href="systems-of-equations-examples.html#cb728-1" tabindex="-1"></a><span class="fu">library</span>(pracma)</span>
-<span id="cb728-2"><a href="systems-of-equations-examples.html#cb728-2" tabindex="-1"></a></span>
-<span id="cb728-3"><a href="systems-of-equations-examples.html#cb728-3" tabindex="-1"></a></span>
-<span id="cb728-4"><a href="systems-of-equations-examples.html#cb728-4" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">15</span>, <span class="sc">-</span><span class="dv">3</span>, <span class="sc">-</span><span class="dv">1</span>, </span>
-<span id="cb728-5"><a href="systems-of-equations-examples.html#cb728-5" tabindex="-1"></a>              <span class="sc">-</span><span class="dv">3</span>, <span class="dv">18</span>, <span class="sc">-</span><span class="dv">6</span>, </span>
-<span id="cb728-6"><a href="systems-of-equations-examples.html#cb728-6" tabindex="-1"></a>              <span class="sc">-</span><span class="dv">4</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">12</span>), </span>
-<span id="cb728-7"><a href="systems-of-equations-examples.html#cb728-7" tabindex="-1"></a>            <span class="at">ncol =</span> <span class="dv">3</span>, </span>
-<span id="cb728-8"><a href="systems-of-equations-examples.html#cb728-8" tabindex="-1"></a>            <span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
-<span id="cb728-9"><a href="systems-of-equations-examples.html#cb728-9" tabindex="-1"></a>A</span></code></pre></div>
+<div class="sourceCode" id="cb731"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb731-1"><a href="systems-of-equations-examples.html#cb731-1" tabindex="-1"></a><span class="fu">library</span>(pracma)</span>
+<span id="cb731-2"><a href="systems-of-equations-examples.html#cb731-2" tabindex="-1"></a></span>
+<span id="cb731-3"><a href="systems-of-equations-examples.html#cb731-3" tabindex="-1"></a></span>
+<span id="cb731-4"><a href="systems-of-equations-examples.html#cb731-4" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">15</span>, <span class="sc">-</span><span class="dv">3</span>, <span class="sc">-</span><span class="dv">1</span>, </span>
+<span id="cb731-5"><a href="systems-of-equations-examples.html#cb731-5" tabindex="-1"></a>              <span class="sc">-</span><span class="dv">3</span>, <span class="dv">18</span>, <span class="sc">-</span><span class="dv">6</span>, </span>
+<span id="cb731-6"><a href="systems-of-equations-examples.html#cb731-6" tabindex="-1"></a>              <span class="sc">-</span><span class="dv">4</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">12</span>), </span>
+<span id="cb731-7"><a href="systems-of-equations-examples.html#cb731-7" tabindex="-1"></a>            <span class="at">ncol =</span> <span class="dv">3</span>, </span>
+<span id="cb731-8"><a href="systems-of-equations-examples.html#cb731-8" tabindex="-1"></a>            <span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb731-9"><a href="systems-of-equations-examples.html#cb731-9" tabindex="-1"></a>A</span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]   15   -3   -1
 ## [2,]   -3   18   -6
 ## [3,]   -4   -1   12</code></pre>
-<div class="sourceCode" id="cb730"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb730-1"><a href="systems-of-equations-examples.html#cb730-1" tabindex="-1"></a>invA <span class="ot">&lt;-</span> <span class="fu">solve</span>(A)</span>
-<span id="cb730-2"><a href="systems-of-equations-examples.html#cb730-2" tabindex="-1"></a>invA[<span class="dv">1</span>,<span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb733"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb733-1"><a href="systems-of-equations-examples.html#cb733-1" tabindex="-1"></a>invA <span class="ot">&lt;-</span> <span class="fu">solve</span>(A)</span>
+<span id="cb733-2"><a href="systems-of-equations-examples.html#cb733-2" tabindex="-1"></a>invA[<span class="dv">1</span>,<span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## [1] 0.07253886</code></pre>
-<div class="sourceCode" id="cb732"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb732-1"><a href="systems-of-equations-examples.html#cb732-1" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">3800</span>,<span class="dv">1200</span>,<span class="dv">2350</span>))</span>
-<span id="cb732-2"><a href="systems-of-equations-examples.html#cb732-2" tabindex="-1"></a>b</span></code></pre></div>
+<div class="sourceCode" id="cb735"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb735-1"><a href="systems-of-equations-examples.html#cb735-1" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">3800</span>,<span class="dv">1200</span>,<span class="dv">2350</span>))</span>
+<span id="cb735-2"><a href="systems-of-equations-examples.html#cb735-2" tabindex="-1"></a>b</span></code></pre></div>
 <pre><code>##      [,1]
 ## [1,] 3800
 ## [2,] 1200
 ## [3,] 2350</code></pre>
-<div class="sourceCode" id="cb734"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb734-1"><a href="systems-of-equations-examples.html#cb734-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> invA <span class="sc">%*%</span> b</span>
-<span id="cb734-2"><a href="systems-of-equations-examples.html#cb734-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">mldivide</span>(A, b) <span class="co"># matrix multiplication vs element by element</span></span>
-<span id="cb734-3"><a href="systems-of-equations-examples.html#cb734-3" tabindex="-1"></a>x</span></code></pre></div>
+<div class="sourceCode" id="cb737"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb737-1"><a href="systems-of-equations-examples.html#cb737-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> invA <span class="sc">%*%</span> b</span>
+<span id="cb737-2"><a href="systems-of-equations-examples.html#cb737-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">mldivide</span>(A, b) <span class="co"># matrix multiplication vs element by element</span></span>
+<span id="cb737-3"><a href="systems-of-equations-examples.html#cb737-3" tabindex="-1"></a>x</span></code></pre></div>
 <pre><code>##          [,1]
 ## [1,] 320.2073
 ## [2,] 227.2021
@@ -707,8 +708,8 @@ and rearranging and simplifying this</p>
 <div class="figcaption">Equation</div>
 </div>
 <p>Thus we can use the circled part to determine the effect of reactor 3 on 1!</p>
-<div class="sourceCode" id="cb736"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb736-1"><a href="systems-of-equations-examples.html#cb736-1" tabindex="-1"></a>x1effect <span class="ot">&lt;-</span> invA[<span class="dv">1</span>,<span class="dv">3</span>] <span class="sc">*</span> b[<span class="dv">3</span>]</span>
-<span id="cb736-2"><a href="systems-of-equations-examples.html#cb736-2" tabindex="-1"></a>x1effect</span></code></pre></div>
+<div class="sourceCode" id="cb739"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb739-1"><a href="systems-of-equations-examples.html#cb739-1" tabindex="-1"></a>x1effect <span class="ot">&lt;-</span> invA[<span class="dv">1</span>,<span class="dv">3</span>] <span class="sc">*</span> b[<span class="dv">3</span>]</span>
+<span id="cb739-2"><a href="systems-of-equations-examples.html#cb739-2" tabindex="-1"></a>x1effect</span></code></pre></div>
 <pre><code>## [1] 29.2228</code></pre>
 
 </div>

@@ -258,6 +258,7 @@ specific-heat
 channel-perimeter
 write-function-3
 find-optimum-3
+how-would-we-find-a-maximum
 interpolation-and-extrapolation
 reading-2
 overview-of-interpolation

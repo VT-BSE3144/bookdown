@@ -30,7 +30,7 @@ Systems using Numerical Methods.</p>" />
 <meta name="author" content="R. Clay Wright" />
 
 
-<meta name="date" content="2025-04-07" />
+<meta name="date" content="2025-04-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -472,6 +472,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="10.5" data-path="roots-and-optima-examples.html"><a href="roots-and-optima-examples.html#specific-heat"><i class="fa fa-check"></i><b>10.5</b> Specific heat</a></li>
 <li class="chapter" data-level="10.6" data-path="roots-and-optima-examples.html"><a href="roots-and-optima-examples.html#channel-perimeter"><i class="fa fa-check"></i><b>10.6</b> Channel perimeter</a></li>
+<li class="chapter" data-level="10.7" data-path="roots-and-optima-examples.html"><a href="roots-and-optima-examples.html#how-would-we-find-a-maximum"><i class="fa fa-check"></i><b>10.7</b> How would we find a maximum?</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="interpolation-and-extrapolation.html"><a href="interpolation-and-extrapolation.html"><i class="fa fa-check"></i><b>11</b> Interpolation and Extrapolation</a>
 <ul>
@@ -568,9 +569,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="interpolation-and-extrapolation" class="section level1 hasAnchor" number="11">
 <h1><span class="header-section-number">11</span> Interpolation and Extrapolation<a href="interpolation-and-extrapolation.html#interpolation-and-extrapolation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div class="sourceCode" id="cb602"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb602-1"><a href="interpolation-and-extrapolation.html#cb602-1" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb602-2"><a href="interpolation-and-extrapolation.html#cb602-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb602-3"><a href="interpolation-and-extrapolation.html#cb602-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb605"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb605-1"><a href="interpolation-and-extrapolation.html#cb605-1" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb605-2"><a href="interpolation-and-extrapolation.html#cb605-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb605-3"><a href="interpolation-and-extrapolation.html#cb605-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ## ✔ dplyr     1.1.4     ✔ readr     2.1.5
 ## ✔ forcats   1.0.0     ✔ stringr   1.5.1
@@ -580,14 +581,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
 ## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-<div class="sourceCode" id="cb604"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb604-1"><a href="interpolation-and-extrapolation.html#cb604-1" tabindex="-1"></a><span class="fu">library</span>(PolynomF)</span></code></pre></div>
+<div class="sourceCode" id="cb607"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb607-1"><a href="interpolation-and-extrapolation.html#cb607-1" tabindex="-1"></a><span class="fu">library</span>(PolynomF)</span></code></pre></div>
 <pre><code>## 
 ## Attaching package: &#39;PolynomF&#39;
 ## 
 ## The following object is masked from &#39;package:purrr&#39;:
 ## 
 ##     zap</code></pre>
-<div class="sourceCode" id="cb606"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb606-1"><a href="interpolation-and-extrapolation.html#cb606-1" tabindex="-1"></a><span class="fu">library</span>(pracma)</span></code></pre></div>
+<div class="sourceCode" id="cb609"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb609-1"><a href="interpolation-and-extrapolation.html#cb609-1" tabindex="-1"></a><span class="fu">library</span>(pracma)</span></code></pre></div>
 <pre><code>## 
 ## Attaching package: &#39;pracma&#39;
 ## 
@@ -630,14 +631,14 @@ Figure 11.1: Linear interpolation diagram with equation.
 <li>T @ 360°C, specific volume = 4.789 cubic liters/kg</li>
 <li>T @ 380°C, specific volume = 5.987 cubic liters/kg</li>
 </ul>
-<div class="sourceCode" id="cb608"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb608-1"><a href="interpolation-and-extrapolation.html#cb608-1" tabindex="-1"></a>fx1 <span class="ot">&lt;-</span> <span class="fl">4.789</span></span>
-<span id="cb608-2"><a href="interpolation-and-extrapolation.html#cb608-2" tabindex="-1"></a>fx2 <span class="ot">&lt;-</span> <span class="fl">5.987</span></span>
-<span id="cb608-3"><a href="interpolation-and-extrapolation.html#cb608-3" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="dv">360</span></span>
-<span id="cb608-4"><a href="interpolation-and-extrapolation.html#cb608-4" tabindex="-1"></a>x2 <span class="ot">&lt;-</span><span class="dv">380</span></span>
-<span id="cb608-5"><a href="interpolation-and-extrapolation.html#cb608-5" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> <span class="dv">377</span></span>
-<span id="cb608-6"><a href="interpolation-and-extrapolation.html#cb608-6" tabindex="-1"></a>lin_interp <span class="ot">&lt;-</span> <span class="cf">function</span>(fx1,fx2,x1,x2,x3) fx1<span class="sc">+</span>((fx2<span class="sc">-</span>fx1)<span class="sc">/</span>(x2<span class="sc">-</span>x1))<span class="sc">*</span>(x3<span class="sc">-</span>x1)</span>
-<span id="cb608-7"><a href="interpolation-and-extrapolation.html#cb608-7" tabindex="-1"></a>fx3 <span class="ot">&lt;-</span> <span class="fu">lin_interp</span>(fx1,fx2,x1,x2,x3)</span>
-<span id="cb608-8"><a href="interpolation-and-extrapolation.html#cb608-8" tabindex="-1"></a>fx3</span></code></pre></div>
+<div class="sourceCode" id="cb611"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb611-1"><a href="interpolation-and-extrapolation.html#cb611-1" tabindex="-1"></a>fx1 <span class="ot">&lt;-</span> <span class="fl">4.789</span></span>
+<span id="cb611-2"><a href="interpolation-and-extrapolation.html#cb611-2" tabindex="-1"></a>fx2 <span class="ot">&lt;-</span> <span class="fl">5.987</span></span>
+<span id="cb611-3"><a href="interpolation-and-extrapolation.html#cb611-3" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="dv">360</span></span>
+<span id="cb611-4"><a href="interpolation-and-extrapolation.html#cb611-4" tabindex="-1"></a>x2 <span class="ot">&lt;-</span><span class="dv">380</span></span>
+<span id="cb611-5"><a href="interpolation-and-extrapolation.html#cb611-5" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> <span class="dv">377</span></span>
+<span id="cb611-6"><a href="interpolation-and-extrapolation.html#cb611-6" tabindex="-1"></a>lin_interp <span class="ot">&lt;-</span> <span class="cf">function</span>(fx1,fx2,x1,x2,x3) fx1<span class="sc">+</span>((fx2<span class="sc">-</span>fx1)<span class="sc">/</span>(x2<span class="sc">-</span>x1))<span class="sc">*</span>(x3<span class="sc">-</span>x1)</span>
+<span id="cb611-7"><a href="interpolation-and-extrapolation.html#cb611-7" tabindex="-1"></a>fx3 <span class="ot">&lt;-</span> <span class="fu">lin_interp</span>(fx1,fx2,x1,x2,x3)</span>
+<span id="cb611-8"><a href="interpolation-and-extrapolation.html#cb611-8" tabindex="-1"></a>fx3</span></code></pre></div>
 <pre><code>## [1] 5.8073</code></pre>
 <p>So the specific volume at <span class="math inline">\(x_3 =\)</span> 377°C is 5.8073 cubic liters/kg.</p>
 </div>
@@ -653,75 +654,75 @@ y = 7, 11, 28, 63</p>
 <p>Plot the data and use the <code>poly_calc()</code> function within the <code>PolynomF</code> package. Here, the <code>polycalc</code> function creates a polynomial (that I assign to <code>a</code>) that can then be used for interpolation (I evaluated the polynomial a at all points in the xx vector).</p>
 <p><img src="11-0_Intro_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>The resulting polynomial function can be accessed as shown below and is an R function as well:</p>
-<div class="sourceCode" id="cb610"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb610-1"><a href="interpolation-and-extrapolation.html#cb610-1" tabindex="-1"></a>a</span></code></pre></div>
+<div class="sourceCode" id="cb613"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb613-1"><a href="interpolation-and-extrapolation.html#cb613-1" tabindex="-1"></a>a</span></code></pre></div>
 <pre><code>## 7 - 2.25*x + 2.708333*x^2 - 0.2916667*x^3</code></pre>
-<div class="sourceCode" id="cb612"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb612-1"><a href="interpolation-and-extrapolation.html#cb612-1" tabindex="-1"></a><span class="fu">a</span>(<span class="at">x =</span> <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb615"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb615-1"><a href="interpolation-and-extrapolation.html#cb615-1" tabindex="-1"></a><span class="fu">a</span>(<span class="at">x =</span> <span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## [1] 27</code></pre>
 <p>Now what happens when we extrapolate beyond the observed data we used to generate the function? Imagine we had another observation that was just determined. You can see in the plot below that the original polynomial will result in a poor extrapolation!</p>
-<div class="sourceCode" id="cb614"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb614-1"><a href="interpolation-and-extrapolation.html#cb614-1" tabindex="-1"></a>xx <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">10</span>,.<span class="dv">1</span>)</span>
-<span id="cb614-2"><a href="interpolation-and-extrapolation.html#cb614-2" tabindex="-1"></a>yy <span class="ot">&lt;-</span> <span class="fu">a</span>(xx)</span>
-<span id="cb614-3"><a href="interpolation-and-extrapolation.html#cb614-3" tabindex="-1"></a>dat2<span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">cbind</span>(xx, yy))</span>
-<span id="cb614-4"><a href="interpolation-and-extrapolation.html#cb614-4" tabindex="-1"></a>x[<span class="dv">5</span>] <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb614-5"><a href="interpolation-and-extrapolation.html#cb614-5" tabindex="-1"></a>y[<span class="dv">5</span>] <span class="ot">&lt;-</span> <span class="dv">25</span></span>
-<span id="cb614-6"><a href="interpolation-and-extrapolation.html#cb614-6" tabindex="-1"></a></span>
-<span id="cb614-7"><a href="interpolation-and-extrapolation.html#cb614-7" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">cbind</span>(x, y))</span>
-<span id="cb614-8"><a href="interpolation-and-extrapolation.html#cb614-8" tabindex="-1"></a></span>
-<span id="cb614-9"><a href="interpolation-and-extrapolation.html#cb614-9" tabindex="-1"></a>pp <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb614-10"><a href="interpolation-and-extrapolation.html#cb614-10" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>dat,<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y),<span class="at">size=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&#39;blue&#39;</span>) <span class="sc">+</span></span>
-<span id="cb614-11"><a href="interpolation-and-extrapolation.html#cb614-11" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>dat2,<span class="fu">aes</span>(<span class="at">x=</span>xx,<span class="at">y=</span>yy))</span>
-<span id="cb614-12"><a href="interpolation-and-extrapolation.html#cb614-12" tabindex="-1"></a>pp</span></code></pre></div>
+<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb617-1"><a href="interpolation-and-extrapolation.html#cb617-1" tabindex="-1"></a>xx <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">10</span>,.<span class="dv">1</span>)</span>
+<span id="cb617-2"><a href="interpolation-and-extrapolation.html#cb617-2" tabindex="-1"></a>yy <span class="ot">&lt;-</span> <span class="fu">a</span>(xx)</span>
+<span id="cb617-3"><a href="interpolation-and-extrapolation.html#cb617-3" tabindex="-1"></a>dat2<span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">cbind</span>(xx, yy))</span>
+<span id="cb617-4"><a href="interpolation-and-extrapolation.html#cb617-4" tabindex="-1"></a>x[<span class="dv">5</span>] <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb617-5"><a href="interpolation-and-extrapolation.html#cb617-5" tabindex="-1"></a>y[<span class="dv">5</span>] <span class="ot">&lt;-</span> <span class="dv">25</span></span>
+<span id="cb617-6"><a href="interpolation-and-extrapolation.html#cb617-6" tabindex="-1"></a></span>
+<span id="cb617-7"><a href="interpolation-and-extrapolation.html#cb617-7" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">cbind</span>(x, y))</span>
+<span id="cb617-8"><a href="interpolation-and-extrapolation.html#cb617-8" tabindex="-1"></a></span>
+<span id="cb617-9"><a href="interpolation-and-extrapolation.html#cb617-9" tabindex="-1"></a>pp <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb617-10"><a href="interpolation-and-extrapolation.html#cb617-10" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>dat,<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y),<span class="at">size=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&#39;blue&#39;</span>) <span class="sc">+</span></span>
+<span id="cb617-11"><a href="interpolation-and-extrapolation.html#cb617-11" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>dat2,<span class="fu">aes</span>(<span class="at">x=</span>xx,<span class="at">y=</span>yy))</span>
+<span id="cb617-12"><a href="interpolation-and-extrapolation.html#cb617-12" tabindex="-1"></a>pp</span></code></pre></div>
 <p><img src="11-0_Intro_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p><strong>Thus, caution is needed when using and interpreting the results of interpolation and <em>especially</em> extrapolation.</strong></p>
 </div>
 <div id="splines-interpolation" class="section level4 hasAnchor" number="11.2.2.2">
 <h4><span class="header-section-number">11.2.2.2</span> Splines Interpolation<a href="interpolation-and-extrapolation.html#splines-interpolation" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Let’s redo our example using “the method of splines”, instead of polynomial interpolation. Splines are piecewise polynomial interpolations, so there can be a different polynomial function between each pair of points, but each polynomial takes into account the ones next to it in order to minimize the roughness of the curve. You can imagine this as bending a thin piece of wood to fit all of the points, <a href="https://en.wikipedia.org/wiki/Spline_(mathematics)#History">which is actually where the method comes from in the early days of the airline industry</a>. We can implement interpolation by splines (as well as many other methods we will demonstrate) via <code>interp1</code> within the <code>pracma</code> package:</p>
-<div class="sourceCode" id="cb615"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb615-1"><a href="interpolation-and-extrapolation.html#cb615-1" tabindex="-1"></a><span class="co">#The general usage of interp1 </span></span>
-<span id="cb615-2"><a href="interpolation-and-extrapolation.html#cb615-2" tabindex="-1"></a><span class="fu">interp1</span>(x, y, <span class="at">xi =</span> x, <span class="at">method =</span> <span class="fu">c</span>(<span class="st">&quot;linear&quot;</span>, <span class="st">&quot;constant&quot;</span>, <span class="st">&quot;nearest&quot;</span>, <span class="st">&quot;spline&quot;</span>, <span class="st">&quot;cubic&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb618"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb618-1"><a href="interpolation-and-extrapolation.html#cb618-1" tabindex="-1"></a><span class="co">#The general usage of interp1 </span></span>
+<span id="cb618-2"><a href="interpolation-and-extrapolation.html#cb618-2" tabindex="-1"></a><span class="fu">interp1</span>(x, y, <span class="at">xi =</span> x, <span class="at">method =</span> <span class="fu">c</span>(<span class="st">&quot;linear&quot;</span>, <span class="st">&quot;constant&quot;</span>, <span class="st">&quot;nearest&quot;</span>, <span class="st">&quot;spline&quot;</span>, <span class="st">&quot;cubic&quot;</span>))</span></code></pre></div>
 </div>
 <div id="spline-interpolation-introduces-some-simple-curvature" class="section level4 hasAnchor" number="11.2.2.3">
 <h4><span class="header-section-number">11.2.2.3</span> Spline interpolation: introduces some simple curvature<a href="interpolation-and-extrapolation.html#spline-interpolation-introduces-some-simple-curvature" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb616"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb616-1"><a href="interpolation-and-extrapolation.html#cb616-1" tabindex="-1"></a>xx <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">8</span>,.<span class="dv">01</span>)</span>
-<span id="cb616-2"><a href="interpolation-and-extrapolation.html#cb616-2" tabindex="-1"></a>yy <span class="ot">&lt;-</span> <span class="fu">interp1</span>(x, y, <span class="at">xi =</span> xx, <span class="at">method =</span> <span class="fu">c</span>(<span class="st">&quot;spline&quot;</span>))</span>
-<span id="cb616-3"><a href="interpolation-and-extrapolation.html#cb616-3" tabindex="-1"></a>dat2<span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">cbind</span>(xx, yy))</span>
-<span id="cb616-4"><a href="interpolation-and-extrapolation.html#cb616-4" tabindex="-1"></a>pp <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb616-5"><a href="interpolation-and-extrapolation.html#cb616-5" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>dat,<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y),<span class="at">size=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&#39;blue&#39;</span>) <span class="sc">+</span></span>
-<span id="cb616-6"><a href="interpolation-and-extrapolation.html#cb616-6" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>dat2,<span class="fu">aes</span>(<span class="at">x=</span>xx,<span class="at">y=</span>yy))</span>
-<span id="cb616-7"><a href="interpolation-and-extrapolation.html#cb616-7" tabindex="-1"></a>pp</span></code></pre></div>
+<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb619-1"><a href="interpolation-and-extrapolation.html#cb619-1" tabindex="-1"></a>xx <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">8</span>,.<span class="dv">01</span>)</span>
+<span id="cb619-2"><a href="interpolation-and-extrapolation.html#cb619-2" tabindex="-1"></a>yy <span class="ot">&lt;-</span> <span class="fu">interp1</span>(x, y, <span class="at">xi =</span> xx, <span class="at">method =</span> <span class="fu">c</span>(<span class="st">&quot;spline&quot;</span>))</span>
+<span id="cb619-3"><a href="interpolation-and-extrapolation.html#cb619-3" tabindex="-1"></a>dat2<span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">cbind</span>(xx, yy))</span>
+<span id="cb619-4"><a href="interpolation-and-extrapolation.html#cb619-4" tabindex="-1"></a>pp <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb619-5"><a href="interpolation-and-extrapolation.html#cb619-5" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>dat,<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y),<span class="at">size=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&#39;blue&#39;</span>) <span class="sc">+</span></span>
+<span id="cb619-6"><a href="interpolation-and-extrapolation.html#cb619-6" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>dat2,<span class="fu">aes</span>(<span class="at">x=</span>xx,<span class="at">y=</span>yy))</span>
+<span id="cb619-7"><a href="interpolation-and-extrapolation.html#cb619-7" tabindex="-1"></a>pp</span></code></pre></div>
 <p><img src="11-0_Intro_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <div id="additional-methods-in-the-interp1-function" class="section level5 hasAnchor" number="11.2.2.3.1">
 <h5><span class="header-section-number">11.2.2.3.1</span> Additional methods in the <code>interp1</code> function<a href="interpolation-and-extrapolation.html#additional-methods-in-the-interp1-function" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>In addition to splines <code>interp1</code> has several other methods.</p>
 <div id="linear-interpolation" class="section level6 hasAnchor" number="11.2.2.3.1.1">
 <h6><span class="header-section-number">11.2.2.3.1.1</span> Linear interpolation<a href="interpolation-and-extrapolation.html#linear-interpolation" class="anchor-section" aria-label="Anchor link to header"></a></h6>
-<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb617-1"><a href="interpolation-and-extrapolation.html#cb617-1" tabindex="-1"></a>yy <span class="ot">&lt;-</span> <span class="fu">interp1</span>(x, y, <span class="at">xi =</span> xx, <span class="at">method =</span> <span class="fu">c</span>(<span class="st">&quot;linear&quot;</span>))</span>
-<span id="cb617-2"><a href="interpolation-and-extrapolation.html#cb617-2" tabindex="-1"></a>dat2<span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">cbind</span>(xx, yy))</span>
-<span id="cb617-3"><a href="interpolation-and-extrapolation.html#cb617-3" tabindex="-1"></a>pp <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb617-4"><a href="interpolation-and-extrapolation.html#cb617-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>dat,<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y),<span class="at">size=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&#39;blue&#39;</span>) <span class="sc">+</span></span>
-<span id="cb617-5"><a href="interpolation-and-extrapolation.html#cb617-5" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>dat2,<span class="fu">aes</span>(<span class="at">x=</span>xx,<span class="at">y=</span>yy))</span>
-<span id="cb617-6"><a href="interpolation-and-extrapolation.html#cb617-6" tabindex="-1"></a>pp</span></code></pre></div>
+<div class="sourceCode" id="cb620"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb620-1"><a href="interpolation-and-extrapolation.html#cb620-1" tabindex="-1"></a>yy <span class="ot">&lt;-</span> <span class="fu">interp1</span>(x, y, <span class="at">xi =</span> xx, <span class="at">method =</span> <span class="fu">c</span>(<span class="st">&quot;linear&quot;</span>))</span>
+<span id="cb620-2"><a href="interpolation-and-extrapolation.html#cb620-2" tabindex="-1"></a>dat2<span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">cbind</span>(xx, yy))</span>
+<span id="cb620-3"><a href="interpolation-and-extrapolation.html#cb620-3" tabindex="-1"></a>pp <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb620-4"><a href="interpolation-and-extrapolation.html#cb620-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>dat,<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y),<span class="at">size=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&#39;blue&#39;</span>) <span class="sc">+</span></span>
+<span id="cb620-5"><a href="interpolation-and-extrapolation.html#cb620-5" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>dat2,<span class="fu">aes</span>(<span class="at">x=</span>xx,<span class="at">y=</span>yy))</span>
+<span id="cb620-6"><a href="interpolation-and-extrapolation.html#cb620-6" tabindex="-1"></a>pp</span></code></pre></div>
 <p><img src="11-0_Intro_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 </div>
 <div id="constant-interpolation-assume-same-value-as-previous-no-knowledge-of-future-value" class="section level6 hasAnchor" number="11.2.2.3.1.2">
 <h6><span class="header-section-number">11.2.2.3.1.2</span> Constant interpolation: assume same value as previous (no knowledge of future value)<a href="interpolation-and-extrapolation.html#constant-interpolation-assume-same-value-as-previous-no-knowledge-of-future-value" class="anchor-section" aria-label="Anchor link to header"></a></h6>
-<div class="sourceCode" id="cb618"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb618-1"><a href="interpolation-and-extrapolation.html#cb618-1" tabindex="-1"></a>xx <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">8</span>,.<span class="dv">01</span>)</span>
-<span id="cb618-2"><a href="interpolation-and-extrapolation.html#cb618-2" tabindex="-1"></a>yy <span class="ot">&lt;-</span> <span class="fu">interp1</span>(x, y, <span class="at">xi =</span> xx, <span class="at">method =</span> <span class="fu">c</span>(<span class="st">&quot;constant&quot;</span>))</span>
-<span id="cb618-3"><a href="interpolation-and-extrapolation.html#cb618-3" tabindex="-1"></a>dat2<span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">cbind</span>(xx, yy))</span>
-<span id="cb618-4"><a href="interpolation-and-extrapolation.html#cb618-4" tabindex="-1"></a>pp <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb618-5"><a href="interpolation-and-extrapolation.html#cb618-5" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>dat,<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y),<span class="at">size=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&#39;blue&#39;</span>) <span class="sc">+</span></span>
-<span id="cb618-6"><a href="interpolation-and-extrapolation.html#cb618-6" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>dat2,<span class="fu">aes</span>(<span class="at">x=</span>xx,<span class="at">y=</span>yy))</span>
-<span id="cb618-7"><a href="interpolation-and-extrapolation.html#cb618-7" tabindex="-1"></a>pp</span></code></pre></div>
+<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb621-1"><a href="interpolation-and-extrapolation.html#cb621-1" tabindex="-1"></a>xx <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">8</span>,.<span class="dv">01</span>)</span>
+<span id="cb621-2"><a href="interpolation-and-extrapolation.html#cb621-2" tabindex="-1"></a>yy <span class="ot">&lt;-</span> <span class="fu">interp1</span>(x, y, <span class="at">xi =</span> xx, <span class="at">method =</span> <span class="fu">c</span>(<span class="st">&quot;constant&quot;</span>))</span>
+<span id="cb621-3"><a href="interpolation-and-extrapolation.html#cb621-3" tabindex="-1"></a>dat2<span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">cbind</span>(xx, yy))</span>
+<span id="cb621-4"><a href="interpolation-and-extrapolation.html#cb621-4" tabindex="-1"></a>pp <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb621-5"><a href="interpolation-and-extrapolation.html#cb621-5" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>dat,<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y),<span class="at">size=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&#39;blue&#39;</span>) <span class="sc">+</span></span>
+<span id="cb621-6"><a href="interpolation-and-extrapolation.html#cb621-6" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>dat2,<span class="fu">aes</span>(<span class="at">x=</span>xx,<span class="at">y=</span>yy))</span>
+<span id="cb621-7"><a href="interpolation-and-extrapolation.html#cb621-7" tabindex="-1"></a>pp</span></code></pre></div>
 <p><img src="11-0_Intro_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 </div>
 <div id="nearest-interpolation-assume-same-value-as-closest-observation" class="section level6 hasAnchor" number="11.2.2.3.1.3">
 <h6><span class="header-section-number">11.2.2.3.1.3</span> Nearest interpolation: assume same value as closest observation<a href="interpolation-and-extrapolation.html#nearest-interpolation-assume-same-value-as-closest-observation" class="anchor-section" aria-label="Anchor link to header"></a></h6>
-<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb619-1"><a href="interpolation-and-extrapolation.html#cb619-1" tabindex="-1"></a>xx <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">8</span>,.<span class="dv">01</span>)</span>
-<span id="cb619-2"><a href="interpolation-and-extrapolation.html#cb619-2" tabindex="-1"></a>yy <span class="ot">&lt;-</span> <span class="fu">interp1</span>(x, y, <span class="at">xi =</span> xx, <span class="at">method =</span> <span class="fu">c</span>(<span class="st">&quot;nearest&quot;</span>))</span>
-<span id="cb619-3"><a href="interpolation-and-extrapolation.html#cb619-3" tabindex="-1"></a>dat2<span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">cbind</span>(xx, yy))</span>
-<span id="cb619-4"><a href="interpolation-and-extrapolation.html#cb619-4" tabindex="-1"></a>pp <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb619-5"><a href="interpolation-and-extrapolation.html#cb619-5" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>dat,<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y),<span class="at">size=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&#39;blue&#39;</span>) <span class="sc">+</span></span>
-<span id="cb619-6"><a href="interpolation-and-extrapolation.html#cb619-6" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>dat2,<span class="fu">aes</span>(<span class="at">x=</span>xx,<span class="at">y=</span>yy))</span>
-<span id="cb619-7"><a href="interpolation-and-extrapolation.html#cb619-7" tabindex="-1"></a>pp</span></code></pre></div>
+<div class="sourceCode" id="cb622"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb622-1"><a href="interpolation-and-extrapolation.html#cb622-1" tabindex="-1"></a>xx <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">8</span>,.<span class="dv">01</span>)</span>
+<span id="cb622-2"><a href="interpolation-and-extrapolation.html#cb622-2" tabindex="-1"></a>yy <span class="ot">&lt;-</span> <span class="fu">interp1</span>(x, y, <span class="at">xi =</span> xx, <span class="at">method =</span> <span class="fu">c</span>(<span class="st">&quot;nearest&quot;</span>))</span>
+<span id="cb622-3"><a href="interpolation-and-extrapolation.html#cb622-3" tabindex="-1"></a>dat2<span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">cbind</span>(xx, yy))</span>
+<span id="cb622-4"><a href="interpolation-and-extrapolation.html#cb622-4" tabindex="-1"></a>pp <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb622-5"><a href="interpolation-and-extrapolation.html#cb622-5" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>dat,<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y),<span class="at">size=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&#39;blue&#39;</span>) <span class="sc">+</span></span>
+<span id="cb622-6"><a href="interpolation-and-extrapolation.html#cb622-6" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>dat2,<span class="fu">aes</span>(<span class="at">x=</span>xx,<span class="at">y=</span>yy))</span>
+<span id="cb622-7"><a href="interpolation-and-extrapolation.html#cb622-7" tabindex="-1"></a>pp</span></code></pre></div>
 <p><img src="11-0_Intro_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 </div>
 </div>
@@ -736,47 +737,47 @@ y = 7, 11, 28, 63</p>
 <li>minimize oscillations and reduce round-off error due to their lower-order nature.</li>
 </ul>
 <p>But they are not always perfect!</p>
-<div class="sourceCode" id="cb620"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb620-1"><a href="interpolation-and-extrapolation.html#cb620-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>,.<span class="dv">5</span>)</span>
-<span id="cb620-2"><a href="interpolation-and-extrapolation.html#cb620-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="dv">25</span><span class="sc">*</span>x<span class="sc">^</span><span class="dv">2</span>) <span class="co"># Runge&#39;s function</span></span>
-<span id="cb620-3"><a href="interpolation-and-extrapolation.html#cb620-3" tabindex="-1"></a></span>
-<span id="cb620-4"><a href="interpolation-and-extrapolation.html#cb620-4" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">poly_calc</span>(x,y)</span>
-<span id="cb620-5"><a href="interpolation-and-extrapolation.html#cb620-5" tabindex="-1"></a>xx <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>,.<span class="dv">01</span>)</span>
-<span id="cb620-6"><a href="interpolation-and-extrapolation.html#cb620-6" tabindex="-1"></a>yy <span class="ot">&lt;-</span> <span class="fu">a</span>(xx)</span>
-<span id="cb620-7"><a href="interpolation-and-extrapolation.html#cb620-7" tabindex="-1"></a>dat3<span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">cbind</span>(xx, yy))</span>
-<span id="cb620-8"><a href="interpolation-and-extrapolation.html#cb620-8" tabindex="-1"></a></span>
-<span id="cb620-9"><a href="interpolation-and-extrapolation.html#cb620-9" tabindex="-1"></a><span class="co"># When we plot Runge&#39;s function:</span></span>
-<span id="cb620-10"><a href="interpolation-and-extrapolation.html#cb620-10" tabindex="-1"></a></span>
-<span id="cb620-11"><a href="interpolation-and-extrapolation.html#cb620-11" tabindex="-1"></a>yyy <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="dv">25</span><span class="sc">*</span>xx<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb620-12"><a href="interpolation-and-extrapolation.html#cb620-12" tabindex="-1"></a>xxx <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>,.<span class="dv">01</span>)</span>
-<span id="cb620-13"><a href="interpolation-and-extrapolation.html#cb620-13" tabindex="-1"></a>dat4<span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">cbind</span>(xxx, yyy))</span>
-<span id="cb620-14"><a href="interpolation-and-extrapolation.html#cb620-14" tabindex="-1"></a></span>
-<span id="cb620-15"><a href="interpolation-and-extrapolation.html#cb620-15" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">cbind</span>(x, y))</span>
-<span id="cb620-16"><a href="interpolation-and-extrapolation.html#cb620-16" tabindex="-1"></a></span>
-<span id="cb620-17"><a href="interpolation-and-extrapolation.html#cb620-17" tabindex="-1"></a>pp <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb620-18"><a href="interpolation-and-extrapolation.html#cb620-18" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>dat,<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y),<span class="at">size=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&#39;blue&#39;</span>) <span class="sc">+</span></span>
-<span id="cb620-19"><a href="interpolation-and-extrapolation.html#cb620-19" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>dat3,<span class="fu">aes</span>(<span class="at">x=</span>xx,<span class="at">y=</span>yy),<span class="at">col=</span><span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
-<span id="cb620-20"><a href="interpolation-and-extrapolation.html#cb620-20" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>dat4,<span class="fu">aes</span>(<span class="at">x=</span>xxx,<span class="at">y=</span>yyy),<span class="at">col=</span><span class="st">&quot;black&quot;</span>)</span>
-<span id="cb620-21"><a href="interpolation-and-extrapolation.html#cb620-21" tabindex="-1"></a>pp</span></code></pre></div>
+<div class="sourceCode" id="cb623"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb623-1"><a href="interpolation-and-extrapolation.html#cb623-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>,.<span class="dv">5</span>)</span>
+<span id="cb623-2"><a href="interpolation-and-extrapolation.html#cb623-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="dv">25</span><span class="sc">*</span>x<span class="sc">^</span><span class="dv">2</span>) <span class="co"># Runge&#39;s function</span></span>
+<span id="cb623-3"><a href="interpolation-and-extrapolation.html#cb623-3" tabindex="-1"></a></span>
+<span id="cb623-4"><a href="interpolation-and-extrapolation.html#cb623-4" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">poly_calc</span>(x,y)</span>
+<span id="cb623-5"><a href="interpolation-and-extrapolation.html#cb623-5" tabindex="-1"></a>xx <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>,.<span class="dv">01</span>)</span>
+<span id="cb623-6"><a href="interpolation-and-extrapolation.html#cb623-6" tabindex="-1"></a>yy <span class="ot">&lt;-</span> <span class="fu">a</span>(xx)</span>
+<span id="cb623-7"><a href="interpolation-and-extrapolation.html#cb623-7" tabindex="-1"></a>dat3<span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">cbind</span>(xx, yy))</span>
+<span id="cb623-8"><a href="interpolation-and-extrapolation.html#cb623-8" tabindex="-1"></a></span>
+<span id="cb623-9"><a href="interpolation-and-extrapolation.html#cb623-9" tabindex="-1"></a><span class="co"># When we plot Runge&#39;s function:</span></span>
+<span id="cb623-10"><a href="interpolation-and-extrapolation.html#cb623-10" tabindex="-1"></a></span>
+<span id="cb623-11"><a href="interpolation-and-extrapolation.html#cb623-11" tabindex="-1"></a>yyy <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="dv">25</span><span class="sc">*</span>xx<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb623-12"><a href="interpolation-and-extrapolation.html#cb623-12" tabindex="-1"></a>xxx <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>,.<span class="dv">01</span>)</span>
+<span id="cb623-13"><a href="interpolation-and-extrapolation.html#cb623-13" tabindex="-1"></a>dat4<span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">cbind</span>(xxx, yyy))</span>
+<span id="cb623-14"><a href="interpolation-and-extrapolation.html#cb623-14" tabindex="-1"></a></span>
+<span id="cb623-15"><a href="interpolation-and-extrapolation.html#cb623-15" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">cbind</span>(x, y))</span>
+<span id="cb623-16"><a href="interpolation-and-extrapolation.html#cb623-16" tabindex="-1"></a></span>
+<span id="cb623-17"><a href="interpolation-and-extrapolation.html#cb623-17" tabindex="-1"></a>pp <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb623-18"><a href="interpolation-and-extrapolation.html#cb623-18" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>dat,<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y),<span class="at">size=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&#39;blue&#39;</span>) <span class="sc">+</span></span>
+<span id="cb623-19"><a href="interpolation-and-extrapolation.html#cb623-19" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>dat3,<span class="fu">aes</span>(<span class="at">x=</span>xx,<span class="at">y=</span>yy),<span class="at">col=</span><span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb623-20"><a href="interpolation-and-extrapolation.html#cb623-20" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>dat4,<span class="fu">aes</span>(<span class="at">x=</span>xxx,<span class="at">y=</span>yyy),<span class="at">col=</span><span class="st">&quot;black&quot;</span>)</span>
+<span id="cb623-21"><a href="interpolation-and-extrapolation.html#cb623-21" tabindex="-1"></a>pp</span></code></pre></div>
 <p><img src="11-0_Intro_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p>The black line is the true value from the function, the red line is from the interpolation using a polynomial. This illustrates the importance of being careful with higher order polynomials! If we use splines here the fit is a little better, but still has some oscillations.</p>
-<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb621-1"><a href="interpolation-and-extrapolation.html#cb621-1" tabindex="-1"></a>dat5 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> xx, <span class="at">y =</span> <span class="fu">interp1</span>(x, y, <span class="at">xi =</span> xx, <span class="at">method =</span> <span class="st">&quot;spline&quot;</span>))</span>
-<span id="cb621-2"><a href="interpolation-and-extrapolation.html#cb621-2" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb621-3"><a href="interpolation-and-extrapolation.html#cb621-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>dat,<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y),<span class="at">size=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&#39;blue&#39;</span>) <span class="sc">+</span></span>
-<span id="cb621-4"><a href="interpolation-and-extrapolation.html#cb621-4" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>dat3,<span class="fu">aes</span>(<span class="at">x=</span>xx,<span class="at">y=</span>yy),<span class="at">col=</span><span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
-<span id="cb621-5"><a href="interpolation-and-extrapolation.html#cb621-5" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>dat4,<span class="fu">aes</span>(<span class="at">x=</span>xxx,<span class="at">y=</span>yyy),<span class="at">col=</span><span class="st">&quot;black&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb621-6"><a href="interpolation-and-extrapolation.html#cb621-6" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> dat5, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y), <span class="at">col =</span> <span class="st">&quot;green&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb624"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb624-1"><a href="interpolation-and-extrapolation.html#cb624-1" tabindex="-1"></a>dat5 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> xx, <span class="at">y =</span> <span class="fu">interp1</span>(x, y, <span class="at">xi =</span> xx, <span class="at">method =</span> <span class="st">&quot;spline&quot;</span>))</span>
+<span id="cb624-2"><a href="interpolation-and-extrapolation.html#cb624-2" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb624-3"><a href="interpolation-and-extrapolation.html#cb624-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>dat,<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y),<span class="at">size=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&#39;blue&#39;</span>) <span class="sc">+</span></span>
+<span id="cb624-4"><a href="interpolation-and-extrapolation.html#cb624-4" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>dat3,<span class="fu">aes</span>(<span class="at">x=</span>xx,<span class="at">y=</span>yy),<span class="at">col=</span><span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb624-5"><a href="interpolation-and-extrapolation.html#cb624-5" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>dat4,<span class="fu">aes</span>(<span class="at">x=</span>xxx,<span class="at">y=</span>yyy),<span class="at">col=</span><span class="st">&quot;black&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb624-6"><a href="interpolation-and-extrapolation.html#cb624-6" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> dat5, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y), <span class="at">col =</span> <span class="st">&quot;green&quot;</span>)</span></code></pre></div>
 <p><img src="11-0_Intro_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>The best way to improve interpolation is to increase the amount of data you feed into the interpolation algorithm. If instead of using 5 points we use 9, the splines have a much better fit to the function the blue data points were pulled from.</p>
-<div class="sourceCode" id="cb622"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb622-1"><a href="interpolation-and-extrapolation.html#cb622-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>,.<span class="dv">25</span>)</span>
-<span id="cb622-2"><a href="interpolation-and-extrapolation.html#cb622-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="dv">25</span><span class="sc">*</span>x<span class="sc">^</span><span class="dv">2</span>) </span>
-<span id="cb622-3"><a href="interpolation-and-extrapolation.html#cb622-3" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(x, y)</span>
-<span id="cb622-4"><a href="interpolation-and-extrapolation.html#cb622-4" tabindex="-1"></a></span>
-<span id="cb622-5"><a href="interpolation-and-extrapolation.html#cb622-5" tabindex="-1"></a>dat6 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> xx, <span class="at">y =</span> <span class="fu">interp1</span>(x, y, <span class="at">xi =</span> xx, <span class="at">method =</span> <span class="st">&quot;spline&quot;</span>))</span>
-<span id="cb622-6"><a href="interpolation-and-extrapolation.html#cb622-6" tabindex="-1"></a></span>
-<span id="cb622-7"><a href="interpolation-and-extrapolation.html#cb622-7" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb622-8"><a href="interpolation-and-extrapolation.html#cb622-8" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>dat,<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y),<span class="at">size=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&#39;blue&#39;</span>) <span class="sc">+</span>  </span>
-<span id="cb622-9"><a href="interpolation-and-extrapolation.html#cb622-9" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>dat4,<span class="fu">aes</span>(<span class="at">x=</span>xxx,<span class="at">y=</span>yyy),<span class="at">col=</span><span class="st">&quot;black&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb622-10"><a href="interpolation-and-extrapolation.html#cb622-10" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> dat6, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y), <span class="at">col =</span> <span class="st">&quot;green&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb625"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb625-1"><a href="interpolation-and-extrapolation.html#cb625-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>,.<span class="dv">25</span>)</span>
+<span id="cb625-2"><a href="interpolation-and-extrapolation.html#cb625-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="dv">25</span><span class="sc">*</span>x<span class="sc">^</span><span class="dv">2</span>) </span>
+<span id="cb625-3"><a href="interpolation-and-extrapolation.html#cb625-3" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(x, y)</span>
+<span id="cb625-4"><a href="interpolation-and-extrapolation.html#cb625-4" tabindex="-1"></a></span>
+<span id="cb625-5"><a href="interpolation-and-extrapolation.html#cb625-5" tabindex="-1"></a>dat6 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> xx, <span class="at">y =</span> <span class="fu">interp1</span>(x, y, <span class="at">xi =</span> xx, <span class="at">method =</span> <span class="st">&quot;spline&quot;</span>))</span>
+<span id="cb625-6"><a href="interpolation-and-extrapolation.html#cb625-6" tabindex="-1"></a></span>
+<span id="cb625-7"><a href="interpolation-and-extrapolation.html#cb625-7" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb625-8"><a href="interpolation-and-extrapolation.html#cb625-8" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>dat,<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y),<span class="at">size=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&#39;blue&#39;</span>) <span class="sc">+</span>  </span>
+<span id="cb625-9"><a href="interpolation-and-extrapolation.html#cb625-9" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>dat4,<span class="fu">aes</span>(<span class="at">x=</span>xxx,<span class="at">y=</span>yyy),<span class="at">col=</span><span class="st">&quot;black&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb625-10"><a href="interpolation-and-extrapolation.html#cb625-10" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> dat6, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y), <span class="at">col =</span> <span class="st">&quot;green&quot;</span>)</span></code></pre></div>
 <p><img src="11-0_Intro_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 
 </div>
