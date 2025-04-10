@@ -29,7 +29,7 @@ library(rootSolve)
 
 ### Example 1
 
-Suppose you have a model that represents the velocity of a bungee jumper (v) that depends on the mass of the person (m), the drag force (cd), the time in free fall (t), and the gravitational constant (g). Medical studies have shown that if the velocity increases above 36 m/s after 4 seconds of free fall, the health risk to the jumper is elevated. What is the critical mass of a person given the following:
+Suppose you have a model that represents the velocity of a bungee jumper ($v$) that depends on the mass of the person ($m$), the drag force ($c_d$), the time in free fall ($t$), and the gravitational constant ($g$). Medical studies have shown that if the velocity increases above 36 m/s after 4 seconds of free fall, the health risk to the jumper is elevated. What is the critical mass of a person given the following:
 
 $$v(t) = \sqrt{\frac{gm}{c_d}} \tanh \left( t\sqrt{\frac{gc_d}{m}} \right)$$
 
@@ -60,8 +60,7 @@ Now we can set up this equation along with all of the variable and constant valu
 ##### Plot Equation
 
 ```{r example1}
-cd <- 0.25 # drag coefficient
-#TODO: change to c_d
+c_d <- 0.25 # drag coefficient
 g <- 9.81 # gravitational constant
 v <- 36 # velocity (m/s)
 t <- 4 # time (s)
@@ -70,15 +69,15 @@ mp <- seq(0,200) # mass predictions,
 # a range of values where the root might be. 
 # You might need to play with this range.
 
-f <- function(mp = 1,cd = 1,g = 9.8,v = 36,t = 4){ # all variables in the equation are arguments
-  sqrt(g*mp/cd)*tanh(sqrt(g*cd/mp)*t)-v # what the function does
+f <- function(mp = 1,c_d = 1,g = 9.8,v = 36,t = 4){ # all variables in the equation are arguments
+  sqrt(g*mp/c_d)*tanh(sqrt(g*c_d/mp)*t)-v # what the function does
   # by default our output is the result of the above line
 }
 
 f()
-f(mp = 147, cd = cd, g = g, v = v, t = t) 
+f(mp = 147, c_d = c_d, g = g, v = v, t = t) 
 
-plot(mp,f(mp,cd,g,v,t)) # plot our function f 
+plot(mp,f(mp,c_d,g,v,t)) # plot our function f 
 # these variables have already been defined
 
 ```
@@ -102,9 +101,9 @@ You can set `extendInt = "yes"` to extend the interval if you didn't see a root 
 Now we can use `uniroot` to solve.
 
 ```{r}
-(mass <- uniroot(f = f, interval = c(50,140), cd = cd, g = g, v = v, t = t, extendInt = "yes"))
-# cd, g, v, t are `... =` additional named or unnamed arguments to be passed 
-# to f. I've named cd and g, v and t are not named, so they need to be in the 
+(mass <- uniroot(f = f, interval = c(50,140), c_d = c_d, g = g, v = v, t = t, extendInt = "yes"))
+# c_d, g, v, t are `... =` additional named or unnamed arguments to be passed 
+# to f. I've named c_d and g, v and t are not named, so they need to be in the 
 # same order as our function definition in lines 45-47.
 ```
 
