@@ -30,7 +30,7 @@ Systems using Numerical Methods.</p>" />
 <meta name="author" content="R. Clay Wright" />
 
 
-<meta name="date" content="2025-04-10" />
+<meta name="date" content="2025-04-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -592,61 +592,61 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>First, we will simulate an experiment by drawing root length values from a random normal distribution for each genotype, and then compile these values we drew into a data frame. We will pick means and standard deviations for the normal distributions from thin-air for now. Feel free to come back later and change these values to see how differences in means and standard deviations will affect the outcomes.</p>
 <div id="experiment-1" class="section level3 hasAnchor" number="9.2.1">
 <h3><span class="header-section-number">9.2.1</span> Experiment 1<a href="intro-to-anova-and-non-linear-least-squares-regression.html#experiment-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb452-1" tabindex="-1"></a><span class="co"># Draw 3 measurements from a random normal distribution for each plant line</span></span>
-<span id="cb452-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb452-2" tabindex="-1"></a>WT <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">mean=</span><span class="dv">100</span>, <span class="at">sd=</span><span class="dv">10</span>) <span class="co"># WT genotype</span></span>
-<span id="cb452-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb452-3" tabindex="-1"></a>M1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">mean=</span><span class="dv">85</span>, <span class="at">sd=</span><span class="dv">10</span>)  <span class="co"># Single mutant in Gene 1</span></span>
-<span id="cb452-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb452-4" tabindex="-1"></a>M2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">mean=</span><span class="dv">85</span>, <span class="at">sd=</span><span class="dv">10</span>)  <span class="co"># Single mutant in Gene 2</span></span>
-<span id="cb452-5"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb452-5" tabindex="-1"></a>DM <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">mean=</span><span class="dv">70</span>, <span class="at">sd=</span><span class="dv">10</span>)  <span class="co"># Double mutant in Gene 1 and Gene 2</span></span>
-<span id="cb452-6"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb452-6" tabindex="-1"></a><span class="co"># Create a column of the simulated phenotype measurements that we randomly drew above</span></span>
-<span id="cb452-7"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb452-7" tabindex="-1"></a>Phen <span class="ot">&lt;-</span> <span class="fu">c</span>(WT, M1, M2, DM)</span></code></pre></div>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb456-1" tabindex="-1"></a><span class="co"># Draw 3 measurements from a random normal distribution for each plant line</span></span>
+<span id="cb456-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb456-2" tabindex="-1"></a>WT <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">mean=</span><span class="dv">100</span>, <span class="at">sd=</span><span class="dv">10</span>) <span class="co"># WT genotype</span></span>
+<span id="cb456-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb456-3" tabindex="-1"></a>M1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">mean=</span><span class="dv">85</span>, <span class="at">sd=</span><span class="dv">10</span>)  <span class="co"># Single mutant in Gene 1</span></span>
+<span id="cb456-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb456-4" tabindex="-1"></a>M2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">mean=</span><span class="dv">85</span>, <span class="at">sd=</span><span class="dv">10</span>)  <span class="co"># Single mutant in Gene 2</span></span>
+<span id="cb456-5"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb456-5" tabindex="-1"></a>DM <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">mean=</span><span class="dv">70</span>, <span class="at">sd=</span><span class="dv">10</span>)  <span class="co"># Double mutant in Gene 1 and Gene 2</span></span>
+<span id="cb456-6"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb456-6" tabindex="-1"></a><span class="co"># Create a column of the simulated phenotype measurements that we randomly drew above</span></span>
+<span id="cb456-7"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb456-7" tabindex="-1"></a>Phen <span class="ot">&lt;-</span> <span class="fu">c</span>(WT, M1, M2, DM)</span></code></pre></div>
 <p>Now we will create a dataframe with columns for the status of each gene, that this is the first experiment, and the measurement of phenotype. Then we will combine these columns with our root length measurements in a data frame.</p>
-<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb453-1" tabindex="-1"></a><span class="co"># Create a column for the genotype at gene 1</span></span>
-<span id="cb453-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb453-2" tabindex="-1"></a><span class="co"># 3 wild-types, 3 single mutants in Gene 1, 3 single mutants in Gene 2, 3 double mutants</span></span>
-<span id="cb453-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb453-3" tabindex="-1"></a>M1G <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;WT&quot;</span>, <span class="st">&quot;WT&quot;</span>, <span class="st">&quot;WT&quot;</span>, <span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M1&quot;</span>, <span class="st">&quot;WT&quot;</span>, <span class="st">&quot;WT&quot;</span>, <span class="st">&quot;WT&quot;</span>, <span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M1&quot;</span>)</span>
-<span id="cb453-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb453-4" tabindex="-1"></a><span class="co"># Create a column for the genotype at gene 2</span></span>
-<span id="cb453-5"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb453-5" tabindex="-1"></a>M2G <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;WT&quot;</span>, <span class="st">&quot;WT&quot;</span>, <span class="st">&quot;WT&quot;</span>, <span class="st">&quot;WT&quot;</span>, <span class="st">&quot;WT&quot;</span>, <span class="st">&quot;WT&quot;</span>, <span class="st">&quot;M2&quot;</span>, <span class="st">&quot;M2&quot;</span>, <span class="st">&quot;M2&quot;</span>, <span class="st">&quot;M2&quot;</span>, <span class="st">&quot;M2&quot;</span>, <span class="st">&quot;M2&quot;</span>) </span>
-<span id="cb453-6"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb453-6" tabindex="-1"></a><span class="co"># Create a column for the repeat of the experiment, as we will be repeating this process several times</span></span>
-<span id="cb453-7"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb453-7" tabindex="-1"></a>Exp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>)</span>
-<span id="cb453-8"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb453-8" tabindex="-1"></a></span>
-<span id="cb453-9"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb453-9" tabindex="-1"></a>Rep1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Exp,M1G,M2G,Phen)</span>
-<span id="cb453-10"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb453-10" tabindex="-1"></a>Rep1</span></code></pre></div>
+<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb457-1" tabindex="-1"></a><span class="co"># Create a column for the genotype at gene 1</span></span>
+<span id="cb457-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb457-2" tabindex="-1"></a><span class="co"># 3 wild-types, 3 single mutants in Gene 1, 3 single mutants in Gene 2, 3 double mutants</span></span>
+<span id="cb457-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb457-3" tabindex="-1"></a>M1G <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;WT&quot;</span>, <span class="st">&quot;WT&quot;</span>, <span class="st">&quot;WT&quot;</span>, <span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M1&quot;</span>, <span class="st">&quot;WT&quot;</span>, <span class="st">&quot;WT&quot;</span>, <span class="st">&quot;WT&quot;</span>, <span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M1&quot;</span>)</span>
+<span id="cb457-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb457-4" tabindex="-1"></a><span class="co"># Create a column for the genotype at gene 2</span></span>
+<span id="cb457-5"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb457-5" tabindex="-1"></a>M2G <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;WT&quot;</span>, <span class="st">&quot;WT&quot;</span>, <span class="st">&quot;WT&quot;</span>, <span class="st">&quot;WT&quot;</span>, <span class="st">&quot;WT&quot;</span>, <span class="st">&quot;WT&quot;</span>, <span class="st">&quot;M2&quot;</span>, <span class="st">&quot;M2&quot;</span>, <span class="st">&quot;M2&quot;</span>, <span class="st">&quot;M2&quot;</span>, <span class="st">&quot;M2&quot;</span>, <span class="st">&quot;M2&quot;</span>) </span>
+<span id="cb457-6"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb457-6" tabindex="-1"></a><span class="co"># Create a column for the repeat of the experiment, as we will be repeating this process several times</span></span>
+<span id="cb457-7"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb457-7" tabindex="-1"></a>Exp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>)</span>
+<span id="cb457-8"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb457-8" tabindex="-1"></a></span>
+<span id="cb457-9"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb457-9" tabindex="-1"></a>Rep1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Exp,M1G,M2G,Phen)</span>
+<span id="cb457-10"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb457-10" tabindex="-1"></a>Rep1</span></code></pre></div>
 <pre><code>##    Exp M1G M2G      Phen
-## 1    1  WT  WT  97.00454
-## 2    1  WT  WT  94.09658
-## 3    1  WT  WT 107.48118
-## 4    1  M1  WT 110.75681
-## 5    1  M1  WT  96.11884
-## 6    1  M1  WT  70.08427
-## 7    1  WT  M2  94.09559
-## 8    1  WT  M2  76.91098
-## 9    1  WT  M2  84.52561
-## 10   1  M1  M2  69.94291
-## 11   1  M1  M2  68.36913
-## 12   1  M1  M2  63.50410</code></pre>
+## 1    1  WT  WT 112.79005
+## 2    1  WT  WT 104.66525
+## 3    1  WT  WT  98.14137
+## 4    1  M1  WT  81.64885
+## 5    1  M1  WT  88.20238
+## 6    1  M1  WT  83.60468
+## 7    1  WT  M2  85.30517
+## 8    1  WT  M2  74.11627
+## 9    1  WT  M2  84.13589
+## 10   1  M1  M2  87.49359
+## 11   1  M1  M2  67.79492
+## 12   1  M1  M2  69.09042</code></pre>
 <p>Note that the values you drew will be different from those above and different from everyone else.
 Now we also need to convert each of these independent variables from strings to factors, as required by the ANOVA function.</p>
-<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb455-1" tabindex="-1"></a><span class="fu">class</span>(Rep1<span class="sc">$</span>M1G)</span></code></pre></div>
+<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb459-1" tabindex="-1"></a><span class="fu">class</span>(Rep1<span class="sc">$</span>M1G)</span></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
-<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb457-1" tabindex="-1"></a>Rep1<span class="sc">$</span>M1G <span class="ot">&lt;-</span> <span class="fu">factor</span>(Rep1<span class="sc">$</span>M1G) </span>
-<span id="cb457-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb457-2" tabindex="-1"></a>Rep1<span class="sc">$</span>M2G <span class="ot">&lt;-</span> <span class="fu">factor</span>(Rep1<span class="sc">$</span>M2G) </span>
-<span id="cb457-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb457-3" tabindex="-1"></a>Rep1<span class="sc">$</span>Exp <span class="ot">&lt;-</span> <span class="fu">factor</span>(Rep1<span class="sc">$</span>Exp)</span></code></pre></div>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb461-1" tabindex="-1"></a>Rep1<span class="sc">$</span>M1G <span class="ot">&lt;-</span> <span class="fu">factor</span>(Rep1<span class="sc">$</span>M1G) </span>
+<span id="cb461-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb461-2" tabindex="-1"></a>Rep1<span class="sc">$</span>M2G <span class="ot">&lt;-</span> <span class="fu">factor</span>(Rep1<span class="sc">$</span>M2G) </span>
+<span id="cb461-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb461-3" tabindex="-1"></a>Rep1<span class="sc">$</span>Exp <span class="ot">&lt;-</span> <span class="fu">factor</span>(Rep1<span class="sc">$</span>Exp)</span></code></pre></div>
 <p>Now that we have our data frame set up we can visualize our data and test our hypothesis.</p>
 <p>First, let’s plot these data to get an idea of what they look like</p>
-<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb458-1" tabindex="-1"></a><span class="co">#install a package from CRAN </span></span>
-<span id="cb458-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb458-2" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;ggplot2&#39;</span>)</span>
-<span id="cb458-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb458-3" tabindex="-1"></a></span>
-<span id="cb458-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb458-4" tabindex="-1"></a></span>
-<span id="cb458-5"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb458-5" tabindex="-1"></a><span class="co">#we will also need the &#39;magrittr&#39;, ‘dplyr’, &#39;forcats&#39;, &#39;car&#39;, &#39;agricolae&#39;, and &#39;plyr&#39; packages later on</span></span>
-<span id="cb458-6"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb458-6" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;magrittr&#39;</span>)</span>
-<span id="cb458-7"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb458-7" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;dplyr&#39;</span>)</span>
-<span id="cb458-8"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb458-8" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;forcats&quot;</span>)</span>
-<span id="cb458-9"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb458-9" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;car&quot;</span>)</span>
-<span id="cb458-10"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb458-10" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;agricolae&quot;</span>)</span>
-<span id="cb458-11"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb458-11" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;plyr&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb462-1" tabindex="-1"></a><span class="co">#install a package from CRAN </span></span>
+<span id="cb462-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb462-2" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;ggplot2&#39;</span>)</span>
+<span id="cb462-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb462-3" tabindex="-1"></a></span>
+<span id="cb462-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb462-4" tabindex="-1"></a></span>
+<span id="cb462-5"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb462-5" tabindex="-1"></a><span class="co">#we will also need the &#39;magrittr&#39;, ‘dplyr’, &#39;forcats&#39;, &#39;car&#39;, &#39;agricolae&#39;, and &#39;plyr&#39; packages later on</span></span>
+<span id="cb462-6"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb462-6" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;magrittr&#39;</span>)</span>
+<span id="cb462-7"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb462-7" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;dplyr&#39;</span>)</span>
+<span id="cb462-8"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb462-8" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;forcats&quot;</span>)</span>
+<span id="cb462-9"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb462-9" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;car&quot;</span>)</span>
+<span id="cb462-10"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb462-10" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;agricolae&quot;</span>)</span>
+<span id="cb462-11"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb462-11" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;plyr&quot;</span>)</span></code></pre></div>
 <p>Let’s explore this data a bit using the <code>qplot</code> function.</p>
-<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb459-1" tabindex="-1"></a><span class="co">#before using any package we must load it into our workspace</span></span>
-<span id="cb459-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb459-2" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;ggplot2&#39;</span>)</span>
-<span id="cb459-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb459-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> Rep1, <span class="at">mapping  =</span> <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">interaction</span>(M1G, M2G), <span class="at">y =</span> Phen, <span class="at">color =</span> <span class="fu">interaction</span>(M1G, M2G))) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb463-1" tabindex="-1"></a><span class="co">#before using any package we must load it into our workspace</span></span>
+<span id="cb463-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb463-2" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;ggplot2&#39;</span>)</span>
+<span id="cb463-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb463-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> Rep1, <span class="at">mapping  =</span> <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">interaction</span>(M1G, M2G), <span class="at">y =</span> Phen, <span class="at">color =</span> <span class="fu">interaction</span>(M1G, M2G))) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="09-0_intro_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <hr />
 <p>#####???Question???<br />
@@ -663,13 +663,13 @@ What can we say about this data? Write a quick summary of this graph and formula
 <p><span class="math display">\[\frac{variance\ between}{variance\ within} = \frac{systematic\ variance}{error\ variance}\]</span></p>
 <p>Let’s visually explore this ANOVA idea a bit.
 For each genotype we can calculate the mean phenotype and the variance around the mean. These is the “within” group variance. We’ll add means and standard error to this plot using the <code>stat_summary</code> function to represent “within” variance. We can use the <code>alpha</code> aesthetic to change the saturation of the colors to make the mean stand out a bit more and hide the raw data somewhat. We can also use the <code>geom</code> argument <code>jitter</code> in the qplot function to prevent the mean and standard error from being plotted overtop of the raw data.</p>
-<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb460-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> Rep1, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">interaction</span>(M1G, M2G), <span class="at">y =</span> Phen, <span class="at">color =</span> <span class="fu">interaction</span>(M1G, M2G))) <span class="sc">+</span> </span>
-<span id="cb460-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb460-2" tabindex="-1"></a>  <span class="fu">geom_jitter</span>( <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb460-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb460-3" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">alpha =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb464-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> Rep1, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">interaction</span>(M1G, M2G), <span class="at">y =</span> Phen, <span class="at">color =</span> <span class="fu">interaction</span>(M1G, M2G))) <span class="sc">+</span> </span>
+<span id="cb464-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb464-2" tabindex="-1"></a>  <span class="fu">geom_jitter</span>( <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb464-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb464-3" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">alpha =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p><img src="09-0_intro_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p>The “between” group mean and variance is calculated using the mean for each group. Here, we’ll split up our data frame <code>Rep1</code> into groups by the experiment, genotype at gene1, and genotype at gene2. Then we will calculate the mean for each of these groups. To do this we will use the <code>dplyr</code> package. We will also use the pipe function <code>%&gt;%</code> from the <code>magrittr</code> package. The pipe function passes the result of the code on the left side to the first argument of the code on the right side.</p>
-<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb461-1" tabindex="-1"></a><span class="co"># Load the necessary packages </span></span>
-<span id="cb461-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb461-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb465-1" tabindex="-1"></a><span class="co"># Load the necessary packages </span></span>
+<span id="cb465-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb465-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
 <pre><code>## 
 ## Attaching package: &#39;dplyr&#39;</code></pre>
 <pre><code>## The following objects are masked from &#39;package:stats&#39;:
@@ -678,39 +678,39 @@ For each genotype we can calculate the mean phenotype and the variance around th
 <pre><code>## The following objects are masked from &#39;package:base&#39;:
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
-<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb465-1" tabindex="-1"></a><span class="co"># library(magrittr) no longer necessary </span></span>
-<span id="cb465-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb465-2" tabindex="-1"></a><span class="co"># Take the Rep1 dataset and split it into groups</span></span>
-<span id="cb465-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb465-3" tabindex="-1"></a>Rep1 <span class="sc">|&gt;</span> <span class="fu">group_by</span>(Exp, M1G, M2G) <span class="sc">|&gt;</span></span>
-<span id="cb465-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb465-4" tabindex="-1"></a><span class="co"># Note that we don&#39;t need to use quotes with functions from the dplyr package</span></span>
-<span id="cb465-5"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb465-5" tabindex="-1"></a><span class="co"># Technically each of Exp, M1G, and M2G are passed to the &quot;...&quot; argument of the group_by function</span></span>
-<span id="cb465-6"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb465-6" tabindex="-1"></a><span class="co"># We added a pipe function to the end of this line so we can pass these groups to the `summarise` function to calculation the mean of each group</span></span>
-<span id="cb465-7"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb465-7" tabindex="-1"></a><span class="co"># We can then use the right arrow to assign this new data frame of the means to an object</span></span>
-<span id="cb465-8"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb465-8" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Phen =</span> <span class="fu">mean</span>(Phen)) <span class="ot">-&gt;</span> means</span></code></pre></div>
+<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb469-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb469-1" tabindex="-1"></a><span class="co"># library(magrittr) no longer necessary </span></span>
+<span id="cb469-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb469-2" tabindex="-1"></a><span class="co"># Take the Rep1 dataset and split it into groups</span></span>
+<span id="cb469-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb469-3" tabindex="-1"></a>Rep1 <span class="sc">|&gt;</span> <span class="fu">group_by</span>(Exp, M1G, M2G) <span class="sc">|&gt;</span></span>
+<span id="cb469-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb469-4" tabindex="-1"></a><span class="co"># Note that we don&#39;t need to use quotes with functions from the dplyr package</span></span>
+<span id="cb469-5"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb469-5" tabindex="-1"></a><span class="co"># Technically each of Exp, M1G, and M2G are passed to the &quot;...&quot; argument of the group_by function</span></span>
+<span id="cb469-6"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb469-6" tabindex="-1"></a><span class="co"># We added a pipe function to the end of this line so we can pass these groups to the `summarise` function to calculation the mean of each group</span></span>
+<span id="cb469-7"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb469-7" tabindex="-1"></a><span class="co"># We can then use the right arrow to assign this new data frame of the means to an object</span></span>
+<span id="cb469-8"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb469-8" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Phen =</span> <span class="fu">mean</span>(Phen)) <span class="ot">-&gt;</span> means</span></code></pre></div>
 <pre><code>## `summarise()` has grouped output by &#39;Exp&#39;, &#39;M1G&#39;. You can override using the
 ## `.groups` argument.</code></pre>
-<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb467-1" tabindex="-1"></a>means<span class="sc">$</span>M1G <span class="ot">&lt;-</span> <span class="st">&quot;mean&quot;</span></span>
-<span id="cb467-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb467-2" tabindex="-1"></a>means<span class="sc">$</span>M2G <span class="ot">&lt;-</span> <span class="st">&quot;mean&quot;</span></span>
-<span id="cb467-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb467-3" tabindex="-1"></a><span class="co"># Create a new data frame with the mean rows combined with our data</span></span>
-<span id="cb467-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb467-4" tabindex="-1"></a>Rep1means <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(Rep1, means)</span>
-<span id="cb467-5"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb467-5" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> Rep1means, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">interaction</span>(M1G, M2G), <span class="at">y =</span> Phen, <span class="at">color =</span> <span class="fu">interaction</span>(M1G, M2G))) <span class="sc">+</span> </span>
-<span id="cb467-6"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb467-6" tabindex="-1"></a>         <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb467-7"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb467-7" tabindex="-1"></a>         <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">alpha =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb471-1" tabindex="-1"></a>means<span class="sc">$</span>M1G <span class="ot">&lt;-</span> <span class="st">&quot;mean&quot;</span></span>
+<span id="cb471-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb471-2" tabindex="-1"></a>means<span class="sc">$</span>M2G <span class="ot">&lt;-</span> <span class="st">&quot;mean&quot;</span></span>
+<span id="cb471-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb471-3" tabindex="-1"></a><span class="co"># Create a new data frame with the mean rows combined with our data</span></span>
+<span id="cb471-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb471-4" tabindex="-1"></a>Rep1means <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(Rep1, means)</span>
+<span id="cb471-5"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb471-5" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> Rep1means, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">interaction</span>(M1G, M2G), <span class="at">y =</span> Phen, <span class="at">color =</span> <span class="fu">interaction</span>(M1G, M2G))) <span class="sc">+</span> </span>
+<span id="cb471-6"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb471-6" tabindex="-1"></a>         <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb471-7"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb471-7" tabindex="-1"></a>         <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">alpha =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p><img src="09-0_intro_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>So now the mean.mean column contains four points representing the means of the four groups. The mean of these means, called the grand mean, is represented by the large point and the variance of the group means about the grand mean represents the between groups variance, but here we’ve used the <code>mean_se</code> function to calculate standard error. The true value of the variance is the difference between each data point and the mean. We can write our own function to calculate the true variance. Don’t get bogged down in the code here (unless you want to :), just pay attention to the graphs. We can also use the <code>forcats</code> package to move the mean.mean column to the end of the graph and relabel each of the columns. In general the forcats package has functions that allow us to arrange factors (forcats is a rearrangement of factor, haha!). Let’s also clean up the axis labels by adding <code>labs</code> to the plot.</p>
-<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb468-1" tabindex="-1"></a><span class="fu">library</span>(forcats)</span>
-<span id="cb468-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb468-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> Rep1means, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_recode</span>(<span class="fu">fct_relevel</span>(<span class="fu">fct_rev</span>(<span class="fu">interaction</span>(M1G, M2G)), <span class="st">&quot;mean.mean&quot;</span>, <span class="at">after =</span> <span class="cn">Inf</span>),</span>
-<span id="cb468-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb468-3" tabindex="-1"></a>                                                      <span class="at">double =</span> <span class="st">&quot;M1.M2&quot;</span>, <span class="at">mut2 =</span> <span class="st">&quot;WT.M2&quot;</span>, <span class="at">mut1 =</span> <span class="st">&quot;M1.WT&quot;</span>, </span>
-<span id="cb468-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb468-4" tabindex="-1"></a>                                                      <span class="at">WT =</span> <span class="st">&quot;WT.WT&quot;</span>, <span class="at">grand_means =</span> <span class="st">&quot;mean.mean&quot;</span>), </span>
-<span id="cb468-5"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb468-5" tabindex="-1"></a>                                       <span class="at">y =</span> Phen,</span>
-<span id="cb468-6"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb468-6" tabindex="-1"></a>                                       <span class="at">color =</span> <span class="fu">interaction</span>(M1G, M2G))) <span class="sc">+</span> </span>
-<span id="cb468-7"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb468-7" tabindex="-1"></a>         <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb468-8"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb468-8" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="cf">function</span>(y){</span>
-<span id="cb468-9"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb468-9" tabindex="-1"></a>    <span class="fu">data.frame</span>(</span>
-<span id="cb468-10"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb468-10" tabindex="-1"></a>      <span class="at">ymin =</span> <span class="fu">mean</span>(y) <span class="sc">-</span> <span class="fu">sum</span>(<span class="fu">mean</span>(y) <span class="sc">-</span> y[<span class="fu">which</span>(y<span class="sc">&lt;</span><span class="fu">mean</span>(y))]),</span>
-<span id="cb468-11"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb468-11" tabindex="-1"></a>      <span class="at">y =</span> <span class="fu">mean</span>(y),</span>
-<span id="cb468-12"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb468-12" tabindex="-1"></a>      <span class="at">ymax =</span> <span class="fu">mean</span>(y) <span class="sc">+</span> <span class="fu">sum</span>(y[<span class="fu">which</span>(y<span class="sc">&gt;</span><span class="fu">mean</span>(y))] <span class="sc">-</span> <span class="fu">mean</span>(y)))</span>
-<span id="cb468-13"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb468-13" tabindex="-1"></a>    }, <span class="at">alpha =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
-<span id="cb468-14"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb468-14" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;genotype&quot;</span>, <span class="at">y =</span> <span class="st">&quot;root length (mm)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb472-1" tabindex="-1"></a><span class="fu">library</span>(forcats)</span>
+<span id="cb472-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb472-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> Rep1means, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_recode</span>(<span class="fu">fct_relevel</span>(<span class="fu">fct_rev</span>(<span class="fu">interaction</span>(M1G, M2G)), <span class="st">&quot;mean.mean&quot;</span>, <span class="at">after =</span> <span class="cn">Inf</span>),</span>
+<span id="cb472-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb472-3" tabindex="-1"></a>                                                      <span class="at">double =</span> <span class="st">&quot;M1.M2&quot;</span>, <span class="at">mut2 =</span> <span class="st">&quot;WT.M2&quot;</span>, <span class="at">mut1 =</span> <span class="st">&quot;M1.WT&quot;</span>, </span>
+<span id="cb472-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb472-4" tabindex="-1"></a>                                                      <span class="at">WT =</span> <span class="st">&quot;WT.WT&quot;</span>, <span class="at">grand_means =</span> <span class="st">&quot;mean.mean&quot;</span>), </span>
+<span id="cb472-5"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb472-5" tabindex="-1"></a>                                       <span class="at">y =</span> Phen,</span>
+<span id="cb472-6"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb472-6" tabindex="-1"></a>                                       <span class="at">color =</span> <span class="fu">interaction</span>(M1G, M2G))) <span class="sc">+</span> </span>
+<span id="cb472-7"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb472-7" tabindex="-1"></a>         <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb472-8"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb472-8" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="cf">function</span>(y){</span>
+<span id="cb472-9"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb472-9" tabindex="-1"></a>    <span class="fu">data.frame</span>(</span>
+<span id="cb472-10"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb472-10" tabindex="-1"></a>      <span class="at">ymin =</span> <span class="fu">mean</span>(y) <span class="sc">-</span> <span class="fu">sum</span>(<span class="fu">mean</span>(y) <span class="sc">-</span> y[<span class="fu">which</span>(y<span class="sc">&lt;</span><span class="fu">mean</span>(y))]),</span>
+<span id="cb472-11"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb472-11" tabindex="-1"></a>      <span class="at">y =</span> <span class="fu">mean</span>(y),</span>
+<span id="cb472-12"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb472-12" tabindex="-1"></a>      <span class="at">ymax =</span> <span class="fu">mean</span>(y) <span class="sc">+</span> <span class="fu">sum</span>(y[<span class="fu">which</span>(y<span class="sc">&gt;</span><span class="fu">mean</span>(y))] <span class="sc">-</span> <span class="fu">mean</span>(y)))</span>
+<span id="cb472-13"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb472-13" tabindex="-1"></a>    }, <span class="at">alpha =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb472-14"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb472-14" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;genotype&quot;</span>, <span class="at">y =</span> <span class="st">&quot;root length (mm)&quot;</span>)</span></code></pre></div>
 <p><img src="09-0_intro_files/figure-html/unnamed-chunk-8-1.png" width="672" />
 Now we have a pretty graph showing the mean and variance for each genotype (the first four columns) as well as the grand mean and variance (the last column).</p>
 <hr />
@@ -734,14 +734,14 @@ What is the dependent variable in our simulated experiment? This is also known a
 <p><span class="math display">\[Phen \sim M1G + M2G + M1G:M2G\]</span></p>
 <p>This is called a general linear model. This should remind you of a linear regression analysis from way back in Algebra II. We have written out an equation that we think should fit our data. ANOVA assigns the deviation or error between our model and our data into groups based on the predictors. It does this by comparing the variance between groups of predictors to the variance within groups of predictors.</p>
 <p>Now that we have our model formulated, let’s set this up in the ANOVA framework in R to finally get an answer to our question: “Are these genes interacting to regulate to root length?”</p>
-<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb469-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb469-1" tabindex="-1"></a>?aov</span>
-<span id="cb469-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb469-2" tabindex="-1"></a>Exp1 <span class="ot">&lt;-</span> <span class="fu">aov</span>(Phen <span class="sc">~</span> M1G <span class="sc">+</span> M2G <span class="sc">+</span> M1G<span class="sc">:</span>M2G , <span class="at">data=</span>Rep1) </span>
-<span id="cb469-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb469-3" tabindex="-1"></a><span class="fu">summary</span>(Exp1)</span></code></pre></div>
-<pre><code>##             Df Sum Sq Mean Sq F value Pr(&gt;F)  
-## M1G          1  473.0   473.0   3.382 0.1032  
-## M2G          1 1164.1  1164.1   8.325 0.0203 *
-## M1G:M2G      1   85.8    85.8   0.614 0.4559  
-## Residuals    8 1118.7   139.8                 
+<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb473-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb473-1" tabindex="-1"></a>?aov</span>
+<span id="cb473-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb473-2" tabindex="-1"></a>Exp1 <span class="ot">&lt;-</span> <span class="fu">aov</span>(Phen <span class="sc">~</span> M1G <span class="sc">+</span> M2G <span class="sc">+</span> M1G<span class="sc">:</span>M2G , <span class="at">data=</span>Rep1) </span>
+<span id="cb473-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb473-3" tabindex="-1"></a><span class="fu">summary</span>(Exp1)</span></code></pre></div>
+<pre><code>##             Df Sum Sq Mean Sq F value  Pr(&gt;F)   
+## M1G          1  551.1   551.1   9.823 0.01393 * 
+## M2G          1  852.0   852.0  15.188 0.00456 **
+## M1G:M2G      1  153.8   153.8   2.742 0.13635   
+## Residuals    8  448.8    56.1                   
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>So what does this summary tell us? <code>Sum Sq</code> stands for sum of squares. This is the sum of the squared deviation between the groups of the variable. <code>Mean Sq</code> is <code>Sum Sq</code> divided by the degrees of freedom or <code>Df</code> in that variable and is essentially the variance of that variable. The degrees of freedom are the number of groups for that variable minus one. <code>Residuals</code> is the total within groups variance.</p>
@@ -750,25 +750,25 @@ What is the dependent variable in our simulated experiment? This is also known a
 <p>Chances are with this first small experiment you don’t have enough data to say anything significant about the interaction between gene1 and gene2 (i.e. we don’t have enough evidence to reject the null hypothesis).</p>
 <p>Let’s repeat the experiment!</p>
 <p>##Experiment 2</p>
-<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb471-1" tabindex="-1"></a>WT <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">3</span>, <span class="at">mean=</span><span class="dv">100</span>, <span class="at">sd=</span><span class="dv">10</span>)</span>
-<span id="cb471-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb471-2" tabindex="-1"></a>M1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">3</span>, <span class="at">mean=</span><span class="dv">85</span>, <span class="at">sd=</span><span class="dv">10</span>)</span>
-<span id="cb471-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb471-3" tabindex="-1"></a>M2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">3</span>, <span class="at">mean=</span><span class="dv">85</span>, <span class="at">sd=</span><span class="dv">10</span>)</span>
-<span id="cb471-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb471-4" tabindex="-1"></a>DM <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">3</span>, <span class="at">mean=</span><span class="dv">70</span>, <span class="at">sd=</span><span class="dv">10</span>)</span>
-<span id="cb471-5"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb471-5" tabindex="-1"></a>Exp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;2&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;2&quot;</span>) </span>
-<span id="cb471-6"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb471-6" tabindex="-1"></a>Phen <span class="ot">&lt;-</span> <span class="fu">c</span>(WT, M1, M2, DM)</span>
-<span id="cb471-7"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb471-7" tabindex="-1"></a></span>
-<span id="cb471-8"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb471-8" tabindex="-1"></a>Rep2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Exp,M1G,M2G,Phen) </span>
-<span id="cb471-9"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb471-9" tabindex="-1"></a>Rep2<span class="sc">$</span>M1G <span class="ot">&lt;-</span> <span class="fu">factor</span>(Rep2<span class="sc">$</span>M1G) </span>
-<span id="cb471-10"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb471-10" tabindex="-1"></a>Rep2<span class="sc">$</span>M2G <span class="ot">&lt;-</span> <span class="fu">factor</span>(Rep2<span class="sc">$</span>M2G) </span>
-<span id="cb471-11"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb471-11" tabindex="-1"></a>Rep2<span class="sc">$</span>Exp <span class="ot">&lt;-</span> <span class="fu">factor</span>(Rep2<span class="sc">$</span>Exp)</span></code></pre></div>
+<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb475-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb475-1" tabindex="-1"></a>WT <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">3</span>, <span class="at">mean=</span><span class="dv">100</span>, <span class="at">sd=</span><span class="dv">10</span>)</span>
+<span id="cb475-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb475-2" tabindex="-1"></a>M1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">3</span>, <span class="at">mean=</span><span class="dv">85</span>, <span class="at">sd=</span><span class="dv">10</span>)</span>
+<span id="cb475-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb475-3" tabindex="-1"></a>M2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">3</span>, <span class="at">mean=</span><span class="dv">85</span>, <span class="at">sd=</span><span class="dv">10</span>)</span>
+<span id="cb475-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb475-4" tabindex="-1"></a>DM <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">3</span>, <span class="at">mean=</span><span class="dv">70</span>, <span class="at">sd=</span><span class="dv">10</span>)</span>
+<span id="cb475-5"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb475-5" tabindex="-1"></a>Exp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;2&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;2&quot;</span>) </span>
+<span id="cb475-6"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb475-6" tabindex="-1"></a>Phen <span class="ot">&lt;-</span> <span class="fu">c</span>(WT, M1, M2, DM)</span>
+<span id="cb475-7"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb475-7" tabindex="-1"></a></span>
+<span id="cb475-8"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb475-8" tabindex="-1"></a>Rep2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Exp,M1G,M2G,Phen) </span>
+<span id="cb475-9"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb475-9" tabindex="-1"></a>Rep2<span class="sc">$</span>M1G <span class="ot">&lt;-</span> <span class="fu">factor</span>(Rep2<span class="sc">$</span>M1G) </span>
+<span id="cb475-10"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb475-10" tabindex="-1"></a>Rep2<span class="sc">$</span>M2G <span class="ot">&lt;-</span> <span class="fu">factor</span>(Rep2<span class="sc">$</span>M2G) </span>
+<span id="cb475-11"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb475-11" tabindex="-1"></a>Rep2<span class="sc">$</span>Exp <span class="ot">&lt;-</span> <span class="fu">factor</span>(Rep2<span class="sc">$</span>Exp)</span></code></pre></div>
 <p>ANOVA analysis for trial 2</p>
-<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb472-1" tabindex="-1"></a>Exp2 <span class="ot">&lt;-</span> <span class="fu">aov</span>(Phen <span class="sc">~</span> M1G <span class="sc">+</span> M2G <span class="sc">+</span> M1G<span class="sc">:</span>M2G , <span class="at">data=</span>Rep2) </span>
-<span id="cb472-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb472-2" tabindex="-1"></a><span class="fu">summary</span>(Exp2)</span></code></pre></div>
-<pre><code>##             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
-## M1G          1 1757.1  1757.1  42.294 0.000187 ***
-## M2G          1  713.9   713.9  17.184 0.003230 ** 
-## M1G:M2G      1   54.0    54.0   1.299 0.287327    
-## Residuals    8  332.4    41.5                     
+<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb476-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb476-1" tabindex="-1"></a>Exp2 <span class="ot">&lt;-</span> <span class="fu">aov</span>(Phen <span class="sc">~</span> M1G <span class="sc">+</span> M2G <span class="sc">+</span> M1G<span class="sc">:</span>M2G , <span class="at">data=</span>Rep2) </span>
+<span id="cb476-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb476-2" tabindex="-1"></a><span class="fu">summary</span>(Exp2)</span></code></pre></div>
+<pre><code>##             Df Sum Sq Mean Sq F value  Pr(&gt;F)   
+## M1G          1 1436.0  1436.0  16.642 0.00354 **
+## M2G          1  400.7   400.7   4.644 0.06329 . 
+## M1G:M2G      1  100.8   100.8   1.168 0.31138   
+## Residuals    8  690.3    86.3                   
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <hr />
@@ -778,56 +778,56 @@ What can you conclude from this experiment?
 <hr />
 <p>Because all good things come in threes, and the conclusions likely differ between experiments, let’s repeat the experiment a third time.</p>
 <p>##Experiment 3</p>
-<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb474-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb474-1" tabindex="-1"></a>WT <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">3</span>, <span class="at">mean=</span><span class="dv">100</span>, <span class="at">sd=</span><span class="dv">10</span>)</span>
-<span id="cb474-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb474-2" tabindex="-1"></a>M1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">3</span>, <span class="at">mean=</span><span class="dv">85</span>, <span class="at">sd=</span><span class="dv">10</span>)</span>
-<span id="cb474-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb474-3" tabindex="-1"></a>M2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">3</span>, <span class="at">mean=</span><span class="dv">85</span>, <span class="at">sd=</span><span class="dv">10</span>)</span>
-<span id="cb474-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb474-4" tabindex="-1"></a>DM <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">3</span>, <span class="at">mean=</span><span class="dv">70</span>, <span class="at">sd=</span><span class="dv">10</span>)</span>
-<span id="cb474-5"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb474-5" tabindex="-1"></a>Exp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;3&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;3&quot;</span>) </span>
-<span id="cb474-6"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb474-6" tabindex="-1"></a>Phen <span class="ot">&lt;-</span> <span class="fu">c</span>(WT, M1, M2, DM)</span>
-<span id="cb474-7"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb474-7" tabindex="-1"></a></span>
-<span id="cb474-8"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb474-8" tabindex="-1"></a>Rep3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Exp,M1G,M2G,Phen) </span>
-<span id="cb474-9"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb474-9" tabindex="-1"></a>Rep3<span class="sc">$</span>M1G <span class="ot">&lt;-</span> <span class="fu">factor</span>(Rep3<span class="sc">$</span>M1G) </span>
-<span id="cb474-10"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb474-10" tabindex="-1"></a>Rep3<span class="sc">$</span>M2G <span class="ot">&lt;-</span> <span class="fu">factor</span>(Rep3<span class="sc">$</span>M2G) </span>
-<span id="cb474-11"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb474-11" tabindex="-1"></a>Rep3<span class="sc">$</span>Exp <span class="ot">&lt;-</span> <span class="fu">factor</span>(Rep3<span class="sc">$</span>Exp)</span></code></pre></div>
+<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb478-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb478-1" tabindex="-1"></a>WT <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">3</span>, <span class="at">mean=</span><span class="dv">100</span>, <span class="at">sd=</span><span class="dv">10</span>)</span>
+<span id="cb478-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb478-2" tabindex="-1"></a>M1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">3</span>, <span class="at">mean=</span><span class="dv">85</span>, <span class="at">sd=</span><span class="dv">10</span>)</span>
+<span id="cb478-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb478-3" tabindex="-1"></a>M2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">3</span>, <span class="at">mean=</span><span class="dv">85</span>, <span class="at">sd=</span><span class="dv">10</span>)</span>
+<span id="cb478-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb478-4" tabindex="-1"></a>DM <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">3</span>, <span class="at">mean=</span><span class="dv">70</span>, <span class="at">sd=</span><span class="dv">10</span>)</span>
+<span id="cb478-5"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb478-5" tabindex="-1"></a>Exp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;3&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;3&quot;</span>) </span>
+<span id="cb478-6"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb478-6" tabindex="-1"></a>Phen <span class="ot">&lt;-</span> <span class="fu">c</span>(WT, M1, M2, DM)</span>
+<span id="cb478-7"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb478-7" tabindex="-1"></a></span>
+<span id="cb478-8"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb478-8" tabindex="-1"></a>Rep3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Exp,M1G,M2G,Phen) </span>
+<span id="cb478-9"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb478-9" tabindex="-1"></a>Rep3<span class="sc">$</span>M1G <span class="ot">&lt;-</span> <span class="fu">factor</span>(Rep3<span class="sc">$</span>M1G) </span>
+<span id="cb478-10"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb478-10" tabindex="-1"></a>Rep3<span class="sc">$</span>M2G <span class="ot">&lt;-</span> <span class="fu">factor</span>(Rep3<span class="sc">$</span>M2G) </span>
+<span id="cb478-11"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb478-11" tabindex="-1"></a>Rep3<span class="sc">$</span>Exp <span class="ot">&lt;-</span> <span class="fu">factor</span>(Rep3<span class="sc">$</span>Exp)</span></code></pre></div>
 <p>ANOVA analysis for trial 3</p>
-<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb475-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb475-1" tabindex="-1"></a>Exp3 <span class="ot">&lt;-</span> <span class="fu">aov</span>(Phen <span class="sc">~</span> M1G <span class="sc">+</span> M2G <span class="sc">+</span> M1G<span class="sc">:</span>M2G , <span class="at">data=</span>Rep3) </span>
-<span id="cb475-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb475-2" tabindex="-1"></a><span class="fu">summary</span>(Exp3)</span></code></pre></div>
-<pre><code>##             Df Sum Sq Mean Sq F value Pr(&gt;F)  
-## M1G          1  984.5   984.5   7.029 0.0292 *
-## M2G          1  873.1   873.1   6.234 0.0371 *
-## M1G:M2G      1  177.9   177.9   1.270 0.2924  
-## Residuals    8 1120.5   140.1                 
+<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb479-1" tabindex="-1"></a>Exp3 <span class="ot">&lt;-</span> <span class="fu">aov</span>(Phen <span class="sc">~</span> M1G <span class="sc">+</span> M2G <span class="sc">+</span> M1G<span class="sc">:</span>M2G , <span class="at">data=</span>Rep3) </span>
+<span id="cb479-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb479-2" tabindex="-1"></a><span class="fu">summary</span>(Exp3)</span></code></pre></div>
+<pre><code>##             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## M1G          1 1257.5  1257.5  33.130 0.000426 ***
+## M2G          1  406.5   406.5  10.709 0.011315 *  
+## M1G:M2G      1  111.1   111.1   2.927 0.125483    
+## Residuals    8  303.7    38.0                     
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>##Combined ANOVA
 Now we can combine the experiments and control control for trial number effects.</p>
-<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb477-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb477-1" tabindex="-1"></a>AllExp <span class="ot">&lt;-</span> <span class="fu">rbind</span>(Rep1, Rep2, Rep3)</span>
-<span id="cb477-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb477-2" tabindex="-1"></a><span class="co"># Notice how we add an Exp variable to the model</span></span>
-<span id="cb477-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb477-3" tabindex="-1"></a>Full <span class="ot">&lt;-</span> <span class="fu">aov</span>(Phen <span class="sc">~</span> M1G <span class="sc">+</span> M2G <span class="sc">+</span> M1G<span class="sc">:</span>M2G <span class="sc">+</span> Exp , <span class="at">data=</span>AllExp) </span>
-<span id="cb477-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb477-4" tabindex="-1"></a><span class="fu">summary</span>(Full)</span></code></pre></div>
+<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb481-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb481-1" tabindex="-1"></a>AllExp <span class="ot">&lt;-</span> <span class="fu">rbind</span>(Rep1, Rep2, Rep3)</span>
+<span id="cb481-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb481-2" tabindex="-1"></a><span class="co"># Notice how we add an Exp variable to the model</span></span>
+<span id="cb481-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb481-3" tabindex="-1"></a>Full <span class="ot">&lt;-</span> <span class="fu">aov</span>(Phen <span class="sc">~</span> M1G <span class="sc">+</span> M2G <span class="sc">+</span> M1G<span class="sc">:</span>M2G <span class="sc">+</span> Exp , <span class="at">data=</span>AllExp) </span>
+<span id="cb481-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb481-4" tabindex="-1"></a><span class="fu">summary</span>(Full)</span></code></pre></div>
 <pre><code>##             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
-## M1G          1 3011.1  3011.1  32.012 3.64e-06 ***
-## M2G          1 2723.3  2723.3  28.953 7.95e-06 ***
-## Exp          2  186.3    93.2   0.991   0.3832    
-## M1G:M2G      1  299.0   299.0   3.179   0.0847 .  
-## Residuals   30 2821.8    94.1                     
+## M1G          1 3125.4  3125.4  48.441 9.89e-08 ***
+## M2G          1 1604.0  1604.0  24.860 2.42e-05 ***
+## Exp          2   63.3    31.7   0.491    0.617    
+## M1G:M2G      1   47.2    47.2   0.732    0.399    
+## Residuals   30 1935.6    64.5                     
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 </div>
 <div id="ploting-the-full-dataset" class="section level3 hasAnchor" number="9.2.2">
 <h3><span class="header-section-number">9.2.2</span> Ploting the full dataset<a href="intro-to-anova-and-non-linear-least-squares-regression.html#ploting-the-full-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let’s plot the full data set and see if the ANOVA results match our visual expectations.</p>
-<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb479-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> AllExp, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">interaction</span>(M1G, M2G), <span class="at">y =</span> Phen, <span class="at">color =</span> <span class="fu">interaction</span>(M1G, M2G))) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">position =</span> <span class="st">&quot;jitter&quot;</span>) <span class="sc">+</span> <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">alpha =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb483-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb483-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> AllExp, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">interaction</span>(M1G, M2G), <span class="at">y =</span> Phen, <span class="at">color =</span> <span class="fu">interaction</span>(M1G, M2G))) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">position =</span> <span class="st">&quot;jitter&quot;</span>) <span class="sc">+</span> <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">alpha =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p><img src="09-0_intro_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>Let’s try plotting this as a boxplot as well. All we have to do is specify a a different geom.</p>
-<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb480-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb480-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> AllExp, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">interaction</span>(M1G, M2G), <span class="at">y =</span> Phen, <span class="at">color =</span> <span class="fu">interaction</span>(M1G, M2G))) <span class="sc">+</span> <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb484-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> AllExp, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">interaction</span>(M1G, M2G), <span class="at">y =</span> Phen, <span class="at">color =</span> <span class="fu">interaction</span>(M1G, M2G))) <span class="sc">+</span> <span class="fu">geom_boxplot</span>()</span></code></pre></div>
 <p><img src="09-0_intro_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p>In the end you will likely be able to conclude that both gene1 and gene2 have significant effects on the phenotype, but that there is not evidence to suggest that there is a significant interaction between the two genes. Also, the experimental trial most likely does not have an effect. This is all dependent on the mean and variance of the distributions we set in the beginning.</p>
-<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb481-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb481-1" tabindex="-1"></a><span class="co"># Draw 3 measurements from a random normal distribution for each plant line</span></span>
-<span id="cb481-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb481-2" tabindex="-1"></a>WT <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">mean=</span><span class="dv">100</span>, <span class="at">sd=</span><span class="dv">10</span>) <span class="co"># WT genotype</span></span>
-<span id="cb481-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb481-3" tabindex="-1"></a>M1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">mean=</span><span class="dv">85</span>, <span class="at">sd=</span><span class="dv">10</span>)  <span class="co"># Single mutant in Gene 1</span></span>
-<span id="cb481-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb481-4" tabindex="-1"></a>M2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">mean=</span><span class="dv">85</span>, <span class="at">sd=</span><span class="dv">10</span>)  <span class="co"># Single mutant in Gene 2</span></span>
-<span id="cb481-5"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb481-5" tabindex="-1"></a>DM <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">mean=</span><span class="dv">70</span>, <span class="at">sd=</span><span class="dv">10</span>)  <span class="co"># Double mutant in Gene 1 and Gene 2</span></span></code></pre></div>
+<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb485-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb485-1" tabindex="-1"></a><span class="co"># Draw 3 measurements from a random normal distribution for each plant line</span></span>
+<span id="cb485-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb485-2" tabindex="-1"></a>WT <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">mean=</span><span class="dv">100</span>, <span class="at">sd=</span><span class="dv">10</span>) <span class="co"># WT genotype</span></span>
+<span id="cb485-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb485-3" tabindex="-1"></a>M1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">mean=</span><span class="dv">85</span>, <span class="at">sd=</span><span class="dv">10</span>)  <span class="co"># Single mutant in Gene 1</span></span>
+<span id="cb485-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb485-4" tabindex="-1"></a>M2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">mean=</span><span class="dv">85</span>, <span class="at">sd=</span><span class="dv">10</span>)  <span class="co"># Single mutant in Gene 2</span></span>
+<span id="cb485-5"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb485-5" tabindex="-1"></a>DM <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">mean=</span><span class="dv">70</span>, <span class="at">sd=</span><span class="dv">10</span>)  <span class="co"># Double mutant in Gene 1 and Gene 2</span></span></code></pre></div>
 <hr />
 <p>#####???Question???
 What value of the mean of the double mutant distribution would be likely to result in a significant interaction between the two genes?
@@ -840,98 +840,98 @@ What value of the mean of the double mutant distribution would be likely to resu
 <p>While the ANOVA summary tells us which independent variables explain a significant amount of variance in the experiment, it doesn’t allow us to compare the levels of the independent variables. How can we tell if the mutant in gene 1 has a different phenotype from the mutant in gene 2?
 What if the experimental trial did have an effect? How could we figure out which trial is different from the others?</p>
 <p>To compare group or level means and variances and answer these questions we will need to do what is called a <em>post hoc</em> test, following our ANOVA analysis. One of the most commonly used post hoc tests is Tukey’s Honest Significant Difference test. This compares all of the group means in a pairwise manner and corrects the confidence threshold since we are making multiple comparisons. We do this test on our ANOVA object <code>Full</code> from above.</p>
-<div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb482-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb482-1" tabindex="-1"></a>tuk <span class="ot">&lt;-</span> <span class="fu">TukeyHSD</span>(Full)</span>
-<span id="cb482-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb482-2" tabindex="-1"></a>tuk</span></code></pre></div>
+<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb486-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb486-1" tabindex="-1"></a>tuk <span class="ot">&lt;-</span> <span class="fu">TukeyHSD</span>(Full)</span>
+<span id="cb486-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb486-2" tabindex="-1"></a>tuk</span></code></pre></div>
 <pre><code>##   Tukey multiple comparisons of means
 ##     95% family-wise confidence level
 ## 
 ## Fit: aov(formula = Phen ~ M1G + M2G + M1G:M2G + Exp, data = AllExp)
 ## 
 ## $M1G
-##           diff     lwr      upr   p adj
-## WT-M1 18.29107 11.6888 24.89335 3.6e-06
+##           diff      lwr     upr p adj
+## WT-M1 18.63506 13.16691 24.1032 1e-07
 ## 
 ## $M2G
-##         diff      lwr      upr   p adj
-## WT-M2 17.395 10.79273 23.99728 7.9e-06
+##           diff      lwr      upr    p adj
+## WT-M2 13.34981 7.881669 18.81796 2.42e-05
 ## 
 ## $Exp
-##          diff       lwr       upr     p adj
-## 2-1  3.624479  -6.13643 13.385389 0.6349398
-## 3-1 -1.853942 -11.61485  7.906968 0.8866223
-## 3-2 -5.478421 -15.23933  4.282489 0.3619787
+##           diff        lwr       upr     p adj
+## 2-1 -3.0799270 -11.164119  5.004265 0.6201870
+## 3-1 -0.6453439  -8.729536  7.438848 0.9788905
+## 3-2  2.4345831  -5.649609 10.518775 0.7404535
 ## 
 ## $`M1G:M2G`
-##                   diff          lwr      upr     p adj
-## WT:M2-M1:M2 24.0551616  11.62371668 36.48661 0.0000631
-## M1:WT-M1:M2 23.1590919  10.72764696 35.59054 0.0001092
-## WT:WT-M1:M2 35.6860714  23.25462640 48.11752 0.0000001
-## M1:WT-WT:M2 -0.8960697 -13.32751469 11.53538 0.9972723
-## WT:WT-WT:M2 11.6309097  -0.80053525 24.06235 0.0732043
-## WT:WT-M1:WT 12.5269794   0.09553447 24.95842 0.0477210</code></pre>
+##                  diff         lwr       upr     p adj
+## WT:M2-M1:M2 16.344991   6.0490047 26.640977 0.0008707
+## M1:WT-M1:M2 11.059748   0.7637615 21.355734 0.0315702
+## WT:WT-M1:M2 31.984869  21.6888829 42.280855 0.0000000
+## M1:WT-WT:M2 -5.285243 -15.5812293  5.010743 0.5116731
+## WT:WT-WT:M2 15.639878   5.3438920 25.935864 0.0014454
+## WT:WT-M1:WT 20.925121  10.6291352 31.221107 0.0000301</code></pre>
 <p>So more than likely, you will see for your full experiment with 3 replications that WT is significantly different from M1 and M2. This is shown in the first two sections of the <code>TukeyHSD</code> summary which compare the levels (wildtype vs mutant) of the factors M1G and M2G. The <code>p adj</code> is the p-value (adjusted for the multiple comparisons) resulting from the equivalent of a <em>t</em>-test comparing the two groups. So if the <code>p adj</code> value is less than the accepted confidence level (typically 0.05), then the two compared groups are significantly different from one another. Hopefully, each replication of the experiment will not be significantly different from the others, i.e. the adjusted p-values will be greater than 0.05. We can visualize the differences in the means by plotting the <code>TukeyHSD</code> results. This uses base R plotting which is much less user-friendly than ggplot. Don’t get bogged down in the code here, just pay attention to the graphs.</p>
-<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb484-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="at">cex =</span> <span class="fl">0.65</span>)</span>
-<span id="cb484-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb484-2" tabindex="-1"></a><span class="fu">plot</span>(tuk, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">cex.axis =</span> <span class="fl">0.75</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb488-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="at">cex =</span> <span class="fl">0.65</span>)</span>
+<span id="cb488-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-2" tabindex="-1"></a><span class="fu">plot</span>(tuk, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">cex.axis =</span> <span class="fl">0.75</span>) </span></code></pre></div>
 <p><img src="09-0_intro_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 <p>This plots the confidence intervals around the difference between the means for each pair of groups. If these confidence intervals intersect zero we cannot conclude that the two groups being compared are significantly different.</p>
 <p>We could also use the <code>HSD.test</code> function from the <code>agricolae</code> package, which puts the groups into groups that are not significantly different from each other.</p>
-<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb485-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb485-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;agricolae&quot;</span>)</span>
-<span id="cb485-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb485-2" tabindex="-1"></a><span class="fu">HSD.test</span>(<span class="at">y =</span> Full, <span class="at">trt =</span> <span class="fu">c</span>(<span class="st">&quot;M1G&quot;</span>,<span class="st">&quot;M2G&quot;</span>), <span class="at">console =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb489-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;agricolae&quot;</span>)</span>
+<span id="cb489-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb489-2" tabindex="-1"></a><span class="fu">HSD.test</span>(<span class="at">y =</span> Full, <span class="at">trt =</span> <span class="fu">c</span>(<span class="st">&quot;M1G&quot;</span>,<span class="st">&quot;M2G&quot;</span>), <span class="at">console =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## 
 ## Study: Full ~ c(&quot;M1G&quot;, &quot;M2G&quot;)
 ## 
 ## HSD Test for Phen 
 ## 
-## Mean Square Error:  94.05944 
+## Mean Square Error:  64.5201 
 ## 
 ## M1G:M2G,  means
 ## 
-##            Phen       std r       se      Min      Max      Q25       Q50
-## M1:M2  65.93931  5.870214 9 3.232808 52.32034  70.6564 63.50410  68.36913
-## M1:WT  89.09840 13.622149 9 3.232808 69.94066 110.7568 85.32394  88.70086
-## WT:M2  89.99447  8.455397 9 3.232808 76.91098 105.1347 84.52561  92.47919
-## WT:WT 101.62538  9.192406 9 3.232808 87.80472 117.3611 95.47573 100.72973
+##            Phen      std r      se      Min       Max      Q25       Q50
+## M1:M2  70.32658 8.108818 9 2.67748 57.95027  87.49359 67.61923  67.97683
+## M1:WT  81.38633 8.547106 9 2.67748 67.27229  90.48052 79.66605  83.60468
+## WT:M2  86.67157 8.979041 9 2.67748 73.17487  98.89297 84.13589  86.04451
+## WT:WT 102.31145 5.516890 9 2.67748 93.40389 112.79005 98.68837 102.29706
 ##             Q75
-## M1:M2  69.94291
-## M1:WT  96.11884
-## WT:M2  94.09559
-## WT:WT 107.48118
+## M1:M2  72.95179
+## M1:WT  88.20238
+## WT:M2  90.85361
+## WT:WT 104.77995
 ## 
 ## Alpha: 0.05 ; DF Error: 30 
 ## Critical Value of Studentized Range: 3.845401 
 ## 
-## Minimun Significant Difference: 12.43144 
+## Minimun Significant Difference: 10.29599 
 ## 
 ## Treatments with the same letter are not significantly different.
 ## 
 ##            Phen groups
-## WT:WT 101.62538      a
-## WT:M2  89.99447     ab
-## M1:WT  89.09840      b
-## M1:M2  65.93931      c</code></pre>
+## WT:WT 102.31145      a
+## WT:M2  86.67157      b
+## M1:WT  81.38633      b
+## M1:M2  70.32658      c</code></pre>
 <p>Finally we can add these groups to our graph and make the titles a bit more understandable. We’ll add a text geometry to add the post hoc comparisons. Another tricky point is that we have to make sure that the x-axis labels match between our data and our HSD test. To do this we use <code>gsub</code> to swap out the colons for periods.</p>
-<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb487-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb487-1" tabindex="-1"></a>HSD.groups <span class="ot">&lt;-</span> <span class="fu">HSD.test</span>(<span class="at">y =</span> Full, <span class="at">trt =</span> <span class="fu">c</span>(<span class="st">&quot;M1G&quot;</span>,<span class="st">&quot;M2G&quot;</span>))<span class="sc">$</span>groups</span>
-<span id="cb487-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb487-2" tabindex="-1"></a>HSD.groups<span class="sc">$</span>trt <span class="ot">&lt;-</span> <span class="fu">row.names</span>(HSD.groups)</span>
-<span id="cb487-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb487-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> AllExp, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">interaction</span>(M1G, M2G), <span class="at">y =</span> Phen, <span class="at">color =</span> <span class="fu">interaction</span>(M1G, M2G))) <span class="sc">+</span> <span class="fu">geom_boxplot</span>() <span class="sc">+</span> <span class="fu">geom_text</span>(<span class="at">data =</span> HSD.groups, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">gsub</span>(<span class="st">&quot;:&quot;</span>, <span class="st">&quot;.&quot;</span>, trt), <span class="at">y =</span> <span class="fu">max</span>(Phen) <span class="sc">+</span> <span class="dv">20</span>, <span class="at">label =</span> groups), <span class="at">color =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb491-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb491-1" tabindex="-1"></a>HSD.groups <span class="ot">&lt;-</span> <span class="fu">HSD.test</span>(<span class="at">y =</span> Full, <span class="at">trt =</span> <span class="fu">c</span>(<span class="st">&quot;M1G&quot;</span>,<span class="st">&quot;M2G&quot;</span>))<span class="sc">$</span>groups</span>
+<span id="cb491-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb491-2" tabindex="-1"></a>HSD.groups<span class="sc">$</span>trt <span class="ot">&lt;-</span> <span class="fu">row.names</span>(HSD.groups)</span>
+<span id="cb491-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb491-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> AllExp, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">interaction</span>(M1G, M2G), <span class="at">y =</span> Phen, <span class="at">color =</span> <span class="fu">interaction</span>(M1G, M2G))) <span class="sc">+</span> <span class="fu">geom_boxplot</span>() <span class="sc">+</span> <span class="fu">geom_text</span>(<span class="at">data =</span> HSD.groups, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">gsub</span>(<span class="st">&quot;:&quot;</span>, <span class="st">&quot;.&quot;</span>, trt), <span class="at">y =</span> <span class="fu">max</span>(Phen) <span class="sc">+</span> <span class="dv">20</span>, <span class="at">label =</span> groups), <span class="at">color =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
 <p><img src="09-0_intro_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <p>Now let’s clean this up a bit by changing the axis titles and labels. We’ll use <code>forcats</code> functions like before but this time with pipes to make the process a little more readable. We’ll also use a new theme to clean up the plot a bit and get rid of the legend.</p>
-<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb488-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-1" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
-<span id="cb488-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-2" tabindex="-1"></a><span class="co"># First we will use mutate from `dplyr` to add a column for the full genotype</span></span>
-<span id="cb488-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-3" tabindex="-1"></a>AllExp <span class="sc">%&lt;&gt;%</span> <span class="fu">mutate</span>(<span class="at">genotype =</span> <span class="fu">interaction</span>(M1G, M2G))</span>
-<span id="cb488-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-4" tabindex="-1"></a><span class="co"># %&lt;&gt;% is a two way pipe that passes AllExp as the first argument to mutate and then assigns the result back to AllExp</span></span>
-<span id="cb488-5"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-5" tabindex="-1"></a></span>
-<span id="cb488-6"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-6" tabindex="-1"></a><span class="co"># Now to recode genotype we will unfurl the nested forcats function using pipes</span></span>
-<span id="cb488-7"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-7" tabindex="-1"></a>AllExp<span class="sc">$</span>genotype <span class="sc">%&lt;&gt;%</span></span>
-<span id="cb488-8"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-8" tabindex="-1"></a>  <span class="fu">fct_rev</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb488-9"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-9" tabindex="-1"></a>  <span class="fu">fct_recode</span>(<span class="at">double_mutant =</span> <span class="st">&quot;M1.M2&quot;</span>, <span class="at">mut2 =</span> <span class="st">&quot;WT.M2&quot;</span>, </span>
-<span id="cb488-10"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-10" tabindex="-1"></a>             <span class="at">mut1 =</span> <span class="st">&quot;M1.WT&quot;</span>, <span class="at">WT =</span> <span class="st">&quot;WT.WT&quot;</span>)</span>
-<span id="cb488-11"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-11" tabindex="-1"></a></span>
-<span id="cb488-12"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-12" tabindex="-1"></a>HSD.groups<span class="sc">$</span>trt <span class="sc">%&lt;&gt;%</span></span>
-<span id="cb488-13"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-13" tabindex="-1"></a>  <span class="fu">fct_rev</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb488-14"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-14" tabindex="-1"></a>  <span class="fu">fct_recode</span>(<span class="at">double_mutant =</span> <span class="st">&quot;M1:M2&quot;</span>, <span class="at">mut2 =</span> <span class="st">&quot;WT:M2&quot;</span>, </span>
-<span id="cb488-15"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-15" tabindex="-1"></a>             <span class="at">mut1 =</span> <span class="st">&quot;M1:WT&quot;</span>, <span class="at">WT =</span> <span class="st">&quot;WT:WT&quot;</span>)</span>
-<span id="cb488-16"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-16" tabindex="-1"></a></span>
-<span id="cb488-17"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-17" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> AllExp, <span class="fu">aes</span>(<span class="at">x =</span> genotype, <span class="at">y =</span> Phen, <span class="at">color =</span> genotype)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>() <span class="sc">+</span> <span class="fu">geom_text</span>(<span class="at">data =</span> HSD.groups, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> trt, <span class="at">y =</span> <span class="fu">max</span>(Phen) <span class="sc">+</span> <span class="dv">20</span>, <span class="at">label =</span> groups), <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">&quot;genotype&quot;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&quot;root length (mm)&quot;</span>) <span class="sc">+</span> <span class="fu">theme_classic</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb492-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb492-1" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb492-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb492-2" tabindex="-1"></a><span class="co"># First we will use mutate from `dplyr` to add a column for the full genotype</span></span>
+<span id="cb492-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb492-3" tabindex="-1"></a>AllExp <span class="sc">%&lt;&gt;%</span> <span class="fu">mutate</span>(<span class="at">genotype =</span> <span class="fu">interaction</span>(M1G, M2G))</span>
+<span id="cb492-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb492-4" tabindex="-1"></a><span class="co"># %&lt;&gt;% is a two way pipe that passes AllExp as the first argument to mutate and then assigns the result back to AllExp</span></span>
+<span id="cb492-5"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb492-5" tabindex="-1"></a></span>
+<span id="cb492-6"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb492-6" tabindex="-1"></a><span class="co"># Now to recode genotype we will unfurl the nested forcats function using pipes</span></span>
+<span id="cb492-7"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb492-7" tabindex="-1"></a>AllExp<span class="sc">$</span>genotype <span class="sc">%&lt;&gt;%</span></span>
+<span id="cb492-8"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb492-8" tabindex="-1"></a>  <span class="fu">fct_rev</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb492-9"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb492-9" tabindex="-1"></a>  <span class="fu">fct_recode</span>(<span class="at">double_mutant =</span> <span class="st">&quot;M1.M2&quot;</span>, <span class="at">mut2 =</span> <span class="st">&quot;WT.M2&quot;</span>, </span>
+<span id="cb492-10"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb492-10" tabindex="-1"></a>             <span class="at">mut1 =</span> <span class="st">&quot;M1.WT&quot;</span>, <span class="at">WT =</span> <span class="st">&quot;WT.WT&quot;</span>)</span>
+<span id="cb492-11"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb492-11" tabindex="-1"></a></span>
+<span id="cb492-12"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb492-12" tabindex="-1"></a>HSD.groups<span class="sc">$</span>trt <span class="sc">%&lt;&gt;%</span></span>
+<span id="cb492-13"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb492-13" tabindex="-1"></a>  <span class="fu">fct_rev</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb492-14"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb492-14" tabindex="-1"></a>  <span class="fu">fct_recode</span>(<span class="at">double_mutant =</span> <span class="st">&quot;M1:M2&quot;</span>, <span class="at">mut2 =</span> <span class="st">&quot;WT:M2&quot;</span>, </span>
+<span id="cb492-15"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb492-15" tabindex="-1"></a>             <span class="at">mut1 =</span> <span class="st">&quot;M1:WT&quot;</span>, <span class="at">WT =</span> <span class="st">&quot;WT:WT&quot;</span>)</span>
+<span id="cb492-16"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb492-16" tabindex="-1"></a></span>
+<span id="cb492-17"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb492-17" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> AllExp, <span class="fu">aes</span>(<span class="at">x =</span> genotype, <span class="at">y =</span> Phen, <span class="at">color =</span> genotype)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>() <span class="sc">+</span> <span class="fu">geom_text</span>(<span class="at">data =</span> HSD.groups, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> trt, <span class="at">y =</span> <span class="fu">max</span>(Phen) <span class="sc">+</span> <span class="dv">20</span>, <span class="at">label =</span> groups), <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">&quot;genotype&quot;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&quot;root length (mm)&quot;</span>) <span class="sc">+</span> <span class="fu">theme_classic</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>)</span></code></pre></div>
 <p><img src="09-0_intro_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 </div>
 <div id="assumptions-of-anova" class="section level2 hasAnchor" number="9.4">
@@ -939,7 +939,7 @@ What if the experimental trial did have an effect? How could we figure out which
 <p>Before making any final conclusions we should check and make sure that our data satisfies the assumptions of the F-statistic, and really the assumptions of nearly any statistical test. These are normality (that the groups are normally distributed), <em>homogeneity of variance</em> (that the variances are similar for each group) and independence (that each observation is independent of the others, e.g. each measurement was of a different plant). It’s not a deal-breaker if our data defies one of these assumptions. There are variations of ANOVA procedures that are robust to certain violations, but these will have to wait for another class.</p>
 <p>How do you test these assumptions?</p>
 <p>We can use our diagnostic plots.</p>
-<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb489-1" tabindex="-1"></a><span class="fu">plot</span>(Full, <span class="at">ask =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb493-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb493-1" tabindex="-1"></a><span class="fu">plot</span>(Full, <span class="at">ask =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><img src="09-0_intro_files/figure-html/unnamed-chunk-23-1.png" width="672" /><img src="09-0_intro_files/figure-html/unnamed-chunk-23-2.png" width="672" /><img src="09-0_intro_files/figure-html/unnamed-chunk-23-3.png" width="672" /><img src="09-0_intro_files/figure-html/unnamed-chunk-23-4.png" width="672" /></p>
 <div id="normality-of-residuals" class="section level3 hasAnchor" number="9.4.1">
 <h3><span class="header-section-number">9.4.1</span> Normality of residuals<a href="intro-to-anova-and-non-linear-least-squares-regression.html#normality-of-residuals" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -948,17 +948,17 @@ What if the experimental trial did have an effect? How could we figure out which
 <div id="homogeneity-of-variance" class="section level3 hasAnchor" number="9.4.2">
 <h3><span class="header-section-number">9.4.2</span> Homogeneity of variance<a href="intro-to-anova-and-non-linear-least-squares-regression.html#homogeneity-of-variance" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The test for homo/heterogeneity of variance is called Levene’s Test. The null hypothesis of this test is that there is no difference in the variance of each group. So a significant Levene’s test with <span class="math inline">\(p &lt; 0.5\)</span> would mean that the assumption of homogeneity is violated. The function <code>leveneTest</code> is in the car package.</p>
-<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb490-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;car&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb494"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb494-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb494-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;car&#39;</span>)</span></code></pre></div>
 <pre><code>## Loading required package: carData</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;car&#39;</code></pre>
 <pre><code>## The following object is masked from &#39;package:dplyr&#39;:
 ## 
 ##     recode</code></pre>
-<div class="sourceCode" id="cb494"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb494-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb494-1" tabindex="-1"></a><span class="fu">leveneTest</span>(AllExp<span class="sc">$</span>Phen, <span class="fu">interaction</span>(AllExp<span class="sc">$</span>M1G, AllExp<span class="sc">$</span>M2G), <span class="at">center =</span> median)</span></code></pre></div>
+<div class="sourceCode" id="cb498"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb498-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb498-1" tabindex="-1"></a><span class="fu">leveneTest</span>(AllExp<span class="sc">$</span>Phen, <span class="fu">interaction</span>(AllExp<span class="sc">$</span>M1G, AllExp<span class="sc">$</span>M2G), <span class="at">center =</span> median)</span></code></pre></div>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
 ##       Df F value Pr(&gt;F)
-## group  3  1.1902 0.3291
+## group  3  0.4103 0.7467
 ##       32</code></pre>
 </div>
 <div id="independence" class="section level3 hasAnchor" number="9.4.3">

@@ -30,7 +30,7 @@ Systems using Numerical Methods.</p>" />
 <meta name="author" content="R. Clay Wright" />
 
 
-<meta name="date" content="2025-04-10" />
+<meta name="date" content="2025-04-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -630,23 +630,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb408-7"><a href="linear-regression-examples.html#cb408-7" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;[S]&quot;</span>)</span>
 <span id="cb408-8"><a href="linear-regression-examples.html#cb408-8" tabindex="-1"></a>p</span></code></pre></div>
 <p><img src="08-1_Examples_files/figure-html/step%202-1.png" width="672" /></p>
+<p>We can also add a linear model ontop of this plot.</p>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="linear-regression-examples.html#cb409-1" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="08-1_Examples_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 <p><strong>Check</strong>: The resulting plot does not look linear. We will compare 2 transformations:</p>
 </div>
 <div id="step-3.-transform-data-1" class="section level3 hasAnchor" number="8.10.3">
 <h3><span class="header-section-number">8.10.3</span> Step 3. Transform data<a href="linear-regression-examples.html#step-3.-transform-data-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="linear-regression-examples.html#cb409-1" tabindex="-1"></a>data.ex<span class="sc">$</span>vt <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>data.ex<span class="sc">$</span>v</span>
-<span id="cb409-2"><a href="linear-regression-examples.html#cb409-2" tabindex="-1"></a>data.ex<span class="sc">$</span>St <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>data.ex<span class="sc">$</span>S</span>
-<span id="cb409-3"><a href="linear-regression-examples.html#cb409-3" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co"> remove 2nd order here and add actual Michaelis-menten equation and actual linearization examples</span></span>
-<span id="cb409-4"><a href="linear-regression-examples.html#cb409-4" tabindex="-1"></a>data.ex<span class="sc">$</span>S2t <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>data.ex<span class="sc">$</span>S<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="linear-regression-examples.html#cb411-1" tabindex="-1"></a>data.ex<span class="sc">$</span>vt <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>data.ex<span class="sc">$</span>v</span>
+<span id="cb411-2"><a href="linear-regression-examples.html#cb411-2" tabindex="-1"></a>data.ex<span class="sc">$</span>St <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>data.ex<span class="sc">$</span>S</span>
+<span id="cb411-3"><a href="linear-regression-examples.html#cb411-3" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co"> remove 2nd order here and add actual Michaelis-menten equation and actual linearization examples</span></span>
+<span id="cb411-4"><a href="linear-regression-examples.html#cb411-4" tabindex="-1"></a>data.ex<span class="sc">$</span>S2t <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>data.ex<span class="sc">$</span>S<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
 </div>
 <div id="step-4.-linear-model-1" class="section level3 hasAnchor" number="8.10.4">
 <h3><span class="header-section-number">8.10.4</span> Step 4. Linear model<a href="linear-regression-examples.html#step-4.-linear-model-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Create linear model using lm function. * Assess assumption 1
-- review t-values from linear model summary. If the slope and intercept values have resulting |t| &gt; 2, then they are significant.
-- review leverage/influence of data points on regression. When data points have high leverage, one of 3 options come into play: (1) Someone made a recording error, (2) Someone made a fundamental mistake collecting the observation; or (3) The data point is perfectly valid, in which case the model cannot account for the behavior</p>
-<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="linear-regression-examples.html#cb410-1" tabindex="-1"></a><span class="co"># Create linear model, 1st order Michaelis Menton</span></span>
-<span id="cb410-2"><a href="linear-regression-examples.html#cb410-2" tabindex="-1"></a>model.lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(vt<span class="sc">~</span>St, <span class="at">data=</span>data.ex)</span>
-<span id="cb410-3"><a href="linear-regression-examples.html#cb410-3" tabindex="-1"></a><span class="fu">summary</span>(model.lm)</span></code></pre></div>
+<p>Create linear model using lm function.</p>
+<ul>
+<li>Assess assumption 1</li>
+<li>review t-values from linear model summary. If the slope and intercept values have resulting |t| &gt; 2, then they are significant.</li>
+<li>review leverage/influence of data points on regression. When data points have high leverage, one of 3 options come into play: (1) Someone made a recording error, (2) Someone made a fundamental mistake collecting the observation; or (3) The data point is perfectly valid, in which case the model cannot account for the behavior</li>
+</ul>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="linear-regression-examples.html#cb412-1" tabindex="-1"></a><span class="co"># Create linear model, 1st order Michaelis Menton</span></span>
+<span id="cb412-2"><a href="linear-regression-examples.html#cb412-2" tabindex="-1"></a>model.lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula =</span> vt <span class="sc">~</span> St, <span class="at">data =</span> data.ex)</span>
+<span id="cb412-3"><a href="linear-regression-examples.html#cb412-3" tabindex="-1"></a><span class="fu">summary</span>(model.lm)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = vt ~ St, data = data.ex)
@@ -665,51 +672,53 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Residual standard error: 1.185 on 5 degrees of freedom
 ## Multiple R-squared:  0.9344, Adjusted R-squared:  0.9213 
 ## F-statistic: 71.23 on 1 and 5 DF,  p-value: 0.0003833</code></pre>
-<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="linear-regression-examples.html#cb412-1" tabindex="-1"></a>vm <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>model.lm<span class="sc">$</span>coefficients[<span class="dv">1</span>]</span>
-<span id="cb412-2"><a href="linear-regression-examples.html#cb412-2" tabindex="-1"></a>ks <span class="ot">&lt;-</span> vm<span class="sc">*</span>model.lm<span class="sc">$</span>coefficients[<span class="dv">2</span>]</span>
-<span id="cb412-3"><a href="linear-regression-examples.html#cb412-3" tabindex="-1"></a>vm</span></code></pre></div>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="linear-regression-examples.html#cb414-1" tabindex="-1"></a>vm <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>model.lm<span class="sc">$</span>coefficients[<span class="dv">1</span>]</span>
+<span id="cb414-2"><a href="linear-regression-examples.html#cb414-2" tabindex="-1"></a>ks <span class="ot">&lt;-</span> vm<span class="sc">*</span>model.lm<span class="sc">$</span>coefficients[<span class="dv">2</span>]</span>
+<span id="cb414-3"><a href="linear-regression-examples.html#cb414-3" tabindex="-1"></a>vm</span></code></pre></div>
 <pre><code>## (Intercept) 
 ##    5.256963</code></pre>
-<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="linear-regression-examples.html#cb414-1" tabindex="-1"></a>ks</span></code></pre></div>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="linear-regression-examples.html#cb416-1" tabindex="-1"></a>ks</span></code></pre></div>
 <pre><code>## (Intercept) 
 ##    86.22596</code></pre>
 <p><strong>Check</strong>: |t-values| &lt; 2 for intercept, questionable.</p>
 <p>When vm is calculated, it’s a lot higher than reported velocities, and the half-saturation constant ks is higher than the maximum substrate concentration.</p>
-<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="linear-regression-examples.html#cb416-1" tabindex="-1"></a><span class="co"># review leverage/influence of data points on regression. Use plot of Cook&#39;s D, evaluate subset of CooksD above threshold, and evaluate DFFITS (another influence diagnostic)</span></span>
-<span id="cb416-2"><a href="linear-regression-examples.html#cb416-2" tabindex="-1"></a></span>
-<span id="cb416-3"><a href="linear-regression-examples.html#cb416-3" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">cooks.distance</span>(model.lm), <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="co">#Plot the Cooks Distances.</span></span></code></pre></div>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="linear-regression-examples.html#cb418-1" tabindex="-1"></a><span class="co"># review leverage/influence of data points on regression. Use plot of Cook&#39;s D, evaluate subset of CooksD above threshold, and evaluate DFFITS (another influence diagnostic)</span></span>
+<span id="cb418-2"><a href="linear-regression-examples.html#cb418-2" tabindex="-1"></a></span>
+<span id="cb418-3"><a href="linear-regression-examples.html#cb418-3" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">cooks.distance</span>(model.lm), <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="co">#Plot the Cooks Distances.</span></span></code></pre></div>
 <p><img src="08-1_Examples_files/figure-html/step%204b-1.png" width="672" /></p>
-<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="linear-regression-examples.html#cb417-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(model.lm<span class="sc">$</span>residuals)</span>
-<span id="cb417-2"><a href="linear-regression-examples.html#cb417-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">length</span>(model.lm<span class="sc">$</span>coefficients)</span>
-<span id="cb417-3"><a href="linear-regression-examples.html#cb417-3" tabindex="-1"></a><span class="fu">subset</span>(<span class="fu">cooks.distance</span>(model.lm), <span class="fu">cooks.distance</span>(model.lm) <span class="sc">&gt;</span> <span class="fu">qf</span>(<span class="fl">0.1</span>, p, n <span class="sc">-</span> p, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)) <span class="co"># determines if there are any flagged observations from CooksD</span></span></code></pre></div>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="linear-regression-examples.html#cb419-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(model.lm<span class="sc">$</span>residuals)</span>
+<span id="cb419-2"><a href="linear-regression-examples.html#cb419-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">length</span>(model.lm<span class="sc">$</span>coefficients)</span>
+<span id="cb419-3"><a href="linear-regression-examples.html#cb419-3" tabindex="-1"></a><span class="fu">subset</span>(<span class="fu">cooks.distance</span>(model.lm), <span class="fu">cooks.distance</span>(model.lm) <span class="sc">&gt;</span> <span class="fu">qf</span>(<span class="fl">0.1</span>, p, n <span class="sc">-</span> p, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)) <span class="co"># determines if there are any flagged observations from CooksD</span></span></code></pre></div>
 <pre><code>##        1 
 ## 4.809895</code></pre>
-<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="linear-regression-examples.html#cb419-1" tabindex="-1"></a><span class="fu">subset</span>(<span class="fu">dffits</span>(model.lm), <span class="fu">dffits</span>(model.lm) <span class="sc">&gt;</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">sqrt</span>(p <span class="sc">/</span> n)) <span class="co"># determines if there are any flagged observations from DFFITS</span></span></code></pre></div>
+<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="linear-regression-examples.html#cb421-1" tabindex="-1"></a><span class="fu">subset</span>(<span class="fu">dffits</span>(model.lm), <span class="fu">dffits</span>(model.lm) <span class="sc">&gt;</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">sqrt</span>(p <span class="sc">/</span> n)) <span class="co"># determines if there are any flagged observations from DFFITS</span></span></code></pre></div>
 <pre><code>##        1 
 ## 11.80479</code></pre>
-<p>For SLR with more than about 30 observations, the critical value for Di would be about 2.4.
-In the example above, observation 1 was identified as having higher influence for both Cooks and DDFITS. Consider options 1-3 described in workflow, but also intercept was questionable.</p>
+<p>For simple linear regression with more than about 30 observations, the critical value for Di would be about 2.5.</p>
+<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="linear-regression-examples.html#cb423-1" tabindex="-1"></a><span class="fu">qf</span>(<span class="fl">0.1</span>, <span class="dv">2</span>, <span class="dv">30</span> <span class="sc">-</span> <span class="dv">2</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## [1] 2.502761</code></pre>
+<p>In the example above, observation 1 was identified as having higher influence for both Cooks and DDFITS. Consider options 1-3 described in workflow, but also intercept was questionable.</p>
 </div>
 <div id="step-5.-test-for-homoscedasaticity-1" class="section level3 hasAnchor" number="8.10.5">
 <h3><span class="header-section-number">8.10.5</span> Step 5. Test for homoscedasaticity<a href="linear-regression-examples.html#step-5.-test-for-homoscedasaticity-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="linear-regression-examples.html#cb421-1" tabindex="-1"></a><span class="co"># Here, the which variable provides the ability to create 4 plots of interest: &quot;Residuals vs Fitted&quot;, &quot;Normal Q-Q&quot;, &quot;Scale-Location&quot;, &quot;Cook&#39;s distance&quot;, &quot;Residuals vs Leverage&quot;</span></span>
-<span id="cb421-2"><a href="linear-regression-examples.html#cb421-2" tabindex="-1"></a></span>
-<span id="cb421-3"><a href="linear-regression-examples.html#cb421-3" tabindex="-1"></a><span class="co"># To test for homoscedasaticity, review plot of standardized residuals</span></span>
-<span id="cb421-4"><a href="linear-regression-examples.html#cb421-4" tabindex="-1"></a><span class="fu">plot</span>(model.lm,  <span class="at">which =</span> <span class="dv">3</span>, <span class="at">ask =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="linear-regression-examples.html#cb425-1" tabindex="-1"></a><span class="co"># Here, the which variable provides the ability to create 4 plots of interest: &quot;Residuals vs Fitted&quot;, &quot;Normal Q-Q&quot;, &quot;Scale-Location&quot;, &quot;Cook&#39;s distance&quot;, &quot;Residuals vs Leverage&quot;</span></span>
+<span id="cb425-2"><a href="linear-regression-examples.html#cb425-2" tabindex="-1"></a></span>
+<span id="cb425-3"><a href="linear-regression-examples.html#cb425-3" tabindex="-1"></a><span class="co"># To test for homoscedasaticity, review plot of standardized residuals</span></span>
+<span id="cb425-4"><a href="linear-regression-examples.html#cb425-4" tabindex="-1"></a><span class="fu">plot</span>(model.lm,  <span class="at">which =</span> <span class="dv">3</span>, <span class="at">ask =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><img src="08-1_Examples_files/figure-html/step%205-1.png" width="672" />
 <strong>Check</strong>: Variability is a bit more variable.</p>
 </div>
 <div id="step-6.-test-for-bias-1" class="section level3 hasAnchor" number="8.10.6">
 <h3><span class="header-section-number">8.10.6</span> Step 6. Test for bias<a href="linear-regression-examples.html#step-6.-test-for-bias-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="linear-regression-examples.html#cb422-1" tabindex="-1"></a><span class="co"># To test for bias, review plot of  residuals</span></span>
-<span id="cb422-2"><a href="linear-regression-examples.html#cb422-2" tabindex="-1"></a><span class="fu">plot</span>(model.lm,  <span class="at">which =</span> <span class="dv">1</span>, <span class="at">ask =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="linear-regression-examples.html#cb426-1" tabindex="-1"></a><span class="co"># To test for bias, review plot of  residuals</span></span>
+<span id="cb426-2"><a href="linear-regression-examples.html#cb426-2" tabindex="-1"></a><span class="fu">plot</span>(model.lm,  <span class="at">which =</span> <span class="dv">1</span>, <span class="at">ask =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><img src="08-1_Examples_files/figure-html/step%206-1.png" width="672" />
 <strong>Check</strong>: Variability above and below 0 does not appear random.</p>
 </div>
 <div id="step-7.-test-for-normality-1" class="section level3 hasAnchor" number="8.10.7">
 <h3><span class="header-section-number">8.10.7</span> Step 7. Test for Normality<a href="linear-regression-examples.html#step-7.-test-for-normality-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="linear-regression-examples.html#cb423-1" tabindex="-1"></a><span class="co"># To test for normality, review plot</span></span>
-<span id="cb423-2"><a href="linear-regression-examples.html#cb423-2" tabindex="-1"></a><span class="fu">plot</span>(model.lm,  <span class="at">which =</span> <span class="dv">2</span>, <span class="at">ask =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="linear-regression-examples.html#cb427-1" tabindex="-1"></a><span class="co"># To test for normality, review plot</span></span>
+<span id="cb427-2"><a href="linear-regression-examples.html#cb427-2" tabindex="-1"></a><span class="fu">plot</span>(model.lm,  <span class="at">which =</span> <span class="dv">2</span>, <span class="at">ask =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><img src="08-1_Examples_files/figure-html/step%207-1.png" width="672" />
 <strong>Check</strong>: Residuals are not normally distributed. Questionable!!</p>
 </div>
@@ -722,58 +731,58 @@ In the example above, observation 1 was identified as having higher influence fo
 <p><strong>Prediction intervals</strong> are computed as follows:</p>
 <p>predict(lmheight, newdata = data.frame(age=22.5), interval = “prediction”, level = 0.95)</p>
 <p>Prediction intervals are always greater. While it includes the uncertainity in the regression uncertainties in the slope and intercept, it also includes the unexplained variability in y.</p>
-<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="linear-regression-examples.html#cb424-1" tabindex="-1"></a><span class="co"># Use model to create prediction intervals</span></span>
-<span id="cb424-2"><a href="linear-regression-examples.html#cb424-2" tabindex="-1"></a></span>
-<span id="cb424-3"><a href="linear-regression-examples.html#cb424-3" tabindex="-1"></a>model.predict <span class="ot">&lt;-</span> <span class="fu">predict</span>(model.lm, <span class="at">interval =</span> <span class="st">&quot;predict&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="linear-regression-examples.html#cb428-1" tabindex="-1"></a><span class="co"># Use model to create prediction intervals</span></span>
+<span id="cb428-2"><a href="linear-regression-examples.html#cb428-2" tabindex="-1"></a></span>
+<span id="cb428-3"><a href="linear-regression-examples.html#cb428-3" tabindex="-1"></a>model.predict <span class="ot">&lt;-</span> <span class="fu">predict</span>(model.lm, <span class="at">interval =</span> <span class="st">&quot;predict&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning in predict.lm(model.lm, interval = &quot;predict&quot;): predictions on current data refer to _future_ responses</code></pre>
-<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="linear-regression-examples.html#cb426-1" tabindex="-1"></a><span class="co"># Use model to create confidence intervals</span></span>
-<span id="cb426-2"><a href="linear-regression-examples.html#cb426-2" tabindex="-1"></a></span>
-<span id="cb426-3"><a href="linear-regression-examples.html#cb426-3" tabindex="-1"></a>model.confidence <span class="ot">&lt;-</span> <span class="fu">predict</span>(model.lm, <span class="at">interval =</span> <span class="st">&quot;confidence&quot;</span>)</span>
-<span id="cb426-4"><a href="linear-regression-examples.html#cb426-4" tabindex="-1"></a><span class="fu">colnames</span>(model.confidence) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;cfit&quot;</span>, <span class="st">&quot;clwr&quot;</span>, <span class="st">&quot;cupr&quot;</span>) <span class="co">#rename columns</span></span>
-<span id="cb426-5"><a href="linear-regression-examples.html#cb426-5" tabindex="-1"></a></span>
-<span id="cb426-6"><a href="linear-regression-examples.html#cb426-6" tabindex="-1"></a></span>
-<span id="cb426-7"><a href="linear-regression-examples.html#cb426-7" tabindex="-1"></a><span class="co"># Create dataset that merges dataset</span></span>
-<span id="cb426-8"><a href="linear-regression-examples.html#cb426-8" tabindex="-1"></a></span>
-<span id="cb426-9"><a href="linear-regression-examples.html#cb426-9" tabindex="-1"></a>data.all <span class="ot">&lt;-</span> <span class="fu">cbind</span>(data.ex,model.predict, model.confidence)</span>
-<span id="cb426-10"><a href="linear-regression-examples.html#cb426-10" tabindex="-1"></a></span>
-<span id="cb426-11"><a href="linear-regression-examples.html#cb426-11" tabindex="-1"></a><span class="co"># Create ggplot</span></span>
-<span id="cb426-12"><a href="linear-regression-examples.html#cb426-12" tabindex="-1"></a></span>
-<span id="cb426-13"><a href="linear-regression-examples.html#cb426-13" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data.all, <span class="fu">aes</span>(<span class="at">x =</span> St, <span class="at">y =</span> vt)) <span class="sc">+</span></span>
-<span id="cb426-14"><a href="linear-regression-examples.html#cb426-14" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="co"># adds points</span></span>
-<span id="cb426-15"><a href="linear-regression-examples.html#cb426-15" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>lwr), <span class="at">col =</span> <span class="st">&quot;coral2&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> <span class="co">#lower prediction interval</span></span>
-<span id="cb426-16"><a href="linear-regression-examples.html#cb426-16" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>upr), <span class="at">col =</span> <span class="st">&quot;coral2&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb426-17"><a href="linear-regression-examples.html#cb426-17" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>clwr,<span class="at">ymax=</span>cupr),<span class="at">alpha=</span><span class="fl">0.3</span>) <span class="sc">+</span>  <span class="co"># confidence band</span></span>
-<span id="cb426-18"><a href="linear-regression-examples.html#cb426-18" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>fit), <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span>  <span class="co"># confidence band</span></span>
-<span id="cb426-19"><a href="linear-regression-examples.html#cb426-19" tabindex="-1"></a>  <span class="fu">theme_cowplot</span>() <span class="sc">+</span></span>
-<span id="cb426-20"><a href="linear-regression-examples.html#cb426-20" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;1/v&quot;</span>) <span class="sc">+</span></span>
-<span id="cb426-21"><a href="linear-regression-examples.html#cb426-21" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;1/S&quot;</span>)</span>
-<span id="cb426-22"><a href="linear-regression-examples.html#cb426-22" tabindex="-1"></a></span>
-<span id="cb426-23"><a href="linear-regression-examples.html#cb426-23" tabindex="-1"></a>p1</span></code></pre></div>
-<p><img src="08-1_Examples_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="linear-regression-examples.html#cb427-1" tabindex="-1"></a>data.all<span class="sc">$</span>fit <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>data.all<span class="sc">$</span>fit</span>
-<span id="cb427-2"><a href="linear-regression-examples.html#cb427-2" tabindex="-1"></a>data.all<span class="sc">$</span>lwr <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>data.all<span class="sc">$</span>lwr</span>
-<span id="cb427-3"><a href="linear-regression-examples.html#cb427-3" tabindex="-1"></a>data.all<span class="sc">$</span>upr <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>data.all<span class="sc">$</span>upr</span>
-<span id="cb427-4"><a href="linear-regression-examples.html#cb427-4" tabindex="-1"></a>data.all<span class="sc">$</span>clwr <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>data.all<span class="sc">$</span>clwr</span>
-<span id="cb427-5"><a href="linear-regression-examples.html#cb427-5" tabindex="-1"></a>data.all<span class="sc">$</span>cupr <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>data.all<span class="sc">$</span>cupr</span>
-<span id="cb427-6"><a href="linear-regression-examples.html#cb427-6" tabindex="-1"></a></span>
-<span id="cb427-7"><a href="linear-regression-examples.html#cb427-7" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data.all, <span class="fu">aes</span>(<span class="at">x =</span> S, <span class="at">y =</span> v)) <span class="sc">+</span></span>
-<span id="cb427-8"><a href="linear-regression-examples.html#cb427-8" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="co"># adds points</span></span>
-<span id="cb427-9"><a href="linear-regression-examples.html#cb427-9" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>lwr), <span class="at">col =</span> <span class="st">&quot;coral2&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> <span class="co">#lower prediction interval</span></span>
-<span id="cb427-10"><a href="linear-regression-examples.html#cb427-10" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>upr), <span class="at">col =</span> <span class="st">&quot;coral2&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb427-11"><a href="linear-regression-examples.html#cb427-11" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>clwr,<span class="at">ymax=</span>cupr),<span class="at">alpha=</span><span class="fl">0.3</span>) <span class="sc">+</span>  <span class="co"># confidence band</span></span>
-<span id="cb427-12"><a href="linear-regression-examples.html#cb427-12" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>fit), <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span>  <span class="co"># confidence band</span></span>
-<span id="cb427-13"><a href="linear-regression-examples.html#cb427-13" tabindex="-1"></a>  <span class="fu">theme_cowplot</span>() <span class="sc">+</span></span>
-<span id="cb427-14"><a href="linear-regression-examples.html#cb427-14" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;v&quot;</span>) <span class="sc">+</span></span>
-<span id="cb427-15"><a href="linear-regression-examples.html#cb427-15" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;S&quot;</span>) <span class="sc">+</span></span>
-<span id="cb427-16"><a href="linear-regression-examples.html#cb427-16" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="fl">0.8</span>,.<span class="dv">2</span>)) <span class="sc">+</span> <span class="co"># changes scale to min and max with prescribed spacing</span></span>
-<span id="cb427-17"><a href="linear-regression-examples.html#cb427-17" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">9</span>,<span class="dv">1</span>)) <span class="sc">+</span> </span>
-<span id="cb427-18"><a href="linear-regression-examples.html#cb427-18" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="fl">0.8</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="linear-regression-examples.html#cb430-1" tabindex="-1"></a><span class="co"># Use model to create confidence intervals</span></span>
+<span id="cb430-2"><a href="linear-regression-examples.html#cb430-2" tabindex="-1"></a></span>
+<span id="cb430-3"><a href="linear-regression-examples.html#cb430-3" tabindex="-1"></a>model.confidence <span class="ot">&lt;-</span> <span class="fu">predict</span>(model.lm, <span class="at">interval =</span> <span class="st">&quot;confidence&quot;</span>)</span>
+<span id="cb430-4"><a href="linear-regression-examples.html#cb430-4" tabindex="-1"></a><span class="fu">colnames</span>(model.confidence) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;cfit&quot;</span>, <span class="st">&quot;clwr&quot;</span>, <span class="st">&quot;cupr&quot;</span>) <span class="co">#rename columns</span></span>
+<span id="cb430-5"><a href="linear-regression-examples.html#cb430-5" tabindex="-1"></a></span>
+<span id="cb430-6"><a href="linear-regression-examples.html#cb430-6" tabindex="-1"></a></span>
+<span id="cb430-7"><a href="linear-regression-examples.html#cb430-7" tabindex="-1"></a><span class="co"># Create dataset that merges dataset</span></span>
+<span id="cb430-8"><a href="linear-regression-examples.html#cb430-8" tabindex="-1"></a></span>
+<span id="cb430-9"><a href="linear-regression-examples.html#cb430-9" tabindex="-1"></a>data.all <span class="ot">&lt;-</span> <span class="fu">cbind</span>(data.ex,model.predict, model.confidence)</span>
+<span id="cb430-10"><a href="linear-regression-examples.html#cb430-10" tabindex="-1"></a></span>
+<span id="cb430-11"><a href="linear-regression-examples.html#cb430-11" tabindex="-1"></a><span class="co"># Create ggplot</span></span>
+<span id="cb430-12"><a href="linear-regression-examples.html#cb430-12" tabindex="-1"></a></span>
+<span id="cb430-13"><a href="linear-regression-examples.html#cb430-13" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data.all, <span class="fu">aes</span>(<span class="at">x =</span> St, <span class="at">y =</span> vt)) <span class="sc">+</span></span>
+<span id="cb430-14"><a href="linear-regression-examples.html#cb430-14" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="co"># adds points</span></span>
+<span id="cb430-15"><a href="linear-regression-examples.html#cb430-15" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>lwr), <span class="at">col =</span> <span class="st">&quot;coral2&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> <span class="co">#lower prediction interval</span></span>
+<span id="cb430-16"><a href="linear-regression-examples.html#cb430-16" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>upr), <span class="at">col =</span> <span class="st">&quot;coral2&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb430-17"><a href="linear-regression-examples.html#cb430-17" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>clwr,<span class="at">ymax=</span>cupr),<span class="at">alpha=</span><span class="fl">0.3</span>) <span class="sc">+</span>  <span class="co"># confidence band</span></span>
+<span id="cb430-18"><a href="linear-regression-examples.html#cb430-18" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>fit), <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span>  <span class="co"># confidence band</span></span>
+<span id="cb430-19"><a href="linear-regression-examples.html#cb430-19" tabindex="-1"></a>  <span class="fu">theme_cowplot</span>() <span class="sc">+</span></span>
+<span id="cb430-20"><a href="linear-regression-examples.html#cb430-20" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;1/v&quot;</span>) <span class="sc">+</span></span>
+<span id="cb430-21"><a href="linear-regression-examples.html#cb430-21" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;1/S&quot;</span>)</span>
+<span id="cb430-22"><a href="linear-regression-examples.html#cb430-22" tabindex="-1"></a></span>
+<span id="cb430-23"><a href="linear-regression-examples.html#cb430-23" tabindex="-1"></a>p1</span></code></pre></div>
+<p><img src="08-1_Examples_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="linear-regression-examples.html#cb431-1" tabindex="-1"></a>data.all<span class="sc">$</span>fit <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>data.all<span class="sc">$</span>fit</span>
+<span id="cb431-2"><a href="linear-regression-examples.html#cb431-2" tabindex="-1"></a>data.all<span class="sc">$</span>lwr <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>data.all<span class="sc">$</span>lwr</span>
+<span id="cb431-3"><a href="linear-regression-examples.html#cb431-3" tabindex="-1"></a>data.all<span class="sc">$</span>upr <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>data.all<span class="sc">$</span>upr</span>
+<span id="cb431-4"><a href="linear-regression-examples.html#cb431-4" tabindex="-1"></a>data.all<span class="sc">$</span>clwr <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>data.all<span class="sc">$</span>clwr</span>
+<span id="cb431-5"><a href="linear-regression-examples.html#cb431-5" tabindex="-1"></a>data.all<span class="sc">$</span>cupr <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>data.all<span class="sc">$</span>cupr</span>
+<span id="cb431-6"><a href="linear-regression-examples.html#cb431-6" tabindex="-1"></a></span>
+<span id="cb431-7"><a href="linear-regression-examples.html#cb431-7" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data.all, <span class="fu">aes</span>(<span class="at">x =</span> S, <span class="at">y =</span> v)) <span class="sc">+</span></span>
+<span id="cb431-8"><a href="linear-regression-examples.html#cb431-8" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="co"># adds points</span></span>
+<span id="cb431-9"><a href="linear-regression-examples.html#cb431-9" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>lwr), <span class="at">col =</span> <span class="st">&quot;coral2&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> <span class="co">#lower prediction interval</span></span>
+<span id="cb431-10"><a href="linear-regression-examples.html#cb431-10" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>upr), <span class="at">col =</span> <span class="st">&quot;coral2&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb431-11"><a href="linear-regression-examples.html#cb431-11" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>clwr,<span class="at">ymax=</span>cupr),<span class="at">alpha=</span><span class="fl">0.3</span>) <span class="sc">+</span>  <span class="co"># confidence band</span></span>
+<span id="cb431-12"><a href="linear-regression-examples.html#cb431-12" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>fit), <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span>  <span class="co"># confidence band</span></span>
+<span id="cb431-13"><a href="linear-regression-examples.html#cb431-13" tabindex="-1"></a>  <span class="fu">theme_cowplot</span>() <span class="sc">+</span></span>
+<span id="cb431-14"><a href="linear-regression-examples.html#cb431-14" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;v&quot;</span>) <span class="sc">+</span></span>
+<span id="cb431-15"><a href="linear-regression-examples.html#cb431-15" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;S&quot;</span>) <span class="sc">+</span></span>
+<span id="cb431-16"><a href="linear-regression-examples.html#cb431-16" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="fl">0.8</span>,.<span class="dv">2</span>)) <span class="sc">+</span> <span class="co"># changes scale to min and max with prescribed spacing</span></span>
+<span id="cb431-17"><a href="linear-regression-examples.html#cb431-17" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">9</span>,<span class="dv">1</span>)) <span class="sc">+</span> </span>
+<span id="cb431-18"><a href="linear-regression-examples.html#cb431-18" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="fl">0.8</span>)</span></code></pre></div>
 <pre><code>## Scale for y is already present.
 ## Adding another scale for y, which will replace the existing scale.</code></pre>
-<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="linear-regression-examples.html#cb429-1" tabindex="-1"></a>p</span></code></pre></div>
+<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="linear-regression-examples.html#cb433-1" tabindex="-1"></a>p</span></code></pre></div>
 <pre><code>## Warning: Removed 4 rows containing missing values or values outside the scale range
 ## (`geom_line()`).</code></pre>
-<p><img src="08-1_Examples_files/figure-html/unnamed-chunk-2-2.png" width="672" /></p>
+<p><img src="08-1_Examples_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
 </div>
 </div>
 <div id="take-2-try-second-order" class="section level2 hasAnchor" number="8.11">
@@ -783,11 +792,11 @@ In the example above, observation 1 was identified as having higher influence fo
 <p>Create linear model using lm function. * Assess assumption 1
 - review t-values from linear model summary. If the slope and intercept values have resulting |t| &gt; 2, then they are significant.
 - review leverage/influence of data points on regression. When data points have high leverage, one of 3 options come into play: (1) Someone made a recording error, (2) Someone made a fundamental mistake collecting the observation; or (3) The data point is perfectly valid, in which case the model cannot account for the behavior</p>
-<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="linear-regression-examples.html#cb431-1" tabindex="-1"></a><span class="co"># Create linear model, 1st order Michaelis Menton</span></span>
-<span id="cb431-2"><a href="linear-regression-examples.html#cb431-2" tabindex="-1"></a><span class="fu">plot</span>(data.ex<span class="sc">$</span>S2t,data.ex<span class="sc">$</span>vt)</span></code></pre></div>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="linear-regression-examples.html#cb435-1" tabindex="-1"></a><span class="co"># Create linear model, 1st order Michaelis Menton</span></span>
+<span id="cb435-2"><a href="linear-regression-examples.html#cb435-2" tabindex="-1"></a><span class="fu">plot</span>(data.ex<span class="sc">$</span>S2t,data.ex<span class="sc">$</span>vt)</span></code></pre></div>
 <p><img src="08-1_Examples_files/figure-html/step%204a2-1.png" width="672" /></p>
-<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="linear-regression-examples.html#cb432-1" tabindex="-1"></a>model.lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(vt<span class="sc">~</span>S2t, <span class="at">data=</span>data.ex)</span>
-<span id="cb432-2"><a href="linear-regression-examples.html#cb432-2" tabindex="-1"></a><span class="fu">summary</span>(model.lm)</span></code></pre></div>
+<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="linear-regression-examples.html#cb436-1" tabindex="-1"></a>model.lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(vt<span class="sc">~</span>S2t, <span class="at">data=</span>data.ex)</span>
+<span id="cb436-2"><a href="linear-regression-examples.html#cb436-2" tabindex="-1"></a><span class="fu">summary</span>(model.lm)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = vt ~ S2t, data = data.ex)
@@ -806,26 +815,26 @@ In the example above, observation 1 was identified as having higher influence fo
 ## Residual standard error: 0.389 on 5 degrees of freedom
 ## Multiple R-squared:  0.9929, Adjusted R-squared:  0.9915 
 ## F-statistic: 702.7 on 1 and 5 DF,  p-value: 1.428e-06</code></pre>
-<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="linear-regression-examples.html#cb434-1" tabindex="-1"></a>vm <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>model.lm<span class="sc">$</span>coefficients[<span class="dv">1</span>]</span>
-<span id="cb434-2"><a href="linear-regression-examples.html#cb434-2" tabindex="-1"></a>ks <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(vm<span class="sc">*</span>model.lm<span class="sc">$</span>coefficients[<span class="dv">2</span>])</span>
-<span id="cb434-3"><a href="linear-regression-examples.html#cb434-3" tabindex="-1"></a>vm</span></code></pre></div>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="linear-regression-examples.html#cb438-1" tabindex="-1"></a>vm <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>model.lm<span class="sc">$</span>coefficients[<span class="dv">1</span>]</span>
+<span id="cb438-2"><a href="linear-regression-examples.html#cb438-2" tabindex="-1"></a>ks <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(vm<span class="sc">*</span>model.lm<span class="sc">$</span>coefficients[<span class="dv">2</span>])</span>
+<span id="cb438-3"><a href="linear-regression-examples.html#cb438-3" tabindex="-1"></a>vm</span></code></pre></div>
 <pre><code>## (Intercept) 
 ##    0.408292</code></pre>
-<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="linear-regression-examples.html#cb436-1" tabindex="-1"></a>ks</span></code></pre></div>
+<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="linear-regression-examples.html#cb440-1" tabindex="-1"></a>ks</span></code></pre></div>
 <pre><code>## (Intercept) 
 ##    2.812661</code></pre>
 <p><strong>Check</strong>: |t-values| &gt;&gt; 2, looks better
 The half-saturation constant and vm are also consistent with the data.</p>
-<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="linear-regression-examples.html#cb438-1" tabindex="-1"></a><span class="co"># review leverage/influence of data points on regression. Use plot of Cook&#39;s D, evaluate subset of CooksD above threshold, and evaluate DFFITS (another influence diagnostic)</span></span>
-<span id="cb438-2"><a href="linear-regression-examples.html#cb438-2" tabindex="-1"></a></span>
-<span id="cb438-3"><a href="linear-regression-examples.html#cb438-3" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">cooks.distance</span>(model.lm), <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="co">#Plot the Cooks Distances.</span></span></code></pre></div>
+<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="linear-regression-examples.html#cb442-1" tabindex="-1"></a><span class="co"># review leverage/influence of data points on regression. Use plot of Cook&#39;s D, evaluate subset of CooksD above threshold, and evaluate DFFITS (another influence diagnostic)</span></span>
+<span id="cb442-2"><a href="linear-regression-examples.html#cb442-2" tabindex="-1"></a></span>
+<span id="cb442-3"><a href="linear-regression-examples.html#cb442-3" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">cooks.distance</span>(model.lm), <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="co">#Plot the Cooks Distances.</span></span></code></pre></div>
 <p><img src="08-1_Examples_files/figure-html/step%204b2-1.png" width="672" /></p>
-<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="linear-regression-examples.html#cb439-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(model.lm<span class="sc">$</span>residuals)</span>
-<span id="cb439-2"><a href="linear-regression-examples.html#cb439-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">length</span>(model.lm<span class="sc">$</span>coefficients)</span>
-<span id="cb439-3"><a href="linear-regression-examples.html#cb439-3" tabindex="-1"></a><span class="fu">subset</span>(<span class="fu">cooks.distance</span>(model.lm), <span class="fu">cooks.distance</span>(model.lm) <span class="sc">&gt;</span> <span class="fu">qf</span>(<span class="fl">0.1</span>, p, n <span class="sc">-</span> p, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)) <span class="co"># determines if there are any flagged observations from CooksD</span></span></code></pre></div>
+<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="linear-regression-examples.html#cb443-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(model.lm<span class="sc">$</span>residuals)</span>
+<span id="cb443-2"><a href="linear-regression-examples.html#cb443-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">length</span>(model.lm<span class="sc">$</span>coefficients)</span>
+<span id="cb443-3"><a href="linear-regression-examples.html#cb443-3" tabindex="-1"></a><span class="fu">subset</span>(<span class="fu">cooks.distance</span>(model.lm), <span class="fu">cooks.distance</span>(model.lm) <span class="sc">&gt;</span> <span class="fu">qf</span>(<span class="fl">0.1</span>, p, n <span class="sc">-</span> p, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)) <span class="co"># determines if there are any flagged observations from CooksD</span></span></code></pre></div>
 <pre><code>##        1 
 ## 9.365224</code></pre>
-<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="linear-regression-examples.html#cb441-1" tabindex="-1"></a><span class="fu">subset</span>(<span class="fu">dffits</span>(model.lm), <span class="fu">dffits</span>(model.lm) <span class="sc">&gt;</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">sqrt</span>(p <span class="sc">/</span> n)) <span class="co"># determines if there are any flagged observations from DFFITS</span></span></code></pre></div>
+<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb445-1"><a href="linear-regression-examples.html#cb445-1" tabindex="-1"></a><span class="fu">subset</span>(<span class="fu">dffits</span>(model.lm), <span class="fu">dffits</span>(model.lm) <span class="sc">&gt;</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">sqrt</span>(p <span class="sc">/</span> n)) <span class="co"># determines if there are any flagged observations from DFFITS</span></span></code></pre></div>
 <pre><code>##        1 
 ## 13.90953</code></pre>
 <p>For SLR with more than about 30 observations, the critical value for Di would be about 2.4.
@@ -833,24 +842,24 @@ In the example above, observation 1 was identified as having higher influence fo
 </div>
 <div id="step-5.-test-for-homoscedasaticity-2" class="section level3 hasAnchor" number="8.11.2">
 <h3><span class="header-section-number">8.11.2</span> Step 5. Test for homoscedasaticity<a href="linear-regression-examples.html#step-5.-test-for-homoscedasaticity-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="linear-regression-examples.html#cb443-1" tabindex="-1"></a><span class="co"># Here, the which variable provides the ability to create 4 plots of interest: &quot;Residuals vs Fitted&quot;, &quot;Normal Q-Q&quot;, &quot;Scale-Location&quot;, &quot;Cook&#39;s distance&quot;, &quot;Residuals vs Leverage&quot;</span></span>
-<span id="cb443-2"><a href="linear-regression-examples.html#cb443-2" tabindex="-1"></a></span>
-<span id="cb443-3"><a href="linear-regression-examples.html#cb443-3" tabindex="-1"></a><span class="co"># To test for homoscedasaticity, review plot of standardized residuals</span></span>
-<span id="cb443-4"><a href="linear-regression-examples.html#cb443-4" tabindex="-1"></a><span class="fu">plot</span>(model.lm,  <span class="at">which =</span> <span class="dv">3</span>, <span class="at">ask =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="linear-regression-examples.html#cb447-1" tabindex="-1"></a><span class="co"># Here, the which variable provides the ability to create 4 plots of interest: &quot;Residuals vs Fitted&quot;, &quot;Normal Q-Q&quot;, &quot;Scale-Location&quot;, &quot;Cook&#39;s distance&quot;, &quot;Residuals vs Leverage&quot;</span></span>
+<span id="cb447-2"><a href="linear-regression-examples.html#cb447-2" tabindex="-1"></a></span>
+<span id="cb447-3"><a href="linear-regression-examples.html#cb447-3" tabindex="-1"></a><span class="co"># To test for homoscedasaticity, review plot of standardized residuals</span></span>
+<span id="cb447-4"><a href="linear-regression-examples.html#cb447-4" tabindex="-1"></a><span class="fu">plot</span>(model.lm,  <span class="at">which =</span> <span class="dv">3</span>, <span class="at">ask =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><img src="08-1_Examples_files/figure-html/step%2052-1.png" width="672" />
 <strong>Check</strong>: Variability is variable.</p>
 </div>
 <div id="step-6.-test-for-bias-2" class="section level3 hasAnchor" number="8.11.3">
 <h3><span class="header-section-number">8.11.3</span> Step 6. Test for bias<a href="linear-regression-examples.html#step-6.-test-for-bias-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="linear-regression-examples.html#cb444-1" tabindex="-1"></a><span class="co"># To test for bias, review plot of  residuals</span></span>
-<span id="cb444-2"><a href="linear-regression-examples.html#cb444-2" tabindex="-1"></a><span class="fu">plot</span>(model.lm,  <span class="at">which =</span> <span class="dv">1</span>, <span class="at">ask =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="linear-regression-examples.html#cb448-1" tabindex="-1"></a><span class="co"># To test for bias, review plot of  residuals</span></span>
+<span id="cb448-2"><a href="linear-regression-examples.html#cb448-2" tabindex="-1"></a><span class="fu">plot</span>(model.lm,  <span class="at">which =</span> <span class="dv">1</span>, <span class="at">ask =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><img src="08-1_Examples_files/figure-html/step%2062-1.png" width="672" />
 <strong>Check</strong>: Variability above and below 0 somewhat random.</p>
 </div>
 <div id="step-7.-test-for-normality-2" class="section level3 hasAnchor" number="8.11.4">
 <h3><span class="header-section-number">8.11.4</span> Step 7. Test for Normality<a href="linear-regression-examples.html#step-7.-test-for-normality-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb445-1"><a href="linear-regression-examples.html#cb445-1" tabindex="-1"></a><span class="co"># To test for normality, review plot</span></span>
-<span id="cb445-2"><a href="linear-regression-examples.html#cb445-2" tabindex="-1"></a><span class="fu">plot</span>(model.lm,  <span class="at">which =</span> <span class="dv">2</span>, <span class="at">ask =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="linear-regression-examples.html#cb449-1" tabindex="-1"></a><span class="co"># To test for normality, review plot</span></span>
+<span id="cb449-2"><a href="linear-regression-examples.html#cb449-2" tabindex="-1"></a><span class="fu">plot</span>(model.lm,  <span class="at">which =</span> <span class="dv">2</span>, <span class="at">ask =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><img src="08-1_Examples_files/figure-html/step%2072-1.png" width="672" />
 <strong>Check</strong>: Residuals are not normally distributed. Questionable.</p>
 </div>
@@ -863,56 +872,56 @@ In the example above, observation 1 was identified as having higher influence fo
 <p><strong>Prediction intervals</strong> are computed as follows:</p>
 <p>predict(lmheight, newdata = data.frame(age=22.5), interval = “prediction”, level = 0.95)</p>
 <p>Prediction intervals are always greater. While it includes the uncertainity in the regression uncertainties in the slope and intercept, it also includes the unexplained variability in y.</p>
-<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="linear-regression-examples.html#cb446-1" tabindex="-1"></a><span class="co"># Use model to create prediction intervals</span></span>
-<span id="cb446-2"><a href="linear-regression-examples.html#cb446-2" tabindex="-1"></a></span>
-<span id="cb446-3"><a href="linear-regression-examples.html#cb446-3" tabindex="-1"></a>model.predict <span class="ot">&lt;-</span> <span class="fu">predict</span>(model.lm, <span class="at">interval =</span> <span class="st">&quot;predict&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb450-1"><a href="linear-regression-examples.html#cb450-1" tabindex="-1"></a><span class="co"># Use model to create prediction intervals</span></span>
+<span id="cb450-2"><a href="linear-regression-examples.html#cb450-2" tabindex="-1"></a></span>
+<span id="cb450-3"><a href="linear-regression-examples.html#cb450-3" tabindex="-1"></a>model.predict <span class="ot">&lt;-</span> <span class="fu">predict</span>(model.lm, <span class="at">interval =</span> <span class="st">&quot;predict&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning in predict.lm(model.lm, interval = &quot;predict&quot;): predictions on current data refer to _future_ responses</code></pre>
-<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="linear-regression-examples.html#cb448-1" tabindex="-1"></a><span class="co"># Use model to create confidence intervals</span></span>
-<span id="cb448-2"><a href="linear-regression-examples.html#cb448-2" tabindex="-1"></a></span>
-<span id="cb448-3"><a href="linear-regression-examples.html#cb448-3" tabindex="-1"></a>model.confidence <span class="ot">&lt;-</span> <span class="fu">predict</span>(model.lm, <span class="at">interval =</span> <span class="st">&quot;confidence&quot;</span>)</span>
-<span id="cb448-4"><a href="linear-regression-examples.html#cb448-4" tabindex="-1"></a><span class="fu">colnames</span>(model.confidence) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;cfit&quot;</span>, <span class="st">&quot;clwr&quot;</span>, <span class="st">&quot;cupr&quot;</span>) <span class="co">#rename columns</span></span>
-<span id="cb448-5"><a href="linear-regression-examples.html#cb448-5" tabindex="-1"></a></span>
-<span id="cb448-6"><a href="linear-regression-examples.html#cb448-6" tabindex="-1"></a></span>
-<span id="cb448-7"><a href="linear-regression-examples.html#cb448-7" tabindex="-1"></a><span class="co"># Create dataset that merges dataset</span></span>
-<span id="cb448-8"><a href="linear-regression-examples.html#cb448-8" tabindex="-1"></a></span>
-<span id="cb448-9"><a href="linear-regression-examples.html#cb448-9" tabindex="-1"></a>data.all <span class="ot">&lt;-</span> <span class="fu">cbind</span>(data.ex,model.predict, model.confidence)</span>
-<span id="cb448-10"><a href="linear-regression-examples.html#cb448-10" tabindex="-1"></a></span>
-<span id="cb448-11"><a href="linear-regression-examples.html#cb448-11" tabindex="-1"></a><span class="co"># Create ggplot</span></span>
-<span id="cb448-12"><a href="linear-regression-examples.html#cb448-12" tabindex="-1"></a></span>
-<span id="cb448-13"><a href="linear-regression-examples.html#cb448-13" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data.all, <span class="fu">aes</span>(<span class="at">x =</span> S2t, <span class="at">y =</span> vt)) <span class="sc">+</span></span>
-<span id="cb448-14"><a href="linear-regression-examples.html#cb448-14" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="co"># adds points</span></span>
-<span id="cb448-15"><a href="linear-regression-examples.html#cb448-15" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>lwr), <span class="at">col =</span> <span class="st">&quot;coral2&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> <span class="co">#lower prediction interval</span></span>
-<span id="cb448-16"><a href="linear-regression-examples.html#cb448-16" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>upr), <span class="at">col =</span> <span class="st">&quot;coral2&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb448-17"><a href="linear-regression-examples.html#cb448-17" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>clwr,<span class="at">ymax=</span>cupr),<span class="at">alpha=</span><span class="fl">0.3</span>) <span class="sc">+</span>  <span class="co"># confidence band</span></span>
-<span id="cb448-18"><a href="linear-regression-examples.html#cb448-18" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>fit), <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span>  <span class="co"># confidence band</span></span>
-<span id="cb448-19"><a href="linear-regression-examples.html#cb448-19" tabindex="-1"></a>  <span class="fu">theme_cowplot</span>() <span class="sc">+</span></span>
-<span id="cb448-20"><a href="linear-regression-examples.html#cb448-20" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;1/v&quot;</span>) <span class="sc">+</span></span>
-<span id="cb448-21"><a href="linear-regression-examples.html#cb448-21" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;1/S^2&quot;</span>)</span>
-<span id="cb448-22"><a href="linear-regression-examples.html#cb448-22" tabindex="-1"></a></span>
-<span id="cb448-23"><a href="linear-regression-examples.html#cb448-23" tabindex="-1"></a>p1</span></code></pre></div>
-<p><img src="08-1_Examples_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="linear-regression-examples.html#cb449-1" tabindex="-1"></a>data.all<span class="sc">$</span>fit <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">/</span>(data.all<span class="sc">$</span>fit))</span>
-<span id="cb449-2"><a href="linear-regression-examples.html#cb449-2" tabindex="-1"></a>data.all<span class="sc">$</span>lwr <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">/</span>(data.all<span class="sc">$</span>lwr))</span>
-<span id="cb449-3"><a href="linear-regression-examples.html#cb449-3" tabindex="-1"></a>data.all<span class="sc">$</span>upr <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">/</span>(data.all<span class="sc">$</span>upr))</span>
-<span id="cb449-4"><a href="linear-regression-examples.html#cb449-4" tabindex="-1"></a>data.all<span class="sc">$</span>clwr <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">/</span>(data.all<span class="sc">$</span>clwr))</span>
-<span id="cb449-5"><a href="linear-regression-examples.html#cb449-5" tabindex="-1"></a>data.all<span class="sc">$</span>cupr <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">/</span>(data.all<span class="sc">$</span>cupr))</span>
-<span id="cb449-6"><a href="linear-regression-examples.html#cb449-6" tabindex="-1"></a></span>
-<span id="cb449-7"><a href="linear-regression-examples.html#cb449-7" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data.all, <span class="fu">aes</span>(<span class="at">x =</span> S, <span class="at">y =</span> v)) <span class="sc">+</span></span>
-<span id="cb449-8"><a href="linear-regression-examples.html#cb449-8" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="co"># adds points</span></span>
-<span id="cb449-9"><a href="linear-regression-examples.html#cb449-9" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>lwr), <span class="at">col =</span> <span class="st">&quot;coral2&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> <span class="co">#lower prediction interval</span></span>
-<span id="cb449-10"><a href="linear-regression-examples.html#cb449-10" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>upr), <span class="at">col =</span> <span class="st">&quot;coral2&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb449-11"><a href="linear-regression-examples.html#cb449-11" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>clwr,<span class="at">ymax=</span>cupr),<span class="at">alpha=</span><span class="fl">0.3</span>) <span class="sc">+</span>  <span class="co"># confidence band</span></span>
-<span id="cb449-12"><a href="linear-regression-examples.html#cb449-12" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>fit), <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span>  <span class="co"># confidence band</span></span>
-<span id="cb449-13"><a href="linear-regression-examples.html#cb449-13" tabindex="-1"></a>  <span class="fu">theme_cowplot</span>() <span class="sc">+</span></span>
-<span id="cb449-14"><a href="linear-regression-examples.html#cb449-14" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;v&quot;</span>) <span class="sc">+</span></span>
-<span id="cb449-15"><a href="linear-regression-examples.html#cb449-15" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;S&quot;</span>) <span class="sc">+</span></span>
-<span id="cb449-16"><a href="linear-regression-examples.html#cb449-16" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="fl">0.4</span>,.<span class="dv">1</span>)) <span class="sc">+</span> <span class="co"># changes scale to min and max with prescribed spacing</span></span>
-<span id="cb449-17"><a href="linear-regression-examples.html#cb449-17" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">9</span>,<span class="dv">1</span>)) <span class="sc">+</span> </span>
-<span id="cb449-18"><a href="linear-regression-examples.html#cb449-18" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="fl">0.8</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="linear-regression-examples.html#cb452-1" tabindex="-1"></a><span class="co"># Use model to create confidence intervals</span></span>
+<span id="cb452-2"><a href="linear-regression-examples.html#cb452-2" tabindex="-1"></a></span>
+<span id="cb452-3"><a href="linear-regression-examples.html#cb452-3" tabindex="-1"></a>model.confidence <span class="ot">&lt;-</span> <span class="fu">predict</span>(model.lm, <span class="at">interval =</span> <span class="st">&quot;confidence&quot;</span>)</span>
+<span id="cb452-4"><a href="linear-regression-examples.html#cb452-4" tabindex="-1"></a><span class="fu">colnames</span>(model.confidence) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;cfit&quot;</span>, <span class="st">&quot;clwr&quot;</span>, <span class="st">&quot;cupr&quot;</span>) <span class="co">#rename columns</span></span>
+<span id="cb452-5"><a href="linear-regression-examples.html#cb452-5" tabindex="-1"></a></span>
+<span id="cb452-6"><a href="linear-regression-examples.html#cb452-6" tabindex="-1"></a></span>
+<span id="cb452-7"><a href="linear-regression-examples.html#cb452-7" tabindex="-1"></a><span class="co"># Create dataset that merges dataset</span></span>
+<span id="cb452-8"><a href="linear-regression-examples.html#cb452-8" tabindex="-1"></a></span>
+<span id="cb452-9"><a href="linear-regression-examples.html#cb452-9" tabindex="-1"></a>data.all <span class="ot">&lt;-</span> <span class="fu">cbind</span>(data.ex,model.predict, model.confidence)</span>
+<span id="cb452-10"><a href="linear-regression-examples.html#cb452-10" tabindex="-1"></a></span>
+<span id="cb452-11"><a href="linear-regression-examples.html#cb452-11" tabindex="-1"></a><span class="co"># Create ggplot</span></span>
+<span id="cb452-12"><a href="linear-regression-examples.html#cb452-12" tabindex="-1"></a></span>
+<span id="cb452-13"><a href="linear-regression-examples.html#cb452-13" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data.all, <span class="fu">aes</span>(<span class="at">x =</span> S2t, <span class="at">y =</span> vt)) <span class="sc">+</span></span>
+<span id="cb452-14"><a href="linear-regression-examples.html#cb452-14" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="co"># adds points</span></span>
+<span id="cb452-15"><a href="linear-regression-examples.html#cb452-15" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>lwr), <span class="at">col =</span> <span class="st">&quot;coral2&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> <span class="co">#lower prediction interval</span></span>
+<span id="cb452-16"><a href="linear-regression-examples.html#cb452-16" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>upr), <span class="at">col =</span> <span class="st">&quot;coral2&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb452-17"><a href="linear-regression-examples.html#cb452-17" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>clwr,<span class="at">ymax=</span>cupr),<span class="at">alpha=</span><span class="fl">0.3</span>) <span class="sc">+</span>  <span class="co"># confidence band</span></span>
+<span id="cb452-18"><a href="linear-regression-examples.html#cb452-18" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>fit), <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span>  <span class="co"># confidence band</span></span>
+<span id="cb452-19"><a href="linear-regression-examples.html#cb452-19" tabindex="-1"></a>  <span class="fu">theme_cowplot</span>() <span class="sc">+</span></span>
+<span id="cb452-20"><a href="linear-regression-examples.html#cb452-20" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;1/v&quot;</span>) <span class="sc">+</span></span>
+<span id="cb452-21"><a href="linear-regression-examples.html#cb452-21" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;1/S^2&quot;</span>)</span>
+<span id="cb452-22"><a href="linear-regression-examples.html#cb452-22" tabindex="-1"></a></span>
+<span id="cb452-23"><a href="linear-regression-examples.html#cb452-23" tabindex="-1"></a>p1</span></code></pre></div>
+<p><img src="08-1_Examples_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="linear-regression-examples.html#cb453-1" tabindex="-1"></a>data.all<span class="sc">$</span>fit <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">/</span>(data.all<span class="sc">$</span>fit))</span>
+<span id="cb453-2"><a href="linear-regression-examples.html#cb453-2" tabindex="-1"></a>data.all<span class="sc">$</span>lwr <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">/</span>(data.all<span class="sc">$</span>lwr))</span>
+<span id="cb453-3"><a href="linear-regression-examples.html#cb453-3" tabindex="-1"></a>data.all<span class="sc">$</span>upr <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">/</span>(data.all<span class="sc">$</span>upr))</span>
+<span id="cb453-4"><a href="linear-regression-examples.html#cb453-4" tabindex="-1"></a>data.all<span class="sc">$</span>clwr <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">/</span>(data.all<span class="sc">$</span>clwr))</span>
+<span id="cb453-5"><a href="linear-regression-examples.html#cb453-5" tabindex="-1"></a>data.all<span class="sc">$</span>cupr <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">/</span>(data.all<span class="sc">$</span>cupr))</span>
+<span id="cb453-6"><a href="linear-regression-examples.html#cb453-6" tabindex="-1"></a></span>
+<span id="cb453-7"><a href="linear-regression-examples.html#cb453-7" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data.all, <span class="fu">aes</span>(<span class="at">x =</span> S, <span class="at">y =</span> v)) <span class="sc">+</span></span>
+<span id="cb453-8"><a href="linear-regression-examples.html#cb453-8" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="co"># adds points</span></span>
+<span id="cb453-9"><a href="linear-regression-examples.html#cb453-9" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>lwr), <span class="at">col =</span> <span class="st">&quot;coral2&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> <span class="co">#lower prediction interval</span></span>
+<span id="cb453-10"><a href="linear-regression-examples.html#cb453-10" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>upr), <span class="at">col =</span> <span class="st">&quot;coral2&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb453-11"><a href="linear-regression-examples.html#cb453-11" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>clwr,<span class="at">ymax=</span>cupr),<span class="at">alpha=</span><span class="fl">0.3</span>) <span class="sc">+</span>  <span class="co"># confidence band</span></span>
+<span id="cb453-12"><a href="linear-regression-examples.html#cb453-12" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>fit), <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span>  <span class="co"># confidence band</span></span>
+<span id="cb453-13"><a href="linear-regression-examples.html#cb453-13" tabindex="-1"></a>  <span class="fu">theme_cowplot</span>() <span class="sc">+</span></span>
+<span id="cb453-14"><a href="linear-regression-examples.html#cb453-14" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;v&quot;</span>) <span class="sc">+</span></span>
+<span id="cb453-15"><a href="linear-regression-examples.html#cb453-15" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;S&quot;</span>) <span class="sc">+</span></span>
+<span id="cb453-16"><a href="linear-regression-examples.html#cb453-16" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="fl">0.4</span>,.<span class="dv">1</span>)) <span class="sc">+</span> <span class="co"># changes scale to min and max with prescribed spacing</span></span>
+<span id="cb453-17"><a href="linear-regression-examples.html#cb453-17" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">9</span>,<span class="dv">1</span>)) <span class="sc">+</span> </span>
+<span id="cb453-18"><a href="linear-regression-examples.html#cb453-18" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="fl">0.8</span>)</span></code></pre></div>
 <pre><code>## Scale for y is already present.
 ## Adding another scale for y, which will replace the existing scale.</code></pre>
-<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="linear-regression-examples.html#cb451-1" tabindex="-1"></a>p</span></code></pre></div>
-<p><img src="08-1_Examples_files/figure-html/unnamed-chunk-3-2.png" width="672" />
+<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="linear-regression-examples.html#cb455-1" tabindex="-1"></a>p</span></code></pre></div>
+<p><img src="08-1_Examples_files/figure-html/unnamed-chunk-4-2.png" width="672" />
 The resulting plot contains the confidence and prediction intervals over the range of x-values.
 Is transforming the data the best approach? The resulting transformation resulted in a linear model. Were the remainder of the tests valid? Not necessarily for the normality. The other approach would be to fit the data with a non-linear best-fit curve. Regardless, you can see how you’d apply linear regression to data.</p>
 

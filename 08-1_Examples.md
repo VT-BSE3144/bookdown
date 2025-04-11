@@ -66,9 +66,21 @@ p
 
 <img src="08-1_Examples_files/figure-html/step 2-1.png" width="672" />
 
+We can also add a linear model ontop of this plot.
+
+
+``` r
+p + geom_smooth(method = "lm")
+```
+
+```
+## `geom_smooth()` using formula = 'y ~ x'
+```
+
+<img src="08-1_Examples_files/figure-html/unnamed-chunk-1-1.png" width="672" />
+
+
 **Check**: The resulting plot does not look linear. We will compare 2 transformations:
-
-
 
 ### Step 3. Transform data
 
@@ -81,7 +93,9 @@ data.ex$S2t <- 1/data.ex$S^2
 
 ### Step 4. Linear model
 
-Create linear model using lm function. * Assess assumption 1
+Create linear model using lm function. 
+
+* Assess assumption 1
  - review t-values from linear model summary. If the slope and intercept values have resulting |t| > 2, then they are significant.
  - review leverage/influence of data points on regression. When data points have high leverage, one of 3 options come into play: (1) Someone made a recording error, (2) Someone made a fundamental mistake collecting the observation; or (3) The data point is perfectly valid, in which case the model cannot account for the behavior
 
@@ -89,7 +103,7 @@ Create linear model using lm function. * Assess assumption 1
 
 ``` r
 # Create linear model, 1st order Michaelis Menton
-model.lm <- lm(vt~St, data=data.ex)
+model.lm <- lm(formula = vt ~ St, data = data.ex)
 summary(model.lm)
 ```
 
@@ -166,7 +180,19 @@ subset(dffits(model.lm), dffits(model.lm) > 2 * sqrt(p / n)) # determines if the
 ##        1 
 ## 11.80479
 ```
-For SLR with more than about 30 observations, the critical value for Di would be about 2.4. 
+
+For simple linear regression with more than about 30 observations, the critical value for Di would be about 2.5. 
+
+
+``` r
+qf(0.1, 2, 30 - 2, lower.tail = FALSE)
+```
+
+```
+## [1] 2.502761
+```
+
+
 In the example above, observation 1 was identified as having higher influence for both Cooks and DDFITS. Consider options 1-3 described in workflow, but also intercept was questionable.
 
 ### Step 5. Test for homoscedasaticity
@@ -255,7 +281,7 @@ p1 <- ggplot(data.all, aes(x = St, y = vt)) +
 p1
 ```
 
-<img src="08-1_Examples_files/figure-html/unnamed-chunk-2-1.png" width="672" />
+<img src="08-1_Examples_files/figure-html/unnamed-chunk-3-1.png" width="672" />
 
 ``` r
 data.all$fit <- 1/data.all$fit
@@ -292,7 +318,7 @@ p
 ## (`geom_line()`).
 ```
 
-<img src="08-1_Examples_files/figure-html/unnamed-chunk-2-2.png" width="672" />
+<img src="08-1_Examples_files/figure-html/unnamed-chunk-3-2.png" width="672" />
 
 
 ## Take 2, try second order!
@@ -478,7 +504,7 @@ p1 <- ggplot(data.all, aes(x = S2t, y = vt)) +
 p1
 ```
 
-<img src="08-1_Examples_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+<img src="08-1_Examples_files/figure-html/unnamed-chunk-4-1.png" width="672" />
 
 ``` r
 data.all$fit <- (1/(data.all$fit))
@@ -510,6 +536,6 @@ p <- ggplot(data.all, aes(x = S, y = v)) +
 p
 ```
 
-<img src="08-1_Examples_files/figure-html/unnamed-chunk-3-2.png" width="672" />
+<img src="08-1_Examples_files/figure-html/unnamed-chunk-4-2.png" width="672" />
 The resulting plot contains the confidence and prediction intervals over the range of x-values.
 Is transforming the data the best approach? The resulting transformation resulted in a linear model. Were the remainder of the tests valid? Not necessarily for the normality. The other approach would be to fit the data with a non-linear best-fit curve. Regardless, you can see how you'd apply linear regression to data.

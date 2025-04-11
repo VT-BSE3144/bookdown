@@ -45,7 +45,7 @@ This week our goals are to be able to:
 
 ## Active Package Libraries
 
-This tutorial is derive from https://www.datacamp.com/community/tutorials/linear-regression-R
+This tutorial is derived from https://www.datacamp.com/community/tutorials/linear-regression-R
 
 
 ``` r
@@ -69,7 +69,7 @@ Below is a figure from <https://pubs.usgs.gov/tm/04/a03/tm4a3.pdf>.
 1.  Read in data
 2.  Plot data & visualize linearity
 3.  Transform data as appropriate
-4.  Create linear model using lm function.
+4.  Create linear model using `lm` function.
 
 -   Assess assumption 1
     -   review t-values from linear model summary. If the slope and intercept values have resulting \|t\| \> 2, then they are significant.
