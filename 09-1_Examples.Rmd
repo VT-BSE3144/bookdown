@@ -53,6 +53,7 @@ Let's initially look at this data by plotting $\nu$ vs $S$ as dictated by the Mi
 ```{r}
 require(tidyr)
 data <- tidyr::gather(data = data, key = E_0, value = v, v_0.015)
+## TODO: convert to pivot_wider
 require(stringr)
 data$E_0 <- as.numeric(stringr::str_remove(string = data$E_0, pattern = "v_"))
 require(ggplot2)

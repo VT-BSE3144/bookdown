@@ -94,7 +94,7 @@ Let's explore this data a bit using the `qplot` function.
 ```{r}
 #before using any package we must load it into our workspace
 library('ggplot2')
-ggplot(data = Rep1, mapping  = aes(x = interaction(M1G, M2G), y = Phen, color = interaction(M1G, M2G))) + geom_point()
+ggplot(data = Rep1, mapping  = aes(x = interaction(M1G, M2G) |> forcats::fct_rev(), y = Phen, color = interaction(M1G, M2G))) + geom_point()
 ```
 
 ***
@@ -204,7 +204,9 @@ Now that we have our model formulated, let's set this up in the ANOVA framework 
 
 ```{r}
 ?aov
-Exp1 <- aov(Phen ~ M1G + M2G + M1G:M2G , data=Rep1) 
+Exp1 <- aov(Phen ~ M1G + M2G + M1G:M2G, data=Rep1) 
+Exp1 <- aov(Phen ~ M1G*M2G, data=Rep1)
+## TODO add in explanation of cross product
 summary(Exp1)
 ```
 
@@ -288,7 +290,7 @@ summary(Full)
 Let's plot the full data set and see if the ANOVA results match our visual expectations. 
 
 ```{r}
-ggplot(data = AllExp, mapping = aes(x = interaction(M1G, M2G), y = Phen, color = interaction(M1G, M2G))) + geom_point(alpha = 0.7, position = "jitter") + stat_summary(fun.data = "mean_se", alpha = 1)
+ggplot(data = AllExp, mapping = aes(x = interaction(M1G, M2G), y = Phen, color = interaction(M1G, M2G))) + geom_point(mapping = aes(shape = Exp), alpha = 0.7, position = "jitter") + stat_summary(fun.data = "mean_se", alpha = 1)
 ```
 
 Let's try plotting this as a boxplot as well. All we have to do is specify a a different geom. 
