@@ -9,7 +9,7 @@ params:
 This tutorial is derived from https://www.datacamp.com/community/tutorials/linear-regression-R
 
 ## Active Libraries
-```{r}
+```{r setup}
 library(ggplot2)
 library(cowplot)
 library(readxl)
@@ -61,9 +61,14 @@ p <- ggplot(data.ex, aes(S,v)) + geom_point() +
 p
 ```
 
+We can also add a linear model ontop of this plot.
+
+```{r}
+p + geom_smooth(method = "lm")
+```
+
+
 **Check**: The resulting plot does not look linear. We will compare 2 transformations:
-
-
 
 ### Step 3. Transform data
 ```{r step 3}
@@ -75,14 +80,16 @@ data.ex$S2t <- 1/data.ex$S^2
 
 ### Step 4. Linear model
 
-Create linear model using lm function. * Assess assumption 1
+Create linear model using lm function. 
+
+* Assess assumption 1
  - review t-values from linear model summary. If the slope and intercept values have resulting |t| > 2, then they are significant.
  - review leverage/influence of data points on regression. When data points have high leverage, one of 3 options come into play: (1) Someone made a recording error, (2) Someone made a fundamental mistake collecting the observation; or (3) The data point is perfectly valid, in which case the model cannot account for the behavior
 
 
 ```{r step 4}
 # Create linear model, 1st order Michaelis Menton
-model.lm <- lm(vt~St, data=data.ex)
+model.lm <- lm(formula = vt ~ St, data = data.ex)
 summary(model.lm)
 vm <- 1/model.lm$coefficients[1]
 ks <- vm*model.lm$coefficients[2]
@@ -104,7 +111,14 @@ p <- length(model.lm$coefficients)
 subset(cooks.distance(model.lm), cooks.distance(model.lm) > qf(0.1, p, n - p, lower.tail = FALSE)) # determines if there are any flagged observations from CooksD
 subset(dffits(model.lm), dffits(model.lm) > 2 * sqrt(p / n)) # determines if there are any flagged observations from DFFITS
 ```
-For SLR with more than about 30 observations, the critical value for Di would be about 2.4. 
+
+For simple linear regression with more than about 30 observations, the critical value for Di would be about 2.5. 
+
+```{r}
+qf(0.1, 2, 30 - 2, lower.tail = FALSE)
+```
+
+
 In the example above, observation 1 was identified as having higher influence for both Cooks and DDFITS. Consider options 1-3 described in workflow, but also intercept was questionable.
 
 ### Step 5. Test for homoscedasaticity
