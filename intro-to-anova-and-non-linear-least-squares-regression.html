@@ -611,18 +611,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb457-9"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb457-9" tabindex="-1"></a>Rep1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Exp,M1G,M2G,Phen)</span>
 <span id="cb457-10"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb457-10" tabindex="-1"></a>Rep1</span></code></pre></div>
 <pre><code>##    Exp M1G M2G      Phen
-## 1    1  WT  WT 112.79005
-## 2    1  WT  WT 104.66525
-## 3    1  WT  WT  98.14137
-## 4    1  M1  WT  81.64885
-## 5    1  M1  WT  88.20238
-## 6    1  M1  WT  83.60468
-## 7    1  WT  M2  85.30517
-## 8    1  WT  M2  74.11627
-## 9    1  WT  M2  84.13589
-## 10   1  M1  M2  87.49359
-## 11   1  M1  M2  67.79492
-## 12   1  M1  M2  69.09042</code></pre>
+## 1    1  WT  WT  93.03203
+## 2    1  WT  WT 101.87947
+## 3    1  WT  WT  97.17182
+## 4    1  M1  WT  83.98818
+## 5    1  M1  WT  79.89083
+## 6    1  M1  WT  72.44189
+## 7    1  WT  M2  78.67411
+## 8    1  WT  M2  87.68373
+## 9    1  WT  M2  91.20366
+## 10   1  M1  M2  91.63336
+## 11   1  M1  M2  60.82796
+## 12   1  M1  M2  72.72844</code></pre>
 <p>Note that the values you drew will be different from those above and different from everyone else.
 Now we also need to convert each of these independent variables from strings to factors, as required by the ANOVA function.</p>
 <div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb459-1" tabindex="-1"></a><span class="fu">class</span>(Rep1<span class="sc">$</span>M1G)</span></code></pre></div>
@@ -646,7 +646,7 @@ Now we also need to convert each of these independent variables from strings to 
 <p>Let’s explore this data a bit using the <code>qplot</code> function.</p>
 <div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb463-1" tabindex="-1"></a><span class="co">#before using any package we must load it into our workspace</span></span>
 <span id="cb463-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb463-2" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;ggplot2&#39;</span>)</span>
-<span id="cb463-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb463-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> Rep1, <span class="at">mapping  =</span> <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">interaction</span>(M1G, M2G), <span class="at">y =</span> Phen, <span class="at">color =</span> <span class="fu">interaction</span>(M1G, M2G))) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<span id="cb463-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb463-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> Rep1, <span class="at">mapping  =</span> <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">interaction</span>(M1G, M2G) <span class="sc">|&gt;</span> forcats<span class="sc">::</span><span class="fu">fct_rev</span>(), <span class="at">y =</span> Phen, <span class="at">color =</span> <span class="fu">interaction</span>(M1G, M2G))) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="09-0_intro_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <hr />
 <p>#####???Question???<br />
@@ -735,13 +735,15 @@ What is the dependent variable in our simulated experiment? This is also known a
 <p>This is called a general linear model. This should remind you of a linear regression analysis from way back in Algebra II. We have written out an equation that we think should fit our data. ANOVA assigns the deviation or error between our model and our data into groups based on the predictors. It does this by comparing the variance between groups of predictors to the variance within groups of predictors.</p>
 <p>Now that we have our model formulated, let’s set this up in the ANOVA framework in R to finally get an answer to our question: “Are these genes interacting to regulate to root length?”</p>
 <div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb473-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb473-1" tabindex="-1"></a>?aov</span>
-<span id="cb473-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb473-2" tabindex="-1"></a>Exp1 <span class="ot">&lt;-</span> <span class="fu">aov</span>(Phen <span class="sc">~</span> M1G <span class="sc">+</span> M2G <span class="sc">+</span> M1G<span class="sc">:</span>M2G , <span class="at">data=</span>Rep1) </span>
-<span id="cb473-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb473-3" tabindex="-1"></a><span class="fu">summary</span>(Exp1)</span></code></pre></div>
-<pre><code>##             Df Sum Sq Mean Sq F value  Pr(&gt;F)   
-## M1G          1  551.1   551.1   9.823 0.01393 * 
-## M2G          1  852.0   852.0  15.188 0.00456 **
-## M1G:M2G      1  153.8   153.8   2.742 0.13635   
-## Residuals    8  448.8    56.1                   
+<span id="cb473-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb473-2" tabindex="-1"></a>Exp1 <span class="ot">&lt;-</span> <span class="fu">aov</span>(Phen <span class="sc">~</span> M1G <span class="sc">+</span> M2G <span class="sc">+</span> M1G<span class="sc">:</span>M2G, <span class="at">data=</span>Rep1) </span>
+<span id="cb473-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb473-3" tabindex="-1"></a>Exp1 <span class="ot">&lt;-</span> <span class="fu">aov</span>(Phen <span class="sc">~</span> M1G<span class="sc">*</span>M2G, <span class="at">data=</span>Rep1)</span>
+<span id="cb473-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb473-4" tabindex="-1"></a><span class="do">## </span><span class="al">TODO</span><span class="do"> add in explanation of cross product</span></span>
+<span id="cb473-5"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb473-5" tabindex="-1"></a><span class="fu">summary</span>(Exp1)</span></code></pre></div>
+<pre><code>##             Df Sum Sq Mean Sq F value Pr(&gt;F)  
+## M1G          1  647.3   647.3   7.684 0.0242 *
+## M2G          1  173.7   173.7   2.062 0.1890  
+## M1G:M2G      1   45.6    45.6   0.541 0.4829  
+## Residuals    8  673.9    84.2                 
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>So what does this summary tell us? <code>Sum Sq</code> stands for sum of squares. This is the sum of the squared deviation between the groups of the variable. <code>Mean Sq</code> is <code>Sum Sq</code> divided by the degrees of freedom or <code>Df</code> in that variable and is essentially the variance of that variable. The degrees of freedom are the number of groups for that variable minus one. <code>Residuals</code> is the total within groups variance.</p>
@@ -765,10 +767,10 @@ What is the dependent variable in our simulated experiment? This is also known a
 <div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb476-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb476-1" tabindex="-1"></a>Exp2 <span class="ot">&lt;-</span> <span class="fu">aov</span>(Phen <span class="sc">~</span> M1G <span class="sc">+</span> M2G <span class="sc">+</span> M1G<span class="sc">:</span>M2G , <span class="at">data=</span>Rep2) </span>
 <span id="cb476-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb476-2" tabindex="-1"></a><span class="fu">summary</span>(Exp2)</span></code></pre></div>
 <pre><code>##             Df Sum Sq Mean Sq F value  Pr(&gt;F)   
-## M1G          1 1436.0  1436.0  16.642 0.00354 **
-## M2G          1  400.7   400.7   4.644 0.06329 . 
-## M1G:M2G      1  100.8   100.8   1.168 0.31138   
-## Residuals    8  690.3    86.3                   
+## M1G          1  291.1   291.1   3.473 0.09938 . 
+## M2G          1 1500.6  1500.6  17.901 0.00287 **
+## M1G:M2G      1   17.5    17.5   0.209 0.65960   
+## Residuals    8  670.6    83.8                   
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <hr />
@@ -792,11 +794,11 @@ What can you conclude from this experiment?
 <p>ANOVA analysis for trial 3</p>
 <div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb479-1" tabindex="-1"></a>Exp3 <span class="ot">&lt;-</span> <span class="fu">aov</span>(Phen <span class="sc">~</span> M1G <span class="sc">+</span> M2G <span class="sc">+</span> M1G<span class="sc">:</span>M2G , <span class="at">data=</span>Rep3) </span>
 <span id="cb479-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb479-2" tabindex="-1"></a><span class="fu">summary</span>(Exp3)</span></code></pre></div>
-<pre><code>##             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
-## M1G          1 1257.5  1257.5  33.130 0.000426 ***
-## M2G          1  406.5   406.5  10.709 0.011315 *  
-## M1G:M2G      1  111.1   111.1   2.927 0.125483    
-## Residuals    8  303.7    38.0                     
+<pre><code>##             Df Sum Sq Mean Sq F value Pr(&gt;F)   
+## M1G          1    3.2     3.2   0.047 0.8344   
+## M2G          1 1484.9  1484.9  21.400 0.0017 **
+## M1G:M2G      1  228.5   228.5   3.294 0.1071   
+## Residuals    8  555.1    69.4                  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>##Combined ANOVA
@@ -806,18 +808,18 @@ Now we can combine the experiments and control control for trial number effects.
 <span id="cb481-3"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb481-3" tabindex="-1"></a>Full <span class="ot">&lt;-</span> <span class="fu">aov</span>(Phen <span class="sc">~</span> M1G <span class="sc">+</span> M2G <span class="sc">+</span> M1G<span class="sc">:</span>M2G <span class="sc">+</span> Exp , <span class="at">data=</span>AllExp) </span>
 <span id="cb481-4"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb481-4" tabindex="-1"></a><span class="fu">summary</span>(Full)</span></code></pre></div>
 <pre><code>##             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
-## M1G          1 3125.4  3125.4  48.441 9.89e-08 ***
-## M2G          1 1604.0  1604.0  24.860 2.42e-05 ***
-## Exp          2   63.3    31.7   0.491    0.617    
-## M1G:M2G      1   47.2    47.2   0.732    0.399    
-## Residuals   30 1935.6    64.5                     
+## M1G          1  654.3   654.3   6.757   0.0143 *  
+## M2G          1 2727.1  2727.1  28.164 9.79e-06 ***
+## Exp          2  260.1   130.1   1.343   0.2763    
+## M1G:M2G      1    5.8     5.8   0.060   0.8080    
+## Residuals   30 2904.9    96.8                     
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 </div>
 <div id="ploting-the-full-dataset" class="section level3 hasAnchor" number="9.2.2">
 <h3><span class="header-section-number">9.2.2</span> Ploting the full dataset<a href="intro-to-anova-and-non-linear-least-squares-regression.html#ploting-the-full-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let’s plot the full data set and see if the ANOVA results match our visual expectations.</p>
-<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb483-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb483-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> AllExp, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">interaction</span>(M1G, M2G), <span class="at">y =</span> Phen, <span class="at">color =</span> <span class="fu">interaction</span>(M1G, M2G))) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">position =</span> <span class="st">&quot;jitter&quot;</span>) <span class="sc">+</span> <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">alpha =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb483-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb483-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> AllExp, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">interaction</span>(M1G, M2G), <span class="at">y =</span> Phen, <span class="at">color =</span> <span class="fu">interaction</span>(M1G, M2G))) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">shape =</span> Exp), <span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">position =</span> <span class="st">&quot;jitter&quot;</span>) <span class="sc">+</span> <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">alpha =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p><img src="09-0_intro_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>Let’s try plotting this as a boxplot as well. All we have to do is specify a a different geom.</p>
 <div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb484-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> AllExp, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">interaction</span>(M1G, M2G), <span class="at">y =</span> Phen, <span class="at">color =</span> <span class="fu">interaction</span>(M1G, M2G))) <span class="sc">+</span> <span class="fu">geom_boxplot</span>()</span></code></pre></div>
@@ -848,27 +850,27 @@ What if the experimental trial did have an effect? How could we figure out which
 ## Fit: aov(formula = Phen ~ M1G + M2G + M1G:M2G + Exp, data = AllExp)
 ## 
 ## $M1G
-##           diff      lwr     upr p adj
-## WT-M1 18.63506 13.16691 24.1032 1e-07
+##           diff      lwr      upr     p adj
+## WT-M1 8.526243 1.827392 15.22509 0.0143481
 ## 
 ## $M2G
-##           diff      lwr      upr    p adj
-## WT-M2 13.34981 7.881669 18.81796 2.42e-05
+##           diff      lwr      upr   p adj
+## WT-M2 17.40731 10.70846 24.10616 9.8e-06
 ## 
 ## $Exp
-##           diff        lwr       upr     p adj
-## 2-1 -3.0799270 -11.164119  5.004265 0.6201870
-## 3-1 -0.6453439  -8.729536  7.438848 0.9788905
-## 3-2  2.4345831  -5.649609 10.518775 0.7404535
+##          diff        lwr       upr     p adj
+## 2-1  4.603860  -5.299829 14.507549 0.4939920
+## 3-1 -1.774399 -11.678088  8.129289 0.8984096
+## 3-2 -6.378260 -16.281948  3.525429 0.2664075
 ## 
 ## $`M1G:M2G`
-##                  diff         lwr       upr     p adj
-## WT:M2-M1:M2 16.344991   6.0490047 26.640977 0.0008707
-## M1:WT-M1:M2 11.059748   0.7637615 21.355734 0.0315702
-## WT:WT-M1:M2 31.984869  21.6888829 42.280855 0.0000000
-## M1:WT-WT:M2 -5.285243 -15.5812293  5.010743 0.5116731
-## WT:WT-WT:M2 15.639878   5.3438920 25.935864 0.0014454
-## WT:WT-M1:WT 20.925121  10.6291352 31.221107 0.0000301</code></pre>
+##                  diff       lwr      upr     p adj
+## WT:M2-M1:M2  9.330347 -3.282941 21.94364 0.2064051
+## M1:WT-M1:M2 18.211413  5.598125 30.82470 0.0025043
+## WT:WT-M1:M2 25.933553 13.320265 38.54684 0.0000251
+## M1:WT-WT:M2  8.881066 -3.732222 21.49435 0.2435519
+## WT:WT-WT:M2 16.603206  3.989918 29.21649 0.0062255
+## WT:WT-M1:WT  7.722140 -4.891148 20.33543 0.3594591</code></pre>
 <p>So more than likely, you will see for your full experiment with 3 replications that WT is significantly different from M1 and M2. This is shown in the first two sections of the <code>TukeyHSD</code> summary which compare the levels (wildtype vs mutant) of the factors M1G and M2G. The <code>p adj</code> is the p-value (adjusted for the multiple comparisons) resulting from the equivalent of a <em>t</em>-test comparing the two groups. So if the <code>p adj</code> value is less than the accepted confidence level (typically 0.05), then the two compared groups are significantly different from one another. Hopefully, each replication of the experiment will not be significantly different from the others, i.e. the adjusted p-values will be greater than 0.05. We can visualize the differences in the means by plotting the <code>TukeyHSD</code> results. This uses base R plotting which is much less user-friendly than ggplot. Don’t get bogged down in the code here, just pay attention to the graphs.</p>
 <div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb488-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="at">cex =</span> <span class="fl">0.65</span>)</span>
 <span id="cb488-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb488-2" tabindex="-1"></a><span class="fu">plot</span>(tuk, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">cex.axis =</span> <span class="fl">0.75</span>) </span></code></pre></div>
@@ -882,33 +884,33 @@ What if the experimental trial did have an effect? How could we figure out which
 ## 
 ## HSD Test for Phen 
 ## 
-## Mean Square Error:  64.5201 
+## Mean Square Error:  96.83131 
 ## 
 ## M1G:M2G,  means
 ## 
-##            Phen      std r      se      Min       Max      Q25       Q50
-## M1:M2  70.32658 8.108818 9 2.67748 57.95027  87.49359 67.61923  67.97683
-## M1:WT  81.38633 8.547106 9 2.67748 67.27229  90.48052 79.66605  83.60468
-## WT:M2  86.67157 8.979041 9 2.67748 73.17487  98.89297 84.13589  86.04451
-## WT:WT 102.31145 5.516890 9 2.67748 93.40389 112.79005 98.68837 102.29706
+##           Phen       std r       se      Min       Max      Q25      Q50
+## M1:M2 71.83728  9.637021 9 3.280097 59.90747  91.63336 66.71321 71.46866
+## M1:WT 90.04870 11.661054 9 3.280097 72.44189 108.11558 83.98818 88.85703
+## WT:M2 81.16763  7.325853 9 3.280097 66.28187  91.20366 78.20353 79.57647
+## WT:WT 97.77084 10.635320 9 3.280097 82.58870 115.36265 91.03722 97.17182
 ##             Q75
-## M1:M2  72.95179
-## M1:WT  88.20238
-## WT:M2  90.85361
-## WT:WT 104.77995
+## M1:M2  72.82244
+## M1:WT  95.39953
+## WT:M2  86.42332
+## WT:WT 101.87947
 ## 
 ## Alpha: 0.05 ; DF Error: 30 
 ## Critical Value of Studentized Range: 3.845401 
 ## 
-## Minimun Significant Difference: 10.29599 
+## Minimun Significant Difference: 12.61329 
 ## 
 ## Treatments with the same letter are not significantly different.
 ## 
-##            Phen groups
-## WT:WT 102.31145      a
-## WT:M2  86.67157      b
-## M1:WT  81.38633      b
-## M1:M2  70.32658      c</code></pre>
+##           Phen groups
+## WT:WT 97.77084      a
+## M1:WT 90.04870     ab
+## WT:M2 81.16763     bc
+## M1:M2 71.83728      c</code></pre>
 <p>Finally we can add these groups to our graph and make the titles a bit more understandable. We’ll add a text geometry to add the post hoc comparisons. Another tricky point is that we have to make sure that the x-axis labels match between our data and our HSD test. To do this we use <code>gsub</code> to swap out the colons for periods.</p>
 <div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb491-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb491-1" tabindex="-1"></a>HSD.groups <span class="ot">&lt;-</span> <span class="fu">HSD.test</span>(<span class="at">y =</span> Full, <span class="at">trt =</span> <span class="fu">c</span>(<span class="st">&quot;M1G&quot;</span>,<span class="st">&quot;M2G&quot;</span>))<span class="sc">$</span>groups</span>
 <span id="cb491-2"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb491-2" tabindex="-1"></a>HSD.groups<span class="sc">$</span>trt <span class="ot">&lt;-</span> <span class="fu">row.names</span>(HSD.groups)</span>
@@ -958,7 +960,7 @@ What if the experimental trial did have an effect? How could we figure out which
 <div class="sourceCode" id="cb498"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb498-1"><a href="intro-to-anova-and-non-linear-least-squares-regression.html#cb498-1" tabindex="-1"></a><span class="fu">leveneTest</span>(AllExp<span class="sc">$</span>Phen, <span class="fu">interaction</span>(AllExp<span class="sc">$</span>M1G, AllExp<span class="sc">$</span>M2G), <span class="at">center =</span> median)</span></code></pre></div>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
 ##       Df F value Pr(&gt;F)
-## group  3  0.4103 0.7467
+## group  3  0.4811 0.6977
 ##       32</code></pre>
 </div>
 <div id="independence" class="section level3 hasAnchor" number="9.4.3">

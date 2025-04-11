@@ -82,6 +82,7 @@ require(tidyr)
 
 ``` r
 data <- tidyr::gather(data = data, key = E_0, value = v, v_0.015)
+## TODO: convert to pivot_wider
 require(stringr)
 ```
 
