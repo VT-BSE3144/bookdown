@@ -8,7 +8,7 @@
   <meta name="description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
 Systems Engineering course BSE3144: Engineering Analysis for Biological
 Systems using Numerical Methods.</p>" />
-  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
   <meta property="og:title" content="11 Interpolation and Extrapolation | Data Analysis and Numerical Methods for Biological Systems Engineers" />
   <meta property="og:type" content="book" />
@@ -30,7 +30,7 @@ Systems using Numerical Methods.</p>" />
 <meta name="author" content="R. Clay Wright" />
 
 
-<meta name="date" content="2025-04-11" />
+<meta name="date" content="2025-04-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -486,7 +486,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="interpolation-and-extrapolation-examples.html"><a href="interpolation-and-extrapolation-examples.html"><i class="fa fa-check"></i>Interpolation and Extrapolation Examples</a>
 <ul>
-<li class="chapter" data-level="11.3" data-path="interpolation-and-extrapolation-examples.html"><a href="interpolation-and-extrapolation-examples.html#example---co2-at-mana-loa-observatory"><i class="fa fa-check"></i><b>11.3</b> Example - CO<sub>2</sub> at Mana Loa Observatory</a></li>
+<li class="chapter" data-level="11.3" data-path="interpolation-and-extrapolation-examples.html"><a href="interpolation-and-extrapolation-examples.html#example---co2-at-mauna-loa-observatory"><i class="fa fa-check"></i><b>11.3</b> Example - CO<sub>2</sub> at Mauna Loa Observatory</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="interpolation-and-extrapolation-examples.html"><a href="interpolation-and-extrapolation-examples.html#linear-extrapolation"><i class="fa fa-check"></i><b>11.3.1</b> Linear Extrapolation</a></li>
+<li class="chapter" data-level="11.3.2" data-path="interpolation-and-extrapolation-examples.html"><a href="interpolation-and-extrapolation-examples.html#manual-linear-extrapolation-last-2-points"><i class="fa fa-check"></i><b>11.3.2</b> Manual Linear Extrapolation (Last 2 Points)</a></li>
+<li class="chapter" data-level="11.3.3" data-path="interpolation-and-extrapolation-examples.html"><a href="interpolation-and-extrapolation-examples.html#polynomial-fit"><i class="fa fa-check"></i><b>11.3.3</b> Polynomial Fit</a></li>
+<li class="chapter" data-level="11.3.4" data-path="interpolation-and-extrapolation-examples.html"><a href="interpolation-and-extrapolation-examples.html#spline-fitting"><i class="fa fa-check"></i><b>11.3.4</b> Spline Fitting</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="differentiation-integration.html"><a href="differentiation-integration.html"><i class="fa fa-check"></i><b>12</b> Differentiation &amp; Integration</a>
 <ul>
@@ -612,7 +618,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">11.2</span> Overview of interpolation<a href="interpolation-and-extrapolation.html#overview-of-interpolation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Within the Engineering discipline, we often use interpolation techniques to estimate a value. For example, imagine you are using a thermodynamic table to look up the specific enthalpy of water at 33.4°C. The table has values for 30°C and 35°C; thus, you need to interpolate the value at 33.4°C. This week we’ll look at different interpolation approaches for such problems. More advance interpolation for 2-D surfaces includes interpolating properties across a surface—for example, estimating average annual rainfall across a state or country uses interpolation and modeling approaches (e.g. see <a href="https://prism.oregonstate.edu/normals/">https://prism.oregonstate.edu/normals/</a>) since rainfall is not measured everywhere. We’ll focus on 1-D examples in this unit; there’s an excellent appendix with examples at the end of <a href="https://mgimond.github.io/Spatial/app1-1.html">Manuel Gimond’s book on spatial analysis</a>.</p>
 <ul>
-<li>One might ask what the difference is between interpolation and regression: in contrast to regression, interpolation schemes result in the line going through every observational point exactly. The goal is to make the most accurate predictions of values between experimental observations, not to define the most simple, or mechanistic model that fits the data.</li>
+<li>One might ask what the difference is between interpolation and regression: In contrast to regression, where our objective is to fit the simplest, mechanistically possible or explainable function to data, in interpolation our goal is to define a line going through every data point exactly and predicting those points in between data. The goal is to make the most accurate predictions of values between experimental observations, not to define the most simple, or mechanistic model that fits the data.</li>
 </ul>
 <div id="linear-interpololation" class="section level3 hasAnchor" number="11.2.1">
 <h3><span class="header-section-number">11.2.1</span> Linear interpololation<a href="interpolation-and-extrapolation.html#linear-interpololation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -651,7 +657,7 @@ Figure 11.1: Linear interpolation diagram with equation.
 <p>Suppose we have the following dataset:</p>
 <p>x = 0, 2, 3, 4<br />
 y = 7, 11, 28, 63</p>
-<p>Plot the data and use the <code>poly_calc()</code> function within the <code>PolynomF</code> package. Here, the <code>polycalc</code> function creates a polynomial (that I assign to <code>a</code>) that can then be used for interpolation (I evaluated the polynomial a at all points in the xx vector).</p>
+<p>Plot the data and use the <code>poly_calc()</code> function within the <code>PolynomF</code> package. Here, the <code>poly_calc</code> function creates a polynomial (that I assign to <code>a</code>) that can then be used for interpolation (I evaluated the polynomial a at all points in the xx vector).</p>
 <p><img src="11-0_Intro_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>The resulting polynomial function can be accessed as shown below and is an R function as well:</p>
 <div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb617-1"><a href="interpolation-and-extrapolation.html#cb617-1" tabindex="-1"></a>a</span></code></pre></div>

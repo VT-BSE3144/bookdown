@@ -68,7 +68,7 @@ Read through this Intro material below and also skim through this example: <http
 
 Within the Engineering discipline, we often use interpolation techniques to estimate a value. For example, imagine you are using a thermodynamic table to look up the specific enthalpy of water at 33.4&deg;C. The table has values for 30&deg;C and 35&deg;C; thus, you need to interpolate the value at 33.4&deg;C. This week we'll look at different interpolation approaches for such problems. More advance interpolation for 2-D surfaces includes interpolating properties across a surface---for example, estimating average annual rainfall across a state or country uses interpolation and modeling approaches (e.g. see [https://prism.oregonstate.edu/normals/](https://prism.oregonstate.edu/normals/)) since rainfall is not measured everywhere. We'll focus on 1-D examples in this unit; there's an excellent appendix with examples at the end of [Manuel Gimond's book on spatial analysis](https://mgimond.github.io/Spatial/app1-1.html).
 
-* One might ask what the difference is between interpolation and regression: in contrast to regression, interpolation schemes result in the line going through every observational point exactly. The goal is to make the most accurate predictions of values between experimental observations, not to define the most simple, or mechanistic model that fits the data.
+* One might ask what the difference is between interpolation and regression: In contrast to regression, where our objective is to fit the simplest, mechanistically possible or explainable function to data, in interpolation our goal is to define a line going through every data point exactly and predicting those points in between data. The goal is to make the most accurate predictions of values between experimental observations, not to define the most simple, or mechanistic model that fits the data.
 
 ### Linear interpololation
 
@@ -82,6 +82,7 @@ $$
 <img src="images/diagram_linearinterp.jpg" alt="Linear interpolation diagram with equation." width="50%" />
 <p class="caption">(\#fig:unnamed-chunk-1)Linear interpolation diagram with equation.</p>
 </div>
+
 Let's look at an example. Suppose you have a table for the specific volume of a gas. You've been asked for the value at 377&deg;C, and you know the following:
 
 - T @ 360&deg;C, specific volume = 4.789 cubic liters/kg
@@ -118,7 +119,7 @@ Suppose we have the following dataset:
 x  = 0, 2, 3, 4  
 y = 7, 11, 28, 63
 
-Plot the data and use the `poly_calc()` function within the `PolynomF` package. Here, the `polycalc` function creates a polynomial (that I assign to `a`) that can then be used for interpolation (I evaluated the polynomial a at all points in the xx vector). 
+Plot the data and use the `poly_calc()` function within the `PolynomF` package. Here, the `poly_calc` function creates a polynomial (that I assign to `a`) that can then be used for interpolation (I evaluated the polynomial a at all points in the xx vector). 
 
 <img src="11-0_Intro_files/figure-html/unnamed-chunk-2-1.png" width="672" />
 

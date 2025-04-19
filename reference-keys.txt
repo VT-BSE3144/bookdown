@@ -272,7 +272,13 @@ linear-interpolation
 constant-interpolation-assume-same-value-as-previous-no-knowledge-of-future-value
 nearest-interpolation-assume-same-value-as-closest-observation
 oscillations
-example---co2-at-mana-loa-observatory
+example---co2-at-mauna-loa-observatory
+linear-extrapolation
+manual-linear-extrapolation-last-2-points
+polynomial-fit
+method-1-poly_calc
+method-2-poly-inside-lm
+spline-fitting
 differentiation-integration
 biggest-takeaway---workflow
 reading-3

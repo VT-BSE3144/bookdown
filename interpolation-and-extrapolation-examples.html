@@ -8,7 +8,7 @@
   <meta name="description" content="<p>This book was developed as a companion text for the Virginia Tech Biological
 Systems Engineering course BSE3144: Engineering Analysis for Biological
 Systems using Numerical Methods.</p>" />
-  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Interpolation and Extrapolation Examples | Data Analysis and Numerical Methods for Biological Systems Engineers" />
   <meta property="og:type" content="book" />
@@ -30,7 +30,7 @@ Systems using Numerical Methods.</p>" />
 <meta name="author" content="R. Clay Wright" />
 
 
-<meta name="date" content="2025-04-11" />
+<meta name="date" content="2025-04-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -486,7 +486,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="interpolation-and-extrapolation-examples.html"><a href="interpolation-and-extrapolation-examples.html"><i class="fa fa-check"></i>Interpolation and Extrapolation Examples</a>
 <ul>
-<li class="chapter" data-level="11.3" data-path="interpolation-and-extrapolation-examples.html"><a href="interpolation-and-extrapolation-examples.html#example---co2-at-mana-loa-observatory"><i class="fa fa-check"></i><b>11.3</b> Example - CO<sub>2</sub> at Mana Loa Observatory</a></li>
+<li class="chapter" data-level="11.3" data-path="interpolation-and-extrapolation-examples.html"><a href="interpolation-and-extrapolation-examples.html#example---co2-at-mauna-loa-observatory"><i class="fa fa-check"></i><b>11.3</b> Example - CO<sub>2</sub> at Mauna Loa Observatory</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="interpolation-and-extrapolation-examples.html"><a href="interpolation-and-extrapolation-examples.html#linear-extrapolation"><i class="fa fa-check"></i><b>11.3.1</b> Linear Extrapolation</a></li>
+<li class="chapter" data-level="11.3.2" data-path="interpolation-and-extrapolation-examples.html"><a href="interpolation-and-extrapolation-examples.html#manual-linear-extrapolation-last-2-points"><i class="fa fa-check"></i><b>11.3.2</b> Manual Linear Extrapolation (Last 2 Points)</a></li>
+<li class="chapter" data-level="11.3.3" data-path="interpolation-and-extrapolation-examples.html"><a href="interpolation-and-extrapolation-examples.html#polynomial-fit"><i class="fa fa-check"></i><b>11.3.3</b> Polynomial Fit</a></li>
+<li class="chapter" data-level="11.3.4" data-path="interpolation-and-extrapolation-examples.html"><a href="interpolation-and-extrapolation-examples.html#spline-fitting"><i class="fa fa-check"></i><b>11.3.4</b> Spline Fitting</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="differentiation-integration.html"><a href="differentiation-integration.html"><i class="fa fa-check"></i><b>12</b> Differentiation &amp; Integration</a>
 <ul>
@@ -569,9 +575,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="interpolation-and-extrapolation-examples" class="section level1 unnumbered hasAnchor">
 <h1>Interpolation and Extrapolation Examples<a href="interpolation-and-extrapolation-examples.html#interpolation-and-extrapolation-examples" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div class="sourceCode" id="cb630"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb630-1"><a href="interpolation-and-extrapolation-examples.html#cb630-1" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb630-2"><a href="interpolation-and-extrapolation-examples.html#cb630-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb630-3"><a href="interpolation-and-extrapolation-examples.html#cb630-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb630"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb630-1"><a href="interpolation-and-extrapolation-examples.html#cb630-1" tabindex="-1"></a><span class="co"># Set global chunk options and load necessary libraries</span></span>
+<span id="cb630-2"><a href="interpolation-and-extrapolation-examples.html#cb630-2" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb630-3"><a href="interpolation-and-extrapolation-examples.html#cb630-3" tabindex="-1"></a><span class="fu">library</span>(ggplot2)      <span class="co"># for plotting</span></span>
+<span id="cb630-4"><a href="interpolation-and-extrapolation-examples.html#cb630-4" tabindex="-1"></a><span class="fu">library</span>(tidyverse)    <span class="co"># for data manipulation and piping</span></span></code></pre></div>
 <pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ## ✔ dplyr     1.1.4     ✔ readr     2.1.5
 ## ✔ forcats   1.0.0     ✔ stringr   1.5.1
@@ -581,14 +588,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
 ## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-<div class="sourceCode" id="cb632"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb632-1"><a href="interpolation-and-extrapolation-examples.html#cb632-1" tabindex="-1"></a><span class="fu">library</span>(PolynomF)</span></code></pre></div>
+<div class="sourceCode" id="cb632"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb632-1"><a href="interpolation-and-extrapolation-examples.html#cb632-1" tabindex="-1"></a><span class="fu">library</span>(PolynomF)     <span class="co"># for polynomial fitting functions</span></span></code></pre></div>
 <pre><code>## 
 ## Attaching package: &#39;PolynomF&#39;
 ## 
 ## The following object is masked from &#39;package:purrr&#39;:
 ## 
 ##     zap</code></pre>
-<div class="sourceCode" id="cb634"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb634-1"><a href="interpolation-and-extrapolation-examples.html#cb634-1" tabindex="-1"></a><span class="fu">library</span>(pracma)</span></code></pre></div>
+<div class="sourceCode" id="cb634"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb634-1"><a href="interpolation-and-extrapolation-examples.html#cb634-1" tabindex="-1"></a><span class="fu">library</span>(pracma)       <span class="co"># for numerical tools, not used directly here</span></span></code></pre></div>
 <pre><code>## 
 ## Attaching package: &#39;pracma&#39;
 ## 
@@ -599,12 +606,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## The following object is masked from &#39;package:purrr&#39;:
 ## 
 ##     cross</code></pre>
-<div id="example---co2-at-mana-loa-observatory" class="section level2 hasAnchor" number="11.3">
-<h2><span class="header-section-number">11.3</span> Example - CO<sub>2</sub> at Mana Loa Observatory<a href="interpolation-and-extrapolation-examples.html#example---co2-at-mana-loa-observatory" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The Mana Loa observatory contains the longest <em>in situ</em> record of CO<sub>2</sub> in the atmosphere. We’ve downloaded this data from <a href="ftp://aftp.cmdl.noaa.gov/products/trends/co2/co2_annmean_mlo.txt" class="uri">ftp://aftp.cmdl.noaa.gov/products/trends/co2/co2_annmean_mlo.txt</a>.</p>
-<p>Let’s read in this data and do some extrapolation. Instead of using the <code>lin_interp</code> function we wrote, we can just make linear regression model of the data.</p>
-<div class="sourceCode" id="cb636"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb636-1"><a href="interpolation-and-extrapolation-examples.html#cb636-1" tabindex="-1"></a>coln <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;year&quot;</span>,<span class="st">&quot;co2&quot;</span>,<span class="st">&quot;y&quot;</span>)</span>
-<span id="cb636-2"><a href="interpolation-and-extrapolation-examples.html#cb636-2" tabindex="-1"></a>dfc <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">&quot;data/co2_annmean_mlo.txt&quot;</span>,<span class="at">delim =</span> <span class="st">&quot;   &quot;</span>, <span class="at">comment =</span> <span class="st">&quot;#&quot;</span>,<span class="at">col_names =</span> coln)</span></code></pre></div>
+<div id="example---co2-at-mauna-loa-observatory" class="section level2 hasAnchor" number="11.3">
+<h2><span class="header-section-number">11.3</span> Example - CO<sub>2</sub> at Mauna Loa Observatory<a href="interpolation-and-extrapolation-examples.html#example---co2-at-mauna-loa-observatory" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The Mauna Loa Observatory contains the longest <em>in situ</em> record of CO<sub>2</sub> in the atmosphere. This dataset is ideal for demonstrating interpolation and extrapolation methods. Using this data, let’s extrapolate the CO<sub>2</sub> level at 2100. We’ll start with linear interpolation/extrapolation using a few different methods and then we will try polynomial and splines methods.</p>
+<blockquote>
+<p><strong>Interpolation</strong>: Estimating values within known data range.<br />
+<strong>Extrapolation</strong>: Predicting values beyond known data range.</p>
+</blockquote>
+<p>We’ve downloaded this data from <a href="ftp://aftp.cmdl.noaa.gov/products/trends/co2/co2_annmean_mlo.txt" class="uri">ftp://aftp.cmdl.noaa.gov/products/trends/co2/co2_annmean_mlo.txt</a>.</p>
+<p>Let’s read in this data and start by visualizing it.</p>
+<div class="sourceCode" id="cb636"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb636-1"><a href="interpolation-and-extrapolation-examples.html#cb636-1" tabindex="-1"></a><span class="co"># Define column names and read in the dataset, skipping comments</span></span>
+<span id="cb636-2"><a href="interpolation-and-extrapolation-examples.html#cb636-2" tabindex="-1"></a>coln <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;year&quot;</span>,<span class="st">&quot;co2&quot;</span>,<span class="st">&quot;y&quot;</span>)</span>
+<span id="cb636-3"><a href="interpolation-and-extrapolation-examples.html#cb636-3" tabindex="-1"></a>mauna_loa_co2 <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">&quot;data/co2_annmean_mlo.txt&quot;</span>,<span class="at">delim =</span> <span class="st">&quot;   &quot;</span>, <span class="at">comment =</span> <span class="st">&quot;#&quot;</span>,<span class="at">col_names =</span> coln)</span></code></pre></div>
 <pre><code>## Rows: 65 Columns: 5
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;   &quot;
@@ -614,68 +627,129 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<div class="sourceCode" id="cb638"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb638-1"><a href="interpolation-and-extrapolation-examples.html#cb638-1" tabindex="-1"></a>dfc<span class="sc">$</span>year <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dfc<span class="sc">$</span>year)</span>
-<span id="cb638-2"><a href="interpolation-and-extrapolation-examples.html#cb638-2" tabindex="-1"></a>dfc<span class="sc">$</span>co2 <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>((dfc<span class="sc">$</span>co2))</span>
-<span id="cb638-3"><a href="interpolation-and-extrapolation-examples.html#cb638-3" tabindex="-1"></a><span class="fu">plot</span>(dfc<span class="sc">$</span>year,dfc<span class="sc">$</span>co2)</span></code></pre></div>
+<div class="sourceCode" id="cb638"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb638-1"><a href="interpolation-and-extrapolation-examples.html#cb638-1" tabindex="-1"></a><span class="co"># Convert columns to numeric types</span></span>
+<span id="cb638-2"><a href="interpolation-and-extrapolation-examples.html#cb638-2" tabindex="-1"></a>mauna_loa_co2<span class="sc">$</span>year <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(mauna_loa_co2<span class="sc">$</span>year)</span>
+<span id="cb638-3"><a href="interpolation-and-extrapolation-examples.html#cb638-3" tabindex="-1"></a>mauna_loa_co2<span class="sc">$</span>co2 <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>((mauna_loa_co2<span class="sc">$</span>co2))</span>
+<span id="cb638-4"><a href="interpolation-and-extrapolation-examples.html#cb638-4" tabindex="-1"></a></span>
+<span id="cb638-5"><a href="interpolation-and-extrapolation-examples.html#cb638-5" tabindex="-1"></a><span class="co"># Plot the raw data to see the trend</span></span>
+<span id="cb638-6"><a href="interpolation-and-extrapolation-examples.html#cb638-6" tabindex="-1"></a><span class="fu">plot</span>(mauna_loa_co2<span class="sc">$</span>year, mauna_loa_co2<span class="sc">$</span>co2)</span></code></pre></div>
 <p><img src="11-1_Examples_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
-<p>Using this data let’s extrapolate the CO<sub>2</sub> level at 2100. We’ll start with linear interpolation and in the assignment you will try polynomial and splines.</p>
-<div class="sourceCode" id="cb639"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb639-1"><a href="interpolation-and-extrapolation-examples.html#cb639-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lm</span>(co2 <span class="sc">~</span> year, <span class="at">data =</span> dfc)</span>
-<span id="cb639-2"><a href="interpolation-and-extrapolation-examples.html#cb639-2" tabindex="-1"></a></span>
-<span id="cb639-3"><a href="interpolation-and-extrapolation-examples.html#cb639-3" tabindex="-1"></a>xx <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1970</span>, <span class="dv">2100</span>, <span class="dv">1</span>)</span>
-<span id="cb639-4"><a href="interpolation-and-extrapolation-examples.html#cb639-4" tabindex="-1"></a>xxd <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(xx)</span>
-<span id="cb639-5"><a href="interpolation-and-extrapolation-examples.html#cb639-5" tabindex="-1"></a><span class="fu">colnames</span>(xxd) <span class="ot">&lt;-</span> <span class="st">&quot;year&quot;</span></span>
-<span id="cb639-6"><a href="interpolation-and-extrapolation-examples.html#cb639-6" tabindex="-1"></a>yy <span class="ot">&lt;-</span> <span class="fu">predict</span>(m, xxd)</span>
-<span id="cb639-7"><a href="interpolation-and-extrapolation-examples.html#cb639-7" tabindex="-1"></a></span>
-<span id="cb639-8"><a href="interpolation-and-extrapolation-examples.html#cb639-8" tabindex="-1"></a>lm_co2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">cbind</span>(xx, yy))</span>
-<span id="cb639-9"><a href="interpolation-and-extrapolation-examples.html#cb639-9" tabindex="-1"></a></span>
-<span id="cb639-10"><a href="interpolation-and-extrapolation-examples.html#cb639-10" tabindex="-1"></a>pp <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb639-11"><a href="interpolation-and-extrapolation-examples.html#cb639-11" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
-<span id="cb639-12"><a href="interpolation-and-extrapolation-examples.html#cb639-12" tabindex="-1"></a>    <span class="at">data =</span> dfc,</span>
-<span id="cb639-13"><a href="interpolation-and-extrapolation-examples.html#cb639-13" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> co2),</span>
-<span id="cb639-14"><a href="interpolation-and-extrapolation-examples.html#cb639-14" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">1</span>,</span>
-<span id="cb639-15"><a href="interpolation-and-extrapolation-examples.html#cb639-15" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">&#39;blue&#39;</span></span>
-<span id="cb639-16"><a href="interpolation-and-extrapolation-examples.html#cb639-16" tabindex="-1"></a>  )</span>
-<span id="cb639-17"><a href="interpolation-and-extrapolation-examples.html#cb639-17" tabindex="-1"></a>pp  <span class="sc">+</span></span>
-<span id="cb639-18"><a href="interpolation-and-extrapolation-examples.html#cb639-18" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> lm_co2, <span class="fu">aes</span>(<span class="at">x =</span> xx, <span class="at">y =</span> yy))</span></code></pre></div>
-<p><img src="11-1_Examples_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<p>Well over 550 ppm CO<sub>2</sub> by 2100. But this doesn’t really fit the data very well. Perhaps we could improve a bit by using our <code>lin_interp</code> function on the last 2 datapoints.</p>
-<div class="sourceCode" id="cb640"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb640-1"><a href="interpolation-and-extrapolation-examples.html#cb640-1" tabindex="-1"></a>lin_interp <span class="ot">&lt;-</span> <span class="cf">function</span>(fx1,fx2,x1,x2,x3) fx1<span class="sc">+</span>((fx2<span class="sc">-</span>fx1)<span class="sc">/</span>(x2<span class="sc">-</span>x1))<span class="sc">*</span>(x3<span class="sc">-</span>x1)</span></code></pre></div>
-<div class="sourceCode" id="cb641"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb641-1"><a href="interpolation-and-extrapolation-examples.html#cb641-1" tabindex="-1"></a>lin_extrap_data <span class="ot">&lt;-</span> <span class="fu">tail</span>(dfc, <span class="at">n =</span> <span class="dv">2</span>)</span>
-<span id="cb641-2"><a href="interpolation-and-extrapolation-examples.html#cb641-2" tabindex="-1"></a><span class="fu">lin_interp</span>(<span class="at">fx1 =</span> lin_extrap_data[[<span class="dv">1</span>,<span class="st">&quot;co2&quot;</span>]],</span>
-<span id="cb641-3"><a href="interpolation-and-extrapolation-examples.html#cb641-3" tabindex="-1"></a>           <span class="at">fx2 =</span> lin_extrap_data[[<span class="dv">2</span>,<span class="st">&quot;co2&quot;</span>]], </span>
-<span id="cb641-4"><a href="interpolation-and-extrapolation-examples.html#cb641-4" tabindex="-1"></a>           <span class="at">x1 =</span> lin_extrap_data[[<span class="dv">1</span>,<span class="st">&quot;year&quot;</span>]],</span>
-<span id="cb641-5"><a href="interpolation-and-extrapolation-examples.html#cb641-5" tabindex="-1"></a>           <span class="at">x2 =</span> lin_extrap_data[[<span class="dv">2</span>,<span class="st">&quot;year&quot;</span>]], </span>
-<span id="cb641-6"><a href="interpolation-and-extrapolation-examples.html#cb641-6" tabindex="-1"></a>           <span class="at">x3 =</span> <span class="dv">2100</span>)</span></code></pre></div>
-<pre><code>## [1] 617.43</code></pre>
-<div class="sourceCode" id="cb643"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb643-1"><a href="interpolation-and-extrapolation-examples.html#cb643-1" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(co2 <span class="sc">~</span> year, <span class="at">data =</span> lin_extrap_data)</span></code></pre></div>
-<p>620 ppm! That’s more than 10% higher, but does it visually fit better? We can use the <code>geom_abline</code> function from <code>ggplot2</code> to plot a line with the right slope and intercept, although it would probably be easier to go back and make a linear model with the <code>lin_extrap_data</code> and use <code>predict</code> to make a line as we did above.</p>
-<div class="sourceCode" id="cb644"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb644-1"><a href="interpolation-and-extrapolation-examples.html#cb644-1" tabindex="-1"></a>pp <span class="sc">+</span></span>
-<span id="cb644-2"><a href="interpolation-and-extrapolation-examples.html#cb644-2" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> (lin_extrap_data[[<span class="dv">2</span>,<span class="st">&quot;co2&quot;</span>]] <span class="sc">-</span> </span>
-<span id="cb644-3"><a href="interpolation-and-extrapolation-examples.html#cb644-3" tabindex="-1"></a>                         lin_extrap_data[[<span class="dv">1</span>,<span class="st">&quot;co2&quot;</span>]]) <span class="sc">/</span> </span>
-<span id="cb644-4"><a href="interpolation-and-extrapolation-examples.html#cb644-4" tabindex="-1"></a>                      (lin_extrap_data[[<span class="dv">2</span>,<span class="st">&quot;year&quot;</span>]] <span class="sc">-</span> </span>
-<span id="cb644-5"><a href="interpolation-and-extrapolation-examples.html#cb644-5" tabindex="-1"></a>                        lin_extrap_data[[<span class="dv">1</span>,<span class="st">&quot;year&quot;</span>]]), </span>
-<span id="cb644-6"><a href="interpolation-and-extrapolation-examples.html#cb644-6" tabindex="-1"></a>              <span class="at">intercept =</span> lin_extrap_data[[<span class="dv">1</span>,<span class="st">&quot;co2&quot;</span>]] <span class="sc">-</span></span>
-<span id="cb644-7"><a href="interpolation-and-extrapolation-examples.html#cb644-7" tabindex="-1"></a>                          (lin_extrap_data[[<span class="dv">2</span>,<span class="st">&quot;co2&quot;</span>]] <span class="sc">-</span> </span>
-<span id="cb644-8"><a href="interpolation-and-extrapolation-examples.html#cb644-8" tabindex="-1"></a>                         lin_extrap_data[[<span class="dv">1</span>,<span class="st">&quot;co2&quot;</span>]]) <span class="sc">/</span> </span>
-<span id="cb644-9"><a href="interpolation-and-extrapolation-examples.html#cb644-9" tabindex="-1"></a>                      (lin_extrap_data[[<span class="dv">2</span>,<span class="st">&quot;year&quot;</span>]] <span class="sc">-</span> </span>
-<span id="cb644-10"><a href="interpolation-and-extrapolation-examples.html#cb644-10" tabindex="-1"></a>                        lin_extrap_data[[<span class="dv">1</span>,<span class="st">&quot;year&quot;</span>]])<span class="sc">*</span></span>
-<span id="cb644-11"><a href="interpolation-and-extrapolation-examples.html#cb644-11" tabindex="-1"></a>  lin_extrap_data[[<span class="dv">1</span>,<span class="st">&quot;year&quot;</span>]], </span>
-<span id="cb644-12"><a href="interpolation-and-extrapolation-examples.html#cb644-12" tabindex="-1"></a>  <span class="at">color =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb644-13"><a href="interpolation-and-extrapolation-examples.html#cb644-13" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">300</span>, <span class="dv">800</span>) <span class="sc">+</span> </span>
-<span id="cb644-14"><a href="interpolation-and-extrapolation-examples.html#cb644-14" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">1970</span>, <span class="dv">2100</span>)</span></code></pre></div>
+<div id="linear-extrapolation" class="section level3 hasAnchor" number="11.3.1">
+<h3><span class="header-section-number">11.3.1</span> Linear Extrapolation<a href="interpolation-and-extrapolation-examples.html#linear-extrapolation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let’s build a linear model and extrapolate to the year 2100.</p>
+<p><strong>Pros:</strong>
+- Simple and interpretable
+- Quick to compute</p>
+<p><strong>Cons:</strong>
+- Assumes constant trend (which may be invalid for long-term projection)
+- Often underestimates curved growth</p>
+<p>Instead of using the <code>lin_interp</code> function we wrote, we can just make linear regression model of the data.</p>
+<div class="sourceCode" id="cb639"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb639-1"><a href="interpolation-and-extrapolation-examples.html#cb639-1" tabindex="-1"></a><span class="co"># Fit a linear model to the entire dataset</span></span>
+<span id="cb639-2"><a href="interpolation-and-extrapolation-examples.html#cb639-2" tabindex="-1"></a>lm_co2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(co2 <span class="sc">~</span> year, <span class="at">data =</span> mauna_loa_co2)</span>
+<span id="cb639-3"><a href="interpolation-and-extrapolation-examples.html#cb639-3" tabindex="-1"></a></span>
+<span id="cb639-4"><a href="interpolation-and-extrapolation-examples.html#cb639-4" tabindex="-1"></a><span class="co"># Create a new tibble of years to predict</span></span>
+<span id="cb639-5"><a href="interpolation-and-extrapolation-examples.html#cb639-5" tabindex="-1"></a>pred_co2 <span class="ot">&lt;-</span> </span>
+<span id="cb639-6"><a href="interpolation-and-extrapolation-examples.html#cb639-6" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">year =</span> <span class="fu">seq</span>(<span class="dv">1970</span>, <span class="dv">2100</span>, <span class="dv">1</span>)) <span class="sc">|&gt;</span>  <span class="co"># sequence of years</span></span>
+<span id="cb639-7"><a href="interpolation-and-extrapolation-examples.html#cb639-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lm_pred_co2 =</span> <span class="fu">predict</span>(lm_co2, <span class="fu">pick</span>(year)))  <span class="co"># predict CO2 values using the model</span></span></code></pre></div>
+<p>Plot the linear extrapolation</p>
+<div class="sourceCode" id="cb640"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb640-1"><a href="interpolation-and-extrapolation-examples.html#cb640-1" tabindex="-1"></a>co2_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> mauna_loa_co2,</span>
+<span id="cb640-2"><a href="interpolation-and-extrapolation-examples.html#cb640-2" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> co2)) <span class="sc">+</span></span>
+<span id="cb640-3"><a href="interpolation-and-extrapolation-examples.html#cb640-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb640-4"><a href="interpolation-and-extrapolation-examples.html#cb640-4" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">1</span>,</span>
+<span id="cb640-5"><a href="interpolation-and-extrapolation-examples.html#cb640-5" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">&#39;blue&#39;</span></span>
+<span id="cb640-6"><a href="interpolation-and-extrapolation-examples.html#cb640-6" tabindex="-1"></a>  ) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y =</span> <span class="fu">expression</span>(CO[<span class="dv">2</span>]<span class="sc">~</span>(ppm)))</span>
+<span id="cb640-7"><a href="interpolation-and-extrapolation-examples.html#cb640-7" tabindex="-1"></a>co2_plot</span></code></pre></div>
+<p><img src="11-1_Examples_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div class="sourceCode" id="cb641"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb641-1"><a href="interpolation-and-extrapolation-examples.html#cb641-1" tabindex="-1"></a>co2_plot <span class="sc">+</span> <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">fullrange =</span> <span class="cn">TRUE</span>) <span class="sc">+</span>   <span class="fu">ylim</span>(<span class="dv">300</span>, <span class="dv">800</span>) <span class="sc">+</span> </span>
+<span id="cb641-2"><a href="interpolation-and-extrapolation-examples.html#cb641-2" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">1970</span>, <span class="dv">2100</span>)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<pre><code>## Warning: Removed 11 rows containing non-finite outside the scale range
+## (`stat_smooth()`).</code></pre>
 <pre><code>## Warning: Removed 11 rows containing missing values or values outside the scale range
 ## (`geom_point()`).</code></pre>
-<p><img src="11-1_Examples_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
-<p>What do you think the predictions from polynomial and splines will be?</p>
-<div class="sourceCode" id="cb646"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb646-1"><a href="interpolation-and-extrapolation-examples.html#cb646-1" tabindex="-1"></a>co2_poly <span class="ot">&lt;-</span> <span class="fu">poly_calc</span>(dfc<span class="sc">$</span>year, dfc<span class="sc">$</span>co2)</span>
-<span id="cb646-2"><a href="interpolation-and-extrapolation-examples.html#cb646-2" tabindex="-1"></a>dfc_pred <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">year =</span> xx, <span class="at">co2_poly =</span> <span class="fu">co2_poly</span>(xx))</span>
-<span id="cb646-3"><a href="interpolation-and-extrapolation-examples.html#cb646-3" tabindex="-1"></a>pp <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> dfc_pred, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> co2_poly))</span></code></pre></div>
+<p><img src="11-1_Examples_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+Well over 550 ppm CO<sub>2</sub> by 2100. But this doesn’t really fit the data very well. Perhaps we could improve a bit by using our <code>lin_interp</code> function on the last 2 datapoints.</p>
+</div>
+<div id="manual-linear-extrapolation-last-2-points" class="section level3 hasAnchor" number="11.3.2">
+<h3><span class="header-section-number">11.3.2</span> Manual Linear Extrapolation (Last 2 Points)<a href="interpolation-and-extrapolation-examples.html#manual-linear-extrapolation-last-2-points" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Pros:</strong>
+- Reflects the most recent trend in the data
+- Very simple and intuitive</p>
+<p><strong>Cons:</strong>
+- Ignores all historical trends
+- Can be overly sensitive to short-term noise</p>
+<div class="sourceCode" id="cb645"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb645-1"><a href="interpolation-and-extrapolation-examples.html#cb645-1" tabindex="-1"></a><span class="co"># Define a simple linear interpolation/extrapolation function</span></span>
+<span id="cb645-2"><a href="interpolation-and-extrapolation-examples.html#cb645-2" tabindex="-1"></a>lin_interp <span class="ot">&lt;-</span> <span class="cf">function</span>(fx1,fx2,x1,x2,x3) fx1<span class="sc">+</span>((fx2<span class="sc">-</span>fx1)<span class="sc">/</span>(x2<span class="sc">-</span>x1))<span class="sc">*</span>(x3<span class="sc">-</span>x1)</span>
+<span id="cb645-3"><a href="interpolation-and-extrapolation-examples.html#cb645-3" tabindex="-1"></a></span>
+<span id="cb645-4"><a href="interpolation-and-extrapolation-examples.html#cb645-4" tabindex="-1"></a><span class="co"># Grab the last two rows of data</span></span>
+<span id="cb645-5"><a href="interpolation-and-extrapolation-examples.html#cb645-5" tabindex="-1"></a>lin_extrap_data <span class="ot">&lt;-</span> <span class="fu">tail</span>(mauna_loa_co2, <span class="at">n =</span> <span class="dv">4</span>)</span>
+<span id="cb645-6"><a href="interpolation-and-extrapolation-examples.html#cb645-6" tabindex="-1"></a></span>
+<span id="cb645-7"><a href="interpolation-and-extrapolation-examples.html#cb645-7" tabindex="-1"></a><span class="co"># Apply manual extrapolation to estimate CO2 in 2100</span></span>
+<span id="cb645-8"><a href="interpolation-and-extrapolation-examples.html#cb645-8" tabindex="-1"></a><span class="fu">lin_interp</span>(<span class="at">fx1 =</span> lin_extrap_data[[<span class="dv">1</span>,<span class="st">&quot;co2&quot;</span>]],</span>
+<span id="cb645-9"><a href="interpolation-and-extrapolation-examples.html#cb645-9" tabindex="-1"></a>           <span class="at">fx2 =</span> lin_extrap_data[[<span class="dv">2</span>,<span class="st">&quot;co2&quot;</span>]], </span>
+<span id="cb645-10"><a href="interpolation-and-extrapolation-examples.html#cb645-10" tabindex="-1"></a>           <span class="at">x1 =</span> lin_extrap_data[[<span class="dv">1</span>,<span class="st">&quot;year&quot;</span>]],</span>
+<span id="cb645-11"><a href="interpolation-and-extrapolation-examples.html#cb645-11" tabindex="-1"></a>           <span class="at">x2 =</span> lin_extrap_data[[<span class="dv">2</span>,<span class="st">&quot;year&quot;</span>]], </span>
+<span id="cb645-12"><a href="interpolation-and-extrapolation-examples.html#cb645-12" tabindex="-1"></a>           <span class="at">x3 =</span> <span class="dv">2100</span>)</span></code></pre></div>
+<pre><code>## [1] 590.21</code></pre>
+<div class="sourceCode" id="cb647"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb647-1"><a href="interpolation-and-extrapolation-examples.html#cb647-1" tabindex="-1"></a><span class="co"># Fit a new linear model using just the last two points</span></span>
+<span id="cb647-2"><a href="interpolation-and-extrapolation-examples.html#cb647-2" tabindex="-1"></a>lm2_co2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(co2 <span class="sc">~</span> year, <span class="at">data =</span> lin_extrap_data)</span></code></pre></div>
+<p>620 ppm! That’s more than 10% higher, but does it visually fit better? We can use the <code>geom_abline</code> function from <code>ggplot2</code> to plot a line with the right slope and intercept, although it would probably be easier to go back and make a linear model with the <code>lin_extrap_data</code> and use <code>predict</code> to make a line as we did above.</p>
+<div class="sourceCode" id="cb648"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb648-1"><a href="interpolation-and-extrapolation-examples.html#cb648-1" tabindex="-1"></a>co2_plot <span class="sc">+</span></span>
+<span id="cb648-2"><a href="interpolation-and-extrapolation-examples.html#cb648-2" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> (lin_extrap_data[[<span class="dv">2</span>,<span class="st">&quot;co2&quot;</span>]] <span class="sc">-</span> </span>
+<span id="cb648-3"><a href="interpolation-and-extrapolation-examples.html#cb648-3" tabindex="-1"></a>                         lin_extrap_data[[<span class="dv">1</span>,<span class="st">&quot;co2&quot;</span>]]) <span class="sc">/</span> </span>
+<span id="cb648-4"><a href="interpolation-and-extrapolation-examples.html#cb648-4" tabindex="-1"></a>                      (lin_extrap_data[[<span class="dv">2</span>,<span class="st">&quot;year&quot;</span>]] <span class="sc">-</span> </span>
+<span id="cb648-5"><a href="interpolation-and-extrapolation-examples.html#cb648-5" tabindex="-1"></a>                        lin_extrap_data[[<span class="dv">1</span>,<span class="st">&quot;year&quot;</span>]]), </span>
+<span id="cb648-6"><a href="interpolation-and-extrapolation-examples.html#cb648-6" tabindex="-1"></a>              <span class="at">intercept =</span> lin_extrap_data[[<span class="dv">1</span>,<span class="st">&quot;co2&quot;</span>]] <span class="sc">-</span></span>
+<span id="cb648-7"><a href="interpolation-and-extrapolation-examples.html#cb648-7" tabindex="-1"></a>                          (lin_extrap_data[[<span class="dv">2</span>,<span class="st">&quot;co2&quot;</span>]] <span class="sc">-</span> </span>
+<span id="cb648-8"><a href="interpolation-and-extrapolation-examples.html#cb648-8" tabindex="-1"></a>                         lin_extrap_data[[<span class="dv">1</span>,<span class="st">&quot;co2&quot;</span>]]) <span class="sc">/</span> </span>
+<span id="cb648-9"><a href="interpolation-and-extrapolation-examples.html#cb648-9" tabindex="-1"></a>                      (lin_extrap_data[[<span class="dv">2</span>,<span class="st">&quot;year&quot;</span>]] <span class="sc">-</span> </span>
+<span id="cb648-10"><a href="interpolation-and-extrapolation-examples.html#cb648-10" tabindex="-1"></a>                        lin_extrap_data[[<span class="dv">1</span>,<span class="st">&quot;year&quot;</span>]])<span class="sc">*</span></span>
+<span id="cb648-11"><a href="interpolation-and-extrapolation-examples.html#cb648-11" tabindex="-1"></a>  lin_extrap_data[[<span class="dv">1</span>,<span class="st">&quot;year&quot;</span>]], </span>
+<span id="cb648-12"><a href="interpolation-and-extrapolation-examples.html#cb648-12" tabindex="-1"></a>  <span class="at">color =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb648-13"><a href="interpolation-and-extrapolation-examples.html#cb648-13" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">300</span>, <span class="dv">800</span>) <span class="sc">+</span> </span>
+<span id="cb648-14"><a href="interpolation-and-extrapolation-examples.html#cb648-14" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">1970</span>, <span class="dv">2100</span>)</span></code></pre></div>
+<pre><code>## Warning: Removed 11 rows containing missing values or values outside the scale range
+## (`geom_point()`).</code></pre>
 <p><img src="11-1_Examples_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<div class="sourceCode" id="cb647"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb647-1"><a href="interpolation-and-extrapolation-examples.html#cb647-1" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(co2 <span class="sc">~</span> <span class="fu">poly</span>(<span class="at">x =</span> year, <span class="at">degree =</span> <span class="dv">6</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>), <span class="at">data =</span> dfc)</span>
-<span id="cb647-2"><a href="interpolation-and-extrapolation-examples.html#cb647-2" tabindex="-1"></a><span class="fu">summary</span>(m3)</span></code></pre></div>
+<p>We can make a better plot providing confidence intervals using <code>stat_smooth</code>.</p>
+<div class="sourceCode" id="cb650"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb650-1"><a href="interpolation-and-extrapolation-examples.html#cb650-1" tabindex="-1"></a>co2_plot <span class="sc">+</span> <span class="fu">stat_smooth</span>(<span class="at">data =</span> lin_extrap_data, <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">fullrange =</span> <span class="cn">TRUE</span>) <span class="sc">+</span>   <span class="fu">ylim</span>(<span class="dv">300</span>, <span class="dv">800</span>) <span class="sc">+</span> </span>
+<span id="cb650-2"><a href="interpolation-and-extrapolation-examples.html#cb650-2" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">1970</span>, <span class="dv">2100</span>)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<pre><code>## Warning: Removed 11 rows containing missing values or values outside the scale range
+## (`geom_point()`).</code></pre>
+<p><img src="11-1_Examples_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+<div id="polynomial-fit" class="section level3 hasAnchor" number="11.3.3">
+<h3><span class="header-section-number">11.3.3</span> Polynomial Fit<a href="interpolation-and-extrapolation-examples.html#polynomial-fit" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Pros:</strong>
+- Can capture curvature and nonlinear patterns
+- Flexible with low-degree models</p>
+<p><strong>Cons:</strong>
+- High-degree polynomials often overfit and behave wildly when extrapolating
+- Sensitive to data irregularities and outliers</p>
+<div id="method-1-poly_calc" class="section level4 hasAnchor" number="11.3.3.1">
+<h4><span class="header-section-number">11.3.3.1</span> Method 1 <code>poly_calc</code><a href="interpolation-and-extrapolation-examples.html#method-1-poly_calc" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The <code>poly_calc</code> function provides a high order polynomial, but sometimes does not fit well.</p>
+<div class="sourceCode" id="cb653"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb653-1"><a href="interpolation-and-extrapolation-examples.html#cb653-1" tabindex="-1"></a><span class="co"># Use poly_calc to fit a high-order polynomial to the data</span></span>
+<span id="cb653-2"><a href="interpolation-and-extrapolation-examples.html#cb653-2" tabindex="-1"></a>year_pred <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1970</span>, <span class="dv">2100</span>)</span>
+<span id="cb653-3"><a href="interpolation-and-extrapolation-examples.html#cb653-3" tabindex="-1"></a>co2_poly <span class="ot">&lt;-</span> <span class="fu">poly_calc</span>(mauna_loa_co2<span class="sc">$</span>year, mauna_loa_co2<span class="sc">$</span>co2)</span>
+<span id="cb653-4"><a href="interpolation-and-extrapolation-examples.html#cb653-4" tabindex="-1"></a></span>
+<span id="cb653-5"><a href="interpolation-and-extrapolation-examples.html#cb653-5" tabindex="-1"></a><span class="co"># Evaluate the polynomial at the prediction years</span></span>
+<span id="cb653-6"><a href="interpolation-and-extrapolation-examples.html#cb653-6" tabindex="-1"></a>mauna_loa_co2_pred <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">year =</span> year_pred, <span class="at">co2_poly =</span> <span class="fu">co2_poly</span>(year_pred))</span>
+<span id="cb653-7"><a href="interpolation-and-extrapolation-examples.html#cb653-7" tabindex="-1"></a></span>
+<span id="cb653-8"><a href="interpolation-and-extrapolation-examples.html#cb653-8" tabindex="-1"></a><span class="co"># Plot the high-degree polynomial fit</span></span>
+<span id="cb653-9"><a href="interpolation-and-extrapolation-examples.html#cb653-9" tabindex="-1"></a>co2_plot <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> mauna_loa_co2_pred, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> co2_poly))</span></code></pre></div>
+<p><img src="11-1_Examples_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+</div>
+<div id="method-2-poly-inside-lm" class="section level4 hasAnchor" number="11.3.3.2">
+<h4><span class="header-section-number">11.3.3.2</span> Method 2 <code>poly</code> inside <code>lm</code><a href="interpolation-and-extrapolation-examples.html#method-2-poly-inside-lm" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Using the <code>poly</code> function to define a polynomial</p>
+<div class="sourceCode" id="cb654"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb654-1"><a href="interpolation-and-extrapolation-examples.html#cb654-1" tabindex="-1"></a><span class="co"># Fit a more controlled polynomial model (6th degree)</span></span>
+<span id="cb654-2"><a href="interpolation-and-extrapolation-examples.html#cb654-2" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(co2 <span class="sc">~</span> <span class="fu">poly</span>(<span class="at">x =</span> year, <span class="at">degree =</span> <span class="dv">6</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>), <span class="at">data =</span> mauna_loa_co2)</span>
+<span id="cb654-3"><a href="interpolation-and-extrapolation-examples.html#cb654-3" tabindex="-1"></a><span class="fu">summary</span>(m3)</span></code></pre></div>
 <pre><code>## 
 ## Call:
-## lm(formula = co2 ~ poly(x = year, degree = 6, raw = TRUE), data = dfc)
+## lm(formula = co2 ~ poly(x = year, degree = 6, raw = TRUE), data = mauna_loa_co2)
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
@@ -704,48 +778,108 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Residual standard error: 0.7036 on 61 degrees of freedom
 ## Multiple R-squared:  0.9995, Adjusted R-squared:  0.9995 
 ## F-statistic: 4.226e+04 on 3 and 61 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb649"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb649-1"><a href="interpolation-and-extrapolation-examples.html#cb649-1" tabindex="-1"></a>dfc_pred<span class="sc">$</span>co2_m3 <span class="ot">&lt;-</span> </span>
-<span id="cb649-2"><a href="interpolation-and-extrapolation-examples.html#cb649-2" tabindex="-1"></a>  m3 <span class="sc">%&gt;%</span> <span class="fu">predict</span>(dfc_pred) </span>
-<span id="cb649-3"><a href="interpolation-and-extrapolation-examples.html#cb649-3" tabindex="-1"></a>pp <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> dfc_pred, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> co2_m3))</span></code></pre></div>
-<p><img src="11-1_Examples_files/figure-html/unnamed-chunk-7-1.png" width="672" />
-To see the predicted CO<sub>2</sub> concentration in the year 2100 we can use <code>tail</code> to look at the last line of <code>dfc_pred</code></p>
-<div class="sourceCode" id="cb650"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb650-1"><a href="interpolation-and-extrapolation-examples.html#cb650-1" tabindex="-1"></a>dfc_pred <span class="sc">%&gt;%</span> <span class="fu">tail</span>(<span class="at">n =</span> <span class="dv">1</span>)</span></code></pre></div>
-<pre><code>##     year      co2_poly   co2_m3
-## 131 2100 5.394051e+154 738.7013</code></pre>
-<p>We could also use <code>stat_smooth</code> to plot the model object and include confidence intervals around our prediction. Within <code>stat_smooth</code> our formula needs to be in terms of x and y, which correspond to the variables mapped back in the <code>ggplot</code> call when we defined <code>pp</code>; so looking back <code>aes(x = year, y = co2)</code>. To expand the range of the model predictions in <code>stat_smooth</code> we need to add <code>fullrange = TRUE</code> and then use <code>xlim</code> to expand the x-axis.</p>
-<div class="sourceCode" id="cb652"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb652-1"><a href="interpolation-and-extrapolation-examples.html#cb652-1" tabindex="-1"></a><span class="do">## Note that previously (and still above for pp) the data and mapping arguments</span></span>
-<span id="cb652-2"><a href="interpolation-and-extrapolation-examples.html#cb652-2" tabindex="-1"></a><span class="do">## were in the `geom_point`, </span></span>
-<span id="cb652-3"><a href="interpolation-and-extrapolation-examples.html#cb652-3" tabindex="-1"></a><span class="do">## which was why stat_smooth was not working in class.  </span></span>
-<span id="cb652-4"><a href="interpolation-and-extrapolation-examples.html#cb652-4" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co"> fix pp above, and also rename...</span></span>
-<span id="cb652-5"><a href="interpolation-and-extrapolation-examples.html#cb652-5" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> dfc,</span>
-<span id="cb652-6"><a href="interpolation-and-extrapolation-examples.html#cb652-6" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> co2)) <span class="sc">+</span></span>
-<span id="cb652-7"><a href="interpolation-and-extrapolation-examples.html#cb652-7" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
-<span id="cb652-8"><a href="interpolation-and-extrapolation-examples.html#cb652-8" tabindex="-1"></a>  <span class="fu">stat_smooth</span>(<span class="at">method =</span> lm, <span class="at">formula =</span> y <span class="sc">~</span> <span class="fu">poly</span>(<span class="at">x =</span> x, <span class="at">degree =</span> <span class="dv">3</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>), </span>
-<span id="cb652-9"><a href="interpolation-and-extrapolation-examples.html#cb652-9" tabindex="-1"></a>              <span class="at">fullrange =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> </span>
-<span id="cb652-10"><a href="interpolation-and-extrapolation-examples.html#cb652-10" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">1959</span>, <span class="dv">2100</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb656"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb656-1"><a href="interpolation-and-extrapolation-examples.html#cb656-1" tabindex="-1"></a><span class="co"># Predict values from the new model</span></span>
+<span id="cb656-2"><a href="interpolation-and-extrapolation-examples.html#cb656-2" tabindex="-1"></a>mauna_loa_co2_pred<span class="sc">$</span>co2_m3 <span class="ot">&lt;-</span> </span>
+<span id="cb656-3"><a href="interpolation-and-extrapolation-examples.html#cb656-3" tabindex="-1"></a>  m3 <span class="sc">%&gt;%</span> <span class="fu">predict</span>(mauna_loa_co2_pred) </span>
+<span id="cb656-4"><a href="interpolation-and-extrapolation-examples.html#cb656-4" tabindex="-1"></a></span>
+<span id="cb656-5"><a href="interpolation-and-extrapolation-examples.html#cb656-5" tabindex="-1"></a><span class="co"># Plot the model&#39;s predictions</span></span>
+<span id="cb656-6"><a href="interpolation-and-extrapolation-examples.html#cb656-6" tabindex="-1"></a>co2_plot <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> mauna_loa_co2_pred, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> co2_m3))</span></code></pre></div>
 <p><img src="11-1_Examples_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>We can also use <code>lm(poly)</code> inside <code>stat_smooth</code> for nice visualizations including confidence intervals around our prediction. Within <code>stat_smooth</code> our formula needs to be in terms of x and y, which correspond to the variables mapped back in the <code>ggplot</code> call when we defined <code>co2_plot</code>; so looking back <code>aes(x = year, y = co2)</code>. To expand the range of the model predictions in <code>stat_smooth</code> we need to add <code>fullrange = TRUE</code> and then use <code>xlim</code> to expand the x-axis.</p>
+<div class="sourceCode" id="cb657"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb657-1"><a href="interpolation-and-extrapolation-examples.html#cb657-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mauna_loa_co2,</span>
+<span id="cb657-2"><a href="interpolation-and-extrapolation-examples.html#cb657-2" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> co2)) <span class="sc">+</span></span>
+<span id="cb657-3"><a href="interpolation-and-extrapolation-examples.html#cb657-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb657-4"><a href="interpolation-and-extrapolation-examples.html#cb657-4" tabindex="-1"></a>  <span class="fu">stat_smooth</span>(<span class="at">method =</span> lm, <span class="at">formula =</span> y <span class="sc">~</span> <span class="fu">poly</span>(<span class="at">x =</span> x, <span class="at">degree =</span> <span class="dv">3</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb657-5"><a href="interpolation-and-extrapolation-examples.html#cb657-5" tabindex="-1"></a>              <span class="at">fullrange =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> </span>
+<span id="cb657-6"><a href="interpolation-and-extrapolation-examples.html#cb657-6" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">1959</span>, <span class="dv">2100</span>)</span></code></pre></div>
+<p><img src="11-1_Examples_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+</div>
+</div>
+<div id="spline-fitting" class="section level3 hasAnchor" number="11.3.4">
+<h3><span class="header-section-number">11.3.4</span> Spline Fitting<a href="interpolation-and-extrapolation-examples.html#spline-fitting" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Finally, we can use the method of splines by similarly defining a splines model using the <code>bs</code> (stands for <a href="https://en.wikipedia.org/wiki/B-spline">b-splines, which are a type of spline</a>) from the <code>splines</code> package.</p>
-<div class="sourceCode" id="cb653"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb653-1"><a href="interpolation-and-extrapolation-examples.html#cb653-1" tabindex="-1"></a><span class="fu">library</span>(splines)</span>
-<span id="cb653-2"><a href="interpolation-and-extrapolation-examples.html#cb653-2" tabindex="-1"></a>m_splines <span class="ot">&lt;-</span> <span class="fu">lm</span>(co2 <span class="sc">~</span> splines<span class="sc">::</span><span class="fu">bs</span>(year, <span class="at">knots =</span> dfc<span class="sc">$</span>co2), <span class="at">data =</span> dfc)</span>
-<span id="cb653-3"><a href="interpolation-and-extrapolation-examples.html#cb653-3" tabindex="-1"></a>dfc_pred<span class="sc">$</span>co2_m_splines <span class="ot">&lt;-</span> </span>
-<span id="cb653-4"><a href="interpolation-and-extrapolation-examples.html#cb653-4" tabindex="-1"></a>  m_splines <span class="sc">%&gt;%</span> <span class="fu">predict</span>(dfc_pred) </span></code></pre></div>
+<p><strong>Pros:</strong>
+- Captures local trends better than global polynomials
+- More stable and flexible</p>
+<p><strong>Cons:</strong>
+- Risk of overfitting if not carefully tuned
+- May be harder to interpret</p>
+<div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb658-1"><a href="interpolation-and-extrapolation-examples.html#cb658-1" tabindex="-1"></a><span class="co"># Use splines to fit a curve to the data</span></span>
+<span id="cb658-2"><a href="interpolation-and-extrapolation-examples.html#cb658-2" tabindex="-1"></a><span class="fu">library</span>(splines)</span>
+<span id="cb658-3"><a href="interpolation-and-extrapolation-examples.html#cb658-3" tabindex="-1"></a>m_splines <span class="ot">&lt;-</span> <span class="fu">lm</span>(co2 <span class="sc">~</span> splines<span class="sc">::</span><span class="fu">bs</span>(year, <span class="at">knots =</span> mauna_loa_co2<span class="sc">$</span>co2), <span class="at">data =</span> mauna_loa_co2)</span>
+<span id="cb658-4"><a href="interpolation-and-extrapolation-examples.html#cb658-4" tabindex="-1"></a></span>
+<span id="cb658-5"><a href="interpolation-and-extrapolation-examples.html#cb658-5" tabindex="-1"></a><span class="co"># Predict using the spline model</span></span>
+<span id="cb658-6"><a href="interpolation-and-extrapolation-examples.html#cb658-6" tabindex="-1"></a>mauna_loa_co2_pred<span class="sc">$</span>co2_m_splines <span class="ot">&lt;-</span> </span>
+<span id="cb658-7"><a href="interpolation-and-extrapolation-examples.html#cb658-7" tabindex="-1"></a>  m_splines <span class="sc">%&gt;%</span> <span class="fu">predict</span>(mauna_loa_co2_pred) </span></code></pre></div>
 <pre><code>## Warning in splines::bs(year, degree = 3L, knots = c(315.98, 316.91, 317.64, :
 ## some &#39;x&#39; values beyond boundary knots may cause ill-conditioned bases</code></pre>
-<div class="sourceCode" id="cb655"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb655-1"><a href="interpolation-and-extrapolation-examples.html#cb655-1" tabindex="-1"></a>pp <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> dfc_pred, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> co2_m_splines))</span></code></pre></div>
-<p><img src="11-1_Examples_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
-<div class="sourceCode" id="cb656"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb656-1"><a href="interpolation-and-extrapolation-examples.html#cb656-1" tabindex="-1"></a>dfc_pred <span class="sc">%&gt;%</span> <span class="fu">tail</span>(<span class="at">n=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb660"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb660-1"><a href="interpolation-and-extrapolation-examples.html#cb660-1" tabindex="-1"></a><span class="co"># Plot spline predictions</span></span>
+<span id="cb660-2"><a href="interpolation-and-extrapolation-examples.html#cb660-2" tabindex="-1"></a>co2_plot <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> mauna_loa_co2_pred, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> co2_m_splines))</span></code></pre></div>
+<p><img src="11-1_Examples_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<div class="sourceCode" id="cb661"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb661-1"><a href="interpolation-and-extrapolation-examples.html#cb661-1" tabindex="-1"></a><span class="co"># Show predicted CO2 at year 2100 using spline model</span></span>
+<span id="cb661-2"><a href="interpolation-and-extrapolation-examples.html#cb661-2" tabindex="-1"></a>mauna_loa_co2_pred <span class="sc">%&gt;%</span> <span class="fu">tail</span>(<span class="at">n=</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>##     year      co2_poly   co2_m3 co2_m_splines
 ## 131 2100 5.394051e+154 738.7013      738.7013</code></pre>
-<div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb658-1"><a href="interpolation-and-extrapolation-examples.html#cb658-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> dfc,</span>
-<span id="cb658-2"><a href="interpolation-and-extrapolation-examples.html#cb658-2" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> co2)) <span class="sc">+</span></span>
-<span id="cb658-3"><a href="interpolation-and-extrapolation-examples.html#cb658-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
-<span id="cb658-4"><a href="interpolation-and-extrapolation-examples.html#cb658-4" tabindex="-1"></a>  <span class="fu">stat_smooth</span>(<span class="at">method =</span> lm, <span class="at">formula =</span> y <span class="sc">~</span> <span class="fu">bs</span>(<span class="at">x =</span> x, <span class="at">knots =</span> dfc<span class="sc">$</span>co2), </span>
-<span id="cb658-5"><a href="interpolation-and-extrapolation-examples.html#cb658-5" tabindex="-1"></a>              <span class="at">fullrange =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> </span>
-<span id="cb658-6"><a href="interpolation-and-extrapolation-examples.html#cb658-6" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">1959</span>, <span class="dv">2100</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb663"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb663-1"><a href="interpolation-and-extrapolation-examples.html#cb663-1" tabindex="-1"></a><span class="co"># Visualize spline prediction using stat_smooth</span></span>
+<span id="cb663-2"><a href="interpolation-and-extrapolation-examples.html#cb663-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mauna_loa_co2,</span>
+<span id="cb663-3"><a href="interpolation-and-extrapolation-examples.html#cb663-3" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> co2)) <span class="sc">+</span></span>
+<span id="cb663-4"><a href="interpolation-and-extrapolation-examples.html#cb663-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb663-5"><a href="interpolation-and-extrapolation-examples.html#cb663-5" tabindex="-1"></a>  <span class="fu">stat_smooth</span>(<span class="at">method =</span> lm, <span class="at">formula =</span> y <span class="sc">~</span> <span class="fu">bs</span>(<span class="at">x =</span> x, <span class="at">knots =</span> mauna_loa_co2<span class="sc">$</span>co2), </span>
+<span id="cb663-6"><a href="interpolation-and-extrapolation-examples.html#cb663-6" tabindex="-1"></a>              <span class="at">fullrange =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> </span>
+<span id="cb663-7"><a href="interpolation-and-extrapolation-examples.html#cb663-7" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">1959</span>, <span class="dv">2100</span>)</span></code></pre></div>
 <pre><code>## Warning in bs(x = x, degree = 3L, knots = c(315.98, 316.91, 317.64, 318.45, :
 ## some &#39;x&#39; values beyond boundary knots may cause ill-conditioned bases</code></pre>
-<p><img src="11-1_Examples_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="11-1_Examples_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>Now let’s combine all of these examples together into a single figure. To do this we will use the <code>patchwork</code> package:</p>
+<div class="sourceCode" id="cb665"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb665-1"><a href="interpolation-and-extrapolation-examples.html#cb665-1" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb665-2"><a href="interpolation-and-extrapolation-examples.html#cb665-2" tabindex="-1"></a></span>
+<span id="cb665-3"><a href="interpolation-and-extrapolation-examples.html#cb665-3" tabindex="-1"></a><span class="co"># Visualize spline prediction using stat_smooth</span></span>
+<span id="cb665-4"><a href="interpolation-and-extrapolation-examples.html#cb665-4" tabindex="-1"></a>splines_plot <span class="ot">&lt;-</span></span>
+<span id="cb665-5"><a href="interpolation-and-extrapolation-examples.html#cb665-5" tabindex="-1"></a>  co2_plot <span class="sc">+</span></span>
+<span id="cb665-6"><a href="interpolation-and-extrapolation-examples.html#cb665-6" tabindex="-1"></a>  <span class="fu">stat_smooth</span>(</span>
+<span id="cb665-7"><a href="interpolation-and-extrapolation-examples.html#cb665-7" tabindex="-1"></a>    <span class="at">method =</span> lm,</span>
+<span id="cb665-8"><a href="interpolation-and-extrapolation-examples.html#cb665-8" tabindex="-1"></a>    <span class="at">formula =</span> y <span class="sc">~</span> <span class="fu">bs</span>(<span class="at">x =</span> x, <span class="at">knots =</span> mauna_loa_co2<span class="sc">$</span>co2),</span>
+<span id="cb665-9"><a href="interpolation-and-extrapolation-examples.html#cb665-9" tabindex="-1"></a>    <span class="at">fullrange =</span> <span class="cn">TRUE</span></span>
+<span id="cb665-10"><a href="interpolation-and-extrapolation-examples.html#cb665-10" tabindex="-1"></a>  ) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="dv">300</span>, <span class="dv">800</span>) <span class="sc">+</span> </span>
+<span id="cb665-11"><a href="interpolation-and-extrapolation-examples.html#cb665-11" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">1959</span>, <span class="dv">2100</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Spline prediction&quot;</span>)</span>
+<span id="cb665-12"><a href="interpolation-and-extrapolation-examples.html#cb665-12" tabindex="-1"></a></span>
+<span id="cb665-13"><a href="interpolation-and-extrapolation-examples.html#cb665-13" tabindex="-1"></a></span>
+<span id="cb665-14"><a href="interpolation-and-extrapolation-examples.html#cb665-14" tabindex="-1"></a><span class="co"># Visualize polynomial prediction using stat_smooth</span></span>
+<span id="cb665-15"><a href="interpolation-and-extrapolation-examples.html#cb665-15" tabindex="-1"></a>poly_plot <span class="ot">&lt;-</span></span>
+<span id="cb665-16"><a href="interpolation-and-extrapolation-examples.html#cb665-16" tabindex="-1"></a>  co2_plot <span class="sc">+</span></span>
+<span id="cb665-17"><a href="interpolation-and-extrapolation-examples.html#cb665-17" tabindex="-1"></a>  <span class="fu">stat_smooth</span>(</span>
+<span id="cb665-18"><a href="interpolation-and-extrapolation-examples.html#cb665-18" tabindex="-1"></a>    <span class="at">method =</span> lm,</span>
+<span id="cb665-19"><a href="interpolation-and-extrapolation-examples.html#cb665-19" tabindex="-1"></a>    <span class="at">formula =</span> y <span class="sc">~</span> <span class="fu">poly</span>(<span class="at">x =</span> x, <span class="at">degree =</span> <span class="dv">3</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb665-20"><a href="interpolation-and-extrapolation-examples.html#cb665-20" tabindex="-1"></a>    <span class="at">fullrange =</span> <span class="cn">TRUE</span></span>
+<span id="cb665-21"><a href="interpolation-and-extrapolation-examples.html#cb665-21" tabindex="-1"></a>  ) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Polynomial prediction&quot;</span>) <span class="sc">+</span></span>
+<span id="cb665-22"><a href="interpolation-and-extrapolation-examples.html#cb665-22" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">1959</span>, <span class="dv">2100</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="dv">300</span>, <span class="dv">800</span>)</span>
+<span id="cb665-23"><a href="interpolation-and-extrapolation-examples.html#cb665-23" tabindex="-1"></a></span>
+<span id="cb665-24"><a href="interpolation-and-extrapolation-examples.html#cb665-24" tabindex="-1"></a><span class="co"># full data linear plot</span></span>
+<span id="cb665-25"><a href="interpolation-and-extrapolation-examples.html#cb665-25" tabindex="-1"></a>full_lm_plot <span class="ot">&lt;-</span></span>
+<span id="cb665-26"><a href="interpolation-and-extrapolation-examples.html#cb665-26" tabindex="-1"></a>  co2_plot <span class="sc">+</span> </span>
+<span id="cb665-27"><a href="interpolation-and-extrapolation-examples.html#cb665-27" tabindex="-1"></a>  <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">fullrange =</span> <span class="cn">TRUE</span>) <span class="sc">+</span>  </span>
+<span id="cb665-28"><a href="interpolation-and-extrapolation-examples.html#cb665-28" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Full linear prediction&quot;</span>)<span class="sc">+</span></span>
+<span id="cb665-29"><a href="interpolation-and-extrapolation-examples.html#cb665-29" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">1959</span>, <span class="dv">2100</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="dv">300</span>, <span class="dv">800</span>)</span>
+<span id="cb665-30"><a href="interpolation-and-extrapolation-examples.html#cb665-30" tabindex="-1"></a></span>
+<span id="cb665-31"><a href="interpolation-and-extrapolation-examples.html#cb665-31" tabindex="-1"></a><span class="co"># last 2 points</span></span>
+<span id="cb665-32"><a href="interpolation-and-extrapolation-examples.html#cb665-32" tabindex="-1"></a>local_lm_plot <span class="ot">&lt;-</span> </span>
+<span id="cb665-33"><a href="interpolation-and-extrapolation-examples.html#cb665-33" tabindex="-1"></a>  co2_plot <span class="sc">+</span> </span>
+<span id="cb665-34"><a href="interpolation-and-extrapolation-examples.html#cb665-34" tabindex="-1"></a>  <span class="fu">stat_smooth</span>(<span class="at">data =</span> lin_extrap_data, <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">fullrange =</span> <span class="cn">TRUE</span>) <span class="sc">+</span>   </span>
+<span id="cb665-35"><a href="interpolation-and-extrapolation-examples.html#cb665-35" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">300</span>, <span class="dv">800</span>) <span class="sc">+</span> </span>
+<span id="cb665-36"><a href="interpolation-and-extrapolation-examples.html#cb665-36" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">1970</span>, <span class="dv">2100</span>) <span class="sc">+</span> </span>
+<span id="cb665-37"><a href="interpolation-and-extrapolation-examples.html#cb665-37" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Local linear prediction&quot;</span>)</span>
+<span id="cb665-38"><a href="interpolation-and-extrapolation-examples.html#cb665-38" tabindex="-1"></a>  </span>
+<span id="cb665-39"><a href="interpolation-and-extrapolation-examples.html#cb665-39" tabindex="-1"></a></span>
+<span id="cb665-40"><a href="interpolation-and-extrapolation-examples.html#cb665-40" tabindex="-1"></a>full_lm_plot <span class="sc">+</span> local_lm_plot <span class="sc">+</span> poly_plot <span class="sc">+</span> splines_plot</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;
+## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<pre><code>## Warning: Removed 11 rows containing missing values or values outside the scale range
+## (`geom_point()`).</code></pre>
+<pre><code>## Warning in bs(x = x, degree = 3L, knots = c(315.98, 316.91, 317.64, 318.45, :
+## some &#39;x&#39; values beyond boundary knots may cause ill-conditioned bases</code></pre>
+<p><img src="11-1_Examples_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 
+</div>
 </div>
 </div>
             </section>
