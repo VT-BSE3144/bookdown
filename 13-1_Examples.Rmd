@@ -101,6 +101,7 @@ x
 ## Example 3 (Problem 11.3 in Chapra)
 
 ![](figures/fig_ex3.png)
+TODO: Redraw this figure with proper units and variable specifications
 
 $$
 \begin{aligned}
@@ -153,8 +154,11 @@ This is where the matrix inverse is really cool, and provides an opportunity to 
 Thus we can use the circled part to determine the effect of reactor 3 on 1!
 
 ```{r}
-x1effect <- invA[1,3] * b[3]
-x1effect
+x13effect <- invA[1,3] * b[3]
+x13effect
+invA[1,2] * b[2]
+invA[1,1] * b[1]
+
 ``` 
 
 ## Differential Equations
