@@ -5,7 +5,7 @@ author:
   - Durelle Scott
   - R. Clay Wright
 correspondence: "Clay Wright (<wrightrc@vt.edu>)"
-date: "2025-04-19"
+date: "2025-04-28"
 
 site: bookdown::bookdown_site
 
@@ -25,7 +25,7 @@ github-repo: VT-BSE3144/bookdown
 
 This book was developed as a companion text for the Virginia Tech Biological Systems Engineering course BSE3144: Engineering Analysis for Biological Systems using Numerical Methods.
 
-This course focuses on the process of solving engineering problems related to biological systems using numerical analysis including root finding, numerical integration, differentiation, interpolation and numerical solution of ordinary differential equations, error analysis and programming with engineering software.
+This course focuses on the process of solving engineering problems related to biological systems using numerical analysis including root finding, numerical integration and differentiation, interpolation, numerical solution of ordinary differential equations, error analysis and programming with statistical software.
 
 R is the programming language we will use in this course. We will spend the first portion of this course devoted to learning the basics of structured and modular programming. Although we focus on R, the described techniques are also applicable in any other computer languages. Furthermore, the techniques provide a logical approach to addressing complex problems, breaking them down into manageable (and solvable) pieces.
 
@@ -35,16 +35,18 @@ The numerical computation techniques included in this course are utilized by man
 
 Upon successful completion of this course, the student will be able to:
 
-- Apply the following numerical techniques to solve problems in biological systems engineering:
-  - regression analysis
-  - root finding
-  - solving systems of linear equations
-  - interpolation
-  - differentiation and integration
-  - solving ordinary differential equations
-- Define and quantify sources of error in numerical techniques
-- Write programs, using engineering software, that involve loops, logical block constructs, function, plotting, and input/output
-
+- Organize, analyze, and communicate data-driven insights using R and Tidyverse principles 
+- Apply best coding practices for writing clear, efficient, and reproducible code 
+- Create and interpret data visualizations effectively communicating analytical results 
+- Apply the following numerical techniques to solve problems in biological systems engineering: 
+  - regression 
+  - root finding 
+  - solution of systems of linear equations 
+  - interpolation and extrapolation 
+  - differentiation and integration 
+  - integration of ordinary differential equations 
+- Define and quantify sources of error in numerical techniques 
+- Develop professional skills through engagement with different programming languages, command line and integrated development environment tools, and career preparation and development websites 
 
 
 
