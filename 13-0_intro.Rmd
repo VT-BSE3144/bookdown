@@ -4,7 +4,7 @@ params:
   version: 1.0
 ---
 
-# Systems of Equations
+# Systems of Equations (Differential and Algebraic) 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -16,6 +16,8 @@ This week, we will be focusing on Systems of Equations in R. Please review the f
 (Also found on Week 13 Canvas page)
 
 ### Required reading:
+
+# Systems of Equations
 
 1. Primer - Linear Algebra can be performed easily by computers, but we need to remind ourselves of how to set up problems as a set of matrices before we can so    <https://drive.google.com/file/d/132NvRrMVbBYNex5iNhoeBwC1ck5MZMAB/view?usp=sharing> 
 
@@ -30,3 +32,6 @@ This week, we will be focusing on Systems of Equations in R. Please review the f
 
 1. Matrix overview slides - <https://docs.google.com/presentation/d/1Dp0XE1iyCFbnKjpW4kCnsMJ9ldn0cEAL>
 
+# Differential Equations
+
+Watch this video: <https://www.youtube.com/watch?v=Em339AlejIs> 
