@@ -52,7 +52,7 @@ https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/00Index.html - The R
 
 https://www.vdh.virginia.gov/data/ - Virginia Department of Health has lots of datasets, mostly health related but also some environmental datasets.
 
-### Health
+#### Health
 
 Safe Drinking Water Information System (SDWIS) - data on centralized water service design and violations throughout the United States. (https://www.epa.gov/ground-water-and-drinking-water/safe-drinking-water-information-system-sdwis-federal-reporting)
 
@@ -64,7 +64,7 @@ https://www.nyam.org/library/collections-and-resources/data-sets/ - The New York
 
 https://www.cdc.gov/datastatistics/index.html - CDC has many datasets, some may be difficult to access or read into R, as they often have their own data visualization tools, but with some digging you can find the raw datasets.
 
-### Environment
+#### Environment
 
 https://echo.epa.gov/ - USEPA Enforcement and Compliance System (ECHO) - all permitted releases to surface waters in the United States.
 
@@ -76,7 +76,7 @@ https://waterdata.usgs.gov/nwis - These pages provide access to water-resources 
 
 https://data.noaa.gov/datasetsearch/ - NOAA has many datasets related to the environment from weather and water, to ecology and environmental health. These are generally pretty accessible too.
 
-### Agriculture
+#### Agriculture
 
 https://datl-chandel.github.io/Agroclimate/ - Agroclimate Viewer & Planner App - This tools enables monitoring crop health (from satellite imagery), weather history and 16 day forecast, and soil properties. 
 
