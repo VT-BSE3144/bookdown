@@ -61,19 +61,19 @@ Rep1
 ```
 
 ```
-##    Exp M1G M2G     Phen
-## 1    1  WT  WT 93.31526
-## 2    1  WT  WT 95.86192
-## 3    1  WT  WT 85.04555
-## 4    1  M1  WT 85.24175
-## 5    1  M1  WT 84.50501
-## 6    1  M1  WT 81.73499
-## 7    1  WT  M2 92.84202
-## 8    1  WT  M2 74.83138
-## 9    1  WT  M2 95.89511
-## 10   1  M1  M2 96.53167
-## 11   1  M1  M2 58.77042
-## 12   1  M1  M2 69.48182
+##    Exp M1G M2G      Phen
+## 1    1  WT  WT  75.94576
+## 2    1  WT  WT  74.41261
+## 3    1  WT  WT 115.45179
+## 4    1  M1  WT  83.29443
+## 5    1  M1  WT  85.88134
+## 6    1  M1  WT  81.29941
+## 7    1  WT  M2  94.65604
+## 8    1  WT  M2  67.61075
+## 9    1  WT  M2  85.27472
+## 10   1  M1  M2  68.17146
+## 11   1  M1  M2  57.46409
+## 12   1  M1  M2  76.90993
 ```
 
 Note that the values you drew will be different from those above and different from everyone else.
@@ -277,10 +277,10 @@ summary(Exp1)
 
 ```
 ##             Df Sum Sq Mean Sq F value Pr(>F)
-## M1G          1  315.4  315.45   2.321  0.166
-## M2G          1  116.3  116.26   0.855  0.382
-## M1G:M2G      1   21.4   21.45   0.158  0.702
-## Residuals    8 1087.4  135.92
+## M1G          1  303.3   303.3   1.462  0.261
+## M2G          1  365.2   365.2   1.760  0.221
+## M1G:M2G      1   73.3    73.3   0.353  0.569
+## Residuals    8 1659.9   207.5
 ```
 
 So what does this summary tell us? `Sum Sq` stands for sum of squares. This is the sum of the squared deviation between the groups of the variable. `Mean Sq` is `Sum Sq` divided by the degrees of freedom or `Df` in that variable and is essentially the variance of that variable. The degrees of freedom are the number of groups for that variable minus one. `Residuals` is the total within groups variance. 
@@ -320,10 +320,10 @@ summary(Exp2)
 
 ```
 ##             Df Sum Sq Mean Sq F value  Pr(>F)   
-## M1G          1 1230.9  1230.9  12.817 0.00719 **
-## M2G          1  570.7   570.7   5.943 0.04071 * 
-## M1G:M2G      1   72.7    72.7   0.757 0.40969   
-## Residuals    8  768.3    96.0                   
+## M1G          1   17.5    17.5   0.256 0.62630   
+## M2G          1  897.8   897.8  13.157 0.00671 **
+## M1G:M2G      1    1.2     1.2   0.018 0.89611   
+## Residuals    8  545.9    68.2                   
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
@@ -363,11 +363,11 @@ summary(Exp3)
 ```
 
 ```
-##             Df Sum Sq Mean Sq F value  Pr(>F)   
-## M1G          1 1540.2  1540.2  12.716 0.00734 **
-## M2G          1  250.7   250.7   2.070 0.18818   
-## M1G:M2G      1    0.7     0.7   0.006 0.94058   
-## Residuals    8  969.0   121.1                   
+##             Df Sum Sq Mean Sq F value Pr(>F)  
+## M1G          1  162.9   162.9   1.441 0.2643  
+## M2G          1  821.2   821.2   7.266 0.0273 *
+## M1G:M2G      1  175.9   175.9   1.556 0.2475  
+## Residuals    8  904.1   113.0                 
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
@@ -385,11 +385,11 @@ summary(Full)
 
 ```
 ##             Df Sum Sq Mean Sq F value   Pr(>F)    
-## M1G          1   2827  2826.9  26.022 1.75e-05 ***
-## M2G          1    850   850.3   7.827   0.0089 ** 
-## Exp          2     88    44.1   0.406   0.6701    
-## M1G:M2G      1      7     7.5   0.069   0.7947    
-## Residuals   30   3259   108.6                     
+## M1G          1    394   393.5   3.495 0.071331 .  
+## M2G          1   2014  2014.0  17.888 0.000203 ***
+## Exp          2    170    84.8   0.753 0.479487    
+## M1G:M2G      1    143   143.0   1.270 0.268717    
+## Residuals   30   3378   112.6                     
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
@@ -452,27 +452,27 @@ tuk
 ## Fit: aov(formula = Phen ~ M1G + M2G + M1G:M2G + Exp, data = AllExp)
 ## 
 ## $M1G
-##           diff      lwr      upr    p adj
-## WT-M1 17.72279 10.62741 24.81816 1.75e-05
+##          diff        lwr      upr     p adj
+## WT-M1 6.61261 -0.6108171 13.83604 0.0713313
 ## 
 ## $M2G
-##           diff      lwr     upr     p adj
-## WT-M2 9.719825 2.624448 16.8152 0.0089037
+##           diff      lwr      upr     p adj
+## WT-M2 14.95908 7.735652 22.18251 0.0002026
 ## 
 ## $Exp
-##           diff        lwr       upr     p adj
-## 2-1  3.0704356  -7.419484 13.560355 0.7527360
-## 3-1 -0.4515155 -10.941435 10.038404 0.9938128
-## 3-2 -3.5219511 -14.011871  6.967969 0.6890190
+##          diff        lwr       upr     p adj
+## 2-1 -1.004028 -11.683259  9.675202 0.9708484
+## 3-1  4.020022  -6.659209 14.699252 0.6271364
+## 3-2  5.024050  -5.655180 15.703280 0.4858562
 ## 
 ## $`M1G:M2G`
-##                  diff        lwr       upr     p adj
-## WT:M2-M1:M2 16.810592   3.450683 30.170501 0.0093201
-## M1:WT-M1:M2  8.807631  -4.552278 22.167540 0.2965799
-## WT:WT-M1:M2 27.442612  14.082703 40.802521 0.0000255
-## M1:WT-WT:M2 -8.002961 -21.362870  5.356948 0.3783431
-## WT:WT-WT:M2 10.632020  -2.727889 23.991929 0.1566401
-## WT:WT-M1:WT 18.634981   5.275072 31.994890 0.0035658
+##                  diff        lwr      upr     p adj
+## WT:M2-M1:M2 10.598417  -3.002597 24.19943 0.1702679
+## M1:WT-M1:M2 18.944887   5.343873 32.54590 0.0036157
+## WT:WT-M1:M2 21.571689   7.970675 35.17270 0.0008803
+## M1:WT-WT:M2  8.346469  -5.254545 21.94748 0.3574260
+## WT:WT-WT:M2 10.973272  -2.627742 24.57429 0.1480932
+## WT:WT-M1:WT  2.626802 -10.974211 16.22782 0.9523381
 ```
 
 So more than likely, you will see for your full experiment with 3 replications that WT is significantly different from M1 and M2. This is shown in the first two sections of the `TukeyHSD` summary which compare the levels (wildtype vs mutant) of the factors M1G and M2G. The `p adj` is the p-value (adjusted for the multiple comparisons) resulting from the equivalent of a *t*-test comparing the two groups. So if the `p adj` value is less than the accepted confidence level (typically 0.05), then the two compared groups are significantly different from one another. Hopefully, each replication of the experiment will not be significantly different from the others, i.e. the adjusted p-values will be greater than 0.05. We can visualize the differences in the means by plotting the `TukeyHSD` results. This uses base R plotting which is much less user-friendly than ggplot. Don't get bogged down in the code here, just pay attention to the graphs.
@@ -501,33 +501,33 @@ HSD.test(y = Full, trt = c("M1G","M2G"), console = TRUE)
 ## 
 ## HSD Test for Phen 
 ## 
-## Mean Square Error:  108.6341 
+## Mean Square Error:  112.5905 
 ## 
 ## M1G:M2G,  means
 ## 
 ##           Phen       std r       se      Min       Max      Q25      Q50
-## M1:M2 72.11251 14.906864 9 3.474256 57.62971  96.53167 60.66324 67.96321
-## M1:WT 80.92014  7.644544 9 3.474256 64.18959  89.09625 81.73499 83.58236
-## WT:M2 88.92310  7.539775 9 3.474256 74.83138  95.89511 82.07186 92.84202
-## WT:WT 99.55512  8.994097 9 3.474256 85.04555 116.21938 95.77919 97.00640
-##             Q75
-## M1:M2  86.89937
-## M1:WT  85.08508
-## WT:M2  93.87149
-## WT:WT 102.91495
+## M1:M2 68.75761 10.012820 9 3.536956 54.67485  79.60066 57.46409 73.03029
+## M1:WT 87.70250  5.555949 9 3.536956 81.29941  96.48679 83.22511 85.88134
+## WT:M2 79.35603 11.815800 9 3.536956 61.89119  95.82666 70.37976 78.29112
+## WT:WT 90.32930 13.140812 9 3.536956 74.41261 115.45179 80.18909 89.99542
+##            Q75
+## M1:M2 76.90993
+## M1:WT 92.82786
+## WT:M2 85.27472
+## WT:WT 97.13848
 ## 
 ## Alpha: 0.05 ; DF Error: 30 
 ## Critical Value of Studentized Range: 3.845401 
 ## 
-## Minimun Significant Difference: 13.35991 
+## Minimun Significant Difference: 13.60101 
 ## 
 ## Treatments with the same letter are not significantly different.
 ## 
 ##           Phen groups
-## WT:WT 99.55512      a
-## WT:M2 88.92310     ab
-## M1:WT 80.92014     bc
-## M1:M2 72.11251      c
+## WT:WT 90.32930      a
+## M1:WT 87.70250      a
+## WT:M2 79.35603     ab
+## M1:M2 68.75761      b
 ```
 
 Finally we can add these groups to our graph and make the titles a bit more understandable. We'll add a text geometry to add the post hoc comparisons. Another tricky point is that we have to make sure that the x-axis labels match between our data and our HSD test. To do this we use `gsub` to swap out the colons for periods. 
@@ -616,7 +616,7 @@ leveneTest(AllExp$Phen, interaction(AllExp$M1G, AllExp$M2G), center = median)
 ```
 ## Levene's Test for Homogeneity of Variance (center = median)
 ##       Df F value Pr(>F)
-## group  3  1.5784 0.2138
+## group  3  1.3961 0.2619
 ##       32
 ```
 
